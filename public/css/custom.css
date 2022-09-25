@@ -279,3 +279,13 @@ ul ul a {
     border: #ff6600 solid 2px;
     cursor:pointer
 }
+.form-control-auth{
+    padding: 11px !important;
+    background-color: #fff !important;
+}
+.form-control-auth-btn{
+    padding: 11px !important;
+}
+.bg-brand{
+    background-color: #011b48;
+}

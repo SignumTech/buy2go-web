@@ -44,6 +44,16 @@ Vue.component('app', require('./components/app.vue').default);
  */
 
  store.dispatch('auth/me').then(() => {
+    router.beforeEach((to, from, next) => {
+        
+        if (to.name !== 'Login' && !store.state.auth.authenticated ){
+          next({ name: 'Login' })
+        } 
+        else{
+          next()
+        
+        } 
+     })
     const app = new Vue({
         el: '#app',
         store,
