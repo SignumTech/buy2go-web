@@ -14,11 +14,11 @@
                 <li :class="$route.path == `/dashboard` ? `active nav-item` : ``">
                   <router-link class="nav-link a-admin" to="/dashboard"><i data-feather="home"></i> Dashboard <span class="sr-only">(current)</span></router-link>
                 </li>
-                <li :class="$route.path == `/admin/products` ? `active nav-item` : ``">
-                  <router-link class="nav-link a-admin" to="/admin/products"><i data-feather="box"></i> Products</router-link>
+                <li :class="$route.path == `productList` ? `active nav-item` : ``">
+                  <router-link class="nav-link a-admin" to="productList"><i data-feather="box"></i> Products</router-link>
                 </li>
-                <li :class="$route.path == `/admin/orders` ? `active nav-item` : ``">
-                  <router-link class="nav-link a-admin" to="/admin/orders"><i data-feather="shopping-cart"></i> Orders</router-link>
+                <li :class="$route.path == `/ordersList` ? `active nav-item` : ``">
+                  <router-link class="nav-link a-admin" to="/ordersList"><i data-feather="shopping-cart"></i> Orders</router-link>
                 </li>
                 <li :class="$route.path == `/admin/categories` ? `active nav-item` : ``">
                   <router-link class="nav-link a-admin" to="/admin/categories"><i data-feather="grid"></i> Categories</router-link>

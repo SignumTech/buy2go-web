@@ -2,7 +2,11 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\categoriesController;
+use App\Http\Controllers\productsController;
+use App\Http\Controllers\cartController;
+use App\Http\Controllers\addressBookController;
+use App\Http\Controllers\ordersController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,7 +17,12 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+///////////////////////////////////resources///////////////////////////////////////////////////////
+Route::middleware('auth:sanctum')->resource('/categories', categoriesController::class);
+Route::resource('/products', productsController::class);
+Route::resource('/orders', ordersController::class);
+Route::resource('/addressBooks', addressBookController::class);
+///////////////////////////////////////////////////////////////////////////////////////////////////
 Route::get('/', function () {
     return view('home');
 });
