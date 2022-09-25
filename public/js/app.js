@@ -7613,9 +7613,91 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   mounted: function mounted() {
-    console.log('Component mounted.');
+    feather.replace();
+  },
+  methods: {
+    logout: function logout() {
+      axios.post("logout").then(function (response) {
+        window.location.replace("/signin");
+      })["catch"](function (error) {});
+    }
   }
 });
 
@@ -32130,30 +32212,437 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "div",
+    {
+      staticClass: "container-fluid p-0 overflow-hidden mob_hide",
+      staticStyle: { height: "100vh" },
+    },
+    [
+      _c("div", { staticClass: "row m-0" }, [
+        _c(
+          "div",
+          {
+            staticClass: "p-0 shadow-sm",
+            staticStyle: { "background-color": "#fff", width: "18%" },
+          },
+          [
+            _vm._m(0),
+            _vm._v(" "),
+            _c(
+              "nav",
+              {
+                staticClass: "border-end",
+                staticStyle: { height: "100vh", "overflow-y": "auto" },
+                attrs: { id: "sidebar" },
+              },
+              [
+                _c("ul", { staticClass: "list-unstyled components" }, [
+                  _c(
+                    "li",
+                    {
+                      class:
+                        _vm.$route.path == "/admin/adminDash"
+                          ? "active nav-item"
+                          : "",
+                    },
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          staticClass: "nav-link a-admin",
+                          attrs: { to: "/admin/adminDash" },
+                        },
+                        [
+                          _c("i", { attrs: { "data-feather": "home" } }),
+                          _vm._v(" Dashboard "),
+                          _c("span", { staticClass: "sr-only" }, [
+                            _vm._v("(current)"),
+                          ]),
+                        ]
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "li",
+                    {
+                      class:
+                        _vm.$route.path == "/admin/products"
+                          ? "active nav-item"
+                          : "",
+                    },
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          staticClass: "nav-link a-admin",
+                          attrs: { to: "/admin/products" },
+                        },
+                        [
+                          _c("i", { attrs: { "data-feather": "box" } }),
+                          _vm._v(" Products"),
+                        ]
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "li",
+                    {
+                      class:
+                        _vm.$route.path == "/admin/orders"
+                          ? "active nav-item"
+                          : "",
+                    },
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          staticClass: "nav-link a-admin",
+                          attrs: { to: "/admin/orders" },
+                        },
+                        [
+                          _c("i", {
+                            attrs: { "data-feather": "shopping-cart" },
+                          }),
+                          _vm._v(" Orders"),
+                        ]
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "li",
+                    {
+                      class:
+                        _vm.$route.path == "/admin/categories"
+                          ? "active nav-item"
+                          : "",
+                    },
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          staticClass: "nav-link a-admin",
+                          attrs: { to: "/admin/categories" },
+                        },
+                        [
+                          _c("i", { attrs: { "data-feather": "grid" } }),
+                          _vm._v(" Categories"),
+                        ]
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c("li", [
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      { staticClass: "collapse", attrs: { id: "us_ma" } },
+                      [
+                        _c(
+                          "ul",
+                          {
+                            staticClass: "collapse list-unstyled",
+                            attrs: { id: "us_ma" },
+                          },
+                          [
+                            _c(
+                              "li",
+                              {
+                                class:
+                                  _vm.$route.path == "/admin/flashSale"
+                                    ? "active"
+                                    : "",
+                              },
+                              [
+                                _c(
+                                  "router-link",
+                                  { attrs: { to: "/admin/flashSale" } },
+                                  [
+                                    _c("i", {
+                                      attrs: { "data-feather": "zap" },
+                                    }),
+                                    _vm._v(" Flash Sale"),
+                                  ]
+                                ),
+                              ],
+                              1
+                            ),
+                            _vm._v(" "),
+                            _c(
+                              "li",
+                              {
+                                class:
+                                  _vm.$route.path == "/admin/regularSale"
+                                    ? "active"
+                                    : "",
+                              },
+                              [
+                                _c(
+                                  "router-link",
+                                  { attrs: { to: "/admin/regularSale" } },
+                                  [
+                                    _c("i", {
+                                      attrs: { "data-feather": "award" },
+                                    }),
+                                    _vm._v(" Regular Sale"),
+                                  ]
+                                ),
+                              ],
+                              1
+                            ),
+                          ]
+                        ),
+                      ]
+                    ),
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "li",
+                    {
+                      class:
+                        _vm.$route.path == "/users" ? "active nav-item" : "",
+                    },
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          staticClass: "nav-link a-admin",
+                          attrs: { to: "/users" },
+                        },
+                        [
+                          _c("i", { attrs: { "data-feather": "user" } }),
+                          _vm._v(" Users Management"),
+                        ]
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "li",
+                    {
+                      class:
+                        _vm.$route.path == "/setting" ? "active nav-item" : "",
+                    },
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          staticClass: "nav-link a-admin",
+                          attrs: { to: "/setting" },
+                        },
+                        [
+                          _c("i", { attrs: { "data-feather": "trending-up" } }),
+                          _vm._v(" Sales Report"),
+                        ]
+                      ),
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "li",
+                    {
+                      class:
+                        _vm.$route.path == "/customers"
+                          ? "active nav-item"
+                          : "",
+                    },
+                    [
+                      _c(
+                        "router-link",
+                        {
+                          staticClass: "nav-link a-admin",
+                          attrs: { to: "/customers" },
+                        },
+                        [
+                          _c("i", { attrs: { "data-feather": "users" } }),
+                          _vm._v(" Customers"),
+                        ]
+                      ),
+                    ],
+                    1
+                  ),
+                ]),
+              ]
+            ),
+          ]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "p-0", staticStyle: { width: "82%" } }, [
+          _c(
+            "nav",
+            {
+              staticClass: "navbar navbar-expand-md navbar-dark shadow-sm",
+              staticStyle: { "background-color": "#fff", height: "55px" },
+            },
+            [
+              _c("div", { staticClass: "container-fluid" }, [
+                _vm._m(2),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  {
+                    staticClass: "collapse navbar-collapse",
+                    attrs: { id: "navbarSupportedContent" },
+                  },
+                  [
+                    _c("ul", { staticClass: "navbar-nav mr-auto" }),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "collapse navbar-collapse justify-content-end",
+                        attrs: { id: "navbarSupportedContent" },
+                      },
+                      [
+                        _c("ul", { staticClass: "navbar-nav ml-auto" }, [
+                          _c(
+                            "li",
+                            { staticClass: "px-5" },
+                            [
+                              _c(
+                                "router-link",
+                                {
+                                  staticClass: "a-admin",
+                                  attrs: { to: "/profile" },
+                                },
+                                [
+                                  _c("span", {
+                                    staticClass: "fa fa-user-cog pr-2",
+                                    staticStyle: { "font-size": "20px" },
+                                  }),
+                                  _c("strong", [
+                                    _vm._v(
+                                      "  " +
+                                        _vm._s(
+                                          _vm.$store.state.auth.user.f_name
+                                        ) +
+                                        " " +
+                                        _vm._s(
+                                          _vm.$store.state.auth.user.l_name
+                                        )
+                                    ),
+                                  ]),
+                                ]
+                              ),
+                            ],
+                            1
+                          ),
+                          _vm._v(" "),
+                          _c("li", [
+                            _c(
+                              "a",
+                              {
+                                staticStyle: { cursor: "pointer" },
+                                on: {
+                                  click: function ($event) {
+                                    return _vm.logout()
+                                  },
+                                },
+                              },
+                              [
+                                _c("span", {
+                                  staticClass: "fa fa-power-off",
+                                  staticStyle: { "font-size": "20px" },
+                                }),
+                              ]
+                            ),
+                          ]),
+                        ]),
+                      ]
+                    ),
+                  ]
+                ),
+              ]),
+            ]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "row m-0 main_dis" }, [
+            _c("div", { staticClass: "col-md-12" }, [_c("router-view")], 1),
+          ]),
+        ]),
+      ]),
+    ]
+  )
 }
 var staticRenderFns = [
   function () {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "container" }, [
-      _c("div", { staticClass: "row justify-content-center" }, [
-        _c("div", { staticClass: "col-md-8" }, [
-          _c("div", { staticClass: "card" }, [
-            _c("div", { staticClass: "card-header" }, [
-              _vm._v("Example Component"),
-            ]),
-            _vm._v(" "),
-            _c("div", { staticClass: "card-body" }, [
-              _vm._v(
-                "\n                    I'm an example component.\n                "
-              ),
-            ]),
-          ]),
+    return _c(
+      "div",
+      {
+        staticClass: "row m-0",
+        staticStyle: { "background-color": "#ff6600" },
+      },
+      [
+        _c("div", { staticClass: "col-md-12 mt-5 mb-5" }, [
+          _c(
+            "div",
+            {
+              staticClass:
+                "rounded-circle shadow-sm m-auto d-flex align-items-center overflow-hidden",
+              staticStyle: { width: "100px", height: "100px" },
+            },
+            [
+              _c("img", {
+                staticClass: "img img-fluid d-block m-auto",
+                staticStyle: { width: "200px", height: "auto" },
+                attrs: { src: "/storage/settings/logo.jpg" },
+              }),
+            ]
+          ),
         ]),
-      ]),
-    ])
+      ]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        attrs: {
+          "data-bs-toggle": "collapse",
+          href: "#us_ma",
+          "aria-expanded": "false",
+          "aria-controls": "collapseExample",
+        },
+      },
+      [_c("i", { attrs: { "data-feather": "gift" } }), _vm._v(" Marketing")]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "button",
+      {
+        staticClass: "navbar-toggler",
+        attrs: {
+          type: "button",
+          "data-toggle": "collapse",
+          "data-target": "#navbarSupportedContent",
+          "aria-controls": "navbarSupportedContent",
+          "aria-expanded": "false",
+          "aria-label": "Toggle navigation",
+        },
+      },
+      [_c("span", { staticClass: "navbar-toggler-icon" })]
+    )
   },
 ]
 render._withStripped = true
