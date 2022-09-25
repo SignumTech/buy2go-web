@@ -5,7 +5,7 @@ import login from './components/auth/login.vue'
 import dashboard from './components/home/dashboard.vue'
 import productList from './components/products/products.vue'
 import ordersList from './components/orders/orders.vue'
-
+import categoryList from './components/categories/categories.vue'
 Vue.use(Router)
 
 const routes = [
@@ -28,6 +28,11 @@ const routes = [
         path: '/ordersList',
         component: ordersList,
         name: 'OrdersList'
+    },
+    {
+        path: '/categoryList',
+        component: categoryList,
+        name: 'CategoryList'
     },
 ]
 

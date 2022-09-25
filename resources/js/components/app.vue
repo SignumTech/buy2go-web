@@ -20,8 +20,8 @@
                 <li :class="$route.path == `/ordersList` ? `active nav-item` : ``">
                   <router-link class="nav-link a-admin" to="/ordersList"><i data-feather="shopping-cart"></i> Orders</router-link>
                 </li>
-                <li :class="$route.path == `/admin/categories` ? `active nav-item` : ``">
-                  <router-link class="nav-link a-admin" to="/admin/categories"><i data-feather="grid"></i> Categories</router-link>
+                <li :class="$route.path == `/categoryList` ? `active nav-item` : ``">
+                  <router-link class="nav-link a-admin" to="/categoryList"><i data-feather="grid"></i> Categories</router-link>
                 </li>
                 <li :class="$route.path == `/admin/categories` ? `active nav-item` : ``">
                   <router-link class="nav-link a-admin" to="/admin/categories"><i data-feather="grid"></i> Warehouses</router-link>
