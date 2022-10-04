@@ -23,6 +23,8 @@ Route::resource('/products', productsController::class);
 Route::resource('/orders', ordersController::class);
 Route::resource('/addressBooks', addressBookController::class);
 ///////////////////////////////////////////////////////////////////////////////////////////////////
+Route::middleware('auth:sanctum')->get('/chooseSubCategories', [categoriesController::class, 'chooseSubCategories']);
+///////////////////////////////////////////////////////////////////////////////////////////////////
 Route::get('/', function () {
     return view('home');
 });

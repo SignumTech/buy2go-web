@@ -4,6 +4,7 @@ import store from './store'
 import login from './components/auth/login.vue'
 import dashboard from './components/home/dashboard.vue'
 import productList from './components/products/products.vue'
+import addProduct from './components/products/addProduct.vue'
 import ordersList from './components/orders/orders.vue'
 import categoryList from './components/categories/categories.vue'
 Vue.use(Router)
@@ -23,6 +24,11 @@ const routes = [
         path: '/productList',
         component: productList,
         name: 'ProductList'
+    },
+    {
+        path: '/addProduct',
+        component: addProduct,
+        name: 'AddProduct'
     },
     {
         path: '/ordersList',

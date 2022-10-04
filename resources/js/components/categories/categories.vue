@@ -86,7 +86,7 @@
 <script>
 import mainCatModal from './mainCatModal.vue'
 import subCatModal from './subCatModal.vue'
-import addPictureModal from './addPictureModal.vue'
+import addPictureModal from './addPictureModal'
 export default {
     data(){
         return{

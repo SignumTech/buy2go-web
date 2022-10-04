@@ -41,7 +41,7 @@
 </div>
 </template>
 <script>
-import linechart from '../charts/linechart.vue'
+import linechart from '../charts/lineChart'
 import doughnutchart from '../charts/doughnutChart.vue';
 export default {
     components:{
