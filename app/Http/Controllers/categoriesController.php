@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Category;
+use App\Models\Product;
+use Image;
 class categoriesController extends Controller
 {
     /**
@@ -65,7 +67,7 @@ class categoriesController extends Controller
      */
     public function show($id)
     {
-        //
+        return Category::find($id);
     }
 
     /**
@@ -88,7 +90,26 @@ class categoriesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            "cat_name" => "required | string",
+            "cat_type" => "required | string",
+            "parent_id" => "required | integer"
+        ]);
+
+        $category = Category::find($id);
+        $category->cat_name = $request->cat_name;
+        $category->cat_type = $request->cat_type;
+        if($request->cat_type == "PARENT")
+        {
+            $category->parent_id = 0;
+        }
+        else
+        {
+            $category->parent_id = $request->parent_id;
+        }
+        $category->save();
+
+        return $category;
     }
 
     /**
@@ -102,6 +123,37 @@ class categoriesController extends Controller
         //
     }
 
+    public function getMainCategories(){
+
+        $categories = Category::where('cat_type', 'PARENT')->get();
+        foreach($categories as $cat){
+            $cat->items = $this->categoryItemCount($cat->id);
+        }
+        return $categories;
+    }
+
+    public function getSubCategories(){
+
+        $categories = Category::where('cat_type', 'CHILD')->get();
+        
+        foreach($categories as $cat){
+            $count = Product::where('cat_id', $cat->id)->count();
+            $cat->items = $count + $this->categoryItemCount($cat->id);
+            $cat->parent_name = Category::where('id', $cat->parent_id)->select('cat_name')->first()->cat_name;
+        }
+        return $categories;
+    }
+    public function categoryItemCount($id){
+        $count = 0;
+        $category = Category::where('parent_id', $id)->get();
+        if(count($category)>0){
+            foreach($category as $cat){
+                $count = $count + Product::where('cat_id', $cat->id)->count();
+                $this->categoryItemCount($cat->id); 
+            }
+        }
+        return $count;
+    }
     public function chooseSubCategories(){
 
         $data = [];
@@ -117,6 +169,48 @@ class categoriesController extends Controller
         return $data;
     }
 
+    public function getNodeCategories(){
+        $categories = Category::where('tree_level', 'NODE')->get();
+        return $categories;
+    }
+
+    public function uploadSubPic(Request $request){
+        $this->validate($request, [
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2084',
+            'cat_id' => 'required'
+        ]);
+        //dd($request->cat_id);
+        if($request->hasFile('photo')){
+            
+            //Get filename with the extention
+            $filenameWithExt = $request->file('photo')->getClientOriginalName();
+            $thumbnailImage = Image::make($request->file('photo'));
+            
+            //Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            //get just ext
+            $extension = $request->file('photo')->getClientOriginalExtension();
+            //Filename to store
+            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+            //upload Image
+            $thumbnailPath = public_path().'\storage\settings\\';
+            /*$thumbnailImage->resize(null, 320, function ($constraint){
+                $constraint->aspectRatio();
+            });*/
+            $thumbnailImage->save($thumbnailPath.$fileNameToStore);
+
+            $subCat = Category::find($request->cat_id);
+            $subCat->cat_image = $fileNameToStore;
+            $subCat->save();
+
+            return $subCat; 
+        }
+        else{
+            return response(422, "No file");
+        }
+
+    }
+    
     public function getChildren($parent){
         
         $data = [];
