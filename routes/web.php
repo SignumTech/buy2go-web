@@ -7,6 +7,7 @@ use App\Http\Controllers\productsController;
 use App\Http\Controllers\cartController;
 use App\Http\Controllers\addressBookController;
 use App\Http\Controllers\ordersController;
+use App\Http\Controllers\warehousesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,9 +20,16 @@ use App\Http\Controllers\ordersController;
 */
 ///////////////////////////////////resources///////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->resource('/categories', categoriesController::class);
+Route::middleware('auth:sanctum')->resource('/warehouses', warehousesController::class);
 Route::resource('/products', productsController::class);
 Route::resource('/orders', ordersController::class);
 Route::resource('/addressBooks', addressBookController::class);
+///////////////////////////////////products/////////////////////////////////////////////////////////
+Route::post('/uploadProductPic', [productsController::class, 'uploadProductPic']);
+Route::post('/updateProductPic', [productsController::class, 'updateProductPic']);
+Route::get('/getProductsList', [productsController::class, 'getProductsList']);
+Route::middleware('auth:sanctum')->post('/deleteProductPic', [productsController::class, 'deleteProductPic']);
+Route::middleware('auth:sanctum')->post('/saveDraft', [productsController::class, 'saveDraft']);
 /////////////////////////////////Categories//////////////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getSubCategories', [categoriesController::class, 'getSubCategories']);
 Route::middleware('auth:sanctum')->get('/chooseSubCategories', [categoriesController::class, 'chooseSubCategories']);

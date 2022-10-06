@@ -34,7 +34,7 @@
 .main-nav{
     padding-top: 0px !important;
     padding-bottom: 0px !important;
-    background-color: #ff6600;
+    background-color: #011b48;
 }
 .nav-link-active{
     background-color: white !important;
@@ -61,7 +61,7 @@ a:hover{
     text-align: center !important;
 }
 .otp-input:focus-visible{
-    border-color: #ff6600 !important;
+    border-color: #011b48 !important;
 }
 .error {
     border: 1px solid red !important;
@@ -105,7 +105,7 @@ a:hover{
     height: 40px
 }
 .hov-main:hover{
-    background-color: #ff6600;
+    background-color: #011b48;
     color: white;
     cursor: pointer;
 }
@@ -119,14 +119,14 @@ a:hover{
     cursor: pointer;
 }
 .bg-main{
-    background-color: #ff6600;
+    background-color: #011b48;
 }
 .border-main{
     border: solid 3px;
-    border-color: #ff6600;
+    border-color: #011b48;
 }
 .text-main{
-    color:#ff6600
+    color:#011b48
 }
 
 /* admin */
@@ -175,7 +175,7 @@ a[data-toggle="collapse"] {
 
 #sidebar .sidebar-header {
     padding: 20px;
-    background: #ff6600;
+    background: #011b48;
 }
 
 #sidebar ul.components {
@@ -196,12 +196,12 @@ a[data-toggle="collapse"] {
 }
 #sidebar ul li a:hover {
     color: #ffffff !important;
-    background: #ff6600;
+    background: #011b48;
 }
 
 #sidebar ul li.active > a, a[aria-expanded="true"] {
     color: #fff !important;
-   background: #ff6600;
+   background: #011b48;
 }
 ul ul a {
     font-size: 0.9em !important;
@@ -232,7 +232,7 @@ ul ul a {
     cursor: pointer;
 }
 .border-danger {
-    border-color: #ff6600 !important;
+    border-color: #011b48 !important;
 }
 .border-danger-inv {
     border-color: red !important;
@@ -272,11 +272,11 @@ ul ul a {
     cursor: pointer;
 }
 .size-choice{
-    background-color: #ff6600;
+    background-color: #011b48;
     color: white;
 }
 .flash-hov:hover{
-    border: #ff6600 solid 2px;
+    border: #011b48 solid 2px;
     cursor:pointer
 }
 .form-control-auth{

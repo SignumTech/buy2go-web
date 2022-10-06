@@ -161,7 +161,8 @@ class categoriesController extends Controller
         $parents = Category::where('cat_type', 'PARENT')->get();
         
         foreach($parents as $parent){
-            $data[$index]['parent'] = $parent->cat_name;
+            $data[$index]['id'] = $parent->id;
+            $data[$index]['label'] = $parent->cat_name;
             $data[$index]['children'] = $this->getChildren($parent);
             $index++;
         }
@@ -218,14 +219,15 @@ class categoriesController extends Controller
         $children = Category::where('parent_id', $parent->id)->get();
         if(count($children) > 0){
             foreach($children as $child){
-                $data[$index]['parent'] = $child->cat_name;
+                $data[$index]['id'] = $child->id;
+                $data[$index]['label'] = $child->cat_name;
                 $data[$index]['children'] = $this->getChildren($child);
                 $index++;
             }
             return $data;
         }
         else{
-            return $data;
+            return "";
         }
     }
 }

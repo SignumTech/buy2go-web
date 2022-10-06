@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Product;
+use App\Models\WarehouseDetail;
+use DB;
+use Image;
+use Storage;
 class productsController extends Controller
 {
     /**
@@ -34,7 +38,36 @@ class productsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            "p_name" => "required | string",
+            "description" => "required | string",
+            "cat_id" => "required | integer",
+            "price" => "required",
+            "quantities" => "required",
+            "p_commission" => "required | integer",
+            "p_image" => "required"
+        ]);
+        $product = new Product;
+        $product->p_name = $request->p_name;
+        $product->description = $request->description;
+        $product->price = $request->price;
+        $product->brand_id = $request->brand_id;
+        $product->cat_id = $request->cat_id;
+        $product->commission = $request->p_commission;
+        $product->p_image = $request->p_image;
+        $product->p_status = "PUBLISHED";
+
+        $product->save();
+
+        foreach($request->quantities as $quantity){
+            $detail = new WarehouseDetail;
+            $detail->p_id = $product->id;
+            $detail->warehouse_id = $quantity['warehouse_id'];
+            $detail->quantity = $quantity['quantity'];
+            $detail->save();
+        }
+
+        return $product;
     }
 
     /**
@@ -80,5 +113,92 @@ class productsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function uploadProductPic(Request $request){
+        $this->validate($request, [
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2084',
+        ]);
+        //dd($request->cat_id);
+        if($request->hasFile('photo')){
+            
+            //Get filename with the extention
+            $filenameWithExt = $request->file('photo')->getClientOriginalName();
+            $thumbnailImage = Image::make($request->file('photo'));
+            
+            //Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            //get just ext
+            $extension = $request->file('photo')->getClientOriginalExtension();
+            //Filename to store
+            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+            //upload Image
+            $realPath = public_path().'\storage\products\\';
+            //$realPath = storage_path().'/app/public/products/';
+            $thumbnailPath = public_path().'\storage\productsThumb\\';
+            //$thumbnailPath = storage_path().'/app/public/productsThumb/';
+            $thumbnailImage->save($realPath.$fileNameToStore);
+
+            $thumbnailImage->resize(null, 320, function ($constraint){
+                $constraint->aspectRatio();
+            });
+            $thumbnailImage->save($thumbnailPath.$fileNameToStore);
+            
+            $data = [];
+            $data['fileName'] = $fileNameToStore;
+
+            return $data; 
+        }
+        else{
+            return response(422, "No file");
+        }
+
+    }
+
+    public function updateProductPic(Request $request){
+
+    }
+
+    public function getProductsList(){
+        $products = Product::all();
+        foreach($products as $product){
+            $product->stock = WarehouseDetail::where('p_id', $product->id)->sum('quantity');
+        }
+
+        return $products;                
+    }
+
+    public function deleteProductPic(Request $request){
+        $this->validate($request, [
+            "fileName" => "required"
+        ]);
+
+        if(Storage::exists('public/products/'.$request->fileName)){
+            Storage::delete('public/products/'.$request->fileName);
+            Storage::delete('public/productsThumb/'.$request->fileName);
+            return response('successfully deleted', 200);
+        }
+        else{
+            return response('Image doesnt exist', 422);
+        }
+    }
+
+    public function saveDraft(Request $request){
+        $this->validate($request, [
+            "p_name" => "required | string",
+        ]);
+
+        $product = new Product;
+        $product->p_name = $request->p_name;
+        $product->description = $request->description;
+        $product->price = $request->price;
+        $product->brand_id = $request->brand_id;
+        $product->cat_id = $request->cat_id;
+        $product->commission = $request->p_commission;
+        $product->p_image = $request->p_image;
+        $product->p_status = "DRAFT";
+        $product->save();
+        
+        return $product;
     }
 }

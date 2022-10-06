@@ -25,6 +25,7 @@
     },
     "dependencies": {
         "@bachdgvn/vue-otp-input": "^1.0.8",
+        "@riophae/vue-treeselect": "^0.4.0",
         "chart.js": "^2.9.4",
         "numeral": "^2.0.6",
         "one-colorpicker": "^1.0.12",
