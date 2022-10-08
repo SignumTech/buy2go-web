@@ -12,7 +12,6 @@
                         <th>Product</th>
                         <th>Name</th>
                         <th>Price</th>
-                        
                         <th>Stock</th>
                         <th>Status</th>
                         <th>Created Date</th>

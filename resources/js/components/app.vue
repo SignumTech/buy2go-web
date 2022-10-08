@@ -24,6 +24,9 @@
                 <li :class="$route.path == `/admin/categories` ? `active nav-item` : ``">
                   <router-link class="nav-link a-admin" to="/admin/categories"><i data-feather="home"></i> Warehouses</router-link>
                 </li>
+                <li :class="$route.path == `/zones` ? `active nav-item` : ``">
+                  <router-link class="nav-link a-admin" to="/zones"><i data-feather="map"></i> Zones</router-link>
+                </li>
                 <li>
                   <a data-bs-toggle="collapse" href="#us_ma" aria-expanded="false" aria-controls="collapseExample"><i data-feather="gift"></i> Marketing</a>
                   <div class="collapse" id="us_ma">

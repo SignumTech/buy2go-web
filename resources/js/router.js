@@ -7,6 +7,9 @@ import productList from './components/products/products.vue'
 import addProduct from './components/products/addProduct.vue'
 import ordersList from './components/orders/orders.vue'
 import categoryList from './components/categories/categories.vue'
+import warehouseList from './components/warehouses/warehouses.vue'
+import zones from './components/zones/zones.vue'
+import addZones from './components/zones/addZones.vue'
 Vue.use(Router)
 
 const routes = [
@@ -39,6 +42,21 @@ const routes = [
         path: '/categoryList',
         component: categoryList,
         name: 'CategoryList'
+    },
+    {
+        path: '/warehouseList',
+        component: warehouseList,
+        name: 'WarehouseList'
+    },
+    {
+        path: '/zones',
+        component: zones,
+        name: 'Zones'
+    },
+    {
+        path: '/addZones',
+        component: addZones,
+        name: 'AddZones'
     },
 ]
 
