@@ -29,6 +29,7 @@ Route::middleware('auth:sanctum')->get('/getProcessing', [ordersController::clas
 Route::middleware('auth:sanctum')->get('/getShipped', [ordersController::class, 'getShipped']);
 Route::middleware('auth:sanctum')->get('/getDelivered', [ordersController::class, 'getDelivered']);
 ///////////////////////////////////products/////////////////////////////////////////////////////////
+Route::get('/productsByCategory/{id}', [productsController::class, 'productsByCategory']);
 Route::post('/uploadProductPic', [productsController::class, 'uploadProductPic']);
 Route::post('/updateProductPic', [productsController::class, 'updateProductPic']);
 Route::get('/getProductsList', [productsController::class, 'getProductsList']);
@@ -40,6 +41,7 @@ Route::middleware('auth:sanctum')->get('/chooseSubCategories', [categoriesContro
 Route::middleware('auth:sanctum')->get('/getNodeCategories', [categoriesController::class, 'getNodeCategories']);
 Route::get('/getMainCategories', [categoriesController::class, 'getMainCategories']);
 Route::middleware('auth:sanctum')->post('/uploadSubPic', [categoriesController::class, 'uploadSubPic']);
+Route::get('/getImediateSubCat/{id}', [categoriesController::class, 'getImediateSubCat']);
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 Route::get('/', function () {
     return view('home');

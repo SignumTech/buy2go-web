@@ -230,4 +230,11 @@ class categoriesController extends Controller
             return "";
         }
     }
+
+    public function getImediateSubCat($id){
+        $categories = Category::where('parent_id',$id)
+                              ->select('id', 'cat_name', 'cat_image')
+                              ->get();
+        return $categories;
+    }
 }

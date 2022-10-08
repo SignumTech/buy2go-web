@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\WarehouseDetail;
+use App\Models\Category;
 use DB;
 use Image;
 use Storage;
@@ -47,27 +48,44 @@ class productsController extends Controller
             "p_commission" => "required | integer",
             "p_image" => "required"
         ]);
-        $product = new Product;
-        $product->p_name = $request->p_name;
-        $product->description = $request->description;
-        $product->price = $request->price;
-        $product->brand_id = $request->brand_id;
-        $product->cat_id = $request->cat_id;
-        $product->commission = $request->p_commission;
-        $product->p_image = $request->p_image;
-        $product->p_status = "PUBLISHED";
+        try{
+            DB::beginTransaction();
+            $product = new Product;
+            $product->p_name = $request->p_name;
+            $product->description = $request->description;
+            $product->price = $request->price;
+            $product->brand_id = $request->brand_id;
+            $product->cat_id = $request->cat_id;
+            $product->commission = $request->p_commission;
+            $product->p_image = $request->p_image;
+            $product->p_status = "PUBLISHED";
 
-        $product->save();
+            $product->save();
 
-        foreach($request->quantities as $quantity){
-            $detail = new WarehouseDetail;
-            $detail->p_id = $product->id;
-            $detail->warehouse_id = $quantity['warehouse_id'];
-            $detail->quantity = $quantity['quantity'];
-            $detail->save();
+            /////////////update category to a leaf///////
+            $category = Category::find($request->cat_id);
+            if($category->tree_level == 'NODE'){
+                $category->tree_level = 'LEAF';
+                $category->save();
+            }
+            //////////////////////////////////////////////
+
+            foreach($request->quantities as $quantity){
+                $detail = new WarehouseDetail;
+                $detail->p_id = $product->id;
+                $detail->warehouse_id = $quantity['warehouse_id'];
+                $detail->quantity = $quantity['quantity'];
+                $detail->save();
+            }
+            DB::commit();
+            return $product;
         }
+        catch (\Exception $e) {
+            DB::rollBack();
 
-        return $product;
+            throw $e;
+            return response('Error!', 422);
+        }
     }
 
     /**
@@ -200,5 +218,41 @@ class productsController extends Controller
         $product->save();
         
         return $product;
+    }
+
+    public function productsByCategory($id){
+        $data = [];
+        $category = Category::find($id);
+        if($category->tree_level == 'NODE'){
+            $children = Category::where('parent_id', $id)->get();
+            foreach($children as $child){
+                $data = array_merge($data, $this->getChildrenProducts($child->id));
+            }
+        }
+        else{
+            $products = Product::where('cat_id', $id)
+                                        ->where('p_status', 'PUBLISHED')
+                                        ->get();
+            $data = array_merge($products->toArray(),$data);
+        }
+        return $data;
+    }
+
+    public function getChildrenProducts($id){
+        $data = [];
+        $category = $category = Category::find($id);
+        if($category->tree_level == 'NODE'){
+            $children = Category::where('parent_id', $id)->get();
+            foreach($children as $child){
+                array_merge($data, $this->getChildrenProducts($child->id));
+            }
+        }
+        else{
+            $products = Product::where('cat_id', $id)
+                                        ->where('p_status', 'PUBLISHED')
+                                        ->get();
+            $data = array_merge($products->toArray(),$data);
+        }
+        return $data;
     }
 }
