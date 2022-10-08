@@ -22,6 +22,10 @@ use App\Http\Controllers\ordersController;
 /*Route::post('/mobGoogleLogin', [socialiteController::class, 'mobGoogleLogin']);
 Route::post('/mobFacebookLogin', [socialiteController::class, 'mobFacebookLogin']);*/
 Route::middleware('auth:sanctum')->resource('/orders', ordersController::class);
+///////////////////////////////////Cart/////////////////////////////////////////////////////////
+Route::middleware('auth:sanctum')->get('/getMyCart', [cartController::class, 'getMyCart']);
+Route::middleware('auth:sanctum')->post('/addToCart', [cartController::class, 'addToCart']);
+Route::middleware('auth:sanctum')->delete('/deleteCartItem/{id}', [cartController::class, 'deleteCartItem']);
 ///////////////////////////////////orders/////////////////////////////////////////////////////////
 Route::get('/getMyOrders', [ordersController::class, 'getMyOrders']);
 Route::middleware('auth:sanctum')->get('/getMyOrdersStatus/{status}', [ordersController::class, 'getMyOrdersStatus']);
