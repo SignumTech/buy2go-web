@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Order;
+use App\Models\OrderItem;
+use App\Models\Cart;
+use App\Models\CartItem;
+use DB;
 class ordersController extends Controller
 {
     /**
@@ -12,8 +16,10 @@ class ordersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
+    { 
+        $orders = Order::join("order_items", "orders.id", "=", "order_items.order_id")
+                    ->get();
+        return $orders;
     }
 
     /**
@@ -34,7 +40,58 @@ class ordersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'cart_id' => 'required | integer',
+            'total' => 'required | numeric',
+            'address' => 'required | integer'
+        ]);
+        try{
+            DB::beginTransaction();
+
+            $order = new Order();
+            $latestOrder = Order::orderBy('created_at','DESC')->first();
+            if($latestOrder){
+                $order->order_no = '#'.str_pad($latestOrder->id + 1, 8, "0", STR_PAD_LEFT);
+            }
+            else{
+                $order->order_no = '#'.str_pad(1, 8, "0", STR_PAD_LEFT);
+            }
+            $order->total = $request->total;
+            $order->order_status = 'PROCESSING';
+            $order->user_id = auth()->user()->id;
+            $order->delivery_details = $request->address;
+            $order->payment_status = $request->payment_status;
+            $order->tx_ref = $request->tx_ref;
+            $order->reference = $request->reference;
+            $order->save();
+
+            $cart_items = Cart::join('cart_items', 'cart.id', '=', 'cart_items.cart_id')
+                        ->where('carts.id', $request->cart_id)->get();
+
+            foreach($cart_items as $item){
+                $order_details = new OrderItem;
+                $order_details->order_id = $order->id;
+                $order_details->p_id = $item->p_id;
+                $order_details->quantity = $item->quantity;
+                $order_details->save();
+                /*$product_stock = WarehouseDetail::where('p_id', $product->id)->sum('quantity');
+                if($item->quantity > $product_stock){
+                    return response("Some of the items have been sold out", 422);
+                }
+                else{
+                    
+                }*/
+            }
+
+            DB::commit();
+            return $order;
+        }
+        catch (\Exception $e) {
+            DB::rollBack();
+
+            throw $e;
+            return response('Order Error', 422);
+        }
     }
 
     /**
@@ -45,7 +102,10 @@ class ordersController extends Controller
      */
     public function show($id)
     {
-        //
+        $order = Order::join('order_items', 'orders.id', 'order_items.order_id')
+                      ->where('orders.id', $id)
+                      ->first();
+        return $order;
     }
 
     /**
@@ -80,5 +140,26 @@ class ordersController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getProcessing(){
+        $orders = Order::join("order_items", "orders.id", "=", "order_items.order_id")
+                       ->where('orders.order_status', "PROCESSING")
+                       ->get();
+        return $orders;
+    }
+
+    public function getShipped(){
+        $orders = Order::join("order_items", "orders.id", "=", "order_items.order_id")
+                       ->where('orders.order_status', "SHIPPED")
+                       ->get();
+        return $orders;
+    }
+
+    public function getDelivered(){
+        $orders = Order::join("order_items", "orders.id", "=", "order_items.order_id")
+                       ->where('orders.order_status', "DELIVERED")
+                       ->get();
+        return $orders;
     }
 }

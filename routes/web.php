@@ -22,8 +22,12 @@ use App\Http\Controllers\warehousesController;
 Route::middleware('auth:sanctum')->resource('/categories', categoriesController::class);
 Route::middleware('auth:sanctum')->resource('/warehouses', warehousesController::class);
 Route::resource('/products', productsController::class);
-Route::resource('/orders', ordersController::class);
+Route::middleware('auth:sanctum')->resource('/orders', ordersController::class);
 Route::resource('/addressBooks', addressBookController::class);
+///////////////////////////////////orders/////////////////////////////////////////////////////////
+Route::middleware('auth:sanctum')->get('/getProcessing', [ordersController::class, 'getProcessing']);
+Route::middleware('auth:sanctum')->get('/getShipped', [ordersController::class, 'getShipped']);
+Route::middleware('auth:sanctum')->get('/getDelivered', [ordersController::class, 'getDelivered']);
 ///////////////////////////////////products/////////////////////////////////////////////////////////
 Route::post('/uploadProductPic', [productsController::class, 'uploadProductPic']);
 Route::post('/updateProductPic', [productsController::class, 'updateProductPic']);
