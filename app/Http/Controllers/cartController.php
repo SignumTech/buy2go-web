@@ -48,6 +48,24 @@ class cartController extends Controller
         }
     }
 
+    public function updateCart(Request $request){
+        $this->validate($request, [
+            "items" => "required"
+        ]);
+
+        $cart = Cart::where('user_id', auth()->user()->id)
+                         ->first();
+        
+
+        foreach(json_decode($request->items) as $item){
+            $cart_item = CartItem::where('cart_id', $cart->id)->where('p_id', $item->p_id)->first();
+            $cart_item->quantity = $item->quantity;
+            $cart_item->save();
+        }
+
+        return $cart;
+    }
+
     public function getMyCart(){
         
         $cart = Cart::join('cart_items', 'carts.id', '=', 'cart_items.cart_id')
