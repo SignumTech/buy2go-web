@@ -3,15 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 class registerUsersController extends Controller
 {
     public function registerUser(Request $request){
+        
         $this->validate($request, [
             'f_name' => ['required', 'string', 'max:255'],
             'l_name' => ['required', 'string', 'max:255'],
             //'preference' => ['required', 'string', 'max:255'],
-            'phone_no' => 'required|regex:/(01)[0-9]{9}/',
+            'phone_no' => ['required','regex:/(01)[0-9]{9}/'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
