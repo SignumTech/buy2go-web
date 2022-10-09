@@ -4,7 +4,7 @@
         <h5>{{modalType == 'Edit' ? "Edit" : "Add"}} role</h5>
     </div>
     <div class="col-md-2 pt-2">
-        <label><strong>Role</strong></label>
+        <label><strong>Role </strong></label>
     </div>
     <div class="col-md-12">
         <input type="text" class="form-control" v-model="data.role">
