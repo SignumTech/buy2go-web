@@ -17,7 +17,7 @@ class cartController extends Controller
         
         if($cart){
             foreach(json_decode($request->items) as $item){
-                $cart_item = CartItem::where('p_id',$item->id)->first();
+                $cart_item = CartItem::where('p_id',$item->id)->where('cart_id', $cart->id)->first();
                 if($cart_item){
                     $cart_item->quantity = $cart_item->quantity + $item->quantity;
                     $cart_item->save();
@@ -37,7 +37,13 @@ class cartController extends Controller
             $cart->cart_status = "ACTIVE";
             $cart->user_id = auth()->user()->id;
             $cart->save();
-
+            foreach(json_decode($request->items) as $item){
+                $cart_item = new CartItem;
+                $cart_item->cart_id = $cart->id;
+                $cart_item->p_id = $item->id;
+                $cart_item->quantity = $item->quantity;
+                $cart_item->save();
+            }
             return $cart;
         }
     }
