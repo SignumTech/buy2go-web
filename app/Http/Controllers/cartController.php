@@ -51,6 +51,7 @@ class cartController extends Controller
     public function getMyCart(){
         
         $cart = Cart::join('cart_items', 'carts.id', '=', 'cart_items.cart_id')
+                    ->join('products','cart_items.p_id', '=', 'products.id')
                     ->where('user_id', auth()->user()->id)
                     ->get();
         return $cart;
