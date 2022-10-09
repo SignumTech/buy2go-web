@@ -9,6 +9,7 @@ use App\Http\Controllers\addressBookController;
 use App\Http\Controllers\ordersController;
 use App\Http\Controllers\warehousesController;
 use App\Http\Controllers\addressBooksController;
+use App\Http\Controllers\zonesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes

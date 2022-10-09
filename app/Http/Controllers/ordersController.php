@@ -85,6 +85,7 @@ class ordersController extends Controller
             }
             $cart = Cart::find($request->cart_id);
             $cart->delete();
+            
             DB::commit();
             return $order;
         }

@@ -12,7 +12,6 @@
                         <th>#</th>
                         <th>City</th>
                         <th>Subcity</th>
-                        <th>route</th>
                         <th>area</th>
                         <th></th>
                     </tr>
@@ -22,11 +21,10 @@
                         <td>{{index+1}}</td>
                         <td>{{zone.city}}</td>
                         <td>{{zone.subcity}}</td>
-                        <td></td>
                         <td><h6 @click="viewArea(zone.route)" class="m-0" style="cursor:pointer"><strong>View on map <span class="fa fa-external-link-alt"></span></strong></h6></td>
                         <td class="text-center">
-                            <router-link to="#" class="float-end "><span class="fa fa-trash-alt"></span></router-link>
-                            <router-link to="`/admin/editProduct/`" class="float-end me-3"><span class="fa fa-edit"></span></router-link>
+                            <span class="fa fa-trash-alt"></span>
+                            <span @click="editZonesModal(zone)" class="fa fa-edit ms-3"></span>
                         </td>
                     </tr>
                 </tbody>
@@ -37,6 +35,7 @@
 </template>
 <script>
 import addZonesVue from './addZones.vue';
+import editZonesVue from './editZones.vue';
 import viewAreaModalVue from './viewAreaModal.vue';
 export default {
     data(){
@@ -48,11 +47,20 @@ export default {
         this.getZones();
     },
     methods:{
+        editZonesModal(zone){
+            this.$modal.show(
+                editZonesVue,
+                {"zone":zone},
+                {height:"auto",width:"800px"},
+                {"closed":this.getZones}
+            )
+        },
         addZonesModal(){
             this.$modal.show(
                 addZonesVue,
                 {},
-                {height:"auto",width:"800px"}
+                {height:"auto",width:"800px"},
+                {"closed":this.getZones}
             )
         },
         async getZones(){
@@ -61,11 +69,11 @@ export default {
                 this.zones = response.data
             })
         },
-        viewArea(){
+        viewArea(route){
             this.$modal.show(
                 viewAreaModalVue,
-                {},
-                {width:"500px",height:"auto"}
+                {"route":route},
+                {width:"800px",height:"auto"}
             )
         }
     }

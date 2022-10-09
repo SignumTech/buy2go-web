@@ -16,7 +16,7 @@ class zonesController extends Controller
         $zone = new Zone;
         $zone->city = $request->city;
         $zone->subcity = $request->subcity;
-        $zone->route = jason_encode($request->route);
+        $zone->route = json_encode($request->route);
         $zone->save();
 
         return $zone;
@@ -32,7 +32,7 @@ class zonesController extends Controller
         $zone = Zone::find($id);
         $zone->city = $request->city;
         $zone->subcity = $request->subcity;
-        $zone->route = jason_encode($request->route);
+        $zone->route = json_encode($request->route);
         $zone->save();
 
         return $zone;
