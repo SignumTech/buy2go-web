@@ -10,6 +10,8 @@ import categoryList from './components/categories/categories.vue'
 import warehouseList from './components/warehouses/warehouses.vue'
 import zones from './components/zones/zones.vue'
 import addZones from './components/zones/addZones.vue'
+import orderDetails from './components/orders/orderDetails.vue'
+import warehouse from './components/warehouses/warehouses.vue'
 Vue.use(Router)
 
 const routes = [
@@ -57,6 +59,16 @@ const routes = [
         path: '/addZones',
         component: addZones,
         name: 'AddZones'
+    },
+    {
+        path: '/orderDetails/:id',
+        component: orderDetails,
+        name: 'OrderDetails'
+    },
+    {
+        path: '/warehouse',
+        component: warehouse,
+        name: 'Warehouse'
     },
 ]
 

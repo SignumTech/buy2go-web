@@ -13,7 +13,7 @@
                   <router-link class="nav-link a-admin" to="/dashboard"><i data-feather="pie-chart"></i> Dashboard <span class="sr-only"></span></router-link>
                 </li>
                 <li :class="$route.path == `productList` ? `active nav-item` : ``">
-                  <router-link class="nav-link a-admin" to="productList"><i data-feather="box"></i> Products</router-link>
+                  <router-link class="nav-link a-admin" to="/productList"><i data-feather="box"></i> Products</router-link>
                 </li>
                 <li :class="$route.path == `/ordersList` ? `active nav-item` : ``">
                   <router-link class="nav-link a-admin" to="/ordersList"><i data-feather="shopping-cart"></i> Orders</router-link>
@@ -21,8 +21,8 @@
                 <li :class="$route.path == `/categoryList` ? `active nav-item` : ``">
                   <router-link class="nav-link a-admin" to="/categoryList"><i data-feather="grid"></i> Categories</router-link>
                 </li>
-                <li :class="$route.path == `/admin/categories` ? `active nav-item` : ``">
-                  <router-link class="nav-link a-admin" to="/admin/categories"><i data-feather="home"></i> Warehouses</router-link>
+                <li :class="$route.path == `/warehouse` ? `active nav-item` : ``">
+                  <router-link class="nav-link a-admin" to="/warehouse"><i data-feather="home"></i> Warehouses</router-link>
                 </li>
                 <li :class="$route.path == `/zones` ? `active nav-item` : ``">
                   <router-link class="nav-link a-admin" to="/zones"><i data-feather="map"></i> Zones</router-link>

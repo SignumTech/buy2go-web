@@ -1,61 +1,82 @@
 <template>
 <div class="row mt-4">
-    <div class="col-md-12">
-
-        <google-map ref="mapRef" :center="center" :zoom="7" style="width: 100%; height: 500px">
-            <google-marker v-for="m,index in markers" :key="index" :position="m.position" :clickable="true" :draggable="true" @click="center=m.position"></google-marker>
-        </google-map>
-
+<div class="col-md-12">
+    <h5><strong>Warehouses</strong></h5>
+</div>
+<div class="col-md-12 mt-3">
+    <div class="bg-white rounded-1 p-3 shadow-sm">
+        <button @click="addWarehouseModal()" class="btn btn-primary btn-sm float-end shadow-sm text-white"><span class="fa fa-plus"></span> Add Warehouse</button>
+        <table class="table px-2 mt-2">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Warehouse Name</th>
+                    <th>Stock</th>
+                    <th>location</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="warehouse,index in warehouses" :key="index">
+                    <td>{{index+1}}</td>
+                    <td>{{warehouse.w_name}}</td>
+                    <td>0</td>
+                    <td><h6 @click="viewArea(warehouse.location)" class="m-0" style="cursor:pointer"><strong>View on map <span class="fa fa-external-link-alt"></span></strong></h6></td>
+                    <td class="text-center">
+                        <span class="fa fa-trash-alt"></span>
+                        <span @click="editModal(warehouse)" class="fa fa-edit ms-3"></span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </div>
+</div>    
 </template>
 <script>
+import addWarehouseModalVue from './addWarehouseModal.vue';
+import editWarehouseModalVue from './editWarehouseModal.vue';
+import viewAreaModalVue from './viewWarehouseModal.vue';
 export default {
-    data(){
-        return{
-            center: {
-                lat: 10.0,
-                lng: 10.0
-            },
-            markers: [{
-                position: {
-                lat: 10.0,
-                lng: 10.0
-                }
-            }, {
-                position: {
-                lat: 11.0,
-                lng: 11.0
-                }
-            }],
-            edited: null,
-            paths: [
-                [ {lat: 1.380, lng: 103.800}, {lat:1.380, lng: 103.810}, {lat: 1.390, lng: 103.810}, {lat: 1.390, lng: 103.800} ],
-                [ {lat: 1.382, lng: 103.802}, {lat:1.382, lng: 103.808}, {lat: 1.388, lng: 103.808}, {lat: 1.388, lng: 103.802} ],
-            ],
-            paths_two: [
-                [ {lat: 1.380, lng: 103.800}, {lat:1.380, lng: 103.810}, {lat: 1.390, lng: 103.810}, {lat: 1.390, lng: 103.800} ],
-                [ {lat: 1.382, lng: 103.802}, {lat:1.382, lng: 103.808}, {lat: 1.388, lng: 103.808}, {lat: 1.388, lng: 103.802} ],
-            ],
-            map:null
-        }
+data(){
+    return{
+        warehouses:{}
+    }
+},
+mounted(){
+    this.getWarehouses();
+},
+methods:{
+    async getWarehouses(){
+        await axios.get('/warehouses')
+        .then( response =>{
+            this.warehouses = response.data
+        })
     },
-    mounted(){
-        this.$refs.mapRef.$mapPromise.then(map => this.map = map)
+    editModal(warehouse){
+        this.$modal.show(
+            editWarehouseModalVue,
+            {warehouse:warehouse},
+            {width:"700px",height:"auto"},
+            {"closed":this.getWarehouses}
+        )
     },
-    methods: {
-          updateEdited(mvcArray) {
-            let paths = [];
-            for (let i=0; i<mvcArray.getLength(); i++) {
-              let path = [];
-              for (let j=0; j<mvcArray.getAt(i).getLength(); j++) {
-                let point = mvcArray.getAt(i).getAt(j);
-                path.push({lat: point.lat(), lng: point.lng()});
-              }
-              paths.push(path);
-            }
-            this.edited = paths;
-          }
-        }
+    viewArea(location){
+        this.$modal.show(
+            viewAreaModalVue,
+            {location:location},
+            {width:"700px",height:"auto"}
+        )
+    }
+    ,
+    addWarehouseModal(){
+        this.$modal.show(
+            addWarehouseModalVue,
+            {},
+            {width:"600px",height:"auto"},
+            {"closed":this.getWarehouses}
+        )
+    }
+}
 }
 </script>

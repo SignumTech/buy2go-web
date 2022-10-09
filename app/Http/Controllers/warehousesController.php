@@ -34,7 +34,17 @@ class warehousesController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            "w_name" => "required",
+            "location" => "required"
+        ]);
+
+        $warehouse = new Warehouse;
+        $warehouse->w_name = $request->w_name;
+        $warehouse->location = json_encode($request->location);
+        $warehouse->save();
+
+        return $warehouse;
     }
 
     /**
@@ -68,7 +78,17 @@ class warehousesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            "w_name" => "required",
+            "location" => "required"
+        ]);
+
+        $warehouse = Warehouse::find($id);
+        $warehouse->w_name = $request->w_name;
+        $warehouse->location = json_encode($request->location);
+        $warehouse->save();
+
+        return $warehouse;
     }
 
     /**
