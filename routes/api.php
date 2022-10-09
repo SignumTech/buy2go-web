@@ -8,6 +8,7 @@ use App\Http\Controllers\categoriesController;
 use App\Http\Controllers\productsController;
 use App\Http\Controllers\cartController;
 use App\Http\Controllers\ordersController;
+use App\Http\Controllers\addressBooksController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -48,6 +49,8 @@ Route::middleware('auth:sanctum')->post('/updateCart', [cartController::class, '
 //////////////////////////////////////////auth////////////////////////////////
 Route::post('/getUserToken', [getTokenController::class, 'getUserToken']);
 Route::post('/registerUser', [registerUsersController::class, 'registerUser']);
+//////////////////////////////////////addressbook//////////////////////////////////////////////////
+Route::middleware('auth:sanctum')->get('/getMyAddresses', [addressBooksController::class, 'getMyAddresses']);
 ///////////////////////////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
