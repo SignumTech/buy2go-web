@@ -11665,6 +11665,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -81491,31 +81501,86 @@ var render = function () {
                             ),
                           ]),
                           _vm._v(" "),
-                          _c(
-                            "li",
-                            {
-                              class:
-                                _vm.$route.path == "/users"
-                                  ? "active nav-item"
-                                  : "",
-                            },
-                            [
-                              _c(
-                                "router-link",
-                                {
-                                  staticClass: "nav-link a-admin",
-                                  attrs: { to: "/users" },
-                                },
-                                [
-                                  _c("i", {
-                                    attrs: { "data-feather": "user" },
-                                  }),
-                                  _vm._v(" Users Management"),
-                                ]
-                              ),
-                            ],
-                            1
-                          ),
+                          _c("li", [
+                            _vm._m(2),
+                            _vm._v(" "),
+                            _c(
+                              "div",
+                              { staticClass: "collapse", attrs: { id: "u_m" } },
+                              [
+                                _c(
+                                  "ul",
+                                  {
+                                    staticClass: "collapse list-unstyled",
+                                    attrs: { id: "u_m" },
+                                  },
+                                  [
+                                    _vm.$store.state.auth.permissions
+                                      .StaffManagement
+                                      ? _c(
+                                          "li",
+                                          {
+                                            class:
+                                              _vm.$route.path ==
+                                              "/admin/staffManagement"
+                                                ? "active"
+                                                : "",
+                                          },
+                                          [
+                                            _c(
+                                              "router-link",
+                                              {
+                                                attrs: {
+                                                  to: "/admin/staffManagement",
+                                                },
+                                              },
+                                              [
+                                                _c("i", {
+                                                  staticClass: "fa fa-users",
+                                                }),
+                                                _vm._v(" Staff Management"),
+                                              ]
+                                            ),
+                                          ],
+                                          1
+                                        )
+                                      : _vm._e(),
+                                    _vm._v(" "),
+                                    _vm.$store.state.auth.permissions
+                                      .RolePermission
+                                      ? _c(
+                                          "li",
+                                          {
+                                            class:
+                                              _vm.$route.path ==
+                                              "/admin/rolePermission"
+                                                ? "active"
+                                                : "",
+                                          },
+                                          [
+                                            _c(
+                                              "router-link",
+                                              {
+                                                attrs: {
+                                                  to: "/admin/rolePermission",
+                                                },
+                                              },
+                                              [
+                                                _c("i", {
+                                                  staticClass: "fa fa-key",
+                                                }),
+                                                _vm._v(" Role Permission"),
+                                              ]
+                                            ),
+                                          ],
+                                          1
+                                        )
+                                      : _vm._e(),
+                                  ]
+                                ),
+                              ]
+                            ),
+                          ]),
                           _vm._v(" "),
                           _c(
                             "li",
@@ -81593,7 +81658,7 @@ var render = function () {
                   },
                   [
                     _c("div", { staticClass: "container-fluid" }, [
-                      _vm._m(2),
+                      _vm._m(3),
                       _vm._v(" "),
                       _c(
                         "div",
@@ -81728,6 +81793,26 @@ var staticRenderFns = [
         },
       },
       [_c("i", { attrs: { "data-feather": "gift" } }), _vm._v(" Marketing")]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "a",
+      {
+        attrs: {
+          "data-bs-toggle": "collapse",
+          href: "#u_m",
+          "aria-expanded": "false",
+          "aria-controls": "collapseExample",
+        },
+      },
+      [
+        _c("i", { attrs: { "data-feather": "user" } }),
+        _vm._v(" User Management"),
+      ]
     )
   },
   function () {
