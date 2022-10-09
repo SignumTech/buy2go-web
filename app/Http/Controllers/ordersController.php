@@ -63,6 +63,8 @@ class ordersController extends Controller
             $order->payment_status = $request->payment_status;
             $order->tx_ref = $request->tx_ref;
             $order->reference = $request->reference;
+            $order->payment_status = $request->payment_status;
+            $order->payment_method = $request->payment_method;
             $order->save();
 
             $cart_items = Cart::join('cart_items', 'cart.id', '=', 'cart_items.cart_id')
