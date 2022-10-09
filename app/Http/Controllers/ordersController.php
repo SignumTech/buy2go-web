@@ -67,7 +67,7 @@ class ordersController extends Controller
             $order->payment_method = $request->payment_method;
             $order->save();
 
-            $cart_items = Cart::join('cart_items', 'cart.id', '=', 'cart_items.cart_id')
+            $cart_items = Cart::join('cart_items', 'carts.id', '=', 'cart_items.cart_id')
                         ->where('carts.id', $request->cart_id)->get();
 
             foreach($cart_items as $item){
