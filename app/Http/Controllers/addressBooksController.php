@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\AddressBook;
 class addressBooksController extends Controller
 {
     /**
@@ -80,5 +80,10 @@ class addressBooksController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getMyAddresses(){
+        $address = AddressBook::where('user_id', auth()->user()->id)->get();
+        return $address;
     }
 }

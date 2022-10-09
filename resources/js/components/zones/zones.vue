@@ -5,7 +5,7 @@
     </div>
     <div class="col-md-12 mt-3">
         <div class="bg-white rounded-1 p-3 shadow-sm">
-            <router-link to="/addZones" class="btn btn-primary btn-sm float-end shadow-sm text-white"><span class="fa fa-plus"></span> Add Zone</router-link>
+            <button  @click="addZonesModal()" class="btn btn-primary btn-sm float-end shadow-sm text-white"><span class="fa fa-plus"></span> Add Zone</button>
             <table class="table px-2 mt-2">
                 <thead>
                     <tr>
@@ -18,12 +18,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Addis Ababa</td>
-                        <td>Bole</td>
+                    <tr v-for="zone,index in zones" :key="index">
+                        <td>{{index+1}}</td>
+                        <td>{{zone.city}}</td>
+                        <td>{{zone.subcity}}</td>
                         <td></td>
-                        <td><h6 @click="viewArea()" class="m-0" style="cursor:pointer"><strong>View on map <span class="fa fa-external-link-alt"></span></strong></h6></td>
+                        <td><h6 @click="viewArea(zone.route)" class="m-0" style="cursor:pointer"><strong>View on map <span class="fa fa-external-link-alt"></span></strong></h6></td>
                         <td class="text-center">
                             <router-link to="#" class="float-end "><span class="fa fa-trash-alt"></span></router-link>
                             <router-link to="`/admin/editProduct/`" class="float-end me-3"><span class="fa fa-edit"></span></router-link>
@@ -36,6 +36,7 @@
 </div>    
 </template>
 <script>
+import addZonesVue from './addZones.vue';
 import viewAreaModalVue from './viewAreaModal.vue';
 export default {
     data(){
@@ -47,6 +48,13 @@ export default {
         this.getZones();
     },
     methods:{
+        addZonesModal(){
+            this.$modal.show(
+                addZonesVue,
+                {},
+                {height:"auto",width:"800px"}
+            )
+        },
         async getZones(){
             await axios.get('/getZones')
             .then( response =>{

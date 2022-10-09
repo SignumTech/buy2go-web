@@ -8,6 +8,7 @@ use App\Http\Controllers\cartController;
 use App\Http\Controllers\addressBookController;
 use App\Http\Controllers\ordersController;
 use App\Http\Controllers\warehousesController;
+use App\Http\Controllers\addressBooksController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,6 +19,10 @@ use App\Http\Controllers\warehousesController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+///////////////////////////////////zones///////////////////////////////////////////////////////////
+Route::middleware('auth:sanctum')->get('/getZones', [zonesController::class, 'getZones']);
+Route::middleware('auth:sanctum')->post('/addZones', [zonesController::class, 'addZones']);
+Route::middleware('auth:sanctum')->put('/updateZones/{id}', [zonesController::class, 'updateZones']);
 ///////////////////////////////////resources///////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->resource('/categories', categoriesController::class);
 Route::middleware('auth:sanctum')->resource('/warehouses', warehousesController::class);
@@ -42,6 +47,9 @@ Route::middleware('auth:sanctum')->get('/getNodeCategories', [categoriesControll
 Route::get('/getMainCategories', [categoriesController::class, 'getMainCategories']);
 Route::middleware('auth:sanctum')->post('/uploadSubPic', [categoriesController::class, 'uploadSubPic']);
 Route::get('/getImediateSubCat/{id}', [categoriesController::class, 'getImediateSubCat']);
+//////////////////////////////////////addressbook//////////////////////////////////////////////////
+Route::middleware('auth:sanctum')->get('/getMyAddresses', [addressBooksController::class, 'getMyAddresses']);
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 Route::get('/', function () {
     return view('home');

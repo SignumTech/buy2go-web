@@ -1,29 +1,22 @@
 <template>
-<div class="row mt-4">
-    <div class="col-md-12">
-        <h5><strong>Add Zones</strong></h5>
+<div class="row p-4">
+    <div class="col-md-6">
+        <label for="">City</label>
+        <input type="text" class="form-control" placeholder="City">
     </div>
-    <div class="col-md-12">
-        <div class="p-3 bg-white shadow-sm rounded-1">
-            <div class="row m-0">
-                
-                    <div class="col-md-3">
-                        <label for="">City</label>
-                        <input type="text" class="form-control" placeholder="City">
-                        <label for="">Sub city</label>
-                        <input type="text" class="form-control" placeholder="Sub city">
-                    </div>
-                    <div class="col-md-9">
-                        <gmap-map :center="{lat: 8.9806, lng: 38.7578}" :zoom="12" style="width: 100%; height: 500px">
-                            <gmap-polygon :paths="paths" :editable="true" @paths_changed="updateEdited($event)">
-                            </gmap-polygon>
-                        </gmap-map>
-                    </div>                
-
-            </div>            
-        </div>
-
-        
+    <div class="col-md-6">
+        <label for="">Sub city</label>
+        <input type="text" class="form-control" placeholder="Sub city">
+    </div>
+    <div class="col-md-12 mt-3">
+        <h6 class="mt-3 mb-3"><span class="fa fa-info-circle"></span> Drag the nodes on the polygon to adjust the area of the zone.</h6>
+        <gmap-map :center="{lat: 8.9806, lng: 38.7578}" :zoom="12" style="width: 100%; height: 400px">
+            <gmap-polygon :paths="paths" :editable="true" @paths_changed="updateEdited($event)">
+            </gmap-polygon>
+        </gmap-map>   
+    </div>
+    <div class="col-md-12 mt-3">
+        <button class="btn btn-primary form-control"><span class="fa fa-plus"></span> ADD ZONE</button>
     </div>
 </div> 
 </template>
