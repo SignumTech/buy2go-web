@@ -17,8 +17,7 @@ class ordersController extends Controller
      */
     public function index()
     { 
-        $orders = Order::join("order_items", "orders.id", "=", "order_items.order_id")
-                    ->get();
+        $orders = Order::all();
         return $orders;
     }
 
@@ -84,7 +83,7 @@ class ordersController extends Controller
                     
                 }*/
             }
-            $cart = Cart::find($cart_id);
+            $cart = Cart::find($request->cart_id);
             $cart->delete();
             DB::commit();
             return $order;
