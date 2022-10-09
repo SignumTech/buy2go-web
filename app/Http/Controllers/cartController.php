@@ -40,7 +40,7 @@ class cartController extends Controller
             foreach(json_decode($request->items) as $item){
                 $cart_item = new CartItem;
                 $cart_item->cart_id = $cart->id;
-                $cart_item->p_id = $item->id;
+                $cart_item->p_id = $item->p_id;
                 $cart_item->quantity = $item->quantity;
                 $cart_item->save();
             }
