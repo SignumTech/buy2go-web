@@ -148,8 +148,11 @@ class categoriesController extends Controller
         $category = Category::where('parent_id', $id)->get();
         if(count($category)>0){
             foreach($category as $cat){
-                $count = $count + Product::where('cat_id', $cat->id)->count();
-                $this->categoryItemCount($cat->id); 
+                $product = Product::where('cat_id', $cat->id)->get();
+                if(count($product) > 0){
+                    $count = $count + Product::where('cat_id', $cat->id)->count();
+                }
+                $count = $count + $this->categoryItemCount($cat->id); 
             }
         }
         return $count;
