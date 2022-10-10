@@ -12964,6 +12964,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -85218,85 +85228,104 @@ var render = function () {
     _vm._v(" "),
     !_vm.loading
       ? _c("div", { staticClass: "col-md-12" }, [
-          _c(
-            "div",
-            { staticClass: "bg-white shadow-sm p-2" },
-            _vm._l(_vm.orders, function (order) {
-              return _c(
-                "table",
-                {
-                  key: order.id,
-                  staticClass: "table table-sm mt-2 table-bordered",
-                },
-                [
-                  _c("thead", [
-                    _c("tr", [
-                      _c("th", [_vm._v("Order No. " + _vm._s(order.order_no))]),
-                      _vm._v(" "),
-                      _c("th", { attrs: { colspan: "6" } }, [
-                        _vm._v(
-                          "Order date. " +
-                            _vm._s(
-                              _vm._f("moment")(
-                                order.created_at,
-                                "ddd, MMM Do YYYY"
-                              )
-                            )
-                        ),
-                      ]),
-                    ]),
-                  ]),
+          _c("div", { staticClass: "bg-white shadow-sm p-2" }, [
+            _c("table", { staticClass: "table table-sm mt-2" }, [
+              _c("thead", [
+                _c("tr", [
+                  _c("th", [_vm._v("Order No")]),
                   _vm._v(" "),
-                  _c("tbody", [
-                    _c(
-                      "tr",
-                      { staticClass: "border-bottom text-center align-middle" },
-                      [
-                        _c("td", [
-                          _c("img", {
-                            staticClass: "img img-fluid",
-                            staticStyle: { width: "60px", height: "auto" },
-                            attrs: {
-                              src: "/storage/products/" + order.p_image,
-                              alt: "",
-                            },
-                          }),
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(order.no_items) + " items")]),
-                        _vm._v(" "),
-                        _c("td", [
-                          _vm._v(
-                            _vm._s(_vm._f("numFormat")(order.total)) + " ETB"
-                          ),
-                        ]),
-                        _vm._v(" "),
-                        _c("td", [_vm._v(_vm._s(order.order_status))]),
-                        _vm._v(" "),
-                        _c(
-                          "td",
-                          [
-                            _c(
-                              "router-link",
-                              { attrs: { to: "/orderDetails/" + order.id } },
-                              [
-                                _vm._v("Order Details "),
-                                _c("span", {
-                                  staticClass: "fa fa-external-link-alt",
-                                }),
-                              ]
-                            ),
-                          ],
-                          1
-                        ),
-                      ]
+                  _c("th", [
+                    _vm._v(
+                      "Order date. " +
+                        _vm._s(
+                          _vm._f("moment")(
+                            _vm.order.created_at,
+                            "ddd, MMM Do YYYY"
+                          )
+                        )
                     ),
                   ]),
-                ]
-              )
-            }),
-            0
-          ),
+                  _vm._v(" "),
+                  _c("th", [_vm._v("Total")]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v("No. of items")]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v("Order Status")]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v("Payment Status")]),
+                  _vm._v(" "),
+                  _c("th", [_vm._v("Payment Method")]),
+                  _vm._v(" "),
+                  _c("th"),
+                ]),
+              ]),
+              _vm._v(" "),
+              _c(
+                "tbody",
+                _vm._l(_vm.orders, function (order) {
+                  return _c(
+                    "tr",
+                    {
+                      key: order.id,
+                      staticClass: "border-bottom text-center align-middle",
+                    },
+                    [
+                      _c("td", [
+                        _vm._v(
+                          "\r\n                                " +
+                            _vm._s(order.order_no) +
+                            "\r\n                            "
+                        ),
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          _vm._s(
+                            _vm._f("moment")(
+                              order.created_at,
+                              "ddd, MMM Do YYYY"
+                            )
+                          )
+                        ),
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [
+                        _vm._v(
+                          _vm._s(_vm._f("numFormat")(order.total)) + " ETB"
+                        ),
+                      ]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(order.no_items) + " items")]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(order.order_status))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(order.payment_status))]),
+                      _vm._v(" "),
+                      _c("td", [_vm._v(_vm._s(order.payment_method))]),
+                      _vm._v(" "),
+                      _c(
+                        "td",
+                        [
+                          _c(
+                            "router-link",
+                            { attrs: { to: "/orderDetails/" + order.id } },
+                            [
+                              _vm._v("Order Details "),
+                              _c("span", {
+                                staticClass: "fa fa-external-link-alt",
+                              }),
+                            ]
+                          ),
+                        ],
+                        1
+                      ),
+                    ]
+                  )
+                }),
+                0
+              ),
+            ]),
+          ]),
         ])
       : _vm._e(),
   ])

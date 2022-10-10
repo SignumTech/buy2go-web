@@ -152,22 +152,19 @@ class ordersController extends Controller
     }
 
     public function getProcessing(){
-        $orders = Order::join("order_items", "orders.id", "=", "order_items.order_id")
-                       ->where('orders.order_status', "PROCESSING")
+        $orders = Order::where('orders.order_status', "PROCESSING")
                        ->get();
         return $orders;
     }
 
     public function getShipped(){
-        $orders = Order::join("order_items", "orders.id", "=", "order_items.order_id")
-                       ->where('orders.order_status', "SHIPPED")
+        $orders = Order::where('orders.order_status', "SHIPPED")
                        ->get();
         return $orders;
     }
 
     public function getDelivered(){
-        $orders = Order::join("order_items", "orders.id", "=", "order_items.order_id")
-                       ->where('orders.order_status', "DELIVERED")
+        $orders = Order::where('orders.order_status', "DELIVERED")
                        ->get();
         return $orders;
     }
