@@ -12766,7 +12766,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return axios.post('/shipOrder', {
                   order_id: _this.order.id
                 }).then(function (response) {
-                  window.location.replace('/admin/orders');
+                  window.location.replace('/orders');
                 });
 
               case 2:
@@ -12788,9 +12788,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _this2.loading = true;
                 _context2.next = 3;
                 return axios.get('/orders/' + _this2.$route.params.id).then(function (response) {
-                  _this2.order = response.data;
-                  _this2.orderItems = JSON.parse(response.data.items);
-                  console.log(response.data.delivery_details);
+                  _this2.order = response.data.order_details;
+                  _this2.orderItems = response.data.order_items;
 
                   _this2.getAddress(response.data.delivery_details);
                 });
@@ -85109,11 +85108,7 @@ var render = function () {
                           [
                             _c(
                               "router-link",
-                              {
-                                attrs: {
-                                  to: "/admin/orderDetails/" + order.id,
-                                },
-                              },
+                              { attrs: { to: "/orderDetails/" + order.id } },
                               [
                                 _vm._v("Order Details "),
                                 _c("span", {

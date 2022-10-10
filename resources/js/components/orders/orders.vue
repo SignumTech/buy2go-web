@@ -51,7 +51,7 @@
                             <td>{{order.no_items}} items</td>
                             <td>{{order.total | numFormat}} ETB</td>
                             <td>{{order.order_status}}</td>
-                            <td><router-link :to="`/admin/orderDetails/`+order.id">Order Details <span class="fa fa-external-link-alt"></span></router-link></td>
+                            <td><router-link :to="`/orderDetails/`+order.id">Order Details <span class="fa fa-external-link-alt"></span></router-link></td>
                         </tr>                        
                     </tbody>
 

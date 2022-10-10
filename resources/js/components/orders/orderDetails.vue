@@ -102,16 +102,16 @@ export default {
         async shipOrder(){
             await axios.post('/shipOrder', {order_id:this.order.id})
             .then( response => {
-                window.location.replace('/admin/orders')
+                window.location.replace('/orders')
             })
         },
         async getOrder(){
             this.loading = true
             await axios.get('/orders/'+this.$route.params.id)
             .then( response =>{
-                this.order = response.data
-                this.orderItems = JSON.parse(response.data.items)
-                console.log(response.data.delivery_details)
+                this.order = response.data.order_details
+                this.orderItems = response.data.order_items
+                
                 this.getAddress(response.data.delivery_details)
             })
         },

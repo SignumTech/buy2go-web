@@ -105,9 +105,15 @@ class ordersController extends Controller
      */
     public function show($id)
     {
-        $order = Order::join('order_items', 'orders.id', 'order_items.order_id')
-                      ->where('orders.id', $id)
-                      ->first();
+        $order = Order::find($id);
+        $order_items = Order::join('order_items', 'orders.id', '=', 'order_items.order_id')
+                            ->join('products', 'order_items.id', '=', 'products.id')
+                            ->where('orders.id', $id)
+                            ->get();
+
+        $data = [];
+        $data['order_detail'] = $order;
+        $data['order_items'] = $order_items;
         return $order;
     }
 
