@@ -31,7 +31,7 @@ Route::middleware('auth:sanctum')->resource('/categories', categoriesController:
 Route::middleware('auth:sanctum')->resource('/warehouses', warehousesController::class);
 Route::resource('/products', productsController::class);
 Route::middleware('auth:sanctum')->resource('/orders', ordersController::class);
-Route::resource('/addressBooks', addressBookController::class);
+Route::resource('/addressBooks', addressBooksController::class);
 ///////////////////////////////////orders/////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getProcessing', [ordersController::class, 'getProcessing']);
 Route::middleware('auth:sanctum')->get('/getShipped', [ordersController::class, 'getShipped']);

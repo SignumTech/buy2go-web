@@ -84847,15 +84847,9 @@ var render = function () {
                   _vm._v(" "),
                   _c("h6", [_vm._v("+251-" + _vm._s(_vm.address.phone_no))]),
                   _vm._v(" "),
-                  _c("h6", [
-                    _vm._v(
-                      _vm._s(_vm.address.city) +
-                        " - " +
-                        _vm._s(_vm.address.state)
-                    ),
-                  ]),
+                  _c("h6", [_vm._v(_vm._s(_vm.address.regular_address))]),
                   _vm._v(" "),
-                  _c("h6", [_vm._v(_vm._s(_vm.address.address_1))]),
+                  _c("h6", [_vm._v(_vm._s(_vm.address.geolocation))]),
                 ]
               ),
             ]),
