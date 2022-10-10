@@ -190,6 +190,7 @@ export default {
             })
         },
         async publishProduct(){
+            this.isEditing = false
             if(this.picUploaded){
                 await axios.post('/products', this.formData)
                 .then( response =>{
@@ -199,7 +200,7 @@ export default {
                         title: 'Publishing Successful',
                         text: 'You have successfuly published your product!'
                     });
-                    this.isEditing = false
+                    
                     window.location.replace('/productList')
                 })
                 .catch( error=>{

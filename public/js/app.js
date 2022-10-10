@@ -13312,12 +13312,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
+                _this6.isEditing = false;
+
                 if (!_this6.picUploaded) {
-                  _context5.next = 5;
+                  _context5.next = 6;
                   break;
                 }
 
-                _context5.next = 3;
+                _context5.next = 4;
                 return axios__WEBPACK_IMPORTED_MODULE_3___default().post('/products', _this6.formData).then(function (response) {
                   _this6.$notify({
                     group: 'foo',
@@ -13326,7 +13328,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     text: 'You have successfuly published your product!'
                   });
 
-                  _this6.isEditing = false;
                   window.location.replace('/productList');
                 })["catch"](function (error) {
                   if (error.response.status == 422) {
@@ -13335,14 +13336,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   }
                 });
 
-              case 3:
-                _context5.next = 6;
+              case 4:
+                _context5.next = 7;
                 break;
 
-              case 5:
+              case 6:
                 _this6.picError = true;
 
-              case 6:
+              case 7:
               case "end":
                 return _context5.stop();
             }
