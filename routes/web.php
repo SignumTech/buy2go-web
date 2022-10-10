@@ -12,6 +12,7 @@ use App\Http\Controllers\addressBooksController;
 use App\Http\Controllers\zonesController;
 use App\Http\Controllers\staffController;
 use App\Http\Controllers\rolePermissionController;
+use App\Http\Controllers\dashboardController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -22,6 +23,17 @@ use App\Http\Controllers\rolePermissionController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+/////////////////////////////////////dashboard////////////////////////////////////////////////////////
+Route::middleware('auth:sanctum')->get('/salesThirty', [dashboardController::class, 'salesThirty']);
+Route::middleware('auth:sanctum')->get('/salesToday', [dashboardController::class, 'salesToday']);
+Route::middleware('auth:sanctum')->get('/ordersThirty', [dashboardController::class, 'ordersThirty']);
+Route::middleware('auth:sanctum')->get('/ordersToday', [dashboardController::class, 'ordersToday']);
+Route::middleware('auth:sanctum')->get('/usersThirty', [dashboardController::class, 'usersThirty']);
+Route::middleware('auth:sanctum')->get('/getOrdersByGroup', [dashboardController::class, 'getOrdersByGroup']);
+Route::middleware('auth:sanctum')->get('/ordersSeven', [dashboardController::class, 'ordersSeven']);
+Route::middleware('auth:sanctum')->get('/salesSeven', [dashboardController::class, 'salesSeven']);
+Route::middleware('auth:sanctum')->get('/revenueYear', [dashboardController::class, 'revenueYear']);
+Route::middleware('auth:sanctum')->post('/salesReport', [dashboardController::class, 'salesReport']);
 ///////////////////////////////////zones///////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getZones', [zonesController::class, 'getZones']);
 Route::middleware('auth:sanctum')->post('/addZones', [zonesController::class, 'addZones']);
