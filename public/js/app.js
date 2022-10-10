@@ -12732,11 +12732,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -12791,7 +12786,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   _this2.order = response.data.order_details;
                   _this2.orderItems = response.data.order_items;
 
-                  _this2.getAddress(response.data.delivery_details);
+                  _this2.getAddress(response.data.order_details.delivery_details);
                 });
 
               case 3:
@@ -84748,28 +84743,6 @@ var render = function () {
                         _vm._v(" "),
                         _c("td", { staticClass: "ps-2" }, [
                           _c("h6", [_vm._v(_vm._s(ot.p_name))]),
-                          _vm._v(" "),
-                          _c("h6", [
-                            _c(
-                              "span",
-                              {
-                                staticClass: "badge rounded-pill px-3",
-                                style: { backgroundColor: ot.color },
-                              },
-                              [_vm._v(_vm._s(ot.color))]
-                            ),
-                            _vm._v(
-                              " / \r\n                                    "
-                            ),
-                            _c(
-                              "span",
-                              {
-                                staticClass:
-                                  "badge rounded-pill bg-light shadow-sm text-dark px-3 border",
-                              },
-                              [_c("strong", [_vm._v(_vm._s(ot.size))])]
-                            ),
-                          ]),
                         ]),
                         _vm._v(" "),
                         _c("td", { staticClass: "ps-2 text-center" }, [
@@ -84797,16 +84770,18 @@ var render = function () {
             _vm._v(" "),
             _c("div", { staticClass: "col-md-4 border-bottom border-3 mt-3" }, [
               _c("h6", { staticClass: "mt-2" }, [
-                _vm._v("Retail Price: "),
+                _vm._v("Sub total: "),
                 _c("span", { staticClass: "float-end" }, [
                   _vm._v(_vm._s(_vm._f("numFormat")(_vm.order.total)) + " ETB"),
                 ]),
               ]),
               _vm._v(" "),
               _c("h6", { staticClass: "mt-2" }, [
-                _vm._v("Sub Total: "),
+                _vm._v("Tax (15% VAT): "),
                 _c("span", { staticClass: "float-end" }, [
-                  _vm._v(_vm._s(_vm._f("numFormat")(_vm.order.total)) + " ETB"),
+                  _vm._v(
+                    _vm._s(_vm._f("numFormat")(_vm.order.total * 0.15)) + " ETB"
+                  ),
                 ]),
               ]),
               _vm._v(" "),
@@ -84815,7 +84790,8 @@ var render = function () {
                   _vm._v("Total: "),
                   _c("span", { staticClass: "float-end" }, [
                     _vm._v(
-                      _vm._s(_vm._f("numFormat")(_vm.order.total)) + " ETB"
+                      _vm._s(_vm._f("numFormat")(_vm.order.total * 1.15)) +
+                        " ETB"
                     ),
                   ]),
                 ]),

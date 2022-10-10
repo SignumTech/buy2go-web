@@ -37,12 +37,7 @@
                         <tr v-for="ot in orderItems" :key="ot.id" class="align-middle">
                             <td class="ps-2 text-center"><img :src="`/storage/productsThumb/`+ot.p_image" class="img img-fluid" style="width:70px;height:auto"></td>
                             <td class="ps-2">
-                                <h6>{{ot.p_name}}</h6>
-                                <h6>
-                                    <span class="badge rounded-pill px-3"  :style="{backgroundColor:ot.color}">{{ot.color}}</span> / 
-                                    <span class="badge rounded-pill bg-light shadow-sm text-dark px-3 border"><strong>{{ot.size}}</strong></span>
-                                </h6>
-                                
+                                <h6>{{ot.p_name}}</h6>                                
                             </td>
                             <td class="ps-2 text-center">{{ot.quantity}}</td>
                             <td class="ps-2 text-center">{{ot.price | numFormat}} ETB</td>
@@ -55,9 +50,9 @@
 
             </div>     
                 <div class="col-md-4 border-bottom border-3 mt-3">
-                <h6 class="mt-2">Retail Price: <span class="float-end">{{order.total | numFormat}} ETB</span></h6>
-                <h6 class="mt-2">Sub Total: <span class="float-end">{{order.total | numFormat}} ETB</span></h6>
-                <h5 class="mt-2"><strong>Total: <span class="float-end">{{order.total | numFormat}} ETB</span></strong></h5>
+                <h6 class="mt-2">Sub total: <span class="float-end">{{order.total | numFormat}} ETB</span></h6>
+                <h6 class="mt-2">Tax (15% VAT): <span class="float-end">{{order.total * 0.15 | numFormat}} ETB</span></h6>
+                <h5 class="mt-2"><strong>Total: <span class="float-end">{{order.total *1.15 | numFormat}} ETB</span></strong></h5>
                 </div>
                 <div class="col-md-6 mt-5">
                     <h5 class="border-bottom">Shipping Information</h5>
@@ -112,7 +107,7 @@ export default {
                 this.order = response.data.order_details
                 this.orderItems = response.data.order_items
                 
-                this.getAddress(response.data.delivery_details)
+                this.getAddress(response.data.order_details.delivery_details)
             })
         },
         async getAddress(id){
