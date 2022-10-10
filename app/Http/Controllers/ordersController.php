@@ -112,7 +112,7 @@ class ordersController extends Controller
                             ->get();
 
         $data = [];
-        $data['order_detail'] = $order;
+        $data['order_details'] = $order;
         $data['order_items'] = $order_items;
         return $data;
     }
