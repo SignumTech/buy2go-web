@@ -45,7 +45,10 @@ class addressBooksController extends Controller
      */
     public function show($id)
     {
-        //
+        $address = AddressBook::join('users', 'address_books.user_id', '=', 'users.id')
+                              ->where('address_books.id', $id)
+                              ->first();
+        return $address;
     }
 
     /**

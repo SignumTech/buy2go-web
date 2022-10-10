@@ -12811,7 +12811,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context3.prev = _context3.next) {
               case 0:
                 _context3.next = 2;
-                return axios.get('/showAddress/' + id).then(function (response) {
+                return axios.get('/addressBooks/' + id).then(function (response) {
                   _this3.address = response.data;
                   _this3.loading = false;
                 });
@@ -84885,15 +84885,9 @@ var render = function () {
                   _vm._v(" "),
                   _c("h6", [_vm._v("+251-" + _vm._s(_vm.address.phone_no))]),
                   _vm._v(" "),
-                  _c("h6", [
-                    _vm._v(
-                      _vm._s(_vm.address.city) +
-                        " - " +
-                        _vm._s(_vm.address.state)
-                    ),
-                  ]),
+                  _c("h6", [_vm._v(_vm._s(_vm.address.regular_address))]),
                   _vm._v(" "),
-                  _c("h6", [_vm._v(_vm._s(_vm.address.address_1))]),
+                  _c("h6", [_vm._v(_vm._s(_vm.address.geolocation))]),
                 ]
               ),
             ]),

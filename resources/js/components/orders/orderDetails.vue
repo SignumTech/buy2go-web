@@ -60,21 +60,21 @@
                 <h5 class="mt-2"><strong>Total: <span class="float-end">{{order.total | numFormat}} ETB</span></strong></h5>
                 </div>
                 <div class="col-md-6 mt-5">
-                <h5 class="border-bottom">Shipping Information</h5>
-                <div class="rounded-1 border-start border-warning border-5 p-3" style="cursor:pointer">
-                    <h5><strong>{{address.f_name}} {{address.l_name}}</strong> </h5>
-                    <h6>+251-{{address.phone_no}}</h6>
-                    <h6>{{address.city}} - {{address.state}}</h6>
-                    <h6>{{address.address_1}}</h6>
-                </div>
+                    <h5 class="border-bottom">Shipping Information</h5>
+                    <div class="rounded-1 border-start border-warning border-5 p-3" style="cursor:pointer">
+                        <h5><strong>{{address.f_name}} {{address.l_name}}</strong> </h5>
+                        <h6>+251-{{address.phone_no}}</h6>
+                        <h6>{{address.city}} - {{address.state}}</h6>
+                        <h6>{{address.address_1}}</h6>
+                    </div>
                 </div>
                 <div class="col-md-6 mt-5">
                 <h5 class="border-bottom">Billing Information</h5>
                 <div class="rounded-1 border-start border-warning border-5 p-3" style="cursor:pointer">
                     <h5><strong>{{address.f_name}} {{address.l_name}}</strong> </h5>
                     <h6>+251-{{address.phone_no}}</h6>
-                    <h6>{{address.city}} - {{address.state}}</h6>
-                    <h6>{{address.address_1}}</h6>
+                    <h6>{{address.regular_address}}</h6>
+                    <h6>{{address.geolocation}}</h6>
                 </div>
                 </div>
         </div>
@@ -116,7 +116,7 @@ export default {
             })
         },
         async getAddress(id){
-            await axios.get('/showAddress/'+id)
+            await axios.get('/addressBooks/'+id)
             .then( response =>{
                 this.address = response.data
                 this.loading = false
