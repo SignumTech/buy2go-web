@@ -107,7 +107,7 @@ class ordersController extends Controller
     {
         $order = Order::find($id);
         $order_items = Order::join('order_items', 'orders.id', '=', 'order_items.order_id')
-                            ->join('products', 'order_items.id', '=', 'products.id')
+                            ->join('products', 'order_items.p_id', '=', 'products.id')
                             ->where('orders.id', $id)
                             ->get();
 
