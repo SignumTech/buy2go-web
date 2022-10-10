@@ -10,6 +10,8 @@ use App\Http\Controllers\ordersController;
 use App\Http\Controllers\warehousesController;
 use App\Http\Controllers\addressBooksController;
 use App\Http\Controllers\zonesController;
+use App\Http\Controllers\staffController;
+use App\Http\Controllers\rolePermissionController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -50,7 +52,14 @@ Route::middleware('auth:sanctum')->post('/uploadSubPic', [categoriesController::
 Route::get('/getImediateSubCat/{id}', [categoriesController::class, 'getImediateSubCat']);
 //////////////////////////////////////addressbook//////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getMyAddresses', [addressBooksController::class, 'getMyAddresses']);
-
+///////////////////////////////////staff/////////////////////////////////////////////////////////////////
+Route::middleware('auth:sanctum')->post('/registerStaff', [staffController::class, 'registerStaff']);
+Route::middleware('auth:sanctum')->post('/searchStaff', [staffController::class, 'searchStaff']);
+Route::middleware('auth:sanctum')->get('/getStaff', [staffController::class, 'getStaff']);
+Route::middleware('auth:sanctum')->get('/showStaff/{id}', [staffController::class, 'showStaff']);
+Route::middleware('auth:sanctum')->post('/editStaff', [staffController::class, 'editStaff']);
+Route::middleware('auth:sanctum')->post('/resetStaffPass', [staffController::class, 'resetStaffPass']);
+Route::middleware('auth:sanctum')->get('/getStaffPermissions', [staffController::class, 'getStaffPermissions']);
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 Route::get('/', function () {
     return view('home');
@@ -60,6 +69,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 Auth::routes();
 Route::any('{slug}', function () {
+    return view('home');
+});
+Route::any('/orderDetails/{slug}', function () {
     return view('home');
 });
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

@@ -13505,6 +13505,1045 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/user_management/addRoleModal.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/user_management/addRoleModal.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ["modalType", "id"],
+  data: function data() {
+    return {
+      isClicked: false,
+      valErrors: {},
+      isEdit: false,
+      data: {
+        role: null,
+        id: null,
+        permissions: {
+          Dashboard: false,
+          Products: false,
+          Orders: false,
+          Categories: false,
+          Marketing: false,
+          FlashSales: false,
+          UserManagement: false,
+          StaffManagement: false,
+          RolePermission: false,
+          SalesReport: false,
+          Customers: false
+        }
+      }
+    };
+  },
+  mounted: function mounted() {
+    if (this.modalType == 'Edit') {
+      this.showRole();
+      this.isEdit = true;
+      this.data.id = this.id;
+      console.log(this.data.id);
+    }
+  },
+  methods: {
+    showRole: function showRole() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return axios.get('/getRoles/' + _this.id).then(function (response) {
+                  _this.data.role = response.data.role;
+                  _this.data.permissions = JSON.parse(response.data.permissions);
+                });
+
+              case 2:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    changeState: function changeState(page) {
+      if (page === 'Dashboard') {
+        if (this.data.permissions.Dashboard === true) {
+          this.data.permissions.Dashboard = false;
+        } else {
+          this.data.permissions.Dashboard = true;
+        }
+      }
+
+      if (page === 'Products') {
+        if (this.data.permissions.Products === true) {
+          this.data.permissions.Products = false;
+        } else {
+          this.data.permissions.Products = true;
+        }
+      }
+
+      if (page === 'Orders') {
+        if (this.data.permissions.Orders === true) {
+          this.data.permissions.Orders = false;
+        } else {
+          this.data.permissions.Orders = true;
+        }
+      }
+
+      if (page === 'Categories') {
+        if (this.data.permissions.Categories === true) {
+          this.data.permissions.Categories = false;
+        } else {
+          this.data.permissions.Categories = true;
+        }
+      }
+
+      if (page === 'Marketing') {
+        if (this.data.permissions.FlashSales === true) {
+          this.data.permissions.FlashSales = false;
+        } else {
+          this.data.permissions.FlashSales = true;
+        }
+      }
+
+      if (page === 'UserManagement') {
+        if (this.data.permissions.RolePermission === true) {
+          this.data.permissions.RolePermission = false;
+        } else {
+          this.data.permissions.RolePermission = true;
+        }
+
+        if (this.data.permissions.StaffManagement === true) {
+          this.data.permissions.StaffManagement = false;
+        } else {
+          this.data.permissions.StaffManagement = true;
+        }
+      }
+
+      if (page === 'SalesReport') {
+        if (this.data.permissions.SalesReport === true) {
+          this.data.permissions.SalesReport = false;
+        } else {
+          this.data.permissions.SalesReport = true;
+        }
+      }
+
+      if (page === 'Customers') {
+        if (this.data.permissions.Customers === true) {
+          this.data.permissions.Customers = false;
+        } else {
+          this.data.permissions.Customers = true;
+        }
+      }
+    },
+    createPermission: function createPermission() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _this2.isClicked = true;
+                _context2.next = 3;
+                return axios.post('/createRolePermission', _this2.data).then(function (response) {
+                  _this2.$emit('close');
+                })["catch"](function (error) {
+                  _this2.isClicked = false;
+
+                  if (error.response.status == 422) {
+                    _this2.valErrors = error.response.data.errors;
+                  }
+                });
+
+              case 3:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    updatePermission: function updatePermission() {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return axios.post('/updateRolePermission', _this3.data).then(function (response) {
+                  _this3.$emit('close');
+                })["catch"](function (error) {
+                  _this3.isClicked = false;
+
+                  if (error.response.status == 422) {
+                    _this3.valErrors = error.response.data.errors;
+                  }
+                });
+
+              case 2:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/user_management/addUserModal.vue?vue&type=script&lang=js&":
+/*!***********************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/user_management/addUserModal.vue?vue&type=script&lang=js& ***!
+  \***********************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ["user_data", "modalType"],
+  data: function data() {
+    return {
+      isClicked: false,
+      valErrors: {},
+      formData: {
+        id: "",
+        title: "",
+        f_name: "",
+        l_name: "",
+        phone_no: "",
+        email: "",
+        user_role: ""
+      },
+      roles: [],
+      activation: {},
+      edit: false,
+      add: false
+    };
+  },
+  mounted: function mounted() {
+    if (this.modalType == "Edit") {
+      this.formData = this.user_data;
+      this.edit = true;
+    } else {
+      this.add = true;
+    }
+
+    this.getRoles();
+  },
+  methods: {
+    getRoles: function getRoles() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return axios.get('/getRoles').then(function (response) {
+                  _this.roles = response.data;
+                });
+
+              case 2:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    addUser: function addUser() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _this2.isClicked = true;
+                _context2.next = 3;
+                return axios.post('/registerStaff', _this2.formData).then(function (response) {
+                  _this2.$notify({
+                    group: 'foo',
+                    title: 'Successfully Added a User!',
+                    text: ''
+                  });
+
+                  _this2.$emit('close');
+                })["catch"](function (error) {
+                  _this2.isClicked = false;
+
+                  if (error.response.status == 422) {
+                    _this2.valErrors = error.response.data.errors;
+                  }
+                });
+
+              case 3:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    editUser: function editUser() {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _this3.isClicked = true;
+                _context3.next = 3;
+                return axios.post('/editStaff', _this3.formData).then(function (response) {
+                  _this3.$notify({
+                    group: 'foo',
+                    title: 'Successfully Edited a User!',
+                    text: ''
+                  });
+
+                  _this3.$emit('close');
+                })["catch"](function (error) {
+                  _this3.isClicked = false;
+
+                  if (error.response.status == 422) {
+                    _this3.valErrors = error.response.data.errors;
+                  }
+                });
+
+              case 3:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/user_management/rolePermission.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/user_management/rolePermission.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var vue_spinner_src_PulseLoader_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-spinner/src/PulseLoader.vue */ "./node_modules/vue-spinner/src/PulseLoader.vue");
+/* harmony import */ var _addRoleModal_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./addRoleModal.vue */ "./resources/js/components/user_management/addRoleModal.vue");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  data: function data() {
+    return {
+      loading: true,
+      isDeleted: false,
+      tableData: []
+    };
+  },
+  components: {
+    addrolemodal: _addRoleModal_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    PulseLoader: vue_spinner_src_PulseLoader_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  mounted: function mounted() {
+    this.getRoles();
+  },
+  methods: {
+    deleteRole: function deleteRole(id) {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        var check;
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _this.isDeleted = true;
+                check = confirm("Are you sure you want to delete this Role?");
+
+                if (!(check == true)) {
+                  _context.next = 5;
+                  break;
+                }
+
+                _context.next = 5;
+                return axios["delete"]("/deleteRole/" + id).then(function (response) {
+                  _this.getRoles();
+
+                  _this.isDeleted = false;
+
+                  _this.$notify({
+                    group: 'foo',
+                    title: 'Role delete successful',
+                    text: ''
+                  });
+                });
+
+              case 5:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    getRoles: function getRoles() {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _this2.loading = true;
+                _context2.next = 3;
+                return axios.get('/getRoles').then(function (response) {
+                  _this2.tableData = response.data;
+                  _this2.loading = false;
+                });
+
+              case 3:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    showAddRoleModal: function showAddRoleModal() {
+      this.$modal.show(_addRoleModal_vue__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        "modalType": "Add"
+      }, {
+        height: "auto",
+        width: "700px"
+      }, {
+        "closed": this.closeAdd
+      });
+    },
+    showEditRoleModal: function showEditRoleModal(id) {
+      this.$modal.show(_addRoleModal_vue__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        "modalType": "Edit",
+        "id": id
+      }, {
+        height: "auto",
+        width: "700px"
+      }, {
+        "closed": this.closeAdd
+      });
+    },
+    closeAdd: function closeAdd(event) {
+      this.getRoles();
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/user_management/staffManagement.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/user_management/staffManagement.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var vue_spinner_src_PulseLoader_vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-spinner/src/PulseLoader.vue */ "./node_modules/vue-spinner/src/PulseLoader.vue");
+/* harmony import */ var _addUserModal_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./addUserModal.vue */ "./resources/js/components/user_management/addUserModal.vue");
+/* harmony import */ var _staffResetPass_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./staffResetPass.vue */ "./resources/js/components/user_management/staffResetPass.vue");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  components: {
+    addusermodal: _addUserModal_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
+    resetstaffpass: _staffResetPass_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    PulseLoader: vue_spinner_src_PulseLoader_vue__WEBPACK_IMPORTED_MODULE_0__["default"]
+  },
+  data: function data() {
+    return {
+      Loaded: true,
+      tableData: [],
+      queryData: {
+        queryItem: ""
+      }
+    };
+  },
+  mounted: function mounted() {
+    this.getStaff();
+  },
+  methods: {
+    searchUser: function searchUser() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return axios.post('/searchStaff', _this.queryData).then(function (response) {
+                  _this.tableData = response.data;
+                });
+
+              case 2:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    },
+    deleteUser: function deleteUser(id) {
+      var _this2 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
+        var check;
+        return _regeneratorRuntime().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                check = confirm("Are you sure you want to delete this user?");
+
+                if (!(check == true)) {
+                  _context2.next = 4;
+                  break;
+                }
+
+                _context2.next = 4;
+                return axios["delete"]("/deleteStaff/" + id).then(function (response) {
+                  _this2.getStaff();
+
+                  _this2.$notify({
+                    group: 'foo',
+                    title: 'User delete successful',
+                    text: ''
+                  });
+                });
+
+              case 4:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }))();
+    },
+    editUser: function editUser(id) {
+      var _this3 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return axios.get('/showStaff/' + id).then(function (response) {
+                  _this3.$modal.show(_addUserModal_vue__WEBPACK_IMPORTED_MODULE_1__["default"], {
+                    "user_data": response.data,
+                    "modalType": "Edit"
+                  }, {
+                    height: "450",
+                    width: "700px"
+                  }, {
+                    "closed": _this3.closeAdd
+                  });
+                });
+
+              case 2:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
+    showResetModal: function showResetModal(id) {
+      var _this4 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.next = 2;
+                return axios.get('/showStaff/' + id).then(function (response) {
+                  _this4.$modal.show(_staffResetPass_vue__WEBPACK_IMPORTED_MODULE_2__["default"], {
+                    "userData": response.data
+                  }, {
+                    height: "250",
+                    width: "350px"
+                  }, {
+                    "closed": _this4.closeAdd
+                  });
+                });
+
+              case 2:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }))();
+    },
+    showAddUserModal: function showAddUserModal() {
+      this.$modal.show(_addUserModal_vue__WEBPACK_IMPORTED_MODULE_1__["default"], {
+        "modalType": "Add"
+      }, {
+        height: "auto",
+        width: "700px"
+      }, {
+        "closed": this.closeAdd
+      });
+    },
+    closeAdd: function closeAdd(event) {
+      this.getStaff();
+    },
+    getStaff: function getStaff() {
+      var _this5 = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                _context5.next = 2;
+                return axios.get('/getStaff').then(function (response) {
+                  _this5.tableData = response.data;
+                  _this5.Loaded = false;
+                });
+
+              case 2:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }))();
+    }
+  }
+});
+
+/***/ }),
+
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/user_management/staffResetPass.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/user_management/staffResetPass.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+function _regeneratorRuntime() { "use strict"; /*! regenerator-runtime -- Copyright (c) 2014-present, Facebook, Inc. -- license (MIT): https://github.com/facebook/regenerator/blob/main/LICENSE */ _regeneratorRuntime = function _regeneratorRuntime() { return exports; }; var exports = {}, Op = Object.prototype, hasOwn = Op.hasOwnProperty, $Symbol = "function" == typeof Symbol ? Symbol : {}, iteratorSymbol = $Symbol.iterator || "@@iterator", asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator", toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag"; function define(obj, key, value) { return Object.defineProperty(obj, key, { value: value, enumerable: !0, configurable: !0, writable: !0 }), obj[key]; } try { define({}, ""); } catch (err) { define = function define(obj, key, value) { return obj[key] = value; }; } function wrap(innerFn, outerFn, self, tryLocsList) { var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator, generator = Object.create(protoGenerator.prototype), context = new Context(tryLocsList || []); return generator._invoke = function (innerFn, self, context) { var state = "suspendedStart"; return function (method, arg) { if ("executing" === state) throw new Error("Generator is already running"); if ("completed" === state) { if ("throw" === method) throw arg; return doneResult(); } for (context.method = method, context.arg = arg;;) { var delegate = context.delegate; if (delegate) { var delegateResult = maybeInvokeDelegate(delegate, context); if (delegateResult) { if (delegateResult === ContinueSentinel) continue; return delegateResult; } } if ("next" === context.method) context.sent = context._sent = context.arg;else if ("throw" === context.method) { if ("suspendedStart" === state) throw state = "completed", context.arg; context.dispatchException(context.arg); } else "return" === context.method && context.abrupt("return", context.arg); state = "executing"; var record = tryCatch(innerFn, self, context); if ("normal" === record.type) { if (state = context.done ? "completed" : "suspendedYield", record.arg === ContinueSentinel) continue; return { value: record.arg, done: context.done }; } "throw" === record.type && (state = "completed", context.method = "throw", context.arg = record.arg); } }; }(innerFn, self, context), generator; } function tryCatch(fn, obj, arg) { try { return { type: "normal", arg: fn.call(obj, arg) }; } catch (err) { return { type: "throw", arg: err }; } } exports.wrap = wrap; var ContinueSentinel = {}; function Generator() {} function GeneratorFunction() {} function GeneratorFunctionPrototype() {} var IteratorPrototype = {}; define(IteratorPrototype, iteratorSymbol, function () { return this; }); var getProto = Object.getPrototypeOf, NativeIteratorPrototype = getProto && getProto(getProto(values([]))); NativeIteratorPrototype && NativeIteratorPrototype !== Op && hasOwn.call(NativeIteratorPrototype, iteratorSymbol) && (IteratorPrototype = NativeIteratorPrototype); var Gp = GeneratorFunctionPrototype.prototype = Generator.prototype = Object.create(IteratorPrototype); function defineIteratorMethods(prototype) { ["next", "throw", "return"].forEach(function (method) { define(prototype, method, function (arg) { return this._invoke(method, arg); }); }); } function AsyncIterator(generator, PromiseImpl) { function invoke(method, arg, resolve, reject) { var record = tryCatch(generator[method], generator, arg); if ("throw" !== record.type) { var result = record.arg, value = result.value; return value && "object" == _typeof(value) && hasOwn.call(value, "__await") ? PromiseImpl.resolve(value.__await).then(function (value) { invoke("next", value, resolve, reject); }, function (err) { invoke("throw", err, resolve, reject); }) : PromiseImpl.resolve(value).then(function (unwrapped) { result.value = unwrapped, resolve(result); }, function (error) { return invoke("throw", error, resolve, reject); }); } reject(record.arg); } var previousPromise; this._invoke = function (method, arg) { function callInvokeWithMethodAndArg() { return new PromiseImpl(function (resolve, reject) { invoke(method, arg, resolve, reject); }); } return previousPromise = previousPromise ? previousPromise.then(callInvokeWithMethodAndArg, callInvokeWithMethodAndArg) : callInvokeWithMethodAndArg(); }; } function maybeInvokeDelegate(delegate, context) { var method = delegate.iterator[context.method]; if (undefined === method) { if (context.delegate = null, "throw" === context.method) { if (delegate.iterator["return"] && (context.method = "return", context.arg = undefined, maybeInvokeDelegate(delegate, context), "throw" === context.method)) return ContinueSentinel; context.method = "throw", context.arg = new TypeError("The iterator does not provide a 'throw' method"); } return ContinueSentinel; } var record = tryCatch(method, delegate.iterator, context.arg); if ("throw" === record.type) return context.method = "throw", context.arg = record.arg, context.delegate = null, ContinueSentinel; var info = record.arg; return info ? info.done ? (context[delegate.resultName] = info.value, context.next = delegate.nextLoc, "return" !== context.method && (context.method = "next", context.arg = undefined), context.delegate = null, ContinueSentinel) : info : (context.method = "throw", context.arg = new TypeError("iterator result is not an object"), context.delegate = null, ContinueSentinel); } function pushTryEntry(locs) { var entry = { tryLoc: locs[0] }; 1 in locs && (entry.catchLoc = locs[1]), 2 in locs && (entry.finallyLoc = locs[2], entry.afterLoc = locs[3]), this.tryEntries.push(entry); } function resetTryEntry(entry) { var record = entry.completion || {}; record.type = "normal", delete record.arg, entry.completion = record; } function Context(tryLocsList) { this.tryEntries = [{ tryLoc: "root" }], tryLocsList.forEach(pushTryEntry, this), this.reset(!0); } function values(iterable) { if (iterable) { var iteratorMethod = iterable[iteratorSymbol]; if (iteratorMethod) return iteratorMethod.call(iterable); if ("function" == typeof iterable.next) return iterable; if (!isNaN(iterable.length)) { var i = -1, next = function next() { for (; ++i < iterable.length;) { if (hasOwn.call(iterable, i)) return next.value = iterable[i], next.done = !1, next; } return next.value = undefined, next.done = !0, next; }; return next.next = next; } } return { next: doneResult }; } function doneResult() { return { value: undefined, done: !0 }; } return GeneratorFunction.prototype = GeneratorFunctionPrototype, define(Gp, "constructor", GeneratorFunctionPrototype), define(GeneratorFunctionPrototype, "constructor", GeneratorFunction), GeneratorFunction.displayName = define(GeneratorFunctionPrototype, toStringTagSymbol, "GeneratorFunction"), exports.isGeneratorFunction = function (genFun) { var ctor = "function" == typeof genFun && genFun.constructor; return !!ctor && (ctor === GeneratorFunction || "GeneratorFunction" === (ctor.displayName || ctor.name)); }, exports.mark = function (genFun) { return Object.setPrototypeOf ? Object.setPrototypeOf(genFun, GeneratorFunctionPrototype) : (genFun.__proto__ = GeneratorFunctionPrototype, define(genFun, toStringTagSymbol, "GeneratorFunction")), genFun.prototype = Object.create(Gp), genFun; }, exports.awrap = function (arg) { return { __await: arg }; }, defineIteratorMethods(AsyncIterator.prototype), define(AsyncIterator.prototype, asyncIteratorSymbol, function () { return this; }), exports.AsyncIterator = AsyncIterator, exports.async = function (innerFn, outerFn, self, tryLocsList, PromiseImpl) { void 0 === PromiseImpl && (PromiseImpl = Promise); var iter = new AsyncIterator(wrap(innerFn, outerFn, self, tryLocsList), PromiseImpl); return exports.isGeneratorFunction(outerFn) ? iter : iter.next().then(function (result) { return result.done ? result.value : iter.next(); }); }, defineIteratorMethods(Gp), define(Gp, toStringTagSymbol, "Generator"), define(Gp, iteratorSymbol, function () { return this; }), define(Gp, "toString", function () { return "[object Generator]"; }), exports.keys = function (object) { var keys = []; for (var key in object) { keys.push(key); } return keys.reverse(), function next() { for (; keys.length;) { var key = keys.pop(); if (key in object) return next.value = key, next.done = !1, next; } return next.done = !0, next; }; }, exports.values = values, Context.prototype = { constructor: Context, reset: function reset(skipTempReset) { if (this.prev = 0, this.next = 0, this.sent = this._sent = undefined, this.done = !1, this.delegate = null, this.method = "next", this.arg = undefined, this.tryEntries.forEach(resetTryEntry), !skipTempReset) for (var name in this) { "t" === name.charAt(0) && hasOwn.call(this, name) && !isNaN(+name.slice(1)) && (this[name] = undefined); } }, stop: function stop() { this.done = !0; var rootRecord = this.tryEntries[0].completion; if ("throw" === rootRecord.type) throw rootRecord.arg; return this.rval; }, dispatchException: function dispatchException(exception) { if (this.done) throw exception; var context = this; function handle(loc, caught) { return record.type = "throw", record.arg = exception, context.next = loc, caught && (context.method = "next", context.arg = undefined), !!caught; } for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i], record = entry.completion; if ("root" === entry.tryLoc) return handle("end"); if (entry.tryLoc <= this.prev) { var hasCatch = hasOwn.call(entry, "catchLoc"), hasFinally = hasOwn.call(entry, "finallyLoc"); if (hasCatch && hasFinally) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } else if (hasCatch) { if (this.prev < entry.catchLoc) return handle(entry.catchLoc, !0); } else { if (!hasFinally) throw new Error("try statement without catch or finally"); if (this.prev < entry.finallyLoc) return handle(entry.finallyLoc); } } } }, abrupt: function abrupt(type, arg) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc <= this.prev && hasOwn.call(entry, "finallyLoc") && this.prev < entry.finallyLoc) { var finallyEntry = entry; break; } } finallyEntry && ("break" === type || "continue" === type) && finallyEntry.tryLoc <= arg && arg <= finallyEntry.finallyLoc && (finallyEntry = null); var record = finallyEntry ? finallyEntry.completion : {}; return record.type = type, record.arg = arg, finallyEntry ? (this.method = "next", this.next = finallyEntry.finallyLoc, ContinueSentinel) : this.complete(record); }, complete: function complete(record, afterLoc) { if ("throw" === record.type) throw record.arg; return "break" === record.type || "continue" === record.type ? this.next = record.arg : "return" === record.type ? (this.rval = this.arg = record.arg, this.method = "return", this.next = "end") : "normal" === record.type && afterLoc && (this.next = afterLoc), ContinueSentinel; }, finish: function finish(finallyLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.finallyLoc === finallyLoc) return this.complete(entry.completion, entry.afterLoc), resetTryEntry(entry), ContinueSentinel; } }, "catch": function _catch(tryLoc) { for (var i = this.tryEntries.length - 1; i >= 0; --i) { var entry = this.tryEntries[i]; if (entry.tryLoc === tryLoc) { var record = entry.completion; if ("throw" === record.type) { var thrown = record.arg; resetTryEntry(entry); } return thrown; } } throw new Error("illegal catch attempt"); }, delegateYield: function delegateYield(iterable, resultName, nextLoc) { return this.delegate = { iterator: values(iterable), resultName: resultName, nextLoc: nextLoc }, "next" === this.method && (this.arg = undefined), ContinueSentinel; } }, exports; }
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  props: ["userData"],
+  data: function data() {
+    return {
+      passwordData: {
+        user_id: this.userData.id,
+        password: ""
+      }
+    };
+  },
+  mounted: function mounted() {
+    console.log(this.userData);
+  },
+  methods: {
+    resetPass: function resetPass() {
+      var _this = this;
+
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+        return _regeneratorRuntime().wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return axios.post('/resetStaffPass', _this.passwordData).then(function (response) {
+                  _this.$emit('close');
+
+                  _this.$notify({
+                    group: 'foo',
+                    title: 'Password reset successful',
+                    text: ''
+                  });
+                });
+
+              case 2:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      }))();
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/warehouses/addWarehouseModal.vue?vue&type=script&lang=js&":
 /*!***********************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/warehouses/addWarehouseModal.vue?vue&type=script&lang=js& ***!
@@ -14440,8 +15479,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
-/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm.js");
+/* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./store */ "./resources/js/store/index.js");
 /* harmony import */ var _components_auth_login_vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/auth/login.vue */ "./resources/js/components/auth/login.vue");
 /* harmony import */ var _components_home_dashboard_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/home/dashboard.vue */ "./resources/js/components/home/dashboard.vue");
@@ -14453,6 +15492,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_zones_zones_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/zones/zones.vue */ "./resources/js/components/zones/zones.vue");
 /* harmony import */ var _components_zones_addZones_vue__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/zones/addZones.vue */ "./resources/js/components/zones/addZones.vue");
 /* harmony import */ var _components_orders_orderDetails_vue__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/orders/orderDetails.vue */ "./resources/js/components/orders/orderDetails.vue");
+/* harmony import */ var _components_user_management_rolePermission_vue__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/user_management/rolePermission.vue */ "./resources/js/components/user_management/rolePermission.vue");
+/* harmony import */ var _components_user_management_staffManagement_vue__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/user_management/staffManagement.vue */ "./resources/js/components/user_management/staffManagement.vue");
 
 
 
@@ -14467,7 +15508,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-vue__WEBPACK_IMPORTED_MODULE_11__["default"].use(vue_router__WEBPACK_IMPORTED_MODULE_12__["default"]);
+
+
+vue__WEBPACK_IMPORTED_MODULE_13__["default"].use(vue_router__WEBPACK_IMPORTED_MODULE_14__["default"]);
 var routes = [{
   path: '/login',
   component: _components_auth_login_vue__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -14512,8 +15555,18 @@ var routes = [{
   path: '/warehouse',
   component: _components_warehouses_warehouses_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
   name: 'Warehouse'
+}, {
+  path: '/rolePermission',
+  component: _components_user_management_rolePermission_vue__WEBPACK_IMPORTED_MODULE_11__["default"],
+  name: 'RolePermission',
+  props: true
+}, {
+  path: '/staffManagement',
+  component: _components_user_management_staffManagement_vue__WEBPACK_IMPORTED_MODULE_12__["default"],
+  name: 'StaffManagement',
+  props: true
 }];
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vue_router__WEBPACK_IMPORTED_MODULE_12__["default"]({
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (new vue_router__WEBPACK_IMPORTED_MODULE_14__["default"]({
   mode: 'history',
   routes: routes
 }));
@@ -79953,6 +81006,201 @@ component.options.__file = "resources/js/components/products/products.vue"
 
 /***/ }),
 
+/***/ "./resources/js/components/user_management/addRoleModal.vue":
+/*!******************************************************************!*\
+  !*** ./resources/js/components/user_management/addRoleModal.vue ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _addRoleModal_vue_vue_type_template_id_1e6760d9___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./addRoleModal.vue?vue&type=template&id=1e6760d9& */ "./resources/js/components/user_management/addRoleModal.vue?vue&type=template&id=1e6760d9&");
+/* harmony import */ var _addRoleModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./addRoleModal.vue?vue&type=script&lang=js& */ "./resources/js/components/user_management/addRoleModal.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _addRoleModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _addRoleModal_vue_vue_type_template_id_1e6760d9___WEBPACK_IMPORTED_MODULE_0__.render,
+  _addRoleModal_vue_vue_type_template_id_1e6760d9___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/user_management/addRoleModal.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/user_management/addUserModal.vue":
+/*!******************************************************************!*\
+  !*** ./resources/js/components/user_management/addUserModal.vue ***!
+  \******************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _addUserModal_vue_vue_type_template_id_5e30e524___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./addUserModal.vue?vue&type=template&id=5e30e524& */ "./resources/js/components/user_management/addUserModal.vue?vue&type=template&id=5e30e524&");
+/* harmony import */ var _addUserModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./addUserModal.vue?vue&type=script&lang=js& */ "./resources/js/components/user_management/addUserModal.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _addUserModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _addUserModal_vue_vue_type_template_id_5e30e524___WEBPACK_IMPORTED_MODULE_0__.render,
+  _addUserModal_vue_vue_type_template_id_5e30e524___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/user_management/addUserModal.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/user_management/rolePermission.vue":
+/*!********************************************************************!*\
+  !*** ./resources/js/components/user_management/rolePermission.vue ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _rolePermission_vue_vue_type_template_id_d84e9d70___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./rolePermission.vue?vue&type=template&id=d84e9d70& */ "./resources/js/components/user_management/rolePermission.vue?vue&type=template&id=d84e9d70&");
+/* harmony import */ var _rolePermission_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./rolePermission.vue?vue&type=script&lang=js& */ "./resources/js/components/user_management/rolePermission.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _rolePermission_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _rolePermission_vue_vue_type_template_id_d84e9d70___WEBPACK_IMPORTED_MODULE_0__.render,
+  _rolePermission_vue_vue_type_template_id_d84e9d70___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/user_management/rolePermission.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/user_management/staffManagement.vue":
+/*!*********************************************************************!*\
+  !*** ./resources/js/components/user_management/staffManagement.vue ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _staffManagement_vue_vue_type_template_id_0f002f70___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./staffManagement.vue?vue&type=template&id=0f002f70& */ "./resources/js/components/user_management/staffManagement.vue?vue&type=template&id=0f002f70&");
+/* harmony import */ var _staffManagement_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./staffManagement.vue?vue&type=script&lang=js& */ "./resources/js/components/user_management/staffManagement.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _staffManagement_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _staffManagement_vue_vue_type_template_id_0f002f70___WEBPACK_IMPORTED_MODULE_0__.render,
+  _staffManagement_vue_vue_type_template_id_0f002f70___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/user_management/staffManagement.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/user_management/staffResetPass.vue":
+/*!********************************************************************!*\
+  !*** ./resources/js/components/user_management/staffResetPass.vue ***!
+  \********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _staffResetPass_vue_vue_type_template_id_523cf3e3___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./staffResetPass.vue?vue&type=template&id=523cf3e3& */ "./resources/js/components/user_management/staffResetPass.vue?vue&type=template&id=523cf3e3&");
+/* harmony import */ var _staffResetPass_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./staffResetPass.vue?vue&type=script&lang=js& */ "./resources/js/components/user_management/staffResetPass.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _staffResetPass_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _staffResetPass_vue_vue_type_template_id_523cf3e3___WEBPACK_IMPORTED_MODULE_0__.render,
+  _staffResetPass_vue_vue_type_template_id_523cf3e3___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/user_management/staffResetPass.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/js/components/warehouses/addWarehouseModal.vue":
 /*!******************************************************************!*\
   !*** ./resources/js/components/warehouses/addWarehouseModal.vue ***!
@@ -80470,6 +81718,86 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_products_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./products.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/products/products.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_products_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/user_management/addRoleModal.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/components/user_management/addRoleModal.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_addRoleModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./addRoleModal.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/user_management/addRoleModal.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_addRoleModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/user_management/addUserModal.vue?vue&type=script&lang=js&":
+/*!*******************************************************************************************!*\
+  !*** ./resources/js/components/user_management/addUserModal.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_addUserModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./addUserModal.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/user_management/addUserModal.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_addUserModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/user_management/rolePermission.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/components/user_management/rolePermission.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_rolePermission_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./rolePermission.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/user_management/rolePermission.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_rolePermission_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/user_management/staffManagement.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/js/components/user_management/staffManagement.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_staffManagement_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./staffManagement.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/user_management/staffManagement.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_staffManagement_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/user_management/staffResetPass.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/js/components/user_management/staffResetPass.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_staffResetPass_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./staffResetPass.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/user_management/staffResetPass.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_staffResetPass_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
@@ -81051,6 +82379,91 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_products_vue_vue_type_template_id_6428bf74___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_products_vue_vue_type_template_id_6428bf74___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./products.vue?vue&type=template&id=6428bf74& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/products/products.vue?vue&type=template&id=6428bf74&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/user_management/addRoleModal.vue?vue&type=template&id=1e6760d9&":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/components/user_management/addRoleModal.vue?vue&type=template&id=1e6760d9& ***!
+  \*************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_addRoleModal_vue_vue_type_template_id_1e6760d9___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_addRoleModal_vue_vue_type_template_id_1e6760d9___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_addRoleModal_vue_vue_type_template_id_1e6760d9___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./addRoleModal.vue?vue&type=template&id=1e6760d9& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/user_management/addRoleModal.vue?vue&type=template&id=1e6760d9&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/user_management/addUserModal.vue?vue&type=template&id=5e30e524&":
+/*!*************************************************************************************************!*\
+  !*** ./resources/js/components/user_management/addUserModal.vue?vue&type=template&id=5e30e524& ***!
+  \*************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_addUserModal_vue_vue_type_template_id_5e30e524___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_addUserModal_vue_vue_type_template_id_5e30e524___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_addUserModal_vue_vue_type_template_id_5e30e524___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./addUserModal.vue?vue&type=template&id=5e30e524& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/user_management/addUserModal.vue?vue&type=template&id=5e30e524&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/user_management/rolePermission.vue?vue&type=template&id=d84e9d70&":
+/*!***************************************************************************************************!*\
+  !*** ./resources/js/components/user_management/rolePermission.vue?vue&type=template&id=d84e9d70& ***!
+  \***************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_rolePermission_vue_vue_type_template_id_d84e9d70___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_rolePermission_vue_vue_type_template_id_d84e9d70___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_rolePermission_vue_vue_type_template_id_d84e9d70___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./rolePermission.vue?vue&type=template&id=d84e9d70& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/user_management/rolePermission.vue?vue&type=template&id=d84e9d70&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/user_management/staffManagement.vue?vue&type=template&id=0f002f70&":
+/*!****************************************************************************************************!*\
+  !*** ./resources/js/components/user_management/staffManagement.vue?vue&type=template&id=0f002f70& ***!
+  \****************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_staffManagement_vue_vue_type_template_id_0f002f70___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_staffManagement_vue_vue_type_template_id_0f002f70___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_staffManagement_vue_vue_type_template_id_0f002f70___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./staffManagement.vue?vue&type=template&id=0f002f70& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/user_management/staffManagement.vue?vue&type=template&id=0f002f70&");
+
+
+/***/ }),
+
+/***/ "./resources/js/components/user_management/staffResetPass.vue?vue&type=template&id=523cf3e3&":
+/*!***************************************************************************************************!*\
+  !*** ./resources/js/components/user_management/staffResetPass.vue?vue&type=template&id=523cf3e3& ***!
+  \***************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_staffResetPass_vue_vue_type_template_id_523cf3e3___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_staffResetPass_vue_vue_type_template_id_523cf3e3___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_staffResetPass_vue_vue_type_template_id_523cf3e3___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./staffResetPass.vue?vue&type=template&id=523cf3e3& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/user_management/staffResetPass.vue?vue&type=template&id=523cf3e3&");
 
 
 /***/ }),
@@ -81757,67 +83170,51 @@ var render = function () {
                                     attrs: { id: "u_m" },
                                   },
                                   [
-                                    _vm.$store.state.auth.permissions
-                                      .StaffManagement
-                                      ? _c(
-                                          "li",
-                                          {
-                                            class:
-                                              _vm.$route.path ==
-                                              "/admin/staffManagement"
-                                                ? "active"
-                                                : "",
-                                          },
+                                    _c(
+                                      "li",
+                                      {
+                                        class:
+                                          _vm.$route.path == "/staffManagement"
+                                            ? "active"
+                                            : "",
+                                      },
+                                      [
+                                        _c(
+                                          "router-link",
+                                          { attrs: { to: "/staffManagement" } },
                                           [
-                                            _c(
-                                              "router-link",
-                                              {
-                                                attrs: {
-                                                  to: "/admin/staffManagement",
-                                                },
-                                              },
-                                              [
-                                                _c("i", {
-                                                  staticClass: "fa fa-users",
-                                                }),
-                                                _vm._v(" Staff Management"),
-                                              ]
-                                            ),
-                                          ],
-                                          1
-                                        )
-                                      : _vm._e(),
+                                            _c("i", {
+                                              staticClass: "fa fa-users",
+                                            }),
+                                            _vm._v(" Staff Management"),
+                                          ]
+                                        ),
+                                      ],
+                                      1
+                                    ),
                                     _vm._v(" "),
-                                    _vm.$store.state.auth.permissions
-                                      .RolePermission
-                                      ? _c(
-                                          "li",
-                                          {
-                                            class:
-                                              _vm.$route.path ==
-                                              "/admin/rolePermission"
-                                                ? "active"
-                                                : "",
-                                          },
+                                    _c(
+                                      "li",
+                                      {
+                                        class:
+                                          _vm.$route.path == "/rolePermission"
+                                            ? "active"
+                                            : "",
+                                      },
+                                      [
+                                        _c(
+                                          "router-link",
+                                          { attrs: { to: "/rolePermission" } },
                                           [
-                                            _c(
-                                              "router-link",
-                                              {
-                                                attrs: {
-                                                  to: "/admin/rolePermission",
-                                                },
-                                              },
-                                              [
-                                                _c("i", {
-                                                  staticClass: "fa fa-key",
-                                                }),
-                                                _vm._v(" Role Permission"),
-                                              ]
-                                            ),
-                                          ],
-                                          1
-                                        )
-                                      : _vm._e(),
+                                            _c("i", {
+                                              staticClass: "fa fa-key",
+                                            }),
+                                            _vm._v(" Role Permission"),
+                                          ]
+                                        ),
+                                      ],
+                                      1
+                                    ),
                                   ]
                                 ),
                               ]
@@ -84440,6 +85837,1794 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th"),
       ]),
+    ])
+  },
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/user_management/addRoleModal.vue?vue&type=template&id=1e6760d9&":
+/*!****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/user_management/addRoleModal.vue?vue&type=template&id=1e6760d9& ***!
+  \****************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "row m-0 p-2" }, [
+    _c("div", { staticClass: "col-md-12 border-bottom p-2" }, [
+      _c("h5", [
+        _vm._v(_vm._s(_vm.modalType == "Edit" ? "Edit" : "Add") + " role"),
+      ]),
+    ]),
+    _vm._v(" "),
+    _vm._m(0),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "col-md-12" },
+      [
+        _c("input", {
+          directives: [
+            {
+              name: "model",
+              rawName: "v-model",
+              value: _vm.data.role,
+              expression: "data.role",
+            },
+          ],
+          staticClass: "form-control",
+          attrs: { type: "text" },
+          domProps: { value: _vm.data.role },
+          on: {
+            input: function ($event) {
+              if ($event.target.composing) {
+                return
+              }
+              _vm.$set(_vm.data, "role", $event.target.value)
+            },
+          },
+        }),
+        _vm._v(" "),
+        _vm._l(_vm.valErrors.role, function (an) {
+          return _c("h6", { key: an.id, staticClass: "text-danger m-0" }, [
+            _vm._v(_vm._s(an)),
+          ])
+        }),
+      ],
+      2
+    ),
+    _vm._v(" "),
+    _vm._m(1),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-md-12 pt-2" }, [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.data.permissions.Dashboard,
+            expression: "data.permissions.Dashboard",
+          },
+        ],
+        staticClass: "form-check-input",
+        attrs: { type: "checkbox", value: "Sales" },
+        domProps: {
+          checked: Array.isArray(_vm.data.permissions.Dashboard)
+            ? _vm._i(_vm.data.permissions.Dashboard, "Sales") > -1
+            : _vm.data.permissions.Dashboard,
+        },
+        on: {
+          click: function ($event) {
+            return _vm.changeState("Dashboard")
+          },
+          change: function ($event) {
+            var $$a = _vm.data.permissions.Dashboard,
+              $$el = $event.target,
+              $$c = $$el.checked ? true : false
+            if (Array.isArray($$a)) {
+              var $$v = "Sales",
+                $$i = _vm._i($$a, $$v)
+              if ($$el.checked) {
+                $$i < 0 &&
+                  _vm.$set(_vm.data.permissions, "Dashboard", $$a.concat([$$v]))
+              } else {
+                $$i > -1 &&
+                  _vm.$set(
+                    _vm.data.permissions,
+                    "Dashboard",
+                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                  )
+              }
+            } else {
+              _vm.$set(_vm.data.permissions, "Dashboard", $$c)
+            }
+          },
+        },
+      }),
+      _vm._v(" Dashboard\n    "),
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-md-12 pt-2" }, [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.data.permissions.Products,
+            expression: "data.permissions.Products",
+          },
+        ],
+        staticClass: "form-check-input",
+        attrs: { type: "checkbox", value: "Sales" },
+        domProps: {
+          checked: Array.isArray(_vm.data.permissions.Products)
+            ? _vm._i(_vm.data.permissions.Products, "Sales") > -1
+            : _vm.data.permissions.Products,
+        },
+        on: {
+          click: function ($event) {
+            return _vm.changeState("Products")
+          },
+          change: function ($event) {
+            var $$a = _vm.data.permissions.Products,
+              $$el = $event.target,
+              $$c = $$el.checked ? true : false
+            if (Array.isArray($$a)) {
+              var $$v = "Sales",
+                $$i = _vm._i($$a, $$v)
+              if ($$el.checked) {
+                $$i < 0 &&
+                  _vm.$set(_vm.data.permissions, "Products", $$a.concat([$$v]))
+              } else {
+                $$i > -1 &&
+                  _vm.$set(
+                    _vm.data.permissions,
+                    "Products",
+                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                  )
+              }
+            } else {
+              _vm.$set(_vm.data.permissions, "Products", $$c)
+            }
+          },
+        },
+      }),
+      _vm._v(" Products\n    "),
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-md-12 pt-2" }, [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.data.permissions.Orders,
+            expression: "data.permissions.Orders",
+          },
+        ],
+        staticClass: "form-check-input",
+        attrs: { type: "checkbox", value: "Sales" },
+        domProps: {
+          checked: Array.isArray(_vm.data.permissions.Orders)
+            ? _vm._i(_vm.data.permissions.Orders, "Sales") > -1
+            : _vm.data.permissions.Orders,
+        },
+        on: {
+          click: function ($event) {
+            return _vm.changeState("Orders")
+          },
+          change: function ($event) {
+            var $$a = _vm.data.permissions.Orders,
+              $$el = $event.target,
+              $$c = $$el.checked ? true : false
+            if (Array.isArray($$a)) {
+              var $$v = "Sales",
+                $$i = _vm._i($$a, $$v)
+              if ($$el.checked) {
+                $$i < 0 &&
+                  _vm.$set(_vm.data.permissions, "Orders", $$a.concat([$$v]))
+              } else {
+                $$i > -1 &&
+                  _vm.$set(
+                    _vm.data.permissions,
+                    "Orders",
+                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                  )
+              }
+            } else {
+              _vm.$set(_vm.data.permissions, "Orders", $$c)
+            }
+          },
+        },
+      }),
+      _vm._v(" Orders\n    "),
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-md-12 pt-2" }, [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.data.permissions.Categories,
+            expression: "data.permissions.Categories",
+          },
+        ],
+        staticClass: "form-check-input",
+        attrs: { type: "checkbox", value: "Sales" },
+        domProps: {
+          checked: Array.isArray(_vm.data.permissions.Categories)
+            ? _vm._i(_vm.data.permissions.Categories, "Sales") > -1
+            : _vm.data.permissions.Categories,
+        },
+        on: {
+          click: function ($event) {
+            return _vm.changeState("Categories")
+          },
+          change: function ($event) {
+            var $$a = _vm.data.permissions.Categories,
+              $$el = $event.target,
+              $$c = $$el.checked ? true : false
+            if (Array.isArray($$a)) {
+              var $$v = "Sales",
+                $$i = _vm._i($$a, $$v)
+              if ($$el.checked) {
+                $$i < 0 &&
+                  _vm.$set(
+                    _vm.data.permissions,
+                    "Categories",
+                    $$a.concat([$$v])
+                  )
+              } else {
+                $$i > -1 &&
+                  _vm.$set(
+                    _vm.data.permissions,
+                    "Categories",
+                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                  )
+              }
+            } else {
+              _vm.$set(_vm.data.permissions, "Categories", $$c)
+            }
+          },
+        },
+      }),
+      _vm._v(" Categories\n    "),
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-md-12 pt-2" }, [
+      _vm._m(2),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.data.permissions.Marketing,
+            expression: "data.permissions.Marketing",
+          },
+        ],
+        staticClass: "form-check-input",
+        attrs: { type: "checkbox", value: "Sales" },
+        domProps: {
+          checked: Array.isArray(_vm.data.permissions.Marketing)
+            ? _vm._i(_vm.data.permissions.Marketing, "Sales") > -1
+            : _vm.data.permissions.Marketing,
+        },
+        on: {
+          click: function ($event) {
+            return _vm.changeState("Marketing")
+          },
+          change: function ($event) {
+            var $$a = _vm.data.permissions.Marketing,
+              $$el = $event.target,
+              $$c = $$el.checked ? true : false
+            if (Array.isArray($$a)) {
+              var $$v = "Sales",
+                $$i = _vm._i($$a, $$v)
+              if ($$el.checked) {
+                $$i < 0 &&
+                  _vm.$set(_vm.data.permissions, "Marketing", $$a.concat([$$v]))
+              } else {
+                $$i > -1 &&
+                  _vm.$set(
+                    _vm.data.permissions,
+                    "Marketing",
+                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                  )
+              }
+            } else {
+              _vm.$set(_vm.data.permissions, "Marketing", $$c)
+            }
+          },
+        },
+      }),
+      _vm._v(" Marketing\n        "),
+      _c(
+        "div",
+        { staticClass: "collapse mt-2 ms-5", attrs: { id: "order_m" } },
+        [
+          _c("div", [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.data.permissions.FlashSales,
+                  expression: "data.permissions.FlashSales",
+                },
+              ],
+              staticClass: "form-check-input",
+              attrs: { type: "checkbox", value: "Sales" },
+              domProps: {
+                checked: Array.isArray(_vm.data.permissions.FlashSales)
+                  ? _vm._i(_vm.data.permissions.FlashSales, "Sales") > -1
+                  : _vm.data.permissions.FlashSales,
+              },
+              on: {
+                change: function ($event) {
+                  var $$a = _vm.data.permissions.FlashSales,
+                    $$el = $event.target,
+                    $$c = $$el.checked ? true : false
+                  if (Array.isArray($$a)) {
+                    var $$v = "Sales",
+                      $$i = _vm._i($$a, $$v)
+                    if ($$el.checked) {
+                      $$i < 0 &&
+                        _vm.$set(
+                          _vm.data.permissions,
+                          "FlashSales",
+                          $$a.concat([$$v])
+                        )
+                    } else {
+                      $$i > -1 &&
+                        _vm.$set(
+                          _vm.data.permissions,
+                          "FlashSales",
+                          $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                        )
+                    }
+                  } else {
+                    _vm.$set(_vm.data.permissions, "FlashSales", $$c)
+                  }
+                },
+              },
+            }),
+            _vm._v(" Flash Sales\n            "),
+          ]),
+          _vm._v(" "),
+          _c("div", [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.data.permissions.RegularSales,
+                  expression: "data.permissions.RegularSales",
+                },
+              ],
+              staticClass: "form-check-input",
+              attrs: { type: "checkbox", value: "Sales" },
+              domProps: {
+                checked: Array.isArray(_vm.data.permissions.RegularSales)
+                  ? _vm._i(_vm.data.permissions.RegularSales, "Sales") > -1
+                  : _vm.data.permissions.RegularSales,
+              },
+              on: {
+                change: function ($event) {
+                  var $$a = _vm.data.permissions.RegularSales,
+                    $$el = $event.target,
+                    $$c = $$el.checked ? true : false
+                  if (Array.isArray($$a)) {
+                    var $$v = "Sales",
+                      $$i = _vm._i($$a, $$v)
+                    if ($$el.checked) {
+                      $$i < 0 &&
+                        _vm.$set(
+                          _vm.data.permissions,
+                          "RegularSales",
+                          $$a.concat([$$v])
+                        )
+                    } else {
+                      $$i > -1 &&
+                        _vm.$set(
+                          _vm.data.permissions,
+                          "RegularSales",
+                          $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                        )
+                    }
+                  } else {
+                    _vm.$set(_vm.data.permissions, "RegularSales", $$c)
+                  }
+                },
+              },
+            }),
+            _vm._v(" Regular Sales\n            "),
+          ]),
+        ]
+      ),
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-md-12 pt-2" }, [
+      _vm._m(3),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.data.permissions.UserManagement,
+            expression: "data.permissions.UserManagement",
+          },
+        ],
+        staticClass: "form-check-input",
+        attrs: { type: "checkbox", value: "Sales" },
+        domProps: {
+          checked: Array.isArray(_vm.data.permissions.UserManagement)
+            ? _vm._i(_vm.data.permissions.UserManagement, "Sales") > -1
+            : _vm.data.permissions.UserManagement,
+        },
+        on: {
+          click: function ($event) {
+            return _vm.changeState("UserManagement")
+          },
+          change: function ($event) {
+            var $$a = _vm.data.permissions.UserManagement,
+              $$el = $event.target,
+              $$c = $$el.checked ? true : false
+            if (Array.isArray($$a)) {
+              var $$v = "Sales",
+                $$i = _vm._i($$a, $$v)
+              if ($$el.checked) {
+                $$i < 0 &&
+                  _vm.$set(
+                    _vm.data.permissions,
+                    "UserManagement",
+                    $$a.concat([$$v])
+                  )
+              } else {
+                $$i > -1 &&
+                  _vm.$set(
+                    _vm.data.permissions,
+                    "UserManagement",
+                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                  )
+              }
+            } else {
+              _vm.$set(_vm.data.permissions, "UserManagement", $$c)
+            }
+          },
+        },
+      }),
+      _vm._v(" User Management\n        "),
+      _c(
+        "div",
+        { staticClass: "collapse mt-2 ms-5", attrs: { id: "business_m" } },
+        [
+          _c("div", [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.data.permissions.RolePermission,
+                  expression: "data.permissions.RolePermission",
+                },
+              ],
+              staticClass: "form-check-input",
+              attrs: { type: "checkbox", value: "Sales" },
+              domProps: {
+                checked: Array.isArray(_vm.data.permissions.RolePermission)
+                  ? _vm._i(_vm.data.permissions.RolePermission, "Sales") > -1
+                  : _vm.data.permissions.RolePermission,
+              },
+              on: {
+                change: function ($event) {
+                  var $$a = _vm.data.permissions.RolePermission,
+                    $$el = $event.target,
+                    $$c = $$el.checked ? true : false
+                  if (Array.isArray($$a)) {
+                    var $$v = "Sales",
+                      $$i = _vm._i($$a, $$v)
+                    if ($$el.checked) {
+                      $$i < 0 &&
+                        _vm.$set(
+                          _vm.data.permissions,
+                          "RolePermission",
+                          $$a.concat([$$v])
+                        )
+                    } else {
+                      $$i > -1 &&
+                        _vm.$set(
+                          _vm.data.permissions,
+                          "RolePermission",
+                          $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                        )
+                    }
+                  } else {
+                    _vm.$set(_vm.data.permissions, "RolePermission", $$c)
+                  }
+                },
+              },
+            }),
+            _vm._v(" Role Permission\n            "),
+          ]),
+          _vm._v(" "),
+          _c("div", [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.data.permissions.StaffManagement,
+                  expression: "data.permissions.StaffManagement",
+                },
+              ],
+              staticClass: "form-check-input",
+              attrs: { type: "checkbox", value: "Sales" },
+              domProps: {
+                checked: Array.isArray(_vm.data.permissions.StaffManagement)
+                  ? _vm._i(_vm.data.permissions.StaffManagement, "Sales") > -1
+                  : _vm.data.permissions.StaffManagement,
+              },
+              on: {
+                change: function ($event) {
+                  var $$a = _vm.data.permissions.StaffManagement,
+                    $$el = $event.target,
+                    $$c = $$el.checked ? true : false
+                  if (Array.isArray($$a)) {
+                    var $$v = "Sales",
+                      $$i = _vm._i($$a, $$v)
+                    if ($$el.checked) {
+                      $$i < 0 &&
+                        _vm.$set(
+                          _vm.data.permissions,
+                          "StaffManagement",
+                          $$a.concat([$$v])
+                        )
+                    } else {
+                      $$i > -1 &&
+                        _vm.$set(
+                          _vm.data.permissions,
+                          "StaffManagement",
+                          $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                        )
+                    }
+                  } else {
+                    _vm.$set(_vm.data.permissions, "StaffManagement", $$c)
+                  }
+                },
+              },
+            }),
+            _vm._v(" Staff Management\n            "),
+          ]),
+        ]
+      ),
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-md-12 pt-2 pb-2" }, [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.data.permissions.SalesReport,
+            expression: "data.permissions.SalesReport",
+          },
+        ],
+        staticClass: "form-check-input",
+        attrs: { type: "checkbox", value: "Sales" },
+        domProps: {
+          checked: Array.isArray(_vm.data.permissions.SalesReport)
+            ? _vm._i(_vm.data.permissions.SalesReport, "Sales") > -1
+            : _vm.data.permissions.SalesReport,
+        },
+        on: {
+          click: function ($event) {
+            return _vm.changeState("SalesReport")
+          },
+          change: function ($event) {
+            var $$a = _vm.data.permissions.SalesReport,
+              $$el = $event.target,
+              $$c = $$el.checked ? true : false
+            if (Array.isArray($$a)) {
+              var $$v = "Sales",
+                $$i = _vm._i($$a, $$v)
+              if ($$el.checked) {
+                $$i < 0 &&
+                  _vm.$set(
+                    _vm.data.permissions,
+                    "SalesReport",
+                    $$a.concat([$$v])
+                  )
+              } else {
+                $$i > -1 &&
+                  _vm.$set(
+                    _vm.data.permissions,
+                    "SalesReport",
+                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                  )
+              }
+            } else {
+              _vm.$set(_vm.data.permissions, "SalesReport", $$c)
+            }
+          },
+        },
+      }),
+      _vm._v(" SalesReport\n    "),
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-md-12 pt-2 pb-2 border-bottom" }, [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.data.permissions.Customers,
+            expression: "data.permissions.Customers",
+          },
+        ],
+        staticClass: "form-check-input",
+        attrs: { type: "checkbox", value: "Sales" },
+        domProps: {
+          checked: Array.isArray(_vm.data.permissions.Customers)
+            ? _vm._i(_vm.data.permissions.Customers, "Sales") > -1
+            : _vm.data.permissions.Customers,
+        },
+        on: {
+          click: function ($event) {
+            return _vm.changeState("Customers")
+          },
+          change: function ($event) {
+            var $$a = _vm.data.permissions.Customers,
+              $$el = $event.target,
+              $$c = $$el.checked ? true : false
+            if (Array.isArray($$a)) {
+              var $$v = "Sales",
+                $$i = _vm._i($$a, $$v)
+              if ($$el.checked) {
+                $$i < 0 &&
+                  _vm.$set(_vm.data.permissions, "Customers", $$a.concat([$$v]))
+              } else {
+                $$i > -1 &&
+                  _vm.$set(
+                    _vm.data.permissions,
+                    "Customers",
+                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                  )
+              }
+            } else {
+              _vm.$set(_vm.data.permissions, "Customers", $$c)
+            }
+          },
+        },
+      }),
+      _vm._v(" Customers\n    "),
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-md-12 p-2 text-end" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary",
+          attrs: { disabled: _vm.isClicked },
+          on: {
+            click: function ($event) {
+              return _vm.$emit("close")
+            },
+          },
+        },
+        [_vm._v("Cancel")]
+      ),
+      _vm._v(" "),
+      !_vm.isEdit
+        ? _c(
+            "button",
+            {
+              staticClass: "button btn btn-primary",
+              attrs: { disabled: _vm.isClicked },
+              on: {
+                click: function ($event) {
+                  return _vm.createPermission()
+                },
+              },
+            },
+            [_vm._v("Save")]
+          )
+        : _vm._e(),
+      _vm._v(" "),
+      _vm.isEdit
+        ? _c(
+            "button",
+            {
+              staticClass: "button btn btn-primary",
+              attrs: { disabled: _vm.isClicked },
+              on: {
+                click: function ($event) {
+                  return _vm.updatePermission()
+                },
+              },
+            },
+            [_vm._v("Edit")]
+          )
+        : _vm._e(),
+    ]),
+  ])
+}
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-2 pt-2" }, [
+      _c("label", [_c("strong", [_vm._v("Role ")])]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-12 pt-2" }, [
+      _c("h6", [_vm._v("Access Permission")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "span",
+      {
+        staticClass: "mr-3",
+        staticStyle: { "padding-right": "12px" },
+        attrs: {
+          "data-bs-toggle": "collapse",
+          href: "#order_m",
+          role: "button",
+          "aria-expanded": "false",
+          "aria-controls": "collapseExample",
+        },
+      },
+      [_c("span", { staticClass: "fa fa-angle-down" })]
+    )
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "span",
+      {
+        staticClass: "mr-3",
+        staticStyle: { "padding-right": "12px" },
+        attrs: {
+          "data-bs-toggle": "collapse",
+          href: "#business_m",
+          role: "button",
+          "aria-expanded": "false",
+          "aria-controls": "collapseExample",
+        },
+      },
+      [_c("span", { staticClass: "fa fa-angle-down" })]
+    )
+  },
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/user_management/addUserModal.vue?vue&type=template&id=5e30e524&":
+/*!****************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/user_management/addUserModal.vue?vue&type=template&id=5e30e524& ***!
+  \****************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "row m-0 p-2" }, [
+    _c("div", { staticClass: "col-md-12 border-bottom p-2" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-10" }, [
+          _vm.add ? _c("h5", [_vm._v("Add User")]) : _vm._e(),
+          _vm._v(" "),
+          _vm.edit ? _c("h5", [_vm._v("Edit User")]) : _vm._e(),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-2 text-end" }, [
+          _c("span", {
+            staticClass: "fa fa-times",
+            staticStyle: { "font-size": "20px" },
+            on: {
+              click: function ($event) {
+                return _vm.$emit("close")
+              },
+            },
+          }),
+        ]),
+      ]),
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-md-12 pt-2" }, [
+      _c("div", { staticClass: "row p-2" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "col-md-7" },
+          [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.f_name,
+                  expression: "formData.f_name",
+                },
+              ],
+              staticClass: "form form-control",
+              attrs: { type: "text" },
+              domProps: { value: _vm.formData.f_name },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "f_name", $event.target.value)
+                },
+              },
+            }),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.id,
+                  expression: "formData.id",
+                },
+              ],
+              staticClass: "form form-control",
+              attrs: { type: "hidden" },
+              domProps: { value: _vm.formData.id },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "id", $event.target.value)
+                },
+              },
+            }),
+            _vm._v(" "),
+            _vm._l(_vm.valErrors.f_name, function (an) {
+              return _c("h6", { key: an.id, staticClass: "text-danger m-0" }, [
+                _vm._v(_vm._s(an)),
+              ])
+            }),
+          ],
+          2
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-2" }),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row p-2" }, [
+        _vm._m(1),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "col-md-7" },
+          [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.l_name,
+                  expression: "formData.l_name",
+                },
+              ],
+              staticClass: "form form-control",
+              attrs: { type: "text" },
+              domProps: { value: _vm.formData.l_name },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "l_name", $event.target.value)
+                },
+              },
+            }),
+            _vm._v(" "),
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.id,
+                  expression: "formData.id",
+                },
+              ],
+              staticClass: "form form-control",
+              attrs: { type: "hidden" },
+              domProps: { value: _vm.formData.id },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "id", $event.target.value)
+                },
+              },
+            }),
+            _vm._v(" "),
+            _vm._l(_vm.valErrors.l_name, function (an) {
+              return _c("h6", { key: an.id, staticClass: "text-danger m-0" }, [
+                _vm._v(_vm._s(an)),
+              ])
+            }),
+          ],
+          2
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "col-md-2" }),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row p-2" }, [
+        _vm._m(2),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "col-md-7" },
+          [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.title,
+                  expression: "formData.title",
+                },
+              ],
+              staticClass: "form form-control",
+              attrs: { type: "text" },
+              domProps: { value: _vm.formData.title },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "title", $event.target.value)
+                },
+              },
+            }),
+            _vm._v(" "),
+            _vm._l(_vm.valErrors.title, function (an) {
+              return _c("h6", { key: an.id, staticClass: "text-danger m-0" }, [
+                _vm._v(_vm._s(an)),
+              ])
+            }),
+          ],
+          2
+        ),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row p-2" }, [
+        _vm._m(3),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "col-md-7" },
+          [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.phone_no,
+                  expression: "formData.phone_no",
+                },
+              ],
+              staticClass: "form form-control",
+              attrs: { type: "number" },
+              domProps: { value: _vm.formData.phone_no },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "phone_no", $event.target.value)
+                },
+              },
+            }),
+            _vm._v(" "),
+            _vm._l(_vm.valErrors.phone_no, function (an) {
+              return _c("h6", { key: an.id, staticClass: "text-danger m-0" }, [
+                _vm._v(_vm._s(an)),
+              ])
+            }),
+          ],
+          2
+        ),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row p-2" }, [
+        _vm._m(4),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "col-md-7" },
+          [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.formData.email,
+                  expression: "formData.email",
+                },
+              ],
+              staticClass: "form form-control",
+              attrs: { type: "email" },
+              domProps: { value: _vm.formData.email },
+              on: {
+                input: function ($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.formData, "email", $event.target.value)
+                },
+              },
+            }),
+            _vm._v(" "),
+            _vm._l(_vm.valErrors.email, function (an) {
+              return _c("h6", { key: an.id, staticClass: "text-danger m-0" }, [
+                _vm._v(_vm._s(an)),
+              ])
+            }),
+          ],
+          2
+        ),
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "row p-2" }, [
+        _vm._m(5),
+        _vm._v(" "),
+        _c(
+          "div",
+          { staticClass: "col-md-7" },
+          [
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.formData.user_role,
+                    expression: "formData.user_role",
+                  },
+                ],
+                staticClass: "form-control",
+                on: {
+                  change: function ($event) {
+                    var $$selectedVal = Array.prototype.filter
+                      .call($event.target.options, function (o) {
+                        return o.selected
+                      })
+                      .map(function (o) {
+                        var val = "_value" in o ? o._value : o.value
+                        return val
+                      })
+                    _vm.$set(
+                      _vm.formData,
+                      "user_role",
+                      $event.target.multiple ? $$selectedVal : $$selectedVal[0]
+                    )
+                  },
+                },
+              },
+              [
+                _c("option", { attrs: { value: "" } }),
+                _vm._v(" "),
+                _vm._l(_vm.roles, function (role) {
+                  return _c(
+                    "option",
+                    { key: role.id, domProps: { value: role.role } },
+                    [_vm._v(_vm._s(role.role))]
+                  )
+                }),
+              ],
+              2
+            ),
+            _vm._v(" "),
+            _vm._l(_vm.valErrors.user_role, function (an) {
+              return _c("h6", { key: an.id, staticClass: "text-danger m-0" }, [
+                _vm._v(_vm._s(an)),
+              ])
+            }),
+          ],
+          2
+        ),
+      ]),
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-md-12 border-top p-2" }, [
+      _c("div", { staticClass: "row" }, [
+        _c("div", { staticClass: "col-md-12 text-end" }, [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-secondary btn-sm",
+              attrs: { disabled: _vm.isClicked },
+              on: {
+                click: function ($event) {
+                  return _vm.$emit("close")
+                },
+              },
+            },
+            [_vm._v("Cancel")]
+          ),
+          _vm._v(" "),
+          _vm.add
+            ? _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary btn-sm",
+                  attrs: { disabled: _vm.isClicked },
+                  on: {
+                    click: function ($event) {
+                      return _vm.addUser()
+                    },
+                  },
+                },
+                [_vm._v("Save")]
+              )
+            : _vm._e(),
+          _vm._v(" "),
+          _vm.edit
+            ? _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary btn-sm",
+                  attrs: { disabled: _vm.isClicked },
+                  on: {
+                    click: function ($event) {
+                      return _vm.editUser()
+                    },
+                  },
+                },
+                [_vm._v("Edit")]
+              )
+            : _vm._e(),
+        ]),
+      ]),
+    ]),
+  ])
+}
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-3 text-right" }, [
+      _c("label", [_vm._v("* First Name")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-3 text-right" }, [
+      _c("label", [_vm._v("* Last Name")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-3 text-right" }, [
+      _c("label", [_vm._v("* Title")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-3 text-right" }, [
+      _c("label", [_vm._v("* Phone Number")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-3 text-right" }, [
+      _c("label", [_vm._v("* Email Address")]),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-3 text-right" }, [
+      _c("label", [_vm._v("* User role")]),
+    ])
+  },
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/user_management/rolePermission.vue?vue&type=template&id=d84e9d70&":
+/*!******************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/user_management/rolePermission.vue?vue&type=template&id=d84e9d70& ***!
+  \******************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "main_dis" }, [
+    _c("div", { staticClass: "row m-0 pt-lg-5" }, [
+      _c("div", { staticClass: "col-md-12 mb-5" }, [
+        _c("div", { staticClass: "bg-white shadow-sm rounded-lg" }, [
+          _c("div", { staticClass: "row m-0" }, [
+            _c("div", { staticClass: "col-md-12" }, [
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "btn shadow-sm btn-primary btn-sm float-end mt-n3",
+                  on: {
+                    click: function ($event) {
+                      return _vm.showAddRoleModal()
+                    },
+                  },
+                },
+                [_vm._m(0)]
+              ),
+            ]),
+          ]),
+          _vm._v(" "),
+          !_vm.loading
+            ? _c("div", { staticClass: "row m-0 p-3 border-bottom" }, [
+                _c("table", { staticClass: "table table-data table-sm" }, [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.tableData, function (td, index) {
+                      return _c("tr", { key: index }, [
+                        _c("td", [_vm._v(_vm._s(index + 1))]),
+                        _vm._v(" "),
+                        _c("th", [_vm._v(_vm._s(td.role))]),
+                        _vm._v(" "),
+                        _c("td", { staticStyle: { width: "300px" } }, [
+                          JSON.parse(td.permissions).Dashboard
+                            ? _c(
+                                "span",
+                                {
+                                  staticClass:
+                                    "badge badge-pill bg-primary p-1 shadow-sm",
+                                },
+                                [_vm._v("Dashboard")]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          JSON.parse(td.permissions).Products
+                            ? _c(
+                                "span",
+                                {
+                                  staticClass:
+                                    "badge badge-pill bg-primary p-1 shadow-sm",
+                                },
+                                [_vm._v("Products")]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          JSON.parse(td.permissions).Orders
+                            ? _c(
+                                "span",
+                                {
+                                  staticClass:
+                                    "badge badge-pill bg-primary p-1 shadow-sm",
+                                },
+                                [_vm._v("Orders")]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          JSON.parse(td.permissions).Categories
+                            ? _c(
+                                "span",
+                                {
+                                  staticClass:
+                                    "badge badge-pill bg-primary p-1 shadow-sm",
+                                },
+                                [_vm._v("Categories")]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          JSON.parse(td.permissions).Marketing
+                            ? _c(
+                                "span",
+                                {
+                                  staticClass:
+                                    "badge badge-pill bg-primary p-1 shadow-sm",
+                                },
+                                [_vm._v("Marketing")]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          JSON.parse(td.permissions).FlashSales
+                            ? _c(
+                                "span",
+                                {
+                                  staticClass:
+                                    "badge badge-pill bg-primary p-1 shadow-sm",
+                                },
+                                [_vm._v("Flash Sales")]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          JSON.parse(td.permissions).RegularSales
+                            ? _c(
+                                "span",
+                                {
+                                  staticClass:
+                                    "badge badge-pill bg-primary p-1 shadow-sm",
+                                },
+                                [_vm._v("Regular Sales")]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          JSON.parse(td.permissions).UserManagement
+                            ? _c(
+                                "span",
+                                {
+                                  staticClass:
+                                    "badge badge-pill bg-primary p-1 shadow-sm",
+                                },
+                                [_vm._v("User Management")]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          JSON.parse(td.permissions).RoleManagement
+                            ? _c(
+                                "span",
+                                {
+                                  staticClass:
+                                    "badge badge-pill bg-primary p-1 shadow-sm",
+                                },
+                                [_vm._v("Role Management")]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          JSON.parse(td.permissions).StaffManagement
+                            ? _c(
+                                "span",
+                                {
+                                  staticClass:
+                                    "badge badge-pill bg-primary p-1 shadow-sm",
+                                },
+                                [_vm._v("Staff Management")]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          JSON.parse(td.permissions).SalesReport
+                            ? _c(
+                                "span",
+                                {
+                                  staticClass:
+                                    "badge badge-pill bg-primary p-1 shadow-sm",
+                                },
+                                [_vm._v("SalesReport")]
+                              )
+                            : _vm._e(),
+                          _vm._v(" "),
+                          JSON.parse(td.permissions).Customers
+                            ? _c(
+                                "span",
+                                {
+                                  staticClass:
+                                    "badge badge-pill bg-primary p-1 shadow-sm",
+                                },
+                                [_vm._v("Customers")]
+                              )
+                            : _vm._e(),
+                        ]),
+                        _vm._v(" "),
+                        _c("td", [
+                          _c("span", {
+                            staticClass: "fa fa-edit float-end me-3",
+                            on: {
+                              click: function ($event) {
+                                return _vm.showEditRoleModal(td.id)
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("span", {
+                            staticClass: "fa fa-trash-alt float-end me-3",
+                            on: {
+                              click: function ($event) {
+                                return _vm.deleteRole(td.id)
+                              },
+                            },
+                          }),
+                        ]),
+                      ])
+                    }),
+                    0
+                  ),
+                ]),
+                _vm._v(" "),
+                _vm.loading
+                  ? _c(
+                      "div",
+                      { staticClass: "d-flex justify-content-center" },
+                      [
+                        _c("pulse-loader", {
+                          attrs: { color: "#BF7F25", size: "15px" },
+                        }),
+                      ],
+                      1
+                    )
+                  : _vm._e(),
+              ])
+            : _vm._e(),
+        ]),
+      ]),
+    ]),
+  ])
+}
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("strong", [
+      _c("span", { staticClass: "fa fa-plus" }),
+      _vm._v(" Add Role"),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th"),
+        _vm._v(" "),
+        _c("th", [_vm._v("Role")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Access Permission")]),
+        _vm._v(" "),
+        _c("th"),
+      ]),
+    ])
+  },
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/user_management/staffManagement.vue?vue&type=template&id=0f002f70&":
+/*!*******************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/user_management/staffManagement.vue?vue&type=template&id=0f002f70& ***!
+  \*******************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "main_dis" }, [
+    _c("div", { staticClass: "row m-0 pt-lg-5" }, [
+      _c("div", { staticClass: "col-md-12" }, [
+        _c("div", { staticClass: "bg-white shadow-sm rounded-lg" }, [
+          _c("div", { staticClass: "row m-0 p-3 border-bottom" }, [
+            _c("div", { staticClass: "col-md-4" }, [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.queryData.queryItem,
+                    expression: "queryData.queryItem",
+                  },
+                ],
+                staticClass: "form-control",
+                attrs: { type: "text", placeholder: "Phone/Name" },
+                domProps: { value: _vm.queryData.queryItem },
+                on: {
+                  input: function ($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.queryData, "queryItem", $event.target.value)
+                  },
+                },
+              }),
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "col-md-4" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary",
+                  on: {
+                    click: function ($event) {
+                      return _vm.searchUser()
+                    },
+                  },
+                },
+                [_c("span", { staticClass: "fa fa-search" }), _vm._v(" Search")]
+              ),
+            ]),
+          ]),
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "bg-white shadow-sm rounded-lg mt-5" }, [
+          _c("div", { staticClass: "row m-0 p-2 border-bottom" }, [
+            _c("div", { staticClass: "col-md-12" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn float-end btn-primary btn-sm mt-n4",
+                  on: {
+                    click: function ($event) {
+                      return _vm.showAddUserModal()
+                    },
+                  },
+                },
+                [
+                  _c("span", { staticClass: "fa fa-plus" }),
+                  _vm._v("Add staff member"),
+                ]
+              ),
+            ]),
+            _vm._v(" "),
+            _c(
+              "div",
+              { staticClass: "col-md-12 mt-2" },
+              [
+                _c("table", { staticClass: "table table-sm table-data" }, [
+                  _vm._m(0),
+                  _vm._v(" "),
+                  _c(
+                    "tbody",
+                    _vm._l(_vm.tableData, function (td, index) {
+                      return _c("tr", { key: td.id }, [
+                        _c("td", [_vm._v(_vm._s(index + 1))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(td.f_name))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(td.l_name))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(td.title))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(td.email))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(td.phone_no))]),
+                        _vm._v(" "),
+                        _c("td", [_vm._v(_vm._s(td.user_role))]),
+                        _vm._v(" "),
+                        _c("td", { staticClass: "text-center" }, [
+                          _c("span", {
+                            staticClass: "fa fa-edit me-5",
+                            staticStyle: { cursor: "pointer" },
+                            on: {
+                              click: function ($event) {
+                                return _vm.editUser(td.id)
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("span", {
+                            staticClass: "fa fa-trash-alt me-5",
+                            staticStyle: { cursor: "pointer" },
+                            on: {
+                              click: function ($event) {
+                                return _vm.deleteUser(td.id)
+                              },
+                            },
+                          }),
+                          _vm._v(" "),
+                          _c("span", {
+                            staticClass: "fa fa-key",
+                            staticStyle: { cursor: "pointer" },
+                            on: {
+                              click: function ($event) {
+                                return _vm.showResetModal(td.id)
+                              },
+                            },
+                          }),
+                        ]),
+                      ])
+                    }),
+                    0
+                  ),
+                ]),
+                _vm._v(" "),
+                _vm.Loaded
+                  ? _c("Circle8", {
+                      staticClass: "m-auto pt-5 pb-5",
+                      staticStyle: { width: "70px", height: "70px" },
+                    })
+                  : _vm._e(),
+              ],
+              1
+            ),
+          ]),
+        ]),
+      ]),
+    ]),
+  ])
+}
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", { staticClass: "thead-dark" }, [
+      _c("tr", [
+        _c("th", [_vm._v("#")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("First Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Last Name")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Title")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("E-mail")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Phone Number")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("User Role")]),
+        _vm._v(" "),
+        _c("th", { staticClass: "text-center" }, [_vm._v("Operate")]),
+      ]),
+    ])
+  },
+]
+render._withStripped = true
+
+
+
+/***/ }),
+
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/user_management/staffResetPass.vue?vue&type=template&id=523cf3e3&":
+/*!******************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/js/components/user_management/staffResetPass.vue?vue&type=template&id=523cf3e3& ***!
+  \******************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function () {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c("div", { staticClass: "row p-2 m-0" }, [
+    _c("div", { staticClass: "col-md-12 border-bottom p-2 text-center" }, [
+      _c("h5", [
+        _vm._v(
+          "Reset password for " +
+            _vm._s(_vm.userData.name) +
+            " (" +
+            _vm._s(_vm.userData.phone_no) +
+            ")"
+        ),
+      ]),
+    ]),
+    _vm._v(" "),
+    _vm._m(0),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-md-12 mt-2" }, [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.passwordData.password,
+            expression: "passwordData.password",
+          },
+        ],
+        staticClass: "form-control",
+        attrs: { type: "password" },
+        domProps: { value: _vm.passwordData.password },
+        on: {
+          input: function ($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.$set(_vm.passwordData, "password", $event.target.value)
+          },
+        },
+      }),
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-md-12 mt-3 text-right" }, [
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-secondary",
+          on: {
+            click: function ($event) {
+              return _vm.$emit("close")
+            },
+          },
+        },
+        [_vm._v("Cancel")]
+      ),
+      _vm._v(" "),
+      _c(
+        "button",
+        {
+          staticClass: "btn btn-success",
+          on: {
+            click: function ($event) {
+              return _vm.resetPass()
+            },
+          },
+        },
+        [_vm._v("Reset")]
+      ),
+    ]),
+  ])
+}
+var staticRenderFns = [
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "col-md-12 text-center mt-3" }, [
+      _c("h5", [_vm._v("New Password")]),
     ])
   },
 ]

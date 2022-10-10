@@ -12,6 +12,8 @@ import zones from './components/zones/zones.vue'
 import addZones from './components/zones/addZones.vue'
 import orderDetails from './components/orders/orderDetails.vue'
 import warehouse from './components/warehouses/warehouses.vue'
+import rolePermission from './components/user_management/rolePermission.vue'
+import staffManagement from './components/user_management/staffManagement.vue'
 Vue.use(Router)
 
 const routes = [
@@ -69,6 +71,18 @@ const routes = [
         path: '/warehouse',
         component: warehouse,
         name: 'Warehouse'
+    },
+    {
+        path: '/rolePermission',
+        component: rolePermission,
+        name: 'RolePermission',
+        props: true
+    },
+    {
+        path: '/staffManagement',
+        component: staffManagement,
+        name: 'StaffManagement',
+        props: true
     },
 ]
 

@@ -44,11 +44,11 @@
                   <a data-bs-toggle="collapse" href="#u_m" aria-expanded="false" aria-controls="collapseExample"><i data-feather="user"></i> User Management</a>
                   <div class="collapse" id="u_m">
                     <ul class="collapse list-unstyled" id="u_m">
-                      <li v-if="$store.state.auth.permissions.StaffManagement" :class="$route.path == `/admin/staffManagement` ? `active` : ``">
-                          <router-link to="/admin/staffManagement"><i class="fa fa-users"></i> Staff Management</router-link>
+                      <li  :class="$route.path == `/staffManagement` ? `active` : ``">
+                          <router-link to="/staffManagement"><i class="fa fa-users"></i> Staff Management</router-link>
                       </li>
-                      <li v-if="$store.state.auth.permissions.RolePermission" :class="$route.path == `/admin/rolePermission` ? `active` : ``">
-                          <router-link to="/admin/rolePermission"><i class="fa fa-key"></i> Role Permission</router-link>
+                      <li  :class="$route.path == `/rolePermission` ? `active` : ``">
+                          <router-link to="/rolePermission"><i class="fa fa-key"></i> Role Permission</router-link>
                       </li>
                     </ul>
                   </div>
