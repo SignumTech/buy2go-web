@@ -151,10 +151,10 @@ class productsController extends Controller
             //Filename to store
             $fileNameToStore = $filename.'_'.time().'.'.$extension;
             //upload Image
-            $realPath = public_path().'\storage\products\\';
-            //$realPath = storage_path().'/app/public/products/';
-            $thumbnailPath = public_path().'\storage\productsThumb\\';
-            //$thumbnailPath = storage_path().'/app/public/productsThumb/';
+            //$realPath = public_path().'\storage\products\\';
+            $realPath = storage_path().'/app/public/products/';
+            //$thumbnailPath = public_path().'\storage\productsThumb\\';
+            $thumbnailPath = storage_path().'/app/public/productsThumb/';
             $thumbnailImage->save($realPath.$fileNameToStore);
 
             $thumbnailImage->resize(null, 320, function ($constraint){
