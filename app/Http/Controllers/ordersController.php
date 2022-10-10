@@ -114,7 +114,7 @@ class ordersController extends Controller
         $data = [];
         $data['order_detail'] = $order;
         $data['order_items'] = $order_items;
-        return $order;
+        return $data;
     }
 
     /**
