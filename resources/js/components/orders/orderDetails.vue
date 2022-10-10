@@ -54,22 +54,20 @@
                 <h6 class="mt-2">Tax (15% VAT): <span class="float-end">{{order.total/1.15 * 0.15 | numFormat}} ETB</span></h6>
                 <h5 class="mt-2"><strong>Total: <span class="float-end">{{order.total | numFormat}} ETB</span></strong></h5>
                 </div>
-                <div class="col-md-6 mt-5">
+                <div @click="addressModal(address.geolocation)" class="col-md-6 mt-5">
                     <h5 class="border-bottom">Shipping Information</h5>
                     <div class="rounded-1 border-start border-warning border-5 p-3" style="cursor:pointer">
                         <h5><strong>{{address.f_name}} {{address.l_name}}</strong> </h5>
                         <h6>+251-{{address.phone_no}}</h6>
                         <h6>{{address.regular_address}}</h6>
-                        <h6>{{address.geolocation}}</h6>
                     </div>
                 </div>
-                <div class="col-md-6 mt-5">
+                <div @click="addressModal(address.geolocation)" class="col-md-6 mt-5">
                 <h5 class="border-bottom">Billing Information</h5>
                 <div class="rounded-1 border-start border-warning border-5 p-3" style="cursor:pointer">
                     <h5><strong>{{address.f_name}} {{address.l_name}}</strong> </h5>
                     <h6>+251-{{address.phone_no}}</h6>
                     <h6>{{address.regular_address}}</h6>
-                    <h6>{{address.geolocation}}</h6>
                 </div>
                 </div>
         </div>
@@ -78,6 +76,7 @@
 </template>
 <script>
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
+import addressModalVue from './addressModal.vue'
 export default {
     components:{
         PulseLoader
@@ -94,6 +93,13 @@ export default {
         this.getOrder()
     },
     methods:{
+        addressModal(location){
+            this.$modal.show(
+                addressModalVue,
+                {location:location},
+                {height:"auto",width:"800px"},
+            )
+        },
         async shipOrder(){
             await axios.post('/shipOrder', {order_id:this.order.id})
             .then( response => {
