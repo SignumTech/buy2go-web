@@ -13326,9 +13326,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                     text: 'You have successfuly published your product!'
                   });
 
+                  _this6.isEditing = false;
                   window.location.replace('/productList');
                 })["catch"](function (error) {
                   if (error.response.status == 422) {
+                    _this6.isEditing = true;
                     _this6.validationErrors = error.response.data.errors;
                   }
                 });

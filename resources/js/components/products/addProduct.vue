@@ -199,10 +199,12 @@ export default {
                         title: 'Publishing Successful',
                         text: 'You have successfuly published your product!'
                     });
+                    this.isEditing = false
                     window.location.replace('/productList')
                 })
                 .catch( error=>{
                     if(error.response.status == 422){
+                        this.isEditing = true
                         this.validationErrors = error.response.data.errors
                     }
                 })                
