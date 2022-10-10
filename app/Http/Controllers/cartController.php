@@ -44,6 +44,7 @@ class cartController extends Controller
                 $cart_item->quantity = $item->quantity;
                 $cart_item->save();
             }
+            $cart->quantity = CartItem::where('cart_id', $cart->id)->sum('quantity');
             return $cart;
         }
     }
