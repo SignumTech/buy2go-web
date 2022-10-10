@@ -39,7 +39,7 @@
                     <thead>
                         <tr>
                             <th>Order No</th>
-                            <th>Order date. {{order.created_at | moment("ddd, MMM Do YYYY")}}</th>
+                            <th>Order date</th>
                             <th>Total</th>
                             <th>No. of items</th>
                             <th>Order Status</th>

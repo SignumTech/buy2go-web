@@ -85230,35 +85230,7 @@ var render = function () {
       ? _c("div", { staticClass: "col-md-12" }, [
           _c("div", { staticClass: "bg-white shadow-sm p-2" }, [
             _c("table", { staticClass: "table table-sm mt-2" }, [
-              _c("thead", [
-                _c("tr", [
-                  _c("th", [_vm._v("Order No")]),
-                  _vm._v(" "),
-                  _c("th", [
-                    _vm._v(
-                      "Order date. " +
-                        _vm._s(
-                          _vm._f("moment")(
-                            _vm.order.created_at,
-                            "ddd, MMM Do YYYY"
-                          )
-                        )
-                    ),
-                  ]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("Total")]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("No. of items")]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("Order Status")]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("Payment Status")]),
-                  _vm._v(" "),
-                  _c("th", [_vm._v("Payment Method")]),
-                  _vm._v(" "),
-                  _c("th"),
-                ]),
-              ]),
+              _vm._m(5),
               _vm._v(" "),
               _c(
                 "tbody",
@@ -85373,6 +85345,30 @@ var staticRenderFns = [
     return _c("h5", { staticClass: "text-center m-0" }, [
       _c("span", { staticClass: "fa fa-box-open" }),
       _vm._v(" Delivered"),
+    ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("thead", [
+      _c("tr", [
+        _c("th", [_vm._v("Order No")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Order date")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Total")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("No. of items")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Order Status")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Payment Status")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Payment Method")]),
+        _vm._v(" "),
+        _c("th"),
+      ]),
     ])
   },
 ]
