@@ -85229,7 +85229,7 @@ var render = function () {
     !_vm.loading
       ? _c("div", { staticClass: "col-md-12" }, [
           _c("div", { staticClass: "bg-white shadow-sm p-2" }, [
-            _c("table", { staticClass: "table table-sm mt-2" }, [
+            _c("table", { staticClass: "table mt-2" }, [
               _vm._m(5),
               _vm._v(" "),
               _c(
@@ -85352,7 +85352,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("thead", [
-      _c("tr", [
+      _c("tr", { staticClass: "text-center" }, [
         _c("th", [_vm._v("Order No")]),
         _vm._v(" "),
         _c("th", [_vm._v("Order date")]),

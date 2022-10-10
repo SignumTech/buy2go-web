@@ -35,9 +35,9 @@
     <div v-if="!loading" class="col-md-12">
         <div class="bg-white shadow-sm p-2">
             
-            <table class="table table-sm mt-2">
+            <table class="table mt-2">
                     <thead>
-                        <tr>
+                        <tr class="text-center">
                             <th>Order No</th>
                             <th>Order date</th>
                             <th>Total</th>
