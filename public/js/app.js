@@ -84772,7 +84772,9 @@ var render = function () {
               _c("h6", { staticClass: "mt-2" }, [
                 _vm._v("Sub total: "),
                 _c("span", { staticClass: "float-end" }, [
-                  _vm._v(_vm._s(_vm._f("numFormat")(_vm.order.total)) + " ETB"),
+                  _vm._v(
+                    _vm._s(_vm._f("numFormat")(_vm.order.total / 1.15)) + " ETB"
+                  ),
                 ]),
               ]),
               _vm._v(" "),
@@ -84780,7 +84782,9 @@ var render = function () {
                 _vm._v("Tax (15% VAT): "),
                 _c("span", { staticClass: "float-end" }, [
                   _vm._v(
-                    _vm._s(_vm._f("numFormat")(_vm.order.total * 0.15)) + " ETB"
+                    _vm._s(
+                      _vm._f("numFormat")((_vm.order.total / 1.15) * 0.15)
+                    ) + " ETB"
                   ),
                 ]),
               ]),
@@ -84790,8 +84794,7 @@ var render = function () {
                   _vm._v("Total: "),
                   _c("span", { staticClass: "float-end" }, [
                     _vm._v(
-                      _vm._s(_vm._f("numFormat")(_vm.order.total * 1.15)) +
-                        " ETB"
+                      _vm._s(_vm._f("numFormat")(_vm.order.total)) + " ETB"
                     ),
                   ]),
                 ]),
