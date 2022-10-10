@@ -13581,11 +13581,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: ["modalType", "id"],
   data: function data() {
@@ -86067,8 +86062,106 @@ var render = function () {
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "col-md-12 pt-2" }, [
-      _vm._m(2),
-      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.data.permissions.Warehouses,
+            expression: "data.permissions.Warehouses",
+          },
+        ],
+        staticClass: "form-check-input",
+        attrs: { type: "checkbox", value: "Sales" },
+        domProps: {
+          checked: Array.isArray(_vm.data.permissions.Warehouses)
+            ? _vm._i(_vm.data.permissions.Warehouses, "Sales") > -1
+            : _vm.data.permissions.Warehouses,
+        },
+        on: {
+          click: function ($event) {
+            return _vm.changeState("Warehouses")
+          },
+          change: function ($event) {
+            var $$a = _vm.data.permissions.Warehouses,
+              $$el = $event.target,
+              $$c = $$el.checked ? true : false
+            if (Array.isArray($$a)) {
+              var $$v = "Sales",
+                $$i = _vm._i($$a, $$v)
+              if ($$el.checked) {
+                $$i < 0 &&
+                  _vm.$set(
+                    _vm.data.permissions,
+                    "Warehouses",
+                    $$a.concat([$$v])
+                  )
+              } else {
+                $$i > -1 &&
+                  _vm.$set(
+                    _vm.data.permissions,
+                    "Warehouses",
+                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                  )
+              }
+            } else {
+              _vm.$set(_vm.data.permissions, "Warehouses", $$c)
+            }
+          },
+        },
+      }),
+      _vm._v(" Warehouses\n    "),
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-md-12 pt-2" }, [
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.data.permissions.Zones,
+            expression: "data.permissions.Zones",
+          },
+        ],
+        staticClass: "form-check-input",
+        attrs: { type: "checkbox", value: "Sales" },
+        domProps: {
+          checked: Array.isArray(_vm.data.permissions.Zones)
+            ? _vm._i(_vm.data.permissions.Zones, "Sales") > -1
+            : _vm.data.permissions.Zones,
+        },
+        on: {
+          click: function ($event) {
+            return _vm.changeState("Zones")
+          },
+          change: function ($event) {
+            var $$a = _vm.data.permissions.Zones,
+              $$el = $event.target,
+              $$c = $$el.checked ? true : false
+            if (Array.isArray($$a)) {
+              var $$v = "Sales",
+                $$i = _vm._i($$a, $$v)
+              if ($$el.checked) {
+                $$i < 0 &&
+                  _vm.$set(_vm.data.permissions, "Zones", $$a.concat([$$v]))
+              } else {
+                $$i > -1 &&
+                  _vm.$set(
+                    _vm.data.permissions,
+                    "Zones",
+                    $$a.slice(0, $$i).concat($$a.slice($$i + 1))
+                  )
+              }
+            } else {
+              _vm.$set(_vm.data.permissions, "Zones", $$c)
+            }
+          },
+        },
+      }),
+      _vm._v(" Zones\n    "),
+    ]),
+    _vm._v(" "),
+    _c("div", { staticClass: "col-md-12 pt-2" }, [
       _c("input", {
         directives: [
           {
@@ -86113,114 +86206,11 @@ var render = function () {
           },
         },
       }),
-      _vm._v(" Marketing\n        "),
-      _c(
-        "div",
-        { staticClass: "collapse mt-2 ms-5", attrs: { id: "order_m" } },
-        [
-          _c("div", [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.data.permissions.FlashSales,
-                  expression: "data.permissions.FlashSales",
-                },
-              ],
-              staticClass: "form-check-input",
-              attrs: { type: "checkbox", value: "Sales" },
-              domProps: {
-                checked: Array.isArray(_vm.data.permissions.FlashSales)
-                  ? _vm._i(_vm.data.permissions.FlashSales, "Sales") > -1
-                  : _vm.data.permissions.FlashSales,
-              },
-              on: {
-                change: function ($event) {
-                  var $$a = _vm.data.permissions.FlashSales,
-                    $$el = $event.target,
-                    $$c = $$el.checked ? true : false
-                  if (Array.isArray($$a)) {
-                    var $$v = "Sales",
-                      $$i = _vm._i($$a, $$v)
-                    if ($$el.checked) {
-                      $$i < 0 &&
-                        _vm.$set(
-                          _vm.data.permissions,
-                          "FlashSales",
-                          $$a.concat([$$v])
-                        )
-                    } else {
-                      $$i > -1 &&
-                        _vm.$set(
-                          _vm.data.permissions,
-                          "FlashSales",
-                          $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                        )
-                    }
-                  } else {
-                    _vm.$set(_vm.data.permissions, "FlashSales", $$c)
-                  }
-                },
-              },
-            }),
-            _vm._v(" Flash Sales\n            "),
-          ]),
-          _vm._v(" "),
-          _c("div", [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.data.permissions.RegularSales,
-                  expression: "data.permissions.RegularSales",
-                },
-              ],
-              staticClass: "form-check-input",
-              attrs: { type: "checkbox", value: "Sales" },
-              domProps: {
-                checked: Array.isArray(_vm.data.permissions.RegularSales)
-                  ? _vm._i(_vm.data.permissions.RegularSales, "Sales") > -1
-                  : _vm.data.permissions.RegularSales,
-              },
-              on: {
-                change: function ($event) {
-                  var $$a = _vm.data.permissions.RegularSales,
-                    $$el = $event.target,
-                    $$c = $$el.checked ? true : false
-                  if (Array.isArray($$a)) {
-                    var $$v = "Sales",
-                      $$i = _vm._i($$a, $$v)
-                    if ($$el.checked) {
-                      $$i < 0 &&
-                        _vm.$set(
-                          _vm.data.permissions,
-                          "RegularSales",
-                          $$a.concat([$$v])
-                        )
-                    } else {
-                      $$i > -1 &&
-                        _vm.$set(
-                          _vm.data.permissions,
-                          "RegularSales",
-                          $$a.slice(0, $$i).concat($$a.slice($$i + 1))
-                        )
-                    }
-                  } else {
-                    _vm.$set(_vm.data.permissions, "RegularSales", $$c)
-                  }
-                },
-              },
-            }),
-            _vm._v(" Regular Sales\n            "),
-          ]),
-        ]
-      ),
+      _vm._v(" Marketing\n    "),
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "col-md-12 pt-2" }, [
-      _vm._m(3),
+      _vm._m(2),
       _vm._v(" "),
       _c("input", {
         directives: [
@@ -86541,26 +86531,6 @@ var staticRenderFns = [
     return _c("div", { staticClass: "col-md-12 pt-2" }, [
       _c("h6", [_vm._v("Access Permission")]),
     ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "span",
-      {
-        staticClass: "mr-3",
-        staticStyle: { "padding-right": "12px" },
-        attrs: {
-          "data-bs-toggle": "collapse",
-          href: "#order_m",
-          role: "button",
-          "aria-expanded": "false",
-          "aria-controls": "collapseExample",
-        },
-      },
-      [_c("span", { staticClass: "fa fa-angle-down" })]
-    )
   },
   function () {
     var _vm = this
@@ -87150,25 +87120,25 @@ var render = function () {
                               )
                             : _vm._e(),
                           _vm._v(" "),
-                          JSON.parse(td.permissions).FlashSales
+                          JSON.parse(td.permissions).Warehouses
                             ? _c(
                                 "span",
                                 {
                                   staticClass:
                                     "badge badge-pill bg-primary p-1 shadow-sm",
                                 },
-                                [_vm._v("Flash Sales")]
+                                [_vm._v("Warehouses")]
                               )
                             : _vm._e(),
                           _vm._v(" "),
-                          JSON.parse(td.permissions).RegularSales
+                          JSON.parse(td.permissions).Zones
                             ? _c(
                                 "span",
                                 {
                                   staticClass:
                                     "badge badge-pill bg-primary p-1 shadow-sm",
                                 },
-                                [_vm._v("Regular Sales")]
+                                [_vm._v("Zones")]
                               )
                             : _vm._e(),
                           _vm._v(" "),

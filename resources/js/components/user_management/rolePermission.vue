@@ -33,8 +33,8 @@
                                     <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).Orders">Orders</span>
                                     <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).Categories">Categories</span>
                                     <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).Marketing">Marketing</span>
-                                    <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).FlashSales">Flash Sales</span>
-                                    <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).RegularSales">Regular Sales</span>
+                                    <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).Warehouses">Warehouses</span>
+                                    <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).Zones">Zones</span>
                                     <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).UserManagement">User Management</span>
                                     <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).RoleManagement">Role Management</span>
                                     <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).StaffManagement">Staff Management</span>

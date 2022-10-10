@@ -26,18 +26,13 @@
         <input class="form-check-input" @click="changeState('Categories')" v-model="data.permissions.Categories" type="checkbox" value="Sales"> Categories
     </div>
     <div class="col-md-12 pt-2">
-        <span class="mr-3" data-bs-toggle="collapse" href="#order_m" role="button" aria-expanded="false" aria-controls="collapseExample" style="padding-right: 12px">
-            <span class="fa fa-angle-down"> </span> 
-        </span>
+        <input class="form-check-input" @click="changeState('Warehouses')" v-model="data.permissions.Warehouses" type="checkbox" value="Sales"> Warehouses
+    </div>
+    <div class="col-md-12 pt-2">
+        <input class="form-check-input" @click="changeState('Zones')" v-model="data.permissions.Zones" type="checkbox" value="Sales"> Zones
+    </div>
+    <div class="col-md-12 pt-2">
         <input class="form-check-input" @click="changeState('Marketing')" v-model="data.permissions.Marketing" type="checkbox" value="Sales"> Marketing
-        <div class="collapse mt-2 ms-5" id="order_m">
-            <div>
-                <input class="form-check-input" v-model="data.permissions.FlashSales" type="checkbox" value="Sales"> Flash Sales
-            </div>
-            <div>
-                <input class="form-check-input" v-model="data.permissions.RegularSales" type="checkbox" value="Sales"> Regular Sales
-            </div>
-        </div>
     </div>
     <div class="col-md-12 pt-2">
         <span class="mr-3" data-bs-toggle="collapse" href="#business_m" role="button" aria-expanded="false" aria-controls="collapseExample" style="padding-right: 12px">
