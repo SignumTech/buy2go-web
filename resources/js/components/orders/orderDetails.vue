@@ -10,7 +10,7 @@
         <div v-if="loading" class="row m-0">
             <div class="col-md-12 p-5 mt-3">
                 <div class="d-flex justify-content-center align-self-center">
-                    <pulse-loader :color="`#BF7F25`" :size="`15px`"></pulse-loader> 
+                    <pulse-loader :color="`#011b48`" :size="`15px`"></pulse-loader> 
                 </div>
             </div> 
         </div>

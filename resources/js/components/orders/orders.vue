@@ -27,7 +27,7 @@
     <div v-if="loading" class="col-md-12">
         <div class="bg-white shadow-sm p-5">
             <div class="d-flex justify-content-center align-self-center">
-                <pulse-loader :color="`#BF7F25`" :size="`15px`"></pulse-loader> 
+                <pulse-loader :color="`#011b48`" :size="`15px`"></pulse-loader> 
             </div>            
         </div>
 

@@ -84882,7 +84882,7 @@ var render = function () {
                 },
                 [
                   _c("pulse-loader", {
-                    attrs: { color: "#BF7F25", size: "15px" },
+                    attrs: { color: "#011b48", size: "15px" },
                   }),
                 ],
                 1
@@ -85217,7 +85217,7 @@ var render = function () {
               },
               [
                 _c("pulse-loader", {
-                  attrs: { color: "#BF7F25", size: "15px" },
+                  attrs: { color: "#011b48", size: "15px" },
                 }),
               ],
               1
