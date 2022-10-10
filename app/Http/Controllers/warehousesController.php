@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Warehouse;
+use App\Models\WarehouseDetail;
 class warehousesController extends Controller
 {
     /**
@@ -13,7 +14,11 @@ class warehousesController extends Controller
      */
     public function index()
     {
-        return Warehouse::all();
+        $warehouses = Warehouse::get();
+        foreach($warehouses as $warehouse){
+            $warehouse->stock = WarehouseDetail::where('warehouse_id', $warehouse->id)->sum('quantity');
+        }
+        return $warehouses;
     }
 
     /**

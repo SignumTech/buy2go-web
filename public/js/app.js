@@ -84926,7 +84926,7 @@ var staticRenderFns = [
         "span",
         {
           staticClass:
-            "float-end badge rounded-1 bg-warning text-dark shadow-sm",
+            "float-end badge rounded-1 bg-brand text-white shadow-sm",
         },
         [_vm._v("30 days")]
       ),
@@ -84943,7 +84943,7 @@ var staticRenderFns = [
         "span",
         {
           staticClass:
-            "float-end badge rounded-1 bg-warning text-dark shadow-sm",
+            "float-end badge rounded-1 bg-brand text-white shadow-sm",
         },
         [_vm._v("30 days")]
       ),
@@ -84960,7 +84960,7 @@ var staticRenderFns = [
         "span",
         {
           staticClass:
-            "float-end badge rounded-1 bg-warning text-dark shadow-sm",
+            "float-end badge rounded-1 bg-brand text-white shadow-sm",
         },
         [_vm._v("30 days")]
       ),
@@ -84977,7 +84977,7 @@ var staticRenderFns = [
         "span",
         {
           staticClass:
-            "float-end badge rounded-1 bg-warning text-dark shadow-sm",
+            "float-end badge rounded-1 bg-brand text-white shadow-sm",
         },
         [_vm._v("Annual")]
       ),
@@ -88458,7 +88458,7 @@ var render = function () {
                 _vm._v(" "),
                 _c("td", [_vm._v(_vm._s(warehouse.w_name))]),
                 _vm._v(" "),
-                _c("td", [_vm._v("0")]),
+                _c("td", [_vm._v(_vm._s(warehouse.stock))]),
                 _vm._v(" "),
                 _c("td", [
                   _c(
