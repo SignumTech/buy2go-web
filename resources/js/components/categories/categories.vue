@@ -32,6 +32,7 @@
                                     <td class="align-middle text-center">
                                         <span class="fa fa-trash-alt me-3"></span>
                                         <span @click="editMainModal(mc)" class="fa fa-edit me-3"></span>
+                                        <span class="fa fa-child me-3"></span>
                                     </td>
                                 </tr>
                             </tbody>
