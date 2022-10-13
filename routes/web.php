@@ -13,6 +13,7 @@ use App\Http\Controllers\zonesController;
 use App\Http\Controllers\staffController;
 use App\Http\Controllers\rolePermissionController;
 use App\Http\Controllers\dashboardController;
+use App\Http\Controllers\driversController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,6 +24,8 @@ use App\Http\Controllers\dashboardController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+/////////////////////////////////////drivers//////////////////////////////////////////////////////////
+
 /////////////////////////////////////dashboard////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/salesThirty', [dashboardController::class, 'salesThirty']);
 Route::middleware('auth:sanctum')->get('/salesToday', [dashboardController::class, 'salesToday']);
@@ -44,6 +47,7 @@ Route::middleware('auth:sanctum')->resource('/warehouses', warehousesController:
 Route::resource('/products', productsController::class);
 Route::middleware('auth:sanctum')->resource('/orders', ordersController::class);
 Route::resource('/addressBooks', addressBooksController::class);
+Route::middleware('auth:sanctum')->resource('/drivers', driversController::class);
 ///////////////////////////////////orders/////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getProcessing', [ordersController::class, 'getProcessing']);
 Route::middleware('auth:sanctum')->get('/getShipped', [ordersController::class, 'getShipped']);

@@ -28,14 +28,14 @@
                   <router-link class="nav-link a-admin" to="/zones"><i data-feather="map"></i> Zones</router-link>
                 </li>
                 <li>
-                  <a data-bs-toggle="collapse" href="#us_ma" aria-expanded="false" aria-controls="collapseExample"><i data-feather="gift"></i> Marketing</a>
+                  <a data-bs-toggle="collapse" href="#us_ma" aria-expanded="false" aria-controls="collapseExample"><i data-feather="truck"></i> Fleet Management</a>
                   <div class="collapse" id="us_ma">
                     <ul class="collapse list-unstyled" id="us_ma">
-                      <li :class="$route.path == `/admin/flashSale` ? `active` : ``">
-                          <router-link to="/admin/flashSale"><i data-feather="zap"></i> Flash Sale</router-link>
+                      <li :class="$route.path == `/driversList` ? `active` : ``">
+                          <router-link to="/driversList"><i class="fa fa-user-alt"></i> Drivers</router-link>
                       </li>
-                      <li :class="$route.path == `/admin/regularSale` ? `active` : ``">
-                          <router-link to="/admin/regularSale"><i data-feather="award"></i> Regular Sale</router-link>
+                      <li :class="$route.path == `/vehiclesList` ? `active` : ``">
+                          <router-link to="/vehiclesList"><i class="fa fa-truck"></i> Vehicles</router-link>
                       </li>
                     </ul>
                   </div>

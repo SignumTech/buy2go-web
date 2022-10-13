@@ -14,6 +14,8 @@ import orderDetails from './components/orders/orderDetails.vue'
 import warehouse from './components/warehouses/warehouses.vue'
 import rolePermission from './components/user_management/rolePermission.vue'
 import staffManagement from './components/user_management/staffManagement.vue'
+import vehiclesList from './components/fleet_management/vehicles.vue'
+import driversList from './components/fleet_management/drivers.vue'
 Vue.use(Router)
 
 const routes = [
@@ -82,6 +84,18 @@ const routes = [
         path: '/staffManagement',
         component: staffManagement,
         name: 'StaffManagement',
+        props: true
+    },
+    {
+        path: '/driversList',
+        component: driversList,
+        name: 'DriversList',
+        props: true
+    },
+    {
+        path: '/vehiclesList',
+        component: vehiclesList,
+        name: 'VehiclesList',
         props: true
     },
 ]
