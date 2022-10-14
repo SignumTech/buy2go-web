@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Cart;
 use App\Models\CartItem;
+use App\Models\WarehouseDetail;
 use DB;
 class ordersController extends Controller
 {
@@ -167,5 +168,41 @@ class ordersController extends Controller
         $orders = Order::where('orders.order_status', "DELIVERED")
                        ->get();
         return $orders;
+    }
+
+    public function assignDetails(Request $request, $id){
+        $this->validate($request, [
+            "warehouse_id" => "required",
+            "driver_id" => "required",
+        ]);
+        try{
+            DB::beginTransaction();
+            $order = Order::find($id);
+            $order->assigned_driver = $request->driver_id;
+            $order->warehouse_id = $request->warehouse_id;
+            $order->order_status = 'PENDING_PICKUP';
+            $order->save();
+    
+            $items = OrderItem::where('order_id', $order->id)->get();
+            foreach($items as $item){
+                $warehouse_detail = WarehouseDetail::where('p_id', $item->id)
+                                                   ->where('warehouse_id', $request->warehouse_id)
+                                                   ->first();
+                if($warehouse_detail){
+                    $warehouse_detail->quantity = $warehouse_detail->quantity - $item->quantity;
+                    $warehouse_detail->save();
+                }
+                
+            }
+            DB::commit();
+            return $order;
+        }
+        catch (\Exception $e) {
+            DB::rollBack();
+
+            throw $e;
+            return response('Order Error', 422);
+        }
+
     }
 }

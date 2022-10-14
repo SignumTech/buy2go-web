@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\DriverDetail;
+use App\Models\Order;
 use DB;
 class driversController extends Controller
 {
@@ -155,5 +156,16 @@ class driversController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getZoneDrivers($zone_id){
+        $drivers = DriverDetail::join('users', 'driver_details.driver_id', '=', 'users.id')
+                               ->where('zone_id', $zone_id)
+                               ->get();
+        foreach($drivers as $driver){
+            $driver->active_assignments = Order::where('assigned_driver', $driver->id)
+                                               ->where('order_status', 'SHIPPED')->count();
+        }
+        return $drivers;
     }
 }

@@ -25,7 +25,7 @@ use App\Http\Controllers\driversController;
 |
 */
 /////////////////////////////////////drivers//////////////////////////////////////////////////////////
-
+Route::middleware('auth:sanctum')->get('/getZoneDrivers/{zone_id}', [driversController::class, 'getZoneDrivers']);
 /////////////////////////////////////dashboard////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/salesThirty', [dashboardController::class, 'salesThirty']);
 Route::middleware('auth:sanctum')->get('/salesToday', [dashboardController::class, 'salesToday']);
@@ -52,6 +52,7 @@ Route::middleware('auth:sanctum')->resource('/drivers', driversController::class
 Route::middleware('auth:sanctum')->get('/getProcessing', [ordersController::class, 'getProcessing']);
 Route::middleware('auth:sanctum')->get('/getShipped', [ordersController::class, 'getShipped']);
 Route::middleware('auth:sanctum')->get('/getDelivered', [ordersController::class, 'getDelivered']);
+Route::middleware('auth:sanctum')->put('/assignDetails/{id}', [ordersController::class, 'assignDetails']);
 ///////////////////////////////////products/////////////////////////////////////////////////////////
 Route::get('/productsByCategory/{id}', [productsController::class, 'productsByCategory']);
 Route::post('/uploadProductPic', [productsController::class, 'uploadProductPic']);
@@ -94,6 +95,9 @@ Route::any('{slug}', function () {
     return view('home');
 });
 Route::any('/orderDetails/{slug}', function () {
+    return view('home');
+});
+Route::any('/shippingDetails/{slug}', function () {
     return view('home');
 });
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

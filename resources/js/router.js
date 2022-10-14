@@ -11,6 +11,8 @@ import warehouseList from './components/warehouses/warehouses.vue'
 import zones from './components/zones/zones.vue'
 import addZones from './components/zones/addZones.vue'
 import orderDetails from './components/orders/orderDetails.vue'
+import shippingDetails from './components/orders/shippingDetails.vue'
+import directions from './components/orders/directions.vue'
 import warehouse from './components/warehouses/warehouses.vue'
 import rolePermission from './components/user_management/rolePermission.vue'
 import staffManagement from './components/user_management/staffManagement.vue'
@@ -68,6 +70,16 @@ const routes = [
         path: '/orderDetails/:id',
         component: orderDetails,
         name: 'OrderDetails'
+    },
+    {
+        path: '/shippingDetails/:id',
+        component: shippingDetails,
+        name: 'ShippingDetails'
+    },
+    {
+        path: '/directions',
+        component: directions,
+        name: 'directions'
     },
     {
         path: '/warehouse',
