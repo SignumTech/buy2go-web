@@ -180,7 +180,7 @@ class ordersController extends Controller
             $order = Order::find($id);
             $order->assigned_driver = $request->driver_id;
             $order->warehouse_id = $request->warehouse_id;
-            $order->order_status = 'PENDING_PICKUP';
+            $order->order_status = 'PENDING_CONFIRMATION';
             $order->save();
     
             $items = OrderItem::where('order_id', $order->id)->get();
@@ -204,5 +204,41 @@ class ordersController extends Controller
             return response('Order Error', 422);
         }
 
+    }
+
+    public function getDriverPendingOrders(){
+        $orders = Order::join('order_details', 'orders.id', '=', 'order_details.order_id')
+                       ->join('warehouses', 'orders.warehouse_id', '=', 'warehouse_id')
+                       ->where('assigned_driver', auth()->user()->id)
+                       ->where( function ($query){
+                            $query->where('order_status', 'PENDING_CONFIRMATION')
+                                  ->orWhere('order_status', 'PENDING_PICKUP');
+                       })
+                       ->get();
+        
+        return $orders;
+    }
+
+    public function getDriverOrders(){
+        $orders = Order::join('order_details', 'orders.id', '=', 'order_details.order_id')
+                       ->where('assigned_driver', auth()->user()->id)
+                       ->join('warehouses', 'orders.warehouse_id', '=', 'warehouse_id')
+                       ->get();
+        return $orders;
+    }
+
+    public function acceptOrder($id){
+        $order = Order::find($id);
+        $order->order_status = "PENDING_PICKUP";
+        $order->save();
+
+        return $order;
+    }
+
+    public function rejectOrder($id){
+        $order = Order::find($id);
+        $order->order_status = "PROCESSING";
+
+        return $order;
     }
 }
