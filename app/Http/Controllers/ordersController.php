@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Cart;
 use App\Models\CartItem;
+use App\Models\Warehouse;
 use App\Models\WarehouseDetail;
 use DB;
 class ordersController extends Controller
@@ -207,24 +208,41 @@ class ordersController extends Controller
     }
 
     public function getDriverPendingOrders(){
-        $orders = Order::join('order_details', 'orders.id', '=', 'order_details.order_id')
-                       ->join('warehouses', 'orders.warehouse_id', '=', 'warehouse_id')
-                       ->where('assigned_driver', auth()->user()->id)
+        $data = [];
+        $index = 0;
+        $orders = Order::where('assigned_driver', auth()->user()->id)
                        ->where( function ($query){
                             $query->where('order_status', 'PENDING_CONFIRMATION')
                                   ->orWhere('order_status', 'PENDING_PICKUP');
                        })
                        ->get();
+        foreach($orders as $order){
+            $data[$index]['order_detail'] = $order;
+            $data[$index]['order_items'] = OrderItem::join('products', 'order_items.p_id', '=', 'products.id')
+                                                    ->where('order_id', $order->id)->get();
+            $data[$index]['warehouse_detail'] = Warehouse::where('id', $order->warehouse_id)->first();
+            $index++;
+        }
         
-        return $orders;
+        
+        return $data;
     }
 
     public function getDriverOrders(){
-        $orders = Order::join('order_details', 'orders.id', '=', 'order_details.order_id')
-                       ->where('assigned_driver', auth()->user()->id)
-                       ->join('warehouses', 'orders.warehouse_id', '=', 'warehouse_id')
+        $data = [];
+        $index = 0;
+        $orders = Order::where('assigned_driver', auth()->user()->id)
                        ->get();
-        return $orders;
+        foreach($orders as $order){
+            $data[$index]['order_detail'] = $order;
+            $data[$index]['order_items'] = OrderItem::join('products', 'order_items.p_id', '=', 'products.id')
+                                                    ->where('order_id', $order->id)->get();
+            $data[$index]['warehouse_detail'] = Warehouse::where('id', $order->warehouse_id)->first();
+            $index++;
+        }
+        
+        
+        return $data;
     }
 
     public function acceptOrder($id){

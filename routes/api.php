@@ -31,10 +31,10 @@ Route::middleware('auth:sanctum')->delete('/deleteCartItem/{id}', [cartControlle
 Route::get('/getMyOrders', [ordersController::class, 'getMyOrders']);
 Route::middleware('auth:sanctum')->get('/getMyOrdersStatus/{status}', [ordersController::class, 'getMyOrdersStatus']);
 
-Route::middleware('auth:sanctum')->put('/getDriverPendingOrders', [ordersController::class, 'getDriverPendingOrders']);
-Route::middleware('auth:sanctum')->put('/getDriverOrders', [ordersController::class, 'getDriverOrders']);
-Route::middleware('auth:sanctum')->put('/acceptOrder/{id}', [ordersController::class, 'acceptOrder']);
-Route::middleware('auth:sanctum')->put('/rejectOrder/{id}', [ordersController::class, 'rejectOrder']);
+Route::middleware('auth:sanctum')->get('/getDriverPendingOrders', [ordersController::class, 'getDriverPendingOrders']);
+Route::middleware('auth:sanctum')->get('/getDriverOrders', [ordersController::class, 'getDriverOrders']);
+Route::middleware('auth:sanctum')->get('/acceptOrder/{id}', [ordersController::class, 'acceptOrder']);
+Route::middleware('auth:sanctum')->get('/rejectOrder/{id}', [ordersController::class, 'rejectOrder']);
 ///////////////////////////////////resources///////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->resource('/categories', categoriesController::class);
 Route::resource('/products', productsController::class);

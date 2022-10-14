@@ -53,10 +53,10 @@ Route::middleware('auth:sanctum')->get('/getProcessing', [ordersController::clas
 Route::middleware('auth:sanctum')->get('/getShipped', [ordersController::class, 'getShipped']);
 Route::middleware('auth:sanctum')->get('/getDelivered', [ordersController::class, 'getDelivered']);
 Route::middleware('auth:sanctum')->put('/assignDetails/{id}', [ordersController::class, 'assignDetails']);
-Route::middleware('auth:sanctum')->put('/getDriverPendingOrders', [ordersController::class, 'getDriverPendingOrders']);
-Route::middleware('auth:sanctum')->put('/getDriverOrders', [ordersController::class, 'getDriverOrders']);
-Route::middleware('auth:sanctum')->put('/acceptOrder/{id}', [ordersController::class, 'acceptOrder']);
-Route::middleware('auth:sanctum')->put('/rejectOrder/{id}', [ordersController::class, 'rejectOrder']);
+Route::middleware('auth:sanctum')->get('/getDriverPendingOrders', [ordersController::class, 'getDriverPendingOrders']);
+Route::middleware('auth:sanctum')->get('/getDriverOrders', [ordersController::class, 'getDriverOrders']);
+Route::middleware('auth:sanctum')->get('/acceptOrder/{id}', [ordersController::class, 'acceptOrder']);
+Route::middleware('auth:sanctum')->get('/rejectOrder/{id}', [ordersController::class, 'rejectOrder']);
 ///////////////////////////////////products/////////////////////////////////////////////////////////
 Route::get('/productsByCategory/{id}', [productsController::class, 'productsByCategory']);
 Route::post('/uploadProductPic', [productsController::class, 'uploadProductPic']);
