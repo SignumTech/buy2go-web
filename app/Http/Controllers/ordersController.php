@@ -10,6 +10,7 @@ use App\Models\CartItem;
 use App\Models\Warehouse;
 use App\Models\WarehouseDetail;
 use App\Models\AddressBook;
+use App\Events\DriverRejectedOrder;
 use DB;
 class ordersController extends Controller
 {
@@ -259,7 +260,9 @@ class ordersController extends Controller
     public function rejectOrder($id){
         $order = Order::find($id);
         $order->order_status = "PROCESSING";
+        $order->save();
 
+        broadcast(new DriverRejectedOrder($order))->toOthers();
         return $order;
     }
 }
