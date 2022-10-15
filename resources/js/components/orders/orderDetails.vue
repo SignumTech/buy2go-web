@@ -124,7 +124,10 @@ export default {
             .then( response =>{
                 this.order = response.data.order_details
                 this.orderItems = response.data.order_items
-                
+                window.Echo.private(`order_rejected.${this.order.id}`)
+                .listen('DriverRejectedOrder', (e) => {
+                    console.log(e.order);
+                });
                 this.getAddress(response.data.order_details.delivery_details)
             })
         },
