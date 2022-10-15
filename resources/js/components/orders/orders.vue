@@ -88,6 +88,9 @@ export default {
         this.getAllOrders()
     },
     methods:{
+        connect(){
+
+        },
         async getAllOrders(){
             this.active = 'all'
             this.loading = true

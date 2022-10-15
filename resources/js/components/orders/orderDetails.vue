@@ -97,6 +97,10 @@ export default {
     },
     mounted(){
         this.getOrder()
+        window.Echo.private(`order_rejected.${this.order.id}`)
+            .listen('DriverRejectedOrder', (e) => {
+                console.log(e.order);
+            });
     },
     methods:{
         shipModal(){
