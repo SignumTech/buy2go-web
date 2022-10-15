@@ -52,6 +52,7 @@ Route::middleware('auth:sanctum')->get('/getMyCart', [cartController::class, 'ge
 Route::middleware('auth:sanctum')->post('/updateCart', [cartController::class, 'updateCart']);
 //////////////////////////////////////////auth////////////////////////////////
 Route::post('/getUserToken', [getTokenController::class, 'getUserToken']);
+Route::post('/getDriverToken', [getTokenController::class, 'getDriverToken']);
 Route::post('/registerUser', [registerUsersController::class, 'registerUser']);
 //////////////////////////////////////addressbook//////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getMyAddresses', [addressBooksController::class, 'getMyAddresses']);
