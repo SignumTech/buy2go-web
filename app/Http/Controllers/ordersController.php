@@ -9,6 +9,7 @@ use App\Models\Cart;
 use App\Models\CartItem;
 use App\Models\Warehouse;
 use App\Models\WarehouseDetail;
+use App\Models\AddressBook;
 use DB;
 class ordersController extends Controller
 {
@@ -218,6 +219,7 @@ class ordersController extends Controller
                        ->get();
         foreach($orders as $order){
             $data[$index]['order_detail'] = $order;
+            $data[$index]['delivery_detail'] = AddressBook::where('user_id', $order->user_id)->first();
             $data[$index]['order_items'] = OrderItem::join('products', 'order_items.p_id', '=', 'products.id')
                                                     ->where('order_id', $order->id)->get();
             $data[$index]['warehouse_detail'] = Warehouse::where('id', $order->warehouse_id)->first();
@@ -235,6 +237,7 @@ class ordersController extends Controller
                        ->get();
         foreach($orders as $order){
             $data[$index]['order_detail'] = $order;
+            $data[$index]['delivery_detail'] = AddressBook::where('user_id', $order->user_id)->first();
             $data[$index]['order_items'] = OrderItem::join('products', 'order_items.p_id', '=', 'products.id')
                                                     ->where('order_id', $order->id)->get();
             $data[$index]['warehouse_detail'] = Warehouse::where('id', $order->warehouse_id)->first();
