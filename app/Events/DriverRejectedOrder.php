@@ -33,6 +33,6 @@ class DriverRejectedOrder implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('order_rejected'.$this->order->id);
+        return new PrivateChannel('order_rejected.'.$this->order->id);
     }
 }
