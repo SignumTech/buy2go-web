@@ -96,7 +96,7 @@ export default {
         }
     },
     created(){
-        window.Echo.private(`order_rejected.${this.order.id}`)
+        window.Echo.private(`order_rejected.10`)
             .listen('DriverRejectedOrder', (e) => {
                 console.log(e.order);
             });
