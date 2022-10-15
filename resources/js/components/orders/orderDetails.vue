@@ -127,7 +127,7 @@ export default {
 
                 window.Echo.private(`order_rejected.${this.order.id}`)
                 .listen('DriverRejectedOrder', (e) => {
-                    console.log(e.order);
+                    this.order = e.order
                 });
                 this.getAddress(response.data.order_details.delivery_details)
             })
