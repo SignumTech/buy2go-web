@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Order;
+use App\Models\User;
 use App\Models\OrderItem;
 use App\Models\Cart;
 use App\Models\CartItem;
@@ -12,6 +13,11 @@ use App\Models\WarehouseDetail;
 use App\Models\AddressBook;
 use App\Events\DriverRejectedOrder;
 use DB;
+
+use App\Notifications\OrderRejected;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Notifications\Notifiable;
+
 class ordersController extends Controller
 {
     /**
@@ -262,7 +268,11 @@ class ordersController extends Controller
         $order->order_status = "PROCESSING";
         $order->save();
 
-        broadcast(new DriverRejectedOrder($order))->toOthers();
+        $admin = User::where('user_role', 'ADMIN')->get();
+
+
+        Notification::send($admin, new OrderRejected(auth()->user()->f_name, $order));
+        //broadcast(new DriverRejectedOrder($order))->toOthers();
         return $order;
     }
 }
