@@ -39,6 +39,10 @@ Route::middleware('auth:sanctum')->get('/acceptOrder/{id}', [ordersController::c
 Route::middleware('auth:sanctum')->get('/rejectOrder/{id}', [ordersController::class, 'rejectOrder']);
 Route::middleware('auth:sanctum')->put('/confirmDelivery/{id}', [ordersController::class, 'confirmDelivery']);
 Route::middleware('auth:sanctum')->get('/confirmPickup/{id}', [ordersController::class, 'confirmPickup']);
+Route::middleware('auth:sanctum')->get('/getMyOrders', [ordersController::class, 'getMyOrders']);
+Route::middleware('auth:sanctum')->get('/getMyShippedOrders', [ordersController::class, 'getMyShippedOrders']);
+Route::middleware('auth:sanctum')->get('/getMyDeliveredOrders', [ordersController::class, 'getMyDeliveredOrders']);
+Route::middleware('auth:sanctum')->get('/getMyPendingOrders', [ordersController::class, 'getMyPendingOrders']);
 ///////////////////////////////////resources///////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->resource('/categories', categoriesController::class);
 Route::resource('/products', productsController::class);

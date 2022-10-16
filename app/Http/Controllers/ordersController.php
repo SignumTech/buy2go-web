@@ -14,7 +14,7 @@ use App\Models\AddressBook;
 use App\Events\DriverRejectedOrder;
 use DB;
 
-use App\Notifications\OrderRejected;
+use App\Notifications\OrderStatusUpdated;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Notifications\Notifiable;
 
@@ -280,9 +280,9 @@ class ordersController extends Controller
         $order->save();
 
         $admin = User::where('user_role', 'ADMIN')->get();
-
-
-        Notification::send($admin, new OrderRejected(auth()->user()->f_name, $order));
+        $driver = User::find($id)->f_name;
+        $message = $driver.' rejected an order with order number. '.$order->order_no;
+        Notification::send($admin, new OrderStatusUpdated($message,$order));
         //broadcast(new DriverRejectedOrder($order))->toOthers();
         return $order;
     }
@@ -310,5 +310,31 @@ class ordersController extends Controller
         $order->save();
 
         return $order;
+    }
+
+    public function getMyOrders(){
+        $orders = Order::where('user_id', auth()->user()->id)->get();
+        return $orders;
+    }
+
+    public function getMyShippedOrders(){
+        $orders = Order::where('user_id', auth()->user()->id)
+                        ->where('order_status', 'SHIPPED')
+                        ->get();
+        return $orders;
+    }
+
+    public function getMyDeliveredOrders(){
+        $orders = Order::where('user_id', auth()->user()->id)
+                        ->where('order_status', 'DELIVERED')
+                        ->get();
+        return $orders;
+    }
+
+    public function getMyPendingOrders(){
+        $orders = Order::where('user_id', auth()->user()->id)
+                        ->where('order_status', 'PROCESSING')
+                        ->get();
+        return $orders;
     }
 }
