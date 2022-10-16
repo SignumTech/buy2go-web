@@ -232,6 +232,22 @@ class ordersController extends Controller
         return $data;
     }
 
+    public function getDriverShipped(){
+        $order = Order::where('assigned_driver', auth()->user()->id)
+                      ->where('order_status', 'SHIPPED')
+                      ->get();
+
+        return $order;
+    }
+
+    public function getDriverDelivered(){
+        $order = Order::where('assigned_driver', auth()->user()->id)
+                      ->where('order_status', 'DELIVERED')
+                      ->get();
+
+        return $order;
+    }
+
     public function getDriverOrders(){
         $data = [];
         $index = 0;
