@@ -124,7 +124,6 @@ export default {
             .then( response =>{
                 this.order = response.data.order_details
                 this.orderItems = response.data.order_items
-                this.connect();
 
                 this.getAddress(response.data.order_details.delivery_details)
             })
