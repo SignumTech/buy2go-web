@@ -10,8 +10,8 @@ use Illuminate\Notifications\Notification;
 class OrderStatusUpdated extends Notification
 {
     use Queueable;
-    public $driver_name;
     public $order;
+    public $message;
     /**
      * Create a new notification instance.
      *
