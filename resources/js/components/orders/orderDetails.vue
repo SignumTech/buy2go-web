@@ -104,7 +104,7 @@ export default {
     },
     methods:{
         connect(){
-            window.Echo.private('App.Models.Order.'+this.order.id)
+            window.Echo.private('App.Models.User.'+this.$store.state.auth.user.id)
             .notification((notification) => {
                 console.log(notification.type);
             });
