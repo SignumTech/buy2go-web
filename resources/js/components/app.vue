@@ -113,6 +113,7 @@
     data(){
       return{
         authenticated:false
+  
       }
     },
     mounted(){
@@ -134,7 +135,12 @@
       connect(){
             window.Echo.private('App.Models.User.'+this.$store.state.auth.user.id)
             .notification((notification) => {
-                console.log(notification);
+              this.$notify({
+                    group: 'foo',
+                    type: 'success',
+                    title: 'Warehouse Added',
+                    text: notification.message
+                });
             });
         },
       logout(){
