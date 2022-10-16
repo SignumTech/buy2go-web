@@ -273,7 +273,7 @@ class ordersController extends Controller
 
         //Notification
         $admin = User::where('user_role', 'ADMIN')->get();
-        $driver = User::find($id)->f_name;
+        $driver = User::find($order->assigned_driver)->f_name;
         $message = $driver.' accepted order number. '.$order->order_no;
         Notification::send($admin, new OrderStatusUpdated($message,$order));
         //broadcast(new DriverRejectedOrder($order))->toOthers();
@@ -282,13 +282,13 @@ class ordersController extends Controller
     }
 
     public function rejectOrder($id){
-        $order = Order::find($id);
+        $order = Order::find($order->assigned_driver);
         $order->order_status = "PROCESSING";
         $order->save();
 
         //Notification
         $admin = User::where('user_role', 'ADMIN')->get();
-        $driver = User::find($id)->f_name;
+        $driver = User::find($order->assigned_driver)->f_name;
         $message = $driver.' rejected order number. '.$order->order_no;
         Notification::send($admin, new OrderStatusUpdated($message,$order));
         //broadcast(new DriverRejectedOrder($order))->toOthers();
@@ -302,7 +302,7 @@ class ordersController extends Controller
 
         //Notification
         $admin = User::where('user_role', 'ADMIN')->get();
-        $driver = User::find($id)->f_name;
+        $driver = User::find($order->assigned_driver)->f_name;
         $message = $driver.' picked up order number. '.$order->order_no.' from warehouse';
         Notification::send($admin, new OrderStatusUpdated($message,$order));
 
@@ -325,7 +325,7 @@ class ordersController extends Controller
 
         //Notification
         $admin = User::where('user_role', 'ADMIN')->get();
-        $driver = User::find($id)->f_name;
+        $driver = User::find($order->assigned_driver)->f_name;
         $message = "Order ".$order->order_no." was delivered successfully.";
         Notification::send($admin, new OrderStatusUpdated($message,$order));
 
