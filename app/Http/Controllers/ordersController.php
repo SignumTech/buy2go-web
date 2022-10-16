@@ -271,6 +271,13 @@ class ordersController extends Controller
         $order->order_status = "PENDING_PICKUP";
         $order->save();
 
+        //Notification
+        $admin = User::where('user_role', 'ADMIN')->get();
+        $driver = User::find($id)->f_name;
+        $message = $driver.' accepted order number. '.$order->order_no;
+        Notification::send($admin, new OrderStatusUpdated($message,$order));
+        //broadcast(new DriverRejectedOrder($order))->toOthers();
+
         return $order;
     }
 
@@ -279,9 +286,10 @@ class ordersController extends Controller
         $order->order_status = "PROCESSING";
         $order->save();
 
+        //Notification
         $admin = User::where('user_role', 'ADMIN')->get();
         $driver = User::find($id)->f_name;
-        $message = $driver.' rejected an order with order number. '.$order->order_no;
+        $message = $driver.' rejected order number. '.$order->order_no;
         Notification::send($admin, new OrderStatusUpdated($message,$order));
         //broadcast(new DriverRejectedOrder($order))->toOthers();
         return $order;
@@ -291,6 +299,12 @@ class ordersController extends Controller
         $order = Order::find($id);
         $order->order_status = "SHIPPED";
         $order->save();
+
+        //Notification
+        $admin = User::where('user_role', 'ADMIN')->get();
+        $driver = User::find($id)->f_name;
+        $message = $driver.' picked up order number. '.$order->order_no.' from warehouse';
+        Notification::send($admin, new OrderStatusUpdated($message,$order));
 
         return $order;
     }
@@ -308,6 +322,12 @@ class ordersController extends Controller
         $order->payment_method = $request->payment_method;
         $order->order_status = "DELIVERED";
         $order->save();
+
+        //Notification
+        $admin = User::where('user_role', 'ADMIN')->get();
+        $driver = User::find($id)->f_name;
+        $message = "Order ".$order->order_no." was delivered successfully.";
+        Notification::send($admin, new OrderStatusUpdated($message,$order));
 
         return $order;
     }
