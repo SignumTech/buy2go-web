@@ -103,12 +103,6 @@ export default {
 
     },
     methods:{
-        connect(){
-            window.Echo.private('App.Models.User.'+this.$store.state.auth.user.id)
-            .notification((notification) => {
-                console.log(notification.type);
-            });
-        },
         shipModal(){
             this.$modal.show(
                 shippingDetailsVue,

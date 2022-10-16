@@ -118,6 +118,7 @@
     mounted(){
       
       this.authenticated = this.$store.state.auth.authenticated
+      this.connect();
       feather.replace();
     },
     updated(){
@@ -130,6 +131,12 @@
       
     },
     methods:{
+      connect(){
+            window.Echo.private('App.Models.User.'+this.$store.state.auth.user.id)
+            .notification((notification) => {
+                console.log(notification);
+            });
+        },
       logout(){
           axios.post("logout").then(response => { 
           window.location.replace("/home");

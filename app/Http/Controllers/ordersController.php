@@ -69,11 +69,6 @@ class ordersController extends Controller
             $order->order_status = 'PROCESSING';
             $order->user_id = auth()->user()->id;
             $order->delivery_details = $request->address;
-            $order->payment_status = $request->payment_status;
-            $order->tx_ref = $request->tx_ref;
-            $order->reference = $request->reference;
-            $order->payment_status = $request->payment_status;
-            $order->payment_method = $request->payment_method;
             $order->save();
 
             $cart_items = Cart::join('cart_items', 'carts.id', '=', 'cart_items.cart_id')
@@ -273,6 +268,31 @@ class ordersController extends Controller
 
         Notification::send($admin, new OrderRejected(auth()->user()->f_name, $order));
         //broadcast(new DriverRejectedOrder($order))->toOthers();
+        return $order;
+    }
+
+    public function confirmPickup($id){
+        $order = Order::find($id);
+        $order->order_status = "SHIPPED";
+        $order->save();
+
+        return $order;
+    }
+
+    public function confirmDelivery(Request $request, $id){
+        $this->validate($request,[
+            "payment_method" => "required",
+            "payment_status" => "required"
+        ]);
+
+        $order = Order::find($id);
+        $order->tx_ref = $request->tx_ref;
+        $order->reference = $request->reference;
+        $order->payment_status = $request->payment_status;
+        $order->payment_method = $request->payment_method;
+        $order->order_status = "DELIVERED";
+        $order->save();
+
         return $order;
     }
 }
