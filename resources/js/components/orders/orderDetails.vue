@@ -103,6 +103,12 @@ export default {
 
     },
     methods:{
+        connect(){
+            window.Echo.private('App.Models.Order.'+this.order.id)
+            .notification((notification) => {
+                console.log(notification.type);
+            });
+        },
         shipModal(){
             this.$modal.show(
                 shippingDetailsVue,
@@ -124,11 +130,8 @@ export default {
             .then( response =>{
                 this.order = response.data.order_details
                 this.orderItems = response.data.order_items
+                this.connect();
 
-                window.Echo.private(`order_rejected.${this.order.id}`)
-                .listen('DriverRejectedOrder', (e) => {
-                    this.order = e.order
-                });
                 this.getAddress(response.data.order_details.delivery_details)
             })
         },
