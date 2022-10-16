@@ -78,12 +78,17 @@
                         <!-- Right Side Of Navbar -->
                         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                           <ul class="navbar-nav ml-auto">
-                              <li class="px-5">
+                              <li class="px-2">
                                   <router-link class="a-admin" to="/profile">
                                       <span class="fa fa-user-cog pr-2" style="font-size: 20px"></span><strong>  {{$store.state.auth.user.f_name}} {{$store.state.auth.user.l_name}}</strong>
                                   </router-link>
                               </li>
-                              <li>
+                              <li class="px-5">
+                                  <router-link class="a-admin" to="/profile">
+                                      <span class="fa fa-bell pr-2" style="font-size: 20px"></span><span class="badge bg-danger mx-1">4</span><strong></strong>
+                                  </router-link>
+                              </li>
+                              <li class="px-2">
                                   <a @click="logout()" style="cursor:pointer">
                                   <span class="fa fa-power-off" style="font-size: 20px"></span>
                                   </a>
