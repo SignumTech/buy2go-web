@@ -17,7 +17,7 @@ class OrderStatusUpdated extends Notification
      *
      * @return void
      */
-    public function __construct($order, $message)
+    public function __construct($message,$order)
     {
         $this->order = $order;
         $this->message = $message;
