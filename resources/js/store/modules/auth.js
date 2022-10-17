@@ -7,7 +7,7 @@ export default({
       authenticated: false,
       user: null,
       permissions: null,
-      cart: []
+      notifications: []
     },
   
     getters: {

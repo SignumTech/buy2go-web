@@ -78,17 +78,29 @@
                         <!-- Right Side Of Navbar -->
                         <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                           <ul class="navbar-nav ml-auto">
-                              <li class="px-2">
+                              <li class="nav-item px-3">
                                   <router-link class="a-admin" to="/profile">
                                       <span class="fa fa-user-cog pr-2" style="font-size: 20px"></span><strong>  {{$store.state.auth.user.f_name}} {{$store.state.auth.user.l_name}}</strong>
                                   </router-link>
                               </li>
-                              <li class="px-5">
-                                  <router-link class="a-admin" to="/profile">
-                                      <span class="fa fa-bell pr-2" style="font-size: 20px"></span><span class="badge bg-danger mx-1">4</span><strong></strong>
-                                  </router-link>
+                              <li class="nav-item dropdown px-3">
+                                  <a class="nav-link dropdown-toggle p-0" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                      <span class="fa fa-bell pr-2" style="font-size: 20px"></span><span class="badge bg-danger mx-1">{{$store.state.auth.notifications.length}}</span><strong></strong>
+                                  </a>
+                                  <ul class="dropdown-menu rounded-1" aria-labelledby="navbarDropdown" style="max-height:500px;overflow-y: auto; overflow-x:hidden">
+                                    <li v-for="notification,index in $store.state.auth.notifications" :key="index" style="width:400px">
+                                      <div class="row m-0 bg-light border-bottom">
+                                        <div class="col-md-1 align-self-center text-center">
+                                          <span class="fa fa-bell"></span>
+                                        </div>
+                                        <div class="col-md-11 px-3 py-2">
+                                          <a class="p-0 bg-light" :href="notification.data.link">{{notification.data.message}}</a>
+                                        </div>
+                                      </div>
+                                    </li>
+                                  </ul>
                               </li>
-                              <li class="px-2">
+                              <li class="nav-item px-3">
                                   <a @click="logout()" style="cursor:pointer">
                                   <span class="fa fa-power-off" style="font-size: 20px"></span>
                                   </a>
@@ -119,6 +131,7 @@
     mounted(){
       
       this.authenticated = this.$store.state.auth.authenticated
+      this.getNotifications()
       this.connect();
       feather.replace();
     },
@@ -132,6 +145,12 @@
       
     },
     methods:{
+      async getNotifications(){
+        await axios.get('/getMyNotifications')
+        .then( response =>{
+          this.$store.state.auth.notifications = response.data
+        })
+      },
       connect(){
             window.Echo.private('App.Models.User.'+this.$store.state.auth.user.id)
             .notification((notification) => {

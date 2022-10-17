@@ -14,6 +14,7 @@ use App\Http\Controllers\staffController;
 use App\Http\Controllers\rolePermissionController;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\driversController;
+use App\Http\Controllers\notificationsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -48,6 +49,8 @@ Route::resource('/products', productsController::class);
 Route::middleware('auth:sanctum')->resource('/orders', ordersController::class);
 Route::resource('/addressBooks', addressBooksController::class);
 Route::middleware('auth:sanctum')->resource('/drivers', driversController::class);
+///////////////////////////////////Notifications/////////////////////////////////////////////////////////
+Route::middleware('auth:sanctum')->get('/getMyNotifications', [notificationsController::class, 'getMyNotifications']);
 ///////////////////////////////////orders/////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getProcessing', [ordersController::class, 'getProcessing']);
 Route::middleware('auth:sanctum')->get('/getShipped', [ordersController::class, 'getShipped']);
