@@ -160,6 +160,7 @@
                     title: 'Warehouse Added',
                     text: notification.message
                 });
+                this.getNotifications()
             });
         },
       logout(){
