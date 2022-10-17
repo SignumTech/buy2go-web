@@ -58,7 +58,7 @@ class OrderStatusUpdated extends Notification
     {
         return [
             'message' => $this->message,
-            "link" => "/orderDetails\/".$this->order->id
+            "link" => "/orderDetails/".$this->order->id
         ];
     }
 }

@@ -34,9 +34,6 @@
                       <li :class="$route.path == `/driversList` ? `active` : ``">
                           <router-link to="/driversList"><i class="fa fa-user-alt"></i> Drivers</router-link>
                       </li>
-                      <li :class="$route.path == `/vehiclesList` ? `active` : ``">
-                          <router-link to="/vehiclesList"><i class="fa fa-truck"></i> Vehicles</router-link>
-                      </li>
                     </ul>
                   </div>
                 </li>
