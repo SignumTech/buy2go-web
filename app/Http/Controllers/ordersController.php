@@ -308,6 +308,7 @@ class ordersController extends Controller
 
         return $order;
     }
+    
 
     public function confirmDelivery(Request $request, $id){
         $this->validate($request,[
@@ -334,6 +335,11 @@ class ordersController extends Controller
 
     public function getMyOrders(){
         $orders = Order::where('user_id', auth()->user()->id)->get();
+        foreach($orders as $order){
+            $order->items = OrderItem::join('products', 'order_items.p_id', '=', 'products.id')
+                                     ->where('order_items.order_id', $order->id)
+                                     ->get();
+        }
         return $orders;
     }
 

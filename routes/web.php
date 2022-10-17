@@ -74,6 +74,7 @@ Route::middleware('auth:sanctum')->get('/getNodeCategories', [categoriesControll
 Route::get('/getMainCategories', [categoriesController::class, 'getMainCategories']);
 Route::middleware('auth:sanctum')->post('/uploadSubPic', [categoriesController::class, 'uploadSubPic']);
 Route::get('/getImediateSubCat/{id}', [categoriesController::class, 'getImediateSubCat']);
+Route::middleware('auth:sanctum')->post('/makeChild', [categoriesController::class, 'makeChild']);
 //////////////////////////////////////addressbook//////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getMyAddresses', [addressBooksController::class, 'getMyAddresses']);
 ///////////////////////////////////staff/////////////////////////////////////////////////////////////////

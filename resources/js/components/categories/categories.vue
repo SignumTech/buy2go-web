@@ -32,7 +32,7 @@
                                     <td class="align-middle text-center">
                                         <span class="fa fa-trash-alt me-3"></span>
                                         <span @click="editMainModal(mc)" class="fa fa-edit me-3"></span>
-                                        <span class="fa fa-child me-3"></span>
+                                        <span @click="makeChild(mc)" class="fa fa-child me-3"></span>
                                     </td>
                                 </tr>
                             </tbody>
@@ -91,6 +91,7 @@
     import mainCatModal from './mainCatModal.vue'
     import subCatModal from './subCatModal.vue'
     import addPictureModal from './addPictureModal'
+import makeChildModalVue from './makeChildModal.vue'
     export default {
         data(){
             return{
@@ -103,6 +104,14 @@
             this.getSubCategories()
         },
         methods:{
+            makeChild(category){
+                this.$modal.show(
+                    makeChildModalVue,
+                    {category:category},
+                    {width: '500px', height: 'auto'},
+                    { "closed" : this.updateData}
+                )
+            },
             updateData(){
                 this.getMainCategories()
                 this.getSubCategories()

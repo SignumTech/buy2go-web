@@ -5,8 +5,11 @@
     </div>
     <div class="col-md-12 mt-2">
         <div class="bg-white rounded-1 p-3">
-            <div v-if="order.order_status == `PROCESSING`" class="row m-0">
-                <div class="col-md-12 p-2 mt-3">
+            <div class="row m-0">
+                <div class="col-md-6 align-self-center">
+                    <router-link to="/ordersList" style="cursor:pointer"><span class="fa fa-arrow-left fs-5"></span></router-link>
+                </div>
+                <div v-if="order.order_status == `PROCESSING`" class="col-md-6 p-2 ">
                     <button @click="shipModal()" class="btn btn-primary px-4 rounded-1 float-end text-white"><span class="fa fa-shipping-fast"></span> Ship Order</button>
                 </div>
             </div>

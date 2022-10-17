@@ -242,4 +242,19 @@ class categoriesController extends Controller
                               ->get();
         return $categories;
     }
+
+    public function makeChild(Request $request){
+        $this->validate($request, [
+            "cat_id" => "required",
+            "parent_id" => "required"
+        ]);
+
+        $category = Category::find($request->cat_id);
+        $category->cat_type = "CHILD";
+        $category->parent_id = $request->parent_id;
+        $category->cat_image = 'placeholder.jpg';
+        $category->save();
+
+        return $category;
+    }
 }
