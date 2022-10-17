@@ -5,11 +5,56 @@
     </div>
     <div class="col-md-12 mt-2">
         <div class="bg-white rounded-1 p-3">
-            <div class="row m-0">
-                <div class="col-md-6 align-self-center">
+            <div class="row mx-0 mb-3">
+                <div class="col-md-2 align-self-center">
                     <router-link to="/ordersList" style="cursor:pointer"><span class="fa fa-arrow-left fs-5"></span></router-link>
                 </div>
-                <div v-if="order.order_status == `PROCESSING`" class="col-md-6 p-2 ">
+                <div class="col-md-8 d-flex justify-content-center">
+                    <div class="text-center">
+                        <div class="p-2 mx-5 bg-success rounded-5 text-white">
+                            <i data-feather="shopping-cart"></i>
+                        </div>
+                        
+                        <p class="text-center m-0">Order Placed</p>
+                    </div>
+                    <div>
+                        <div v-if="order.order_status == `PENDING_CONFIRMATION` || order.order_status == `PENDING_PICKUP` || order.order_status == `SHIPPED` || order.order_status == `DELIVERED`" class="p-2 mx-5 bg-success rounded-5 text-white">
+                            <i data-feather="user-plus"></i>
+                        </div>
+                        <div v-else class="p-2 mx-5 bg-secondary rounded-5 text-white">
+                            <i data-feather="user-plus"></i>
+                        </div>
+                        <p class="text-center m-0">Driver Assigned</p>
+                    </div>
+                    <div>
+                        <div v-if="order.order_status == `PENDING_PICKUP` || order.order_status == `SHIPPED` || order.order_status == `DELIVERED`" class="p-2 mx-5 bg-success rounded-5 text-white">
+                            <i data-feather="thumbs-up"></i>
+                        </div>
+                        <div v-else class="p-2 mx-5 bg-secondary rounded-5 text-white">
+                            <i data-feather="thumbs-up"></i>
+                        </div>
+                        <p class="text-center m-0">Driver Confirmed</p>
+                    </div>
+                    <div>
+                        <div v-if="order.order_status == `SHIPPED` || order.order_status == `DELIVERED`" class="p-2 mx-5 bg-success rounded-5 text-white">
+                            <i data-feather="truck"></i>
+                        </div>
+                        <div v-else class="p-2 mx-5 bg-secondary rounded-5 text-white">
+                            <i data-feather="truck"></i>
+                        </div>
+                        <p class="text-center m-0">Shipped</p>
+                    </div>
+                    <div>
+                        <div  v-if="order.order_status == `DELIVERED`" class="p-2 mx-5 bg-success rounded-5 text-white">
+                            <i data-feather="check-circle"></i>
+                        </div>
+                        <div v-else class="p-2 mx-5 bg-secondary rounded-5 text-white">
+                            <i data-feather="check-circle"></i>
+                        </div>
+                        <p class="text-center m-0">Delivered</p>
+                    </div>
+                </div>
+                <div v-if="order.order_status == `PROCESSING`" class="col-md-2 p-2 ">
                     <button @click="shipModal()" class="btn btn-primary px-4 rounded-1 float-end text-white"><span class="fa fa-shipping-fast"></span> Ship Order</button>
                 </div>
             </div>
