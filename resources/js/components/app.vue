@@ -113,6 +113,35 @@
               </div>
           </div>
           <notifications group="foo" position="bottom right" width="400"/>
+          <notifications group="main"
+                   :duration="5000"
+                   :width="500"
+                   animation-name="v-fade-left"
+                   position="top right">
+
+          <template slot="body" slot-scope="props">
+            <div class="custom-template bg-light">
+              <div class="custom-template-icon">
+                <i class="fa fa-bell"></i>
+              </div>
+              <div class="custom-template-content">
+                <div class="custom-template-title">
+                  {{props.item.title}}
+
+                  <p>
+                    {{props.item.text}}
+                  </p>
+                </div>
+                <div class="custom-template-text"
+                    v-html="props.item.text"></div>
+              </div>
+              <div class="custom-template-close"
+                  @click="props.close">
+                <i class="fa fa-times"></i>
+              </div>
+            </div>
+          </template>
+        </notifications>
         </div>
     </div>
   </div>
@@ -144,9 +173,9 @@
     methods:{
       notif(){
         this.$notify({
-                  group: 'foo',
-                  type: 'success',
-                  title: 'Warehouse Added',
+                  group: 'main',
+                  type: 'warning',
+                  title: 'Notification',
                   text: "test"
               });
       },
@@ -160,9 +189,9 @@
             window.Echo.private('App.Models.User.'+this.$store.state.auth.user.id)
             .notification((notification) => {
               this.$notify({
-                    group: 'foo',
+                    group: 'main',
                     type: 'success',
-                    title: 'Warehouse Added',
+                    title: 'Notification',
                     text: notification.message
                 });
                 this.getNotifications()
@@ -179,3 +208,76 @@
     }
   }
 </script>
+<style lang="scss">
+/*
+  EXAMPLES
+*/
+.notification.n-light {
+  margin: 10px;
+  margin-bottom: 0;
+  border-radius: 3px;
+  font-size: 13px;
+  padding: 10px 20px;
+  color: #495061;
+  background: #EAF4FE;
+  border: 1px solid #D4E8FD;
+  .notification-title {
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-size: 10px;
+    color: #2589F3;
+  }
+}
+.custom-template {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  text-align: left;
+  font-size: 13px;
+  margin: 5px;
+  margin-bottom: 0;
+  align-items: center;
+  justify-content: center;
+  &, & > div {
+    box-sizing: border-box;
+  }
+  background: #E8F9F0;
+  border: 2px solid #D0F2E1;
+  .custom-template-icon {
+    flex: 0 1 auto;
+    color: #15C371;
+    font-size: 32px;
+    padding: 0 10px;
+  }
+  .custom-template-close {
+    flex: 0 1 auto;
+    padding: 0 20px;
+    font-size: 16px;
+    opacity: 0.2;
+    cursor: pointer;
+    &:hover {
+      opacity: 0.8;
+    }
+  }
+  .custom-template-content {
+    padding: 10px;
+    flex: 1 0 auto;
+    .custom-template-title {
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-size: 10px;
+      font-weight: 600;
+    }
+  }
+}
+.v-fade-left-enter-active,
+.v-fade-left-leave-active,
+.v-fade-left-move {
+  transition: all .5s;
+}
+.v-fade-left-enter,
+.v-fade-left-leave-to {
+  opacity: 0;
+  transform: translateX(-500px) scale(0.2);
+}
+</style>

@@ -27,7 +27,7 @@ class ordersController extends Controller
      */
     public function index()
     { 
-        $orders = Order::all();
+        $orders = Order::orderBy("created_at", "DESC")->get();
         return $orders;
     }
 
@@ -164,18 +164,21 @@ class ordersController extends Controller
 
     public function getProcessing(){
         $orders = Order::where('orders.order_status', "PROCESSING")
+                       ->orderBy("created_at", "DESC")
                        ->get();
         return $orders;
     }
 
     public function getShipped(){
         $orders = Order::where('orders.order_status', "SHIPPED")
+                       ->orderBy("created_at", "DESC")
                        ->get();
         return $orders;
     }
 
     public function getDelivered(){
         $orders = Order::where('orders.order_status', "DELIVERED")
+                       ->orderBy("created_at", "DESC")
                        ->get();
         return $orders;
     }
@@ -346,6 +349,7 @@ class ordersController extends Controller
         foreach($orders as $order){
             $order->items = OrderItem::join('products', 'order_items.p_id', '=', 'products.id')
                                      ->where('order_items.order_id', $order->id)
+                                     ->orderBy('orders.created_at', 'DESC')
                                      ->get();
         }
         return $orders;
