@@ -150,8 +150,8 @@
   export default {
     data(){
       return{
-        authenticated:false
-  
+        authenticated:false,
+        notificationAudio:'/storage/settings/notif.mp3'
       }
     },
     mounted(){
@@ -194,10 +194,14 @@
                     title: 'Notification',
                     text: notification.message
                 });
-                var audio = new Audio('/storage/settings/notif.mp3')
-                audio.play();
+                this.playSound()
                 this.getNotifications()
             });
+        },
+        playSound(){
+              var audio = new Audio(this.notificationAudio)
+              //audio.muted = true;
+              audio.play();
         },
       logout(){
           axios.post("logout").then(response => { 
