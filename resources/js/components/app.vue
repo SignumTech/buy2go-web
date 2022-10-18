@@ -178,6 +178,8 @@
                   title: 'Notification',
                   text: "test"
               });
+        var audio = new Audio('/storage/settings/notif.mp3')
+        audio.play();
       },
       async getNotifications(){
         await axios.get('/getMyNotifications')
