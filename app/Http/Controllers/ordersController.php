@@ -69,6 +69,7 @@ class ordersController extends Controller
             $order->order_status = 'PROCESSING';
             $order->user_id = auth()->user()->id;
             $order->delivery_details = $request->address;
+            $order->payment_status = 'UNPAID';
             $order->save();
 
             $cart_items = Cart::join('cart_items', 'carts.id', '=', 'cart_items.cart_id')
@@ -90,6 +91,11 @@ class ordersController extends Controller
             }
             $cart = Cart::find($request->cart_id);
             $cart->delete();
+
+            //Notification
+            $admin = User::where('user_role', 'ADMIN')->get();
+            $message = 'A new order has been placed';
+            Notification::send($admin, new OrderStatusUpdated($message,$order));
             
             DB::commit();
             return $order;
@@ -198,6 +204,7 @@ class ordersController extends Controller
                 }
                 
             }
+            
             DB::commit();
             return $order;
         }
