@@ -293,7 +293,7 @@ class ordersController extends Controller
     }
 
     public function rejectOrder($id){
-        $order = Order::find($order->assigned_driver);
+        $order = Order::find($id);
         $order->order_status = "PROCESSING";
         $order->save();
 
