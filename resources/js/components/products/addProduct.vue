@@ -41,8 +41,18 @@
                             </div>
                             <div class="col-md-6 mt-3">
                                 <label for="">Product Commission (%)</label>
-                                <input v-model="formData.p_commission" required type="number" placeholder="Price" class="form-control">
+                                <input v-model="formData.p_commission" required type="number" placeholder="Commission" class="form-control">
                                 <h6 v-for="er in validationErrors.p_commission" :key="er.id" class="text-danger m-0">{{er}}</h6>
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <label for="">Product SKU</label>
+                                <input v-model="formData.sku" required type="text" placeholder="SKU" class="form-control">
+                                <h6 v-for="er in validationErrors.sku" :key="er.id" class="text-danger m-0">{{er}}</h6>
+                            </div>
+                            <div class="col-md-6 mt-3">
+                                <label for="">Product Supplier/Manufacturer</label>
+                                <input v-model="formData.supplier" required type="text" placeholder="Supplier" class="form-control">
+                                <h6 v-for="er in validationErrors.supplier" :key="er.id" class="text-danger m-0">{{er}}</h6>
                             </div>
                             <div v-for="warehouse,index in  formData.warehouse" :key="index" class="col-md-4 mt-3">
                                 <label for="">{{formData.quantities[index].warehouse_name}}:</label>
@@ -115,6 +125,8 @@ export default {
                 p_name:null,
                 price:null,
                 cat_id:null,
+                sku:null,
+                supplier:null,
                 p_commission:0,
                 warehouse:null,
                 quantities:[],

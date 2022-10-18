@@ -112,7 +112,7 @@
                   <router-view></router-view>             
               </div>
           </div>
-          <notifications group="foo" position="bottom right"/>
+          <notifications group="foo" position="bottom right" width="400"/>
         </div>
     </div>
   </div>
@@ -142,6 +142,14 @@
       
     },
     methods:{
+      notif(){
+        this.$notify({
+                  group: 'foo',
+                  type: 'success',
+                  title: 'Warehouse Added',
+                  text: "test"
+              });
+      },
       async getNotifications(){
         await axios.get('/getMyNotifications')
         .then( response =>{

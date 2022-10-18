@@ -46,7 +46,8 @@ class productsController extends Controller
             "price" => "required",
             "quantities" => "required",
             "p_commission" => "required | integer",
-            "p_image" => "required"
+            "p_image" => "required",
+            "sku" => "required"
         ]);
         try{
             DB::beginTransaction();
@@ -58,6 +59,8 @@ class productsController extends Controller
             $product->cat_id = $request->cat_id;
             $product->commission = $request->p_commission;
             $product->p_image = $request->p_image;
+            $product->sku = $request->sku;
+            $product->supplier = $request->supplier;
             $product->p_status = "PUBLISHED";
 
             $product->save();
