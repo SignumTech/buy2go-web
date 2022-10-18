@@ -252,6 +252,7 @@ class ordersController extends Controller
         $data = [];
         $index = 0;
         $orders = Order::where('assigned_driver', auth()->user()->id)
+                       ->orderBy('created_at', 'DESC')
                        ->get();
         foreach($orders as $order){
             $data[$index]['order_detail'] = $order;
@@ -362,5 +363,14 @@ class ordersController extends Controller
                         ->where('order_status', 'PROCESSING')
                         ->get();
         return $orders;
+    }
+
+    public function getOrderDetails($id){
+        $order = Order::join('warehouses', 'orders.warehouse_id', '=', 'warehouses.id')
+                      ->join('users', 'orders.assigned_driver', '=', 'users.id')
+                      ->join('driver_details', 'users.id', '=', 'driver_details.driver_id')
+                      ->where('orders.id', $id)
+                      ->first();
+        return $order;
     }
 }

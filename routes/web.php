@@ -60,6 +60,7 @@ Route::middleware('auth:sanctum')->get('/getDriverPendingOrders', [ordersControl
 Route::middleware('auth:sanctum')->get('/getDriverOrders', [ordersController::class, 'getDriverOrders']);
 Route::middleware('auth:sanctum')->get('/acceptOrder/{id}', [ordersController::class, 'acceptOrder']);
 Route::middleware('auth:sanctum')->get('/rejectOrder/{id}', [ordersController::class, 'rejectOrder']);
+Route::middleware('auth:sanctum')->get('/getOrderDetails/{id}', [ordersController::class, 'getOrderDetails']);
 ///////////////////////////////////products/////////////////////////////////////////////////////////
 Route::get('/productsByCategory/{id}', [productsController::class, 'productsByCategory']);
 Route::post('/uploadProductPic', [productsController::class, 'uploadProductPic']);

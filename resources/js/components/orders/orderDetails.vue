@@ -74,6 +74,22 @@
                     <h6 class="text-center">Order Date</h6>
                     <h5 class="text-center"><strong>{{order.created_at | moment("ddd, MMM Do YYYY")}}</strong></h5>
                 </div> 
+                <div v-if="order.order_status != `PROCESSING`" class="col-md-12 mt-4">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <h6 class="text-center">Assigned Driver</h6>
+                            <h5 class="text-center"><strong>{{orderDriver.f_name}} {{orderDriver.l_name}} - {{orderDriver.l_plate}}</strong></h5>
+                        </div>
+                        <div class="col-md-4 border-start border-end">
+                            <h6 class="text-center">Assigned Warehouse</h6>
+                            <h5 class="text-center"><strong>{{orderDriver.w_name}}</strong></h5>
+                        </div>
+                        <div class="col-md-4">
+                            <h6 class="text-center">Last status update</h6>
+                            <h5 class="text-center"><strong>{{order.updated_at | moment("MMM Do YYYY, H:m:s")}}</strong></h5>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-md-12 mt-3">
                     <table class="table table-bordered table-sm">
                         <thead>
@@ -140,7 +156,8 @@ export default {
             order:{},
             orderItems:[],
             address:{},
-            loading:true
+            loading:true,
+            orderDriver:{}
         }
     },
     created(){
@@ -148,7 +165,7 @@ export default {
     },
     mounted(){
         this.getOrder()
-
+        this.getOrderDriver()
     },
     methods:{
         shipModal(){
@@ -181,6 +198,12 @@ export default {
             .then( response =>{
                 this.address = response.data
                 this.loading = false
+            })
+        },
+        async getOrderDriver(){
+            await axios.get('/getOrderDetails/'+this.$route.params.id)
+            .then( response =>{
+                this.orderDriver = response.data
             })
         }
     }
