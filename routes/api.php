@@ -49,6 +49,7 @@ Route::resource('/products', productsController::class);
 Route::middleware('auth:sanctum')->resource('/addressBooks', addressBookController::class);
 ////////////////////////////////////Products////////////////////////////////////////////////////////
 Route::get('/productsByCategory/{id}', [productsController::class, 'productsByCategory']);
+Route::middleware('auth:sanctum')->post('/searchItems', [productsController::class, 'searchItems']);
 ////////////////////////////////////Categories//////////////////////////////////////////////////////
 Route::get('/getMainCategories', [categoriesController::class, 'getMainCategories']);
 Route::get('/getSubCategories', [categoriesController::class, 'getSubCategories']);

@@ -73,6 +73,7 @@ Route::post('/updateProductPic', [productsController::class, 'updateProductPic']
 Route::get('/getProductsList', [productsController::class, 'getProductsList']);
 Route::middleware('auth:sanctum')->post('/deleteProductPic', [productsController::class, 'deleteProductPic']);
 Route::middleware('auth:sanctum')->post('/saveDraft', [productsController::class, 'saveDraft']);
+Route::middleware('auth:sanctum')->post('/searchItems', [productsController::class, 'searchItems']);
 /////////////////////////////////Categories//////////////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getSubCategories', [categoriesController::class, 'getSubCategories']);
 Route::middleware('auth:sanctum')->get('/chooseSubCategories', [categoriesController::class, 'chooseSubCategories']);

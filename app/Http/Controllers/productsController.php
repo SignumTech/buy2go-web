@@ -258,4 +258,26 @@ class productsController extends Controller
         }
         return $data;
     }
+
+    public function searchItems(Request $request){
+        $this->validate($request, [
+            "searchQuery" => "required"
+        ]);
+        $data = [];
+        ///////categories/////////////
+        $category = Category::where('cat_name', 'LIKE', '%'.$request->searchQuery.'%')->get();
+        foreach($category as $cat){
+            $products = Product::where('cat_id', $cat->id)->get()->toArray();
+            if(count($products)>0){
+                $data = array_merge($data,$products);
+            }
+            
+        }
+
+        //////products//////////////////
+        $products = Product::where('p_name', 'LIKE', '%'.$request->searchQuery.'%')->get()->toArray();
+        $data = array_merge($data, $products);
+
+        return $data;
+    }
 }
