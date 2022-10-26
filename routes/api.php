@@ -72,6 +72,7 @@ Route::middleware('auth:sanctum')->post('/updateCart', [cartController::class, '
 //////////////////////////////////////////auth////////////////////////////////
 Route::post('/getUserToken', [getTokenController::class, 'getUserToken']);
 Route::post('/getDriverToken', [getTokenController::class, 'getDriverToken']);
+Route::post('/getAgentToken', [getTokenController::class, 'getAgentToken']);
 Route::post('/registerUser', [registerUsersController::class, 'registerUser']);
 Route::post('/registerAgent', [registerUsersController::class, 'registerAgent']);
 //////////////////////////////////////addressbook//////////////////////////////////////////////////
