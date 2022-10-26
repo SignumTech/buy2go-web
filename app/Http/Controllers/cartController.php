@@ -73,6 +73,7 @@ class cartController extends Controller
         $cart = Cart::join('cart_items', 'carts.id', '=', 'cart_items.cart_id')
                     ->join('products','cart_items.p_id', '=', 'products.id')
                     ->where('user_id', auth()->user()->id)
+                    ->select('cart_items.id', 'products.p_name', 'products.price', 'products.quantity', 'cart.p_id', 'cart_items.cart_id', 'products.p_image')
                     ->get();
         return $cart;
     }
