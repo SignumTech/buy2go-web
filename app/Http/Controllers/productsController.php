@@ -290,7 +290,7 @@ class productsController extends Controller
         ///////categories/////////////
         $category = Category::where('cat_name', 'LIKE', '%'.$request->searchQuery.'%')->get();
         foreach($category as $cat){
-            $products = Product::where('cat_id', $cat->id)->get()->toArray();
+            $products = Product::where('cat_id', $cat->id)->get();
             foreach($products as $product){
                 $wish_item = Wishlist::where('p_id', $product->id)
                                      ->where('user_id', auth()->user()->id)
@@ -303,6 +303,7 @@ class productsController extends Controller
                 }
             }
             if(count($products)>0){
+                $products = $products->toArray();
                 $data = array_merge($data,$products);
             }
             
