@@ -79,7 +79,7 @@ class cartController extends Controller
 
     public function deleteCartItem($id){
 
-        $item = CartItem::where('p_id', $id)->first();
+        $item = CartItem::find($id);
         $item->delete();
 
         return $item;
