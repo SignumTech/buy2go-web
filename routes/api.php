@@ -10,6 +10,7 @@ use App\Http\Controllers\cartController;
 use App\Http\Controllers\ordersController;
 use App\Http\Controllers\addressBooksController;
 use App\Http\Controllers\wishlistsController;
+use App\Http\Controllers\balancesController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -24,6 +25,9 @@ use App\Http\Controllers\wishlistsController;
 /*Route::post('/mobGoogleLogin', [socialiteController::class, 'mobGoogleLogin']);
 Route::post('/mobFacebookLogin', [socialiteController::class, 'mobFacebookLogin']);*/
 Route::middleware('auth:sanctum')->resource('/orders', ordersController::class);
+///////////////////////////////////Balances/////////////////////////////////////////////////////////
+Route::middleware('auth:sanctum')->get('/getMyBalance', [balancesController::class, 'getMyBalance']);
+Route::middleware('auth:sanctum')->get('/balanceHistory', [balancesController::class, 'balanceHistory']);
 ///////////////////////////////////Cart/////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getMyCart', [cartController::class, 'getMyCart']);
 Route::middleware('auth:sanctum')->post('/addToCart', [cartController::class, 'addToCart']);
