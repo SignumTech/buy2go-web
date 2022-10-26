@@ -186,6 +186,7 @@ class ordersController extends Controller
             $order->delivery_details = $request->address;
             $order->payment_status = 'UNPAID';
             $order->agent_id = auth()->user()->id;
+            $order->order_type = "AGENT_ORDER";
             $order->save();
 
             $cart_items = Cart::join('cart_items', 'carts.id', '=', 'cart_items.cart_id')
