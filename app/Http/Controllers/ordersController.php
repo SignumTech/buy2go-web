@@ -57,7 +57,7 @@ class ordersController extends Controller
         try{
             DB::beginTransaction();
 
-            $order = new Order();
+            $order = new Order;
             $latestOrder = Order::orderBy('created_at','DESC')->first();
             if($latestOrder){
                 $order->order_no = '#'.str_pad($latestOrder->id + 1, 8, "0", STR_PAD_LEFT);
@@ -160,6 +160,94 @@ class ordersController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function addAgentOrder(Request $request){
+        $this->validate($request, [
+            'cart_id' => 'required | integer',
+            'total' => 'required | numeric',
+            'address' => 'required | integer',
+            'user_id' => 'required'
+        ]);
+        try{
+            DB::beginTransaction();
+
+            $order = new Order;
+            $latestOrder = Order::orderBy('created_at','DESC')->first();
+            if($latestOrder){
+                $order->order_no = '#'.str_pad($latestOrder->id + 1, 8, "0", STR_PAD_LEFT);
+            }
+            else{
+                $order->order_no = '#'.str_pad(1, 8, "0", STR_PAD_LEFT);
+            }
+            $order->total = $request->total;
+            $order->order_status = 'PROCESSING';
+            $order->user_id = $request->user_id;
+            $order->delivery_details = $request->address;
+            $order->payment_status = 'UNPAID';
+            $order->agent_id = auth()->user()->id;
+            $order->save();
+
+            $cart_items = Cart::join('cart_items', 'carts.id', '=', 'cart_items.cart_id')
+                        ->where('carts.id', $request->cart_id)->get();
+
+            $agent_commission = 0;
+
+            foreach($cart_items as $item){
+                $order_details = new OrderItem;
+                $order_details->order_id = $order->id;
+                $order_details->p_id = $item->p_id;
+                $order_details->quantity = $item->quantity;
+                $order_details->save();
+
+                //////////////calculate commission
+                $product = Product::find($item->p_id);
+                $agent_commission = $agent_commission + ($product->price * $product->commission/100);
+                /*$product_stock = WarehouseDetail::where('p_id', $product->id)->sum('quantity');
+                if($item->quantity > $product_stock){
+                    return response("Some of the items have been sold out", 422);
+                }
+                else{
+                    
+                }*/
+            }
+            //////update agent balance///////////
+            $balance = Balance::where('user_id', auth()->user()->id)->first();
+            $balance->balance = $balance->balance + $agent_commission;
+            $balance->save();
+            //////create a transaction///////////
+            $transaction = new BalanceHistory;
+            $latestTransaction = Order::BalanceHistory('created_at','DESC')->first();
+            if($latestTransaction){
+                $transaction->transaction_no = '#'.str_pad($latestTransaction->id + 1, 8, "0", STR_PAD_LEFT);
+            }
+            else{
+                $transaction->transaction_no = '#'.str_pad(1, 8, "0", STR_PAD_LEFT);
+            }
+            $transaction->amount = $agent_commission;
+            $transaction->user_id = auth()->user()->id;
+            $transaction->order_id = $order->id;
+            $transaction->transaction_type = 'Commission';
+            $transaction->save();
+            
+            //////delete cart////////////////////
+            $cart = Cart::find($request->cart_id);
+            $cart->delete();
+
+            //Notification
+            $admin = User::where('user_role', 'ADMIN')->get();
+            $message = 'A new order has been placed';
+            Notification::send($admin, new OrderStatusUpdated($message,$order));
+            
+            DB::commit();
+            return $order;
+        }
+        catch (\Exception $e) {
+            DB::rollBack();
+
+            throw $e;
+            return response('Order Error', 422);
+        }
     }
 
     public function getProcessing(){
