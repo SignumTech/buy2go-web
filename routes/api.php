@@ -47,7 +47,7 @@ Route::middleware('auth:sanctum')->get('/getMyPendingOrders', [ordersController:
 /////////////////////////////////////whishlists///////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->put('/addToWishlist/{id}', [wishlistsController::class, 'addToWishlist']);
 Route::middleware('auth:sanctum')->get('/getMyWishlist', [wishlistsController::class, 'getMyWishlist']);
-Route::middleware('auth:sanctum')->delete('/removeFromWishlist/{id}', [wishlistController::class, 'removeFromWishlist']);
+Route::middleware('auth:sanctum')->delete('/removeFromWishlist/{id}', [wishlistsController::class, 'removeFromWishlist']);
 ///////////////////////////////////resources///////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->resource('/categories', categoriesController::class);
 Route::resource('/products', productsController::class);
