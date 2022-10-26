@@ -9,6 +9,7 @@ use App\Http\Controllers\productsController;
 use App\Http\Controllers\cartController;
 use App\Http\Controllers\ordersController;
 use App\Http\Controllers\addressBooksController;
+use App\Http\Controllers\wishlistsController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -43,6 +44,10 @@ Route::middleware('auth:sanctum')->get('/getMyOrders', [ordersController::class,
 Route::middleware('auth:sanctum')->get('/getMyShippedOrders', [ordersController::class, 'getMyShippedOrders']);
 Route::middleware('auth:sanctum')->get('/getMyDeliveredOrders', [ordersController::class, 'getMyDeliveredOrders']);
 Route::middleware('auth:sanctum')->get('/getMyPendingOrders', [ordersController::class, 'getMyPendingOrders']);
+/////////////////////////////////////whishlists///////////////////////////////////////////////////////
+Route::middleware('auth:sanctum')->put('/addToWishlist/{id}', [wishlistsController::class, 'addToWishlist']);
+Route::middleware('auth:sanctum')->get('/getMyWishlist', [wishlistsController::class, 'getMyWishlist']);
+Route::middleware('auth:sanctum')->delete('/removeFromWishlist/{id}', [wishlistController::class, 'removeFromWishlist']);
 ///////////////////////////////////resources///////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->resource('/categories', categoriesController::class);
 Route::resource('/products', productsController::class);

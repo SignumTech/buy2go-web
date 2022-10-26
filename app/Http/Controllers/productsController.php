@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\WarehouseDetail;
 use App\Models\Category;
+use App\Models\Wishlist;
 use DB;
 use Image;
 use Storage;
@@ -236,6 +237,17 @@ class productsController extends Controller
             $products = Product::where('cat_id', $id)
                                         ->where('p_status', 'PUBLISHED')
                                         ->get();
+            foreach($products as $product){
+                $wish_item = Wishlist::where('p_id', $product->id)
+                                     ->where('user_id', auth()->user()->id)
+                                     ->first();
+                if($wish_item){
+                    $product->wishlist = true;
+                }
+                else{
+                    $product->wishlist = false;
+                }
+            }
             $data = array_merge($products->toArray(),$data);
         }
         return $data;
@@ -254,6 +266,17 @@ class productsController extends Controller
             $products = Product::where('cat_id', $id)
                                         ->where('p_status', 'PUBLISHED')
                                         ->get();
+            foreach($products as $product){
+                $wish_item = Wishlist::where('p_id', $product->id)
+                                        ->where('user_id', auth()->user()->id)
+                                        ->first();
+                if($wish_item){
+                    $product->wishlist = true;
+                }
+                else{
+                    $product->wishlist = false;
+                }
+            }
             $data = array_merge($products->toArray(),$data);
         }
         return $data;
@@ -268,6 +291,17 @@ class productsController extends Controller
         $category = Category::where('cat_name', 'LIKE', '%'.$request->searchQuery.'%')->get();
         foreach($category as $cat){
             $products = Product::where('cat_id', $cat->id)->get()->toArray();
+            foreach($products as $product){
+                $wish_item = Wishlist::where('p_id', $product->id)
+                                     ->where('user_id', auth()->user()->id)
+                                     ->first();
+                if($wish_item){
+                    $product->wishlist = true;
+                }
+                else{
+                    $product->wishlist = false;
+                }
+            }
             if(count($products)>0){
                 $data = array_merge($data,$products);
             }
@@ -276,6 +310,17 @@ class productsController extends Controller
 
         //////products//////////////////
         $products = Product::where('p_name', 'LIKE', '%'.$request->searchQuery.'%')->get()->toArray();
+        foreach($products as $product){
+            $wish_item = Wishlist::where('p_id', $product->id)
+                                 ->where('user_id', auth()->user()->id)
+                                 ->first();
+            if($wish_item){
+                $product->wishlist = true;
+            }
+            else{
+                $product->wishlist = false;
+            }
+        }
         $data = array_merge($data, $products);
 
         return $data;
