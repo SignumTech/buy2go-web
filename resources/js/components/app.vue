@@ -31,9 +31,12 @@
                   <a data-bs-toggle="collapse" href="#us_ma" aria-expanded="false" aria-controls="collapseExample"><i data-feather="truck"></i> Fleet Management</a>
                   <div class="collapse" id="us_ma">
                     <ul class="collapse list-unstyled" id="us_ma">
+                      <li :class="$route.path == `/routeList` ? `active` : ``">
+                          <router-link to="/routeList"><i class="fa fa-route"></i> Routes</router-link>
+                      </li>
                       <li :class="$route.path == `/driversList` ? `active` : ``">
                           <router-link to="/driversList"><i class="fa fa-user-alt"></i> Drivers</router-link>
-                      </li>
+                      </li>                      
                     </ul>
                   </div>
                 </li>

@@ -13,7 +13,7 @@
         <div class="col-md-12 mt-3">
             <h6 class="mt-3 mb-3"><span class="fa fa-info-circle"></span> Drag the nodes on the polygon to adjust the area of the zone.</h6>
             <gmap-map :center="{lat: 8.9806, lng: 38.7578}" :zoom="12" style="width: 100%; height: 400px">
-                <gmap-polygon :paths="paths" :editable="true" @paths_changed="updateEdited($event)">
+                <gmap-polygon :paths="paths" :editable="true" :draggable="true" @paths_changed="updateEdited($event)">
                 </gmap-polygon>
             </gmap-map>   
         </div>

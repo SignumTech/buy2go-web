@@ -15,6 +15,8 @@ use App\Http\Controllers\rolePermissionController;
 use App\Http\Controllers\dashboardController;
 use App\Http\Controllers\driversController;
 use App\Http\Controllers\notificationsController;
+use App\Http\Controllers\routesController;
+use App\Http\Controllers\shopsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -27,6 +29,8 @@ use App\Http\Controllers\notificationsController;
 */
 /////////////////////////////////////drivers//////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getZoneDrivers/{zone_id}', [driversController::class, 'getZoneDrivers']);
+/////////////////////////////////////shop//////////////////////////////////////////////////////////
+Route::middleware('auth:sanctum')->get('/getShops', [shopsController::class, 'getShops']);
 /////////////////////////////////////dashboard////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/salesThirty', [dashboardController::class, 'salesThirty']);
 Route::middleware('auth:sanctum')->get('/salesToday', [dashboardController::class, 'salesToday']);
@@ -49,6 +53,7 @@ Route::resource('/products', productsController::class);
 Route::middleware('auth:sanctum')->resource('/orders', ordersController::class);
 Route::resource('/addressBooks', addressBooksController::class);
 Route::middleware('auth:sanctum')->resource('/drivers', driversController::class);
+Route::middleware('auth:sanctum')->resource('/routes', routesController::class);
 ///////////////////////////////////Notifications/////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getMyNotifications', [notificationsController::class, 'getMyNotifications']);
 ///////////////////////////////////orders/////////////////////////////////////////////////////////

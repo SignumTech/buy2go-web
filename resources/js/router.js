@@ -18,6 +18,7 @@ import rolePermission from './components/user_management/rolePermission.vue'
 import staffManagement from './components/user_management/staffManagement.vue'
 import vehiclesList from './components/fleet_management/vehicles.vue'
 import driversList from './components/fleet_management/drivers.vue'
+import routeList from './components/fleet_management/routes.vue'
 Vue.use(Router)
 
 const routes = [
@@ -102,6 +103,12 @@ const routes = [
         path: '/driversList',
         component: driversList,
         name: 'DriversList',
+        props: true
+    },
+    {
+        path: '/routeList',
+        component: routeList,
+        name: 'RouteList',
         props: true
     },
     {
