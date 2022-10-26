@@ -309,7 +309,7 @@ class productsController extends Controller
         }
 
         //////products//////////////////
-        $products = Product::where('p_name', 'LIKE', '%'.$request->searchQuery.'%')->get()->toArray();
+        $products = Product::where('p_name', 'LIKE', '%'.$request->searchQuery.'%')->get();
         foreach($products as $product){
             $wish_item = Wishlist::where('p_id', $product->id)
                                  ->where('user_id', auth()->user()->id)
@@ -321,6 +321,7 @@ class productsController extends Controller
                 $product->wishlist = false;
             }
         }
+        $products = $products->toArray();
         $data = array_merge($data, $products);
 
         return $data;
