@@ -32,4 +32,30 @@ class registerUsersController extends Controller
 
         return ['token' => $user_token->plainTextToken];
     }
+
+    public function registerAgent(Request $request){
+        
+        $this->validate($request, [
+            'f_name' => ['required', 'string', 'max:255'],
+            'l_name' => ['required', 'string', 'max:255'],
+            //'preference' => ['required', 'string', 'max:255'],
+            //'phone_no' => ['required','regex:/(01)[0-9]{9}/'],
+            'phone_no' => ['required','numeric'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+        ]);
+
+        $user = new User;
+        $user->f_name = $request->f_name;
+        $user->l_name = $request->l_name;
+        $user->phone_no = $request->phone_no;
+        $user->password = Hash::make($request->password);
+        $user->account_type = "AGENT";
+        $user->user_role = "AGENT";
+        //$user->otp = rand(1000 , 9999);
+        $user->save();
+
+        $user_token = $user->createToken($user->f_name);
+
+        return ['token' => $user_token->plainTextToken];
+    }
 }

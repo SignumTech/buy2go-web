@@ -33,7 +33,8 @@ Route::middleware('auth:sanctum')->get('/getMyCart', [cartController::class, 'ge
 Route::middleware('auth:sanctum')->post('/addToCart', [cartController::class, 'addToCart']);
 Route::middleware('auth:sanctum')->delete('/deleteCartItem/{id}', [cartController::class, 'deleteCartItem']);
 ///////////////////////////////////orders/////////////////////////////////////////////////////////
-Route::get('/getMyOrders', [ordersController::class, 'getMyOrders']);
+Route::middleware('auth:sanctum')->post('/addAgentOrder', [ordersController::class, 'getMyOrders']);
+Route::middleware('auth:sanctum')->get('/getMyOrders', [ordersController::class, 'getMyOrders']);
 Route::middleware('auth:sanctum')->get('/getMyOrdersStatus/{status}', [ordersController::class, 'getMyOrdersStatus']);
 
 Route::middleware('auth:sanctum')->get('/getDriverPendingOrders', [ordersController::class, 'getDriverPendingOrders']);
@@ -72,6 +73,7 @@ Route::middleware('auth:sanctum')->post('/updateCart', [cartController::class, '
 Route::post('/getUserToken', [getTokenController::class, 'getUserToken']);
 Route::post('/getDriverToken', [getTokenController::class, 'getDriverToken']);
 Route::post('/registerUser', [registerUsersController::class, 'registerUser']);
+Route::post('/registerAgent', [registerUsersController::class, 'registerAgent']);
 //////////////////////////////////////addressbook//////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getMyAddresses', [addressBooksController::class, 'getMyAddresses']);
 ///////////////////////////////////////////////////////////////////////////////
