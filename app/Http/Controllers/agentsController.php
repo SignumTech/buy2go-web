@@ -13,8 +13,11 @@ class agentsController extends Controller
             "searchQuery" => "required"
         ]);
 
-        $shops = User::where('f_name', 'LIKE', '%'.$request->searchQuery.'%')
-                    ->orWhere('phone_no', 'LIKE', $request->searchQuery.'%')
+        $shops = User::where('account_type', 'USER')
+                    ->where(function($query){
+                        $query->where('f_name', 'LIKE', '%'.$request->searchQuery.'%')
+                              ->orWhere('phone_no', 'LIKE', $request->searchQuery.'%');
+                    })
                     ->get();
         foreach($shops as $shop){
             $shop->address = AddressBook::where('user_id', $shop->id)->get();
