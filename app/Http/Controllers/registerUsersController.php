@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Balance;
 use Illuminate\Support\Facades\Hash;
 class registerUsersController extends Controller
 {
@@ -53,6 +54,11 @@ class registerUsersController extends Controller
         $user->user_role = "AGENT";
         //$user->otp = rand(1000 , 9999);
         $user->save();
+
+        $balance = new Balance;
+        $balance->balance = 0;
+        $balance->user_id = $user->id;
+        $balance->save();
 
         $user_token = $user->createToken($user->f_name);
 
