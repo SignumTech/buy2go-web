@@ -14,15 +14,15 @@ class agentsController extends Controller
         ]);
 
         $shops = User::where('account_type', 'USER')
-                    ->where(function($query) use($request){
-                        $query->where('f_name', 'LIKE', '%'.$request->searchQuery.'%')
-                              ->orWhere('phone_no', 'LIKE', $request->searchQuery.'%');
-                    })
-                    ->get();
+                        ->where(function($query) use($request){
+                            $query->where('f_name', 'LIKE', '%'.$request->searchQuery.'%')
+                                ->orWhere('phone_no', 'LIKE', $request->searchQuery.'%');
+                        })
+                        ->get();
         foreach($shops as $shop){
             $shop->address = AddressBook::where('user_id', $shop->id)->get();
         }
 
-        return $shop;
+        return $shops;
     }
 }
