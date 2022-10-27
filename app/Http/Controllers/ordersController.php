@@ -221,7 +221,7 @@ class ordersController extends Controller
             $balance->save();
             //////create a transaction///////////
             $transaction = new BalanceHistory;
-            $latestTransaction = Order::BalanceHistory('created_at','DESC')->first();
+            $latestTransaction = Order::orderBy('created_at','DESC')->first();
             if($latestTransaction){
                 $transaction->transaction_no = '#'.str_pad($latestTransaction->id + 1, 8, "0", STR_PAD_LEFT);
             }
