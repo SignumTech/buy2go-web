@@ -11,6 +11,7 @@ use App\Http\Controllers\ordersController;
 use App\Http\Controllers\addressBooksController;
 use App\Http\Controllers\wishlistsController;
 use App\Http\Controllers\balancesController;
+use App\Http\Controllers\agentsController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -32,6 +33,8 @@ Route::middleware('auth:sanctum')->get('/balanceHistory', [balancesController::c
 Route::middleware('auth:sanctum')->get('/getMyCart', [cartController::class, 'getMyCart']);
 Route::middleware('auth:sanctum')->post('/addToCart', [cartController::class, 'addToCart']);
 Route::middleware('auth:sanctum')->delete('/deleteCartItem/{id}', [cartController::class, 'deleteCartItem']);
+///////////////////////////////////agents/////////////////////////////////////////////////////////
+Route::middleware('auth:sanctum')->post('/searchShop', [agentsController::class, 'searchShop']);
 ///////////////////////////////////orders/////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->post('/addAgentOrder', [ordersController::class, 'getMyOrders']);
 Route::middleware('auth:sanctum')->get('/getMyOrders', [ordersController::class, 'getMyOrders']);
