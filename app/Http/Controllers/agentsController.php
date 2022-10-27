@@ -14,7 +14,7 @@ class agentsController extends Controller
         ]);
 
         $shops = User::where('account_type', 'USER')
-                    ->where(function($query){
+                    ->where(function($query) use($request){
                         $query->where('f_name', 'LIKE', '%'.$request->searchQuery.'%')
                               ->orWhere('phone_no', 'LIKE', $request->searchQuery.'%');
                     })
