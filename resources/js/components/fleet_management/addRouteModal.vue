@@ -13,10 +13,20 @@
             <google-marker v-for="m,index in warehouseMarkers" :icon="`/storage/settings/warehouse.png`"  :key="`wh`+index" :position="m.position" :clickable="true" :draggable="false" @click="toggleInfoWindow(m,i)"></google-marker>
             <gmap-polygon v-for="path,index in zonePath" :key="index" :paths="path" :editable="false" :draggable="false" @paths_changed="updateEdited($event)"></gmap-polygon>
             <!--<DirectionsRenderer
+            v-for="route_path,index in formData.route_path"
+            :key="`d`+index"
             travelMode="DRIVING"
-            :origin="address"
-            :destination="destination"
+            :origin="route_path[0]"
+            :destination="route_path[1]"
             />-->
+            <DirectionsRenderer
+            v-for="route_path,index in formData.route_path"
+            :key="`d`+index"
+            travelMode="DRIVING"
+            :origin="{lat:9.011369+index,lng:38.870543}"
+            :destination="{lat:8.998646+index,lng:38.845834}"
+            />
+
         </GmapMap>
     </div>
     <div class="col-md-3">
@@ -40,8 +50,12 @@
 </div>    
 </template>
 <script>
+import DirectionsRenderer from '../orders/DirectionsRenderer'
 import {gmapApi} from 'vue2-google-maps'
 export default {
+    components:{
+        DirectionsRenderer
+    },
     computed: {
         google: gmapApi
     },
@@ -51,7 +65,7 @@ export default {
             formData:{
                 route_name:null,
                 zone_id:null,
-                route_path:[],
+                route_path:[[{lat:9.002982,lng:38.832853},{lat:9.102982,lng:38.832853}],[{lat:9.102982,lng:38.82853},{lat:9.102982,lng:38.832853}]],
             },
             routes:{},
             shops:{},
@@ -85,10 +99,11 @@ export default {
             var polyCheck = new google.maps.Polygon({
                                     paths: this.zonePath
                                 });
+            this.shopMarkers = [];
+            this.warehouseMarkers = [];
             this.shops.forEach(shop => {
                 shop.address.forEach( address =>{
                     if(google.maps.geometry.poly.containsLocation(JSON.parse(address.geolocation), polyCheck)){
-                        this.shopMarkers = [];
                         this.shopMarkers.push({
                             position: JSON.parse(address.geolocation),
                             infoOptions: {
@@ -107,7 +122,7 @@ export default {
             }); 
             this.warehouses.forEach(warehouse => {
                 if(google.maps.geometry.poly.containsLocation(JSON.parse(warehouse.location), polyCheck)){
-                    this.warehouseMarkers = [];
+
                     this.warehouseMarkers.push({
                         position: JSON.parse(warehouse.location),
                         infoOptions: {
