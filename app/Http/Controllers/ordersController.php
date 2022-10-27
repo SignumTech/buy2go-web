@@ -13,6 +13,7 @@ use App\Models\WarehouseDetail;
 use App\Models\Balance;
 use App\Models\BalanceHistory;
 use App\Models\AddressBook;
+use App\Models\Product;
 use App\Events\DriverRejectedOrder;
 use DB;
 
