@@ -9,7 +9,7 @@
             </gmap-info-window>
             <gmap-info-window v-for="m,index in warehouseMarkers" :key="`w`+index" :options="m.infoOptions" :position="m.position" :opened="true" @closeclick="infoWinOpen=false">
             </gmap-info-window>
-            <google-marker v-for="m,index in shopMarkers" @click="displayShop($event.latLng)"  :key="`sh`+index"  :icon="`/storage/settings/store.png`" :position="m.position" :clickable="true" :draggable="false" ></google-marker>
+            <google-marker v-for="m,index in shopMarkers" @click="addShop(m)"  :key="`sh`+index"  :icon="`/storage/settings/store.png`" :position="m.position" :clickable="true" :draggable="false" ></google-marker>
             <google-marker v-for="m,index in warehouseMarkers" :icon="`/storage/settings/warehouse.png`"  :key="`wh`+index" :position="m.position" :clickable="true" :draggable="false" @click="toggleInfoWindow(m,i)"></google-marker>
             <gmap-polygon v-for="path,index in zonePath" :key="index" :paths="path" :editable="false" :draggable="false" @paths_changed="updateEdited($event)"></gmap-polygon>
             <!--<DirectionsRenderer
@@ -48,6 +48,10 @@
                     <option v-for="zone,index in zones" :key="index" :value="zone.id">{{zone.zone_name}}</option>
                 </select>
             </div>
+            <div class="col-md-12 mt-3">
+                <label for="">Selected shops</label>
+                <treeselect required :beforeClearAll="removeAll"  @deselect="removeShop" @select="addShop" v-model="formData.selectedShops" :disable-branch-nodes="true" :multiple="true" :options="selectedShops" />
+            </div>
             <div class="col-md-12 mt-5">
                 <button class="btn btn-primary form-control rounded-1">Save Route</button>
             </div>
@@ -56,26 +60,39 @@
 </div>    
 </template>
 <script>
+import Treeselect from '@riophae/vue-treeselect'
 import DirectionsRenderer from '../orders/DirectionsRenderer'
 import RouteRenderer from './RouteRenderer'
 import {gmapApi} from 'vue2-google-maps'
 export default {
     components:{
         DirectionsRenderer,
-        RouteRenderer
+        RouteRenderer,
+        Treeselect
     },
     computed: {
         google: gmapApi
     },
+    watch:{
+        addId: function(){
+            console.log(this.addId)
+        }
+    },
     data(){
         return{
+            addId:null,
             map:null,
+            drawingManager:null,
+            placeIdArray:[],
+            polylines:[],
+            snappedCoordinates:[],
             newPath:[],
             formData:{
                 route_name:null,
                 zone_id:null,
-                route_path:[{lat:9.002982,lng:38.832853},{lat:9.102982,lng:38.832853},{lat:9.102982,lng:38.82853},{lat:9.102982,lng:38.832853}],
+                selectedShops:[],
             },
+            selectedShops:[],
             routes:{},
             shops:{},
             warehouses:{},
@@ -100,8 +117,55 @@ export default {
         this.getWarehouses()
         this.getZones()
         this.$refs.mapRef.$mapPromise.then(map => this.map = map)
+        this.runSnapToRoad()
     },
     methods:{
+        removeAll(){},
+        removeShop(node){
+           
+            this.selectedShops = this.selectedShops.filter(data=>data.id != node.id)
+            this.formData.selectedShops = this.formData.selectedShops.splice(this.formData.selectedShops.indexOf(node.id),1)
+        },
+        async runSnapToRoad(){
+            /*var pathValues = [];
+            for (var i = 0; i < path.getLength(); i++) {
+                pathValues.push(path.getAt(i).toUrlValue());
+            }
+            var config = {
+            method: 'get',
+            url: 'https://roads.googleapis.com/v1/snapToRoads?path=-35.27801%2C149.12958%7C-35.28032%2C149.12907%7C-35.28099%2C149.12929%7C-35.28144%2C149.12984%7C-35.28194%2C149.13003%7C-35.28282%2C149.12956%7C-35.28302%2C149.12881%7C-35.28473%2C149.12836&interpolate=true&key=AIzaSyCRNebshVW6XSdv4X2Nxm3FGIt3qbA7UKU',
+            headers: { }
+            }
+            await axios.get(config)
+            .then( response =>{
+                console.log( response )
+                this.processSnapToRoadResponse(response.data)
+                this.drawSnappedPolyline()
+            })*/
+        },
+        processSnapToRoadResponse(data){
+            this.snappedCoordinates = [];
+            this.placeIdArray = [];
+            console.log(data)
+            for (var i = 0; i < data.snappedPoints.length; i++) {
+                var latlng = new google.maps.LatLng(
+                    data.snappedPoints[i].location.latitude,
+                    data.snappedPoints[i].location.longitude);
+                this.snappedCoordinates.push(latlng);
+                this.placeIdArray.push(data.snappedPoints[i].placeId);
+            }
+        },
+        drawSnappedPolyline(){
+            var snappedPolyline = new google.maps.Polyline({
+                path: snappedCoordinates,
+                strokeColor: '#add8e6',
+                strokeWeight: 4,
+                strokeOpacity: 0.9,
+            });
+
+            snappedPolyline.setMap(map);
+            polylines.push(snappedPolyline);
+        },
         displayZone(){
             var myZone = this.zones.find(zone=> zone.id == this.formData.zone_id)
             this.zonePath = JSON.parse(myZone.route)
@@ -115,8 +179,10 @@ export default {
                     if(google.maps.geometry.poly.containsLocation(JSON.parse(address.geolocation), polyCheck)){
                         this.shopMarkers.push({
                             position: JSON.parse(address.geolocation),
+                            id: address.id,
+                            address: address.regular_address,
                             infoOptions: {
-                                content: '<strong> Shop: '+shop.f_name+'</strong><br>'+'<strong>'+shop.phone_no+'</strong>',
+                                content: '<strong><span class="fa fa-plus"></span> Shop: '+shop.f_name+'</strong><br>'+'<strong>'+shop.phone_no+'</strong>',
                                 //optional: offset infowindow so it visually sits nicely on top of our marker
                                 pixelOffset: {
                                 width: 0,
@@ -149,11 +215,18 @@ export default {
             console.log();
             
         },
-        displayShop(position){
-            this.newPath.push({
-                lat:position.lat(),
-                lng:position.lng()
-            })
+        addShop(data){
+            if(!this.formData.selectedShops.includes(data.id)){
+                this.formData.selectedShops.push(data.id)
+                this.selectedShops.push({
+                    id:data.id,
+                    label:data.address
+                })
+            }
+            else{
+                this.removeShop(data)
+            }
+            
         },
         async getShops(){
             await axios.get('/getShops')
