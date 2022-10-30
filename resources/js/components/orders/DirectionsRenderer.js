@@ -15,21 +15,23 @@ export default MapElementFactory({
     origin: { type: [Object, Array] },
     destination: { type: [Object, Array] },
     travelMode: { type: String },
+    waypoints: { type: Array}
   },
 
   afterCreate(directionsRenderer) {
     let directionsService = new window.google.maps.DirectionsService();
 
     this.$watch(
-      () => [this.origin, this.destination, this.travelMode],
+      () => [this.origin, this.destination, this.travelMode, this.waypoints],
       () => {
-        let { origin, destination, travelMode } = this;
+        let { origin, destination, travelMode, waypoints } = this;
         if (!origin || !destination || !travelMode) return;
         directionsService.route(
           {
             origin,
             destination,
             travelMode,
+            waypoints,
           },
           (response, status) => {
             if (status !== "OK") return;

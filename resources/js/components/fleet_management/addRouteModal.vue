@@ -4,7 +4,7 @@
         <h5 class="m-0"><strong>Routes</strong></h5>
     </div>
     <div class="col-md-9">
-        <GmapMap :center="center" :zoom="12" style="width: 100%; height: 500px" ref="mapRef">
+        <GmapMap :center="center" @click="displayShop($event.latLng)" :zoom="12" style="width: 100%; height: 500px" ref="mapRef">
             <gmap-info-window v-for="m,index in shopMarkers" :key="`s`+index" :options="m.infoOptions" :position="m.position" :opened="true" @closeclick="infoWinOpen=false">
             </gmap-info-window>
             <gmap-info-window v-for="m,index in warehouseMarkers" :key="`w`+index" :options="m.infoOptions" :position="m.position" :opened="true" @closeclick="infoWinOpen=false">
@@ -19,12 +19,18 @@
             :origin="route_path[0]"
             :destination="route_path[1]"
             />-->
-            <DirectionsRenderer
-            v-for="route_path,index in formData.route_path"
-            :key="`d`+index"
+            <!--<DirectionsRenderer
             travelMode="DRIVING"
-            :origin="{lat:9.011369+index,lng:38.870543}"
-            :destination="{lat:8.998646+index,lng:38.845834}"
+            v-for="paths,index in formData.route_path"
+            :key="index"
+            :origin="formData.route_path[0]"
+            :destination="formData.route_path[formData.route_path.length - 1]"
+            :waypoints="[{location:{lat:8.983966+(index/100),lng:38.555250+(index/100)}}, {location:{lat:9.015504+(index/100),lng:38.730625+(index/100)}}]"
+            />-->
+            <RouteRenderer
+            travelMode="DRIVING"
+            :routePath="newPath"
+            :map="map"
             />
 
         </GmapMap>
@@ -51,10 +57,12 @@
 </template>
 <script>
 import DirectionsRenderer from '../orders/DirectionsRenderer'
+import RouteRenderer from './RouteRenderer'
 import {gmapApi} from 'vue2-google-maps'
 export default {
     components:{
-        DirectionsRenderer
+        DirectionsRenderer,
+        RouteRenderer
     },
     computed: {
         google: gmapApi
@@ -62,10 +70,11 @@ export default {
     data(){
         return{
             map:null,
+            newPath:[],
             formData:{
                 route_name:null,
                 zone_id:null,
-                route_path:[[{lat:9.002982,lng:38.832853},{lat:9.102982,lng:38.832853}],[{lat:9.102982,lng:38.82853},{lat:9.102982,lng:38.832853}]],
+                route_path:[{lat:9.002982,lng:38.832853},{lat:9.102982,lng:38.832853},{lat:9.102982,lng:38.82853},{lat:9.102982,lng:38.832853}],
             },
             routes:{},
             shops:{},
@@ -141,7 +150,10 @@ export default {
             
         },
         displayShop(position){
-            console.log(position.lat())
+            this.newPath.push({
+                lat:position.lat(),
+                lng:position.lng()
+            })
         },
         async getShops(){
             await axios.get('/getShops')
