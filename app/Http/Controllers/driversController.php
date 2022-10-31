@@ -46,7 +46,7 @@ class driversController extends Controller
             "f_name" => "required",
             "l_name" => "required",
             "l_plate" => "required",
-            "zone_id" => "required"
+            "route_id" => "required"
         ]);
         try {
 
@@ -62,7 +62,7 @@ class driversController extends Controller
             $driver_detail = new DriverDetail;
             $driver_detail->driver_id = $driver->id;
             $driver_detail->l_plate = $request->l_plate;
-            $driver_detail->zone_id = $request->zone_id;
+            $driver_detail->route_id = $request->zone_id;
             $driver_detail->save();
             DB::commit();
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ZoneRoute;
 use App\Models\DriverDetail;
+use App\Models\AddressBook;
 class routesController extends Controller
 {
     /**
@@ -14,8 +15,12 @@ class routesController extends Controller
      */
     public function index()
     {
-        $routes = ZoneRoute::join('driver_details', 'driver_details.route_id', '=', 'zone_routes.id')
-                           ->get();
+        $routes = ZoneRoute::join('zones', 'zone_routes.zone_id', '=', 'zones.id')
+                           ->select('zone_routes.id', 'zone_routes.route_name', 'zones.zone_name')->get();
+        foreach($routes as $route){
+            $route->drivers_count = DriverDetail::where('route_id', $route->id)->count();
+            $route->shops_count = AddressBook::where('route_id', $route->id)->count();
+        }
         return $routes;
     }
 
@@ -42,12 +47,12 @@ class routesController extends Controller
             "zone_id" => "required",
             "selectedShops" => "required"
         ]);
-
+        //dd($request->selectedShops);
         $route = new ZoneRoute;
         $route->route_name = $request->route_name;
         $route->zone_id = $request->zone_id;
         $route->save();
-
+        
         foreach($request->selectedShops as $shop){
             $address = AddressBook::find($shop);
             $address->route_id = $route->id;

@@ -32,6 +32,7 @@ use App\Http\Controllers\agentsController;
 Route::middleware('auth:sanctum')->get('/getZoneDrivers/{zone_id}', [driversController::class, 'getZoneDrivers']);
 /////////////////////////////////////shop//////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getShops', [shopsController::class, 'getShops']);
+Route::middleware('auth:sanctum')->get('/getShopsWithNoRoutes', [shopsController::class, 'getShopsWithNoRoutes']);
 /////////////////////////////////////dashboard////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/salesThirty', [dashboardController::class, 'salesThirty']);
 Route::middleware('auth:sanctum')->get('/salesToday', [dashboardController::class, 'salesToday']);

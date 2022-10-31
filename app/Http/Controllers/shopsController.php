@@ -15,4 +15,13 @@ class shopsController extends Controller
 
         return $shops;
     }
+    public function getShopsWithNoRoutes(){
+        $shops = User::where('account_type', 'USER')->get();
+        foreach($shops as $shop){
+            $shop->address = AddressBook::where('user_id', $shop->id)
+                                        ->where('route_id', null)->get();
+        }
+
+        return $shops;
+    }
 }

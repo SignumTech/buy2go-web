@@ -13,17 +13,18 @@
                         <th>#</th>
                         <th>Route Name</th>
                         <th>Drivers</th>
+                        <th>Shops</th>
                         <th>Zone</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr v-for="route,index in routes" :key="index">
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td>{{index+1}}</td>
+                        <td>{{route.route_name}}</td>
+                        <td>{{route.drivers_count}}</td>
+                        <td>{{route.shops_count}}</td>
+                        <td>{{route.zone_name}}</td>
                         <td class="text-center">
                             <span @click="editModal(route)" class="fa fa-edit "></span>
                             <span  class="fa fa-trash-alt ms-3"></span>
