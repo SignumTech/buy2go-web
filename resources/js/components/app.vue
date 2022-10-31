@@ -50,6 +50,9 @@
                       <li  :class="$route.path == `/rolePermission` ? `active` : ``">
                           <router-link to="/rolePermission"><i class="fa fa-key"></i> Role Permission</router-link>
                       </li>
+                      <li  :class="$route.path == `/agents` ? `active` : ``">
+                          <router-link to="/agents"><i class="fa fa-user-tie"></i> Commission Agents</router-link>
+                      </li>
                     </ul>
                   </div>
                 </li>

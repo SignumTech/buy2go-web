@@ -17,6 +17,7 @@ use App\Http\Controllers\driversController;
 use App\Http\Controllers\notificationsController;
 use App\Http\Controllers\routesController;
 use App\Http\Controllers\shopsController;
+use App\Http\Controllers\agentsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -74,6 +75,8 @@ Route::get('/getProductsList', [productsController::class, 'getProductsList']);
 Route::middleware('auth:sanctum')->post('/deleteProductPic', [productsController::class, 'deleteProductPic']);
 Route::middleware('auth:sanctum')->post('/saveDraft', [productsController::class, 'saveDraft']);
 Route::middleware('auth:sanctum')->post('/searchItems', [productsController::class, 'searchItems']);
+///////////////////////////////////agents/////////////////////////////////////////////////////////
+Route::middleware('auth:sanctum')->get('/getAgents', [agentsController::class, 'getAgents']);
 /////////////////////////////////Categories//////////////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getSubCategories', [categoriesController::class, 'getSubCategories']);
 Route::middleware('auth:sanctum')->get('/chooseSubCategories', [categoriesController::class, 'chooseSubCategories']);

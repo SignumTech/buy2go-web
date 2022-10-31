@@ -25,4 +25,11 @@ class agentsController extends Controller
 
         return $shops;
     }
+
+    public function getAgents(){
+        $agents = User::join('balances', 'users.id', 'balances.user_id')
+                      ->where('account_type', 'AGENT')
+                      ->get();
+        return $agents;
+    }
 }
