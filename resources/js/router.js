@@ -19,6 +19,7 @@ import staffManagement from './components/user_management/staffManagement.vue'
 import vehiclesList from './components/fleet_management/vehicles.vue'
 import driversList from './components/fleet_management/drivers.vue'
 import routeList from './components/fleet_management/routes.vue'
+import customers from './components/customers/customers.vue'
 Vue.use(Router)
 
 const routes = [
@@ -115,6 +116,12 @@ const routes = [
         path: '/vehiclesList',
         component: vehiclesList,
         name: 'VehiclesList',
+        props: true
+    },
+    {
+        path: '/customers',
+        component: customers,
+        name: 'Customers',
         props: true
     },
 ]

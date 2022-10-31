@@ -40,12 +40,19 @@ class routesController extends Controller
         $this->validate($request, [
             "route_name" => "required",
             "zone_id" => "required",
+            "selectedShops" => "required"
         ]);
 
         $route = new ZoneRoute;
         $route->route_name = $request->route_name;
         $route->zone_id = $request->zone_id;
         $route->save();
+
+        foreach($request->selectedShops as $shop){
+            $address = AddressBook::find($shop);
+            $address->route_id = $route->id;
+            $address->save();
+        }
 
         return $route;
     }
