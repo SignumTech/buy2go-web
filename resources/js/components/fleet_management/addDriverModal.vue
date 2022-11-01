@@ -21,11 +21,13 @@
                 <input required v-model="formData.l_plate" type="text" class="form-control" placeholder="License plate number">
             </div>
             <div class="col-md-12 mt-2">
-                <label for="">Zone</label>
-                <select class="form-select" v-model="formData.zone_id">
-                    <option value=""></option>
-                    <option v-for="zone,index in zones" :key="index" :value="zone.id">{{zone.zone_name}}</option>
-                </select>
+                <label for="">Routes</label>
+                <treeselect
+                :multiple="true"
+                :options="routes"
+                placeholder="Routes"
+                v-model="formData.route_id"
+                />
             </div>
             <div class="col-md-12 mt-3">
                 <button type="submit" class="btn btn-primary form-control"><span class="fa fa-plus"></span> ADD DRIVER</button>
@@ -34,7 +36,11 @@
     </div>
 </template>
 <script>
+import Treeselect from '@riophae/vue-treeselect'
 export default {
+    components:{
+        Treeselect
+    },
     data(){
         return{
             formData:{
@@ -42,13 +48,13 @@ export default {
                 l_name:"",
                 l_plate:"",
                 phone_no:"",
-                zone_id:"",
+                route_id:[],
             },
-            zones:{}
+            routes:[]
         }
     },
     mounted(){
-        this.getZones()
+        this.getRoutes()
     },
     methods:{
         async addDriver(){
@@ -57,10 +63,15 @@ export default {
                 this.$emit('close')
             })
         },
-        async getZones(){
-            await axios.get('/getZones')
+        async getRoutes(){
+            await axios.get('/routes')
             .then( response => {
-                this.zones = response.data
+                response.data.forEach(route=>{
+                    this.routes.push({
+                        id:route.id,
+                        label:route.route_name
+                    })
+                })
             })
         }
     }

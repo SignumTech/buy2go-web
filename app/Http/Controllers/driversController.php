@@ -16,9 +16,14 @@ class driversController extends Controller
      */
     public function index()
     {
-        $drivers = DriverDetail::join('users', 'driver_details.driver_id', '=', 'users.id')
-                                ->join('zones', 'driver_details.zone_id', '=', 'zones.id')
-                                ->get();
+        $drivers = User::where('user_role', 'DRIVER')->get();
+        foreach($drivers as $driver){
+            $driver->routes = DriverDetail::join('zone_routes', 'driver_details.route_id', '=', 'zone_routes.id')
+                                            ->where('driver_details.driver_id', $driver->id)
+                                            ->get();
+        }
+        
+        
         return $drivers;
     }
 
@@ -58,12 +63,15 @@ class driversController extends Controller
             $driver->account_type = "Staff";
             $driver->user_role = "DRIVER";
             $driver->save();
-    
-            $driver_detail = new DriverDetail;
-            $driver_detail->driver_id = $driver->id;
-            $driver_detail->l_plate = $request->l_plate;
-            $driver_detail->route_id = $request->zone_id;
-            $driver_detail->save();
+            
+            foreach($request->route_id as $route){
+                $driver_detail = new DriverDetail;
+                $driver_detail->driver_id = $driver->id;
+                $driver_detail->l_plate = $request->l_plate;
+                $driver_detail->route_id = $route;
+                $driver_detail->save();
+            }
+
             DB::commit();
 
             return $driver;
@@ -116,7 +124,7 @@ class driversController extends Controller
             "f_name" => "required",
             "l_name" => "required",
             "l_plate" => "required",
-            "zone_id" => "required"
+            "route_id" => "required"
         ]);
         try {
 
@@ -129,11 +137,16 @@ class driversController extends Controller
             $driver->user_role = "DRIVER";
             $driver->save();
     
-            $driver_detail = DriverDetail::where('driver_id', $driver->id)->first();
-            $driver_detail->driver_id = $driver->id;
-            $driver_detail->l_plate = $request->l_plate;
-            $driver_detail->zone_id = $request->zone_id;
-            $driver_detail->save();
+            $driver_detail = DriverDetail::where('driver_id', $driver->id)->delete();
+
+            foreach($request->route_id as $route){
+                $driver_detail = new DriverDetail;
+                $driver_detail->driver_id = $driver->id;
+                $driver_detail->l_plate = $request->l_plate;
+                $driver_detail->route_id = $route;
+                $driver_detail->save();
+            }
+            
             DB::commit();
 
             return $driver;

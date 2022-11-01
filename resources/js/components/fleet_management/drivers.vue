@@ -13,7 +13,7 @@
                         <th>Driver Name</th>
                         <th>Phone Number</th>
                         <th>Lisence Plate</th>
-                        <th>Zone</th>
+                        <th>Route</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -22,8 +22,8 @@
                         <td>{{index+1}}</td>
                         <td>{{driver.f_name}} {{driver.l_name}}</td>
                         <td>{{driver.phone_no}}</td>
-                        <td>{{driver.l_plate}}</td>
-                        <td>{{driver.zone_name}}</td>
+                        <td>{{driver.routes[0].l_plate}}</td>
+                        <td><p v-for="route,index in driver.routes" :key="index">{{route.route_name}}</p></td>
                         <td class="text-center">
                             <span @click="editModal(driver)" class="fa fa-edit "></span>
                             <span  class="fa fa-trash-alt ms-3"></span>
@@ -65,7 +65,7 @@ export default {
         editModal(driver){
             this.$modal.show(
                 editModalVue,
-                {driver:driver},
+                {driver:driver, l_plate:driver.routes[0].l_plate},
                 {height:"auto", width:"500px"},
                 {"closed":this.getDrivers}
             )
