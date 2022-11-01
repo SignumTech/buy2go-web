@@ -30,6 +30,7 @@
                         <td><router-link :to="`/customerDetails/`+shop.id">Shop Details <span class="fa fa-external-link-alt"></span></router-link></td>
                     </tr>
                 </tbody>
+                <qr-code text="Text to encode"></qr-code>
             </table>
         </div>
     </div>

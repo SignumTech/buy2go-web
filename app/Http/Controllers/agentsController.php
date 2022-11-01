@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\AddressBook;
+use App\Models\Balance;
+use App\Models\BalanceHistory;
 
 class agentsController extends Controller
 {
@@ -31,5 +33,46 @@ class agentsController extends Controller
                       ->where('account_type', 'AGENT')
                       ->get();
         return $agents;
+    }
+
+    public function withdrawCash(Request $request){
+        $this->validate($request, [
+            "amount" => "required | integer"
+        ]);
+
+        try{
+            DB::beginTransaction();
+            $balance = Balance::where("user_id", auth()->user()->id)->lockForUpdate()->first();
+            if($request->amount > $balance->balance){
+                return response ('Amount exceeds agent balance', 422);
+            }
+            else{
+                $balance->balance = $balance->balance - $request->amount;
+                $balance->save();
+            }
+
+            $transaction = new BalanceHistory;
+            $latestTransaction = BalanceHistory::orderBy('created_at','DESC')->first();
+            if($latestTransaction){
+                $transaction->transaction_no = '#'.str_pad($latestTransaction->id + 1, 8, "0", STR_PAD_LEFT);
+            }
+            else{
+                $transaction->transaction_no = '#'.str_pad(1, 8, "0", STR_PAD_LEFT);
+            }
+            $transaction->amount = $request->amount;
+            $transaction->user_id = auth()->user()->id;
+            $transaction->transaction_type = 'Withdraw';
+            $transaction->save();
+            DB::commit();
+
+            return $transaction;
+        }
+        catch (\Exception $e) {
+            DB::rollBack();
+
+            throw $e;
+            return response('Order Error', 422);
+        }
+        
     }
 }
