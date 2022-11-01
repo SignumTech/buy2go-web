@@ -27,7 +27,7 @@
                         </td>
                         <td class="align-middle">{{shop.shop_status}}</td>
                         <td class="align-middle">{{shop.created_at | moment("MMM Do YYYY")}}</td>
-                        <td><router-link :to="`/orderDetails/`+shop.id">Shop Details <span class="fa fa-external-link-alt"></span></router-link></td>
+                        <td><router-link :to="`/customerDetails/`+shop.id">Shop Details <span class="fa fa-external-link-alt"></span></router-link></td>
                     </tr>
                 </tbody>
             </table>

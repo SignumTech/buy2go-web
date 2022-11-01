@@ -20,6 +20,7 @@ import vehiclesList from './components/fleet_management/vehicles.vue'
 import driversList from './components/fleet_management/drivers.vue'
 import routeList from './components/fleet_management/routes.vue'
 import customers from './components/customers/customers.vue'
+import customerDetails from './components/customers/customerDetails.vue'
 import agents from './components/user_management/commissionAgents.vue'
 Vue.use(Router)
 
@@ -123,6 +124,12 @@ const routes = [
         path: '/customers',
         component: customers,
         name: 'Customers',
+        props: true
+    },
+    {
+        path: '/customerDetails/:id',
+        component: customerDetails,
+        name: 'CustomerDetails',
         props: true
     },
     {

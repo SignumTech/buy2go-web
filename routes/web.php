@@ -33,6 +33,9 @@ Route::middleware('auth:sanctum')->get('/getZoneDrivers/{zone_id}', [driversCont
 /////////////////////////////////////shop//////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getShops', [shopsController::class, 'getShops']);
 Route::middleware('auth:sanctum')->get('/getShopsWithNoRoutes', [shopsController::class, 'getShopsWithNoRoutes']);
+Route::middleware('auth:sanctum')->get('/shopDetails/{id}', [shopsController::class, 'shopDetails']);
+Route::middleware('auth:sanctum')->get('/shopOrders/{id}', [shopsController::class, 'shopOrders']);
+Route::middleware('auth:sanctum')->get('/shopLocations/{id}', [shopsController::class, 'shopLocations']);
 /////////////////////////////////////dashboard////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/salesThirty', [dashboardController::class, 'salesThirty']);
 Route::middleware('auth:sanctum')->get('/salesToday', [dashboardController::class, 'salesToday']);
@@ -114,6 +117,9 @@ Route::any('{slug}', function () {
     return view('home');
 });
 Route::any('/orderDetails/{slug}', function () {
+    return view('home');
+});
+Route::any('/customerDetails/{slug}', function () {
     return view('home');
 });
 Route::any('/shippingDetails/{slug}', function () {
