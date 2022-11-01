@@ -48,7 +48,7 @@
                             <td>{{order.order_no}}</td>
                             <td>{{order.created_at | moment("MMM Do YYYY")}}</td>
                             <td>{{order.order_status}}</td>
-                            <td>{{order.items_count}}</td>
+                            <td>{{order.items_count}} Items</td>
                             <td><strong>{{order.total | numFormat}} ETB</strong></td>
                         </tr>
                     </tbody>

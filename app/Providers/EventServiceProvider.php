@@ -7,7 +7,9 @@ use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use App\Events\DriverAssigned;
 use App\Listeners\DriverAssignedNotification;
 use App\Events\DriverRejectedOrder;
+use App\Events\CashWithdrawn;
 use App\Listeners\DriverRejectedOrderNotification;
+use App\Listeners\CashWithdrawnNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Event;
 
@@ -27,6 +29,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         DriverRejectedOrder::class => [
             DriverRejectedOrderNotification::class,
+        ],
+        CashWithdrawn::class => [
+            CashWithdrawnNotification::class,
         ],
     ];
 

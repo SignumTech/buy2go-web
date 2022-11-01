@@ -45,6 +45,7 @@
                             <th>Order Status</th>
                             <th>Payment Status</th>
                             <th>Payment Method</th>
+                            <th>Order Type</th>
                             <th></th>
                         </tr>                        
                     </thead>
@@ -61,6 +62,7 @@
                             <td>{{order.order_status}}</td>
                             <td>{{order.payment_status}}</td>
                             <td>{{order.payment_method}}</td>
+                            <td>{{order.order_type}}</td>
                             <td><router-link :to="`/orderDetails/`+order.id">Order Details <span class="fa fa-external-link-alt"></span></router-link></td>
                         </tr>                        
                     </tbody>

@@ -114,9 +114,9 @@
                     </table>
                 </div>    
                 <div class="col-md-8 mt-3">
-
+                    <h5 v-if="order.order_type == `AGENT_ORDER`"><span class="badge rounded-pill bg-info text-dark">Ordered by agent</span></h5>
                 </div>     
-                    <div class="col-md-4 border-bottom border-3 mt-3">
+                <div class="col-md-4 border-bottom border-3 mt-3">
                     <h6 class="mt-2">Sub total: <span class="float-end">{{order.total/1.15 | numFormat}} ETB</span></h6>
                     <h6 class="mt-2">Tax (15% VAT): <span class="float-end">{{order.total/1.15 * 0.15 | numFormat}} ETB</span></h6>
                     <h5 class="mt-2"><strong>Total: <span class="float-end">{{order.total | numFormat}} ETB</span></strong></h5>
