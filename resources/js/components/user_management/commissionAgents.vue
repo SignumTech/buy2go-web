@@ -23,7 +23,7 @@
                         <td>{{agent.phone_no}}</td>
                         <td>{{agent.balance}}</td>
                         <td>{{agent.created_at | moment("MMM Do YYYY")}}</td>
-                        <td><router-link :to="`/orderDetails/`+agent.user_id">Agent Details <span class="fa fa-external-link-alt"></span></router-link></td>
+                        <td><router-link :to="`/agentDetails/`+agent.user_id">Agent Details <span class="fa fa-external-link-alt"></span></router-link></td>
                     </tr>
                 </tbody>
             </table>

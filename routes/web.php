@@ -81,6 +81,8 @@ Route::middleware('auth:sanctum')->post('/saveDraft', [productsController::class
 Route::middleware('auth:sanctum')->post('/searchItems', [productsController::class, 'searchItems']);
 ///////////////////////////////////agents/////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getAgents', [agentsController::class, 'getAgents']);
+Route::middleware('auth:sanctum')->get('/agentDetails/{id}', [agentsController::class, 'agentDetails']);
+Route::middleware('auth:sanctum')->get('/agentOrders/{id}', [agentsController::class, 'agentOrders']);
 /////////////////////////////////Categories//////////////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getSubCategories', [categoriesController::class, 'getSubCategories']);
 Route::middleware('auth:sanctum')->get('/chooseSubCategories', [categoriesController::class, 'chooseSubCategories']);
@@ -122,7 +124,11 @@ Route::any('/orderDetails/{slug}', function () {
 Route::any('/customerDetails/{slug}', function () {
     return view('home');
 });
+Route::any('/agentDetail/{slug}', function () {
+    return view('home');
+});
 Route::any('/shippingDetails/{slug}', function () {
     return view('home');
 });
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
