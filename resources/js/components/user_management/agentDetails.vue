@@ -9,7 +9,7 @@
                     </div>
                     <h5 class="text-center mt-3"><strong>{{agent.agent_details.f_name}} {{agent.agent_details.l_name}}</strong></h5>
                     <h6 class="text-center">+251-{{agent.agent_details.phone_no}}</h6>
-                    <h4 class="text-center mt-3"><strong>Balance : {{agent.balance | numFormat}} ETB </strong></h4>
+                    <h4 class="text-center mt-3"><strong>Balance : {{agent.agent_balance | numFormat}} ETB </strong></h4>
                     <h4 class="text-center mt-3"></h4>
                     <button @click="payAgent(agent)" class="btn btn-primary px-4 py-1 rounded-1 btn-outline text-center"><span class="fa fa-hand-holding-usd"></span> Pay Agent</button>
                     <hr>
