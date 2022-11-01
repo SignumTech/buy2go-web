@@ -7,7 +7,7 @@ use App\Models\User;
 use App\Models\AddressBook;
 use App\Models\Balance;
 use App\Models\BalanceHistory;
-
+use DB;
 class agentsController extends Controller
 {
     public function searchShop(Request $request){
