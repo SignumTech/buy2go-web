@@ -171,14 +171,27 @@ class driversController extends Controller
         //
     }
 
-    public function getZoneDrivers($zone_id){
-        $drivers = DriverDetail::join('users', 'driver_details.driver_id', '=', 'users.id')
-                               ->where('zone_id', $zone_id)
-                               ->get();
-        foreach($drivers as $driver){
+    public function getRouteDrivers($route_id){
+        //dd((int)($route_id)==null?true:false);
+        if((int)$route_id){
+            $drivers = DriverDetail::join('users', 'driver_details.driver_id', '=', 'users.id')
+                    ->where('route_id', $route_id)
+                    ->get();
+            foreach($drivers as $driver){
             $driver->active_assignments = Order::where('assigned_driver', $driver->id)
-                                               ->where('order_status', 'SHIPPED')->count();
+                                        ->where('order_status', 'SHIPPED')->count();
+            }
+            return $drivers;
         }
-        return $drivers;
+        else{
+            $drivers = DriverDetail::join('users', 'driver_details.driver_id', '=', 'users.id')
+                                    ->get();
+            foreach($drivers as $driver){
+            $driver->active_assignments = Order::where('assigned_driver', $driver->id)
+                                        ->where('order_status', 'SHIPPED')->count();
+            }
+            return $drivers;
+        }
+
     }
 }

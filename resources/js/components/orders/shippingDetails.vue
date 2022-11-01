@@ -25,25 +25,15 @@
                 <form action="#" @submit.prevent="shipOrder">
                     <div class="row">
                         <div class="col-md-12"></div>
-                        <div class="col-md-6">
+                        <div class="col-md-12">
                             <label for="">Warehouse</label>
                             <select required @change="setDestination()" v-model="formData.warehouse_id" class="form-select" id="">
                                 <option value=""></option>
                                 <option v-for="warehouse,index in warehouses" :key="index" :value="warehouse.id">{{warehouse.w_name}}</option>
                             </select>
                         </div>
-                        <div class="col-md-6">
-                            <label for="">Zones</label>
-                            <select required v-model="formData.zone_id" @change="getDrivers()" class="form-select" id="">
-                                <option value=""></option>
-                                <option v-for="zone,index in zones" :key="index" :value="zone.id">{{zone.zone_name}}</option>
-                            </select>
-                        </div>
                         <div class="col-md-12 mt-4">
                             <h6>Drivers List</h6>
-                            <div v-if="!formData.zone_id" class="bg-info p-3 shadow-sm text-white text-center rounded-1">
-                                <h6 class="m-0">Pick a zone to see a list of drivers.</h6>
-                            </div>
                         </div>
                         <div class="col-md-12">
                             <ul class="list-group">
@@ -127,7 +117,7 @@ export default {
     },
     mounted(){
         this.$refs.mapRef.$mapPromise.then(map => this.map = map);
-        this.getZones()
+        //this.getZones()
         this.getWarehouses()
         this.getOrder()
     },
@@ -142,8 +132,8 @@ export default {
             var myWarehouse = this.warehouses.find(warehouse=> warehouse.id == this.formData.warehouse_id)
             this.destination = JSON.parse(myWarehouse.location)
         },
-        async getDrivers(){
-            await axios.get('/getZoneDrivers/'+this.formData.zone_id)
+        async getDrivers(id){
+            await axios.get('/getRouteDrivers/'+id)
             .then( response =>{
                 this.drivers = response.data
             })
@@ -165,6 +155,7 @@ export default {
                 this.address = JSON.parse(response.data.geolocation)
                 this.center = JSON.parse(response.data.geolocation)
                 this.loading = false
+                this.getDrivers(response.data.route_id)
             })
         },
         async getWarehouses(){
@@ -184,15 +175,6 @@ export default {
                         }
                     })
                 });
-            })
-        },
-        async getZones(){
-            await axios.get('/getZones')
-            .then( response =>{
-                this.zones = response.data
-                this.zones.forEach(zone =>{
-                    this.paths.push(JSON.parse(zone.route))
-                })
             })
         },
         toggleInfoWindow: function(marker, idx) {

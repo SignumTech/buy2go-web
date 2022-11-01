@@ -14,7 +14,8 @@ class balancesController extends Controller
     }
 
     public function balanceHistory(){
-        $history = BalanceHistory::where('user_id', auth()->user()->id)->get();
+        $history = BalanceHistory::where('user_id', auth()->user()->id)
+                                 ->orderBy('created_at', 'DESC')->get();
         return $history;
     }
 }
