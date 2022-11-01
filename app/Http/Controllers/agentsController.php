@@ -110,8 +110,8 @@ class agentsController extends Controller
         foreach($orders as $order){
             $order->items_count = OrderItem::where('order_id', $order->id)->count();
         }
-        $sum = Order::where('user_id', $id)->sum('total');
-        $count = Order::where('user_id', $id)->count();
+        $sum = Order::where('agent_id', $id)->sum('total');
+        $count = Order::where('agent_id', $id)->count();
         $data = [];
         $data['total_spent'] = $sum;
         $data['orders_count'] = $count;
