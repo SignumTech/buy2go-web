@@ -371,6 +371,9 @@ class ordersController extends Controller
 
     public function acceptOrder($id){
         $order = Order::find($id);
+        if(auth()->user()->id !=  $order->assigned_driver){
+            return response('Unauthorized', 401);
+        }
         $order->order_status = "PENDING_PICKUP";
         $order->save();
 
@@ -386,6 +389,9 @@ class ordersController extends Controller
 
     public function rejectOrder($id){
         $order = Order::find($id);
+        if(auth()->user()->id !=  $order->assigned_driver){
+            return response('Unauthorized', 401);
+        }
         $order->order_status = "PROCESSING";
         $order->save();
 
@@ -400,6 +406,9 @@ class ordersController extends Controller
 
     public function confirmPickup($id){
         $order = Order::find($id);
+        if(auth()->user()->id !=  $order->assigned_driver){
+            return response('Unauthorized', 401);
+        }
         $order->order_status = "SHIPPED";
         $order->save();
 
@@ -420,6 +429,9 @@ class ordersController extends Controller
         ]);
 
         $order = Order::find($id);
+        if(auth()->user()->id !=  $order->assigned_driver){
+            return response('Unauthorized', 401);
+        }
         $order->tx_ref = $request->tx_ref;
         $order->reference = $request->reference;
         $order->payment_status = $request->payment_status;
