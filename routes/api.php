@@ -45,10 +45,10 @@ Route::middleware('auth:sanctum')->get('/getDriverPendingOrders', [ordersControl
 Route::middleware('auth:sanctum')->get('/getDriverOrders', [ordersController::class, 'getDriverOrders']);
 Route::middleware('auth:sanctum')->get('/getDriverShipped', [ordersController::class, 'getDriverShipped']);
 Route::middleware('auth:sanctum')->get('/getDriverDelivered', [ordersController::class, 'getDriverDelivered']);
-Route::middleware('auth:sanctum')->get('/acceptOrder/{id}', [ordersController::class, 'acceptOrder']);
-Route::middleware('auth:sanctum')->get('/rejectOrder/{id}', [ordersController::class, 'rejectOrder']);
+Route::middleware('auth:sanctum')->put('/acceptOrder/{id}', [ordersController::class, 'acceptOrder']);
+Route::middleware('auth:sanctum')->put('/rejectOrder/{id}', [ordersController::class, 'rejectOrder']);
 Route::middleware('auth:sanctum')->put('/confirmDelivery/{id}', [ordersController::class, 'confirmDelivery']);
-Route::middleware('auth:sanctum')->get('/confirmPickup/{id}', [ordersController::class, 'confirmPickup']);
+Route::middleware('auth:sanctum')->put('/confirmPickup/{id}', [ordersController::class, 'confirmPickup']);
 Route::middleware('auth:sanctum')->get('/getMyShippedOrders', [ordersController::class, 'getMyShippedOrders']);
 Route::middleware('auth:sanctum')->get('/getMyDeliveredOrders', [ordersController::class, 'getMyDeliveredOrders']);
 Route::middleware('auth:sanctum')->get('/getMyPendingOrders', [ordersController::class, 'getMyPendingOrders']);
