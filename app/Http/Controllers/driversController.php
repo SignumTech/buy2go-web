@@ -51,7 +51,8 @@ class driversController extends Controller
             "f_name" => "required",
             "l_name" => "required",
             "l_plate" => "required",
-            "route_id" => "required"
+            "route_id" => "required",
+            "phone_no" => "required|unique:users"
         ]);
         try {
 
