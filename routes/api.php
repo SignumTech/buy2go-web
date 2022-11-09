@@ -59,16 +59,16 @@ Route::middleware('auth:sanctum')->get('/getMyWishlist', [wishlistsController::c
 Route::middleware('auth:sanctum')->delete('/removeFromWishlist/{id}', [wishlistsController::class, 'removeFromWishlist']);
 ///////////////////////////////////resources///////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->resource('/categories', categoriesController::class);
-Route::resource('/products', productsController::class);
+Route::middleware('auth:sanctum')->resource('/products', productsController::class);
 Route::middleware('auth:sanctum')->resource('/addressBooks', addressBookController::class);
 ////////////////////////////////////Products////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/productsByCategory/{id}', [productsController::class, 'productsByCategory']);
 Route::middleware('auth:sanctum')->post('/searchItems', [productsController::class, 'searchItems']);
 ////////////////////////////////////Categories//////////////////////////////////////////////////////
-Route::get('/getMainCategories', [categoriesController::class, 'getMainCategories']);
-Route::get('/getSubCategories', [categoriesController::class, 'getSubCategories']);
-Route::get('/showSubCategories/{id}', [categoriesController::class, 'showSubCategories']);
-Route::get('/getImediateSubCat/{id}', [categoriesController::class, 'getImediateSubCat']);
+Route::middleware('auth:sanctum')->get('/getMainCategories', [categoriesController::class, 'getMainCategories']);
+Route::middleware('auth:sanctum')->get('/getSubCategories', [categoriesController::class, 'getSubCategories']);
+Route::middleware('auth:sanctum')->get('/showSubCategories/{id}', [categoriesController::class, 'showSubCategories']);
+Route::middleware('auth:sanctum')->get('/getImediateSubCat/{id}', [categoriesController::class, 'getImediateSubCat']);
 ///////////////////////////////////cart/////////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->post('/addToCart', [cartController::class, 'addToCart']);
 Route::middleware('auth:sanctum')->get('/getMyCart', [cartController::class, 'getMyCart']);
