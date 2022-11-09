@@ -9,27 +9,28 @@ class cartController extends Controller
 {
     public function addToCart(Request $request){
         $this->validate($request, [
-            "items" => "required"
+            "p_id" => "required",
+            "quantity" => "required"
         ]);
 
         $cart = Cart::where('user_id', auth()->user()->id)
                          ->first();
         
         if($cart){
-            foreach(json_decode($request->items) as $item){
-                $cart_item = CartItem::where('p_id',$item->p_id)->where('cart_id', $cart->id)->first();
-                if($cart_item){
-                    $cart_item->quantity = $cart_item->quantity + $item->quantity;
-                    $cart_item->save();
-                }
-                else{
-                    $cart_item = new CartItem;
-                    $cart_item->cart_id = $cart->id;
-                    $cart_item->p_id = $item->p_id;
-                    $cart_item->quantity = $item->quantity;
-                    $cart_item->save();
-                }
+            
+            $cart_item = CartItem::where('p_id',$request->p_id)->where('cart_id', $cart->id)->first();
+            if($cart_item){
+                $cart_item->quantity = $cart_item->quantity + $request->quantity;
+                $cart_item->save();
             }
+            else{
+                $cart_item = new CartItem;
+                $cart_item->cart_id = $cart->id;
+                $cart_item->p_id = $request->p_id;
+                $cart_item->quantity = $request->quantity;
+                $cart_item->save();
+            }
+            
             $cart->quantity = CartItem::where('cart_id', $cart->id)->sum('quantity');
             return $cart;
         }
@@ -38,13 +39,13 @@ class cartController extends Controller
             $cart->cart_status = "ACTIVE";
             $cart->user_id = auth()->user()->id;
             $cart->save();
-            foreach(json_decode($request->items) as $item){
-                $cart_item = new CartItem;
-                $cart_item->cart_id = $cart->id;
-                $cart_item->p_id = $item->p_id;
-                $cart_item->quantity = $item->quantity;
-                $cart_item->save();
-            }
+            
+            $cart_item = new CartItem;
+            $cart_item->cart_id = $cart->id;
+            $cart_item->p_id = $request->p_id;
+            $cart_item->quantity = $request->quantity;
+            $cart_item->save();
+            
             $cart->quantity = CartItem::where('cart_id', $cart->id)->sum('quantity');
             return $cart;
         }
