@@ -487,4 +487,45 @@ class ordersController extends Controller
                       ->first();
         return $order;
     }
+
+    public function repurchaseOrder($id){
+        $orders = Order::join('order_items', 'orders.id', '=', 'order_items.order_id')
+                       ->where('orders.id', $id)
+                       ->get();
+        
+        $cart = Cart::where('user_id', auth()->user()->id)->first();
+        if($cart){
+            foreach($orders as $order){
+                $cartItem = CartItem::where('p_id', $order->p_id)
+                                    ->where('cart_id', $cart->id)
+                                    ->first();
+                if($cartItem){
+                    $cartItem->quantity = $cartItem->quantity + $order->quantity;
+                    $cartItem->save();
+                }
+                else{
+                    $cartItem = new CartItem;
+                    $cartItem->p_id = $order->p_id;
+                    $cartItem->quantity = $order->quantity;
+                    $cartItem->cart_id = $cart->id;
+                    $cartItem->save();
+                }
+            }
+            return $cart;
+        }
+        else{
+            $cart = new Cart;
+            $cart->user_id = auth()->user()->id;
+            $cart->save();
+
+            foreach($orders as $order){
+                $cartItem = new CartItem;
+                $cartItem->p_id = $order->p_id;
+                $cartItem->quantity = $order->quantity;
+                $cartItem->cart_id = $cart->id;
+                $cartItem->save();
+            }
+            return $cart;
+        }
+    }
 }
