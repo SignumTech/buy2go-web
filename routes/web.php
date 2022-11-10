@@ -79,6 +79,7 @@ Route::get('/getProductsList', [productsController::class, 'getProductsList']);
 Route::middleware('auth:sanctum')->post('/deleteProductPic', [productsController::class, 'deleteProductPic']);
 Route::middleware('auth:sanctum')->post('/saveDraft', [productsController::class, 'saveDraft']);
 Route::middleware('auth:sanctum')->post('/searchItems', [productsController::class, 'searchItems']);
+Route::middleware('auth:sanctum')->put('/toggleFeature/{id}', [productsController::class, 'toggleFeature']);
 ///////////////////////////////////agents/////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getAgents', [agentsController::class, 'getAgents']);
 Route::middleware('auth:sanctum')->get('/agentDetails/{id}', [agentsController::class, 'agentDetails']);

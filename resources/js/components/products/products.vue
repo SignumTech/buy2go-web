@@ -14,6 +14,7 @@
                         <th>Price</th>
                         <th>Stock</th>
                         <th>Status</th>
+                        <th>Featured</th>
                         <th>Created Date</th>
                         <th></th>
                     </tr>
@@ -28,6 +29,12 @@
                         
                         <td class="align-middle">{{product.stock}}</td>
                         <td class="align-middle">{{product.p_status}}</td>
+                        <td>
+                            <div class="form-check form-switch">
+                                <input @change="toggleFeature(product.id)" class="form-check-input" type="checkbox" :checked="product.featured==`FEATURED`">
+                                <label class="form-check-label" for="flexSwitchCheckChecked"> {{product.featured}}</label>
+                            </div>
+                        </td>
                         <td class="align-middle">{{product.created_at | moment("ddd, MMM Do YYYY")}}</td>
                         <td class="align-middle">
                             <router-link to="#" class="float-end "><span class="fa fa-trash-alt"></span></router-link>
@@ -52,6 +59,12 @@ export default {
         feather.replace();
     },
     methods:{
+        async toggleFeature(id){
+            await axios.put('/toggleFeature/'+id)
+            .then( response =>{
+                this.getProducts()
+            })
+        },  
         async getProducts(){
             await axios.get('/getProductsList')
             .then( response =>{

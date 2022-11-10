@@ -327,4 +327,22 @@ class productsController extends Controller
 
         return $data;
     }
+    
+    public function toggleFeature(Request $request, $id){
+        $product = Product::find($id);
+        if($product->featured == 'FEATURED'){
+            $product->featured = 'NOT_FEATURED';
+            $product->save();
+        }
+        else{
+            $product->featured = 'FEATURED';
+            $product->save();
+        }
+        return $product;
+    }
+
+    public function getFeatured(Request $request){
+        $products = Product::where('featured', 'FEATURED')->get();
+        return $products;
+    }
 }
