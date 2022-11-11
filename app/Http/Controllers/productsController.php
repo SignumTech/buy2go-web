@@ -48,7 +48,8 @@ class productsController extends Controller
             "quantities" => "required",
             "p_commission" => "required | integer",
             "p_image" => "required",
-            "sku" => "required"
+            "sku" => "required",
+            "taxable" => "required"
         ]);
         try{
             DB::beginTransaction();
@@ -63,6 +64,7 @@ class productsController extends Controller
             $product->sku = $request->sku;
             $product->supplier = $request->supplier;
             $product->p_status = "PUBLISHED";
+            $product->taxable = $request->taxable;
 
             $product->save();
 
@@ -100,7 +102,7 @@ class productsController extends Controller
      */
     public function show($id)
     {
-        //
+        return Product::find($id);
     }
 
     /**
@@ -123,7 +125,62 @@ class productsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            "p_name" => "required | string",
+            "description" => "required | string",
+            "cat_id" => "required | integer",
+            "price" => "required",
+            "quantities" => "required",
+            "p_commission" => "required | integer",
+            "p_image" => "required",
+            "sku" => "required",
+            "taxable" => "required"
+        ]);
+        try{
+            DB::beginTransaction();
+            $product = Product::find($id);
+            $product->p_name = $request->p_name;
+            $product->description = $request->description;
+            $product->price = $request->price;
+            $product->brand_id = $request->brand_id;
+            $product->cat_id = $request->cat_id;
+            $product->commission = $request->p_commission;
+            $product->p_image = $request->p_image;
+            $product->sku = $request->sku;
+            $product->supplier = $request->supplier;
+            $product->p_status = "PUBLISHED";
+            $product->taxable = $request->taxable;
+
+            $product->save();
+
+            /////////////update category to a leaf///////
+            $category = Category::find($request->cat_id);
+            if($category->tree_level == 'NODE'){
+                $category->tree_level = 'LEAF';
+                $category->save();
+            }
+            //////////////////////////////////////////////
+            $check = WarehouseDetail::where('p_id', $product->id)->get();
+            foreach($check as $c){
+                $c->delete();
+            }
+            
+            foreach($request->quantities as $quantity){
+                $detail = new WarehouseDetail;
+                $detail->p_id = $product->id;
+                $detail->warehouse_id = $quantity['warehouse_id'];
+                $detail->quantity = $quantity['quantity'];
+                $detail->save();
+            }
+            DB::commit();
+            return $product;
+        }
+        catch (\Exception $e) {
+            DB::rollBack();
+
+            throw $e;
+            return response('Error!', 422);
+        }
     }
 
     /**
@@ -135,6 +192,14 @@ class productsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getProductWarehouses($id){
+        $warehouses = WarehouseDetail::join('warehouses', 'warehouse_details.warehouse_id', '=', 'warehouses.id')
+                                     ->where('p_id', $id)
+                                     ->get();
+                                     
+        return $warehouses;
     }
 
     public function uploadProductPic(Request $request){
@@ -178,7 +243,50 @@ class productsController extends Controller
     }
 
     public function updateProductPic(Request $request){
+        $this->validate($request, [
+            'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2084',
+            'p_id' => 'required'
+        ]);
+        //dd($request->cat_id);
+        $product = Product::find($request->p_id);
+        if(Storage::exists('public/products/'.$product->p_name)){
+            Storage::delete('public/products/'.$product->p_name);
+            Storage::delete('public/productsThumb/'.$product->p_name);
+        }
+        if($request->hasFile('photo')){
+            
+            //Get filename with the extention
+            $filenameWithExt = $request->file('photo')->getClientOriginalName();
+            $thumbnailImage = Image::make($request->file('photo'));
+            
+            //Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+            //get just ext
+            $extension = $request->file('photo')->getClientOriginalExtension();
+            //Filename to store
+            $fileNameToStore = $filename.'_'.time().'.'.$extension;
+            //upload Image
+            //$realPath = public_path().'\storage\products\\';
+            $realPath = storage_path().'/app/public/products/';
+            //$thumbnailPath = public_path().'\storage\productsThumb\\';
+            $thumbnailPath = storage_path().'/app/public/productsThumb/';
+            $thumbnailImage->save($realPath.$fileNameToStore);
 
+            $thumbnailImage->resize(null, 320, function ($constraint){
+                $constraint->aspectRatio();
+            });
+            $thumbnailImage->save($thumbnailPath.$fileNameToStore);
+            
+            $data = [];
+            $product->p_image = $fileNameToStore;
+            $product->save();
+            $data['fileName'] = $fileNameToStore;
+
+            return $data; 
+        }
+        else{
+            return response(422, "No file");
+        }
     }
 
     public function getProductsList(){
@@ -210,18 +318,52 @@ class productsController extends Controller
             "p_name" => "required | string",
         ]);
 
-        $product = new Product;
-        $product->p_name = $request->p_name;
-        $product->description = $request->description;
-        $product->price = $request->price;
-        $product->brand_id = $request->brand_id;
-        $product->cat_id = $request->cat_id;
-        $product->commission = $request->p_commission;
-        $product->p_image = $request->p_image;
-        $product->p_status = "DRAFT";
-        $product->save();
-        
-        return $product;
+        try{
+            DB::beginTransaction();
+            if($request->p_id){
+                $product = Product::find($request->p_id);
+            }
+            else{
+                $product = new Product;
+            }
+            $product->p_name = $request->p_name;
+            $product->description = $request->description;
+            $product->price = $request->price;
+            $product->brand_id = $request->brand_id;
+            $product->cat_id = $request->cat_id;
+            $product->commission = $request->p_commission;
+            $product->p_image = $request->p_image;
+            $product->sku = $request->sku;
+            $product->supplier = $request->supplier;
+            $product->taxable = $request->taxable;
+            $product->p_status = "DRAFT";
+
+            $product->save();
+
+            /////////////update category to a leaf///////
+            $category = Category::find($request->cat_id);
+            if($category->tree_level == 'NODE'){
+                $category->tree_level = 'LEAF';
+                $category->save();
+            }
+            //////////////////////////////////////////////
+
+            foreach($request->quantities as $quantity){
+                $detail = new WarehouseDetail;
+                $detail->p_id = $product->id;
+                $detail->warehouse_id = $quantity['warehouse_id'];
+                $detail->quantity = $quantity['quantity'];
+                $detail->save();
+            }
+            DB::commit();
+            return $product;
+        }
+        catch (\Exception $e) {
+            DB::rollBack();
+
+            throw $e;
+            return response('Error!', 422);
+        }
     }
 
     public function productsByCategory($id){

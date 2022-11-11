@@ -23,6 +23,7 @@ import customers from './components/customers/customers.vue'
 import customerDetails from './components/customers/customerDetails.vue'
 import agents from './components/user_management/commissionAgents.vue'
 import agentDetails from './components/user_management/agentDetails.vue'
+import editProduct from './components/products/editProduct.vue'
 Vue.use(Router)
 
 const routes = [
@@ -143,6 +144,12 @@ const routes = [
         path: '/agentDetail/:id',
         component: agentDetails,
         name: 'AgentDetails',
+        props: true
+    },
+    {
+        path: '/editProduct/:id',
+        component: editProduct,
+        name: 'EditProduct',
         props: true
     },
 ]

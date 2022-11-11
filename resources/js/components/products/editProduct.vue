@@ -1,13 +1,13 @@
 <template>
 <div class="row mt-4">
     <div class="col-md-12">
-        <h5><strong>Add Product</strong></h5>
+        <h5><strong>Edit Product</strong></h5>
     </div>
     <div class="col-md-12">
         <div class="bg-white rounded-1 shadow-sm px-3 py-5">
             <div class="row">
                 <div class="col-md-6 align-self-center">
-                    <div v-if="!picUploaded && !picLoading" style="height: 100%">
+                    <div v-if="!formData.p_image && !picLoading" style="height: 100%">
                         <h1 class="text-center pt-2"><span class="fa fa-camera"></span></h1>
                         <h5 class="text-center pt-1"><strong>800 X 800</strong></h5>
                         <h6 class="text-center">Please choose image according to the aspect ratio</h6>
@@ -16,7 +16,12 @@
                         </label>
                     </div>
                     <h6 v-if="picError" class="text-center text-danger">You need to upload a product picture first!</h6>
-                    <img v-if="picUploaded" :src="`/storage/products/`+formData.p_image" class="img img-fluid img-thumb d-block m-auto" alt="">
+                    <h5 v-if="formData.p_image" class="text-end">
+                        <label class="text-end d-block m-auto fs-5 pt-2 fa fa-edit mt-2" style="cursor:pointer">
+                            <input type="file" class="form-control" id="photo" name="photo" @change="updatePic($event,index)" style="display: none">
+                        </label>
+                    </h5>
+                    <img v-if="formData.p_image" :src="`/storage/products/`+formData.p_image" class="img img-fluid img-thumb d-block m-auto mt-3" alt="">
                     <div v-if="picLoading" class="d-flex justify-content-center mt-5 mb-5">
                         <pulse-loader :color="`#BF7F25`" :size="`15px`"></pulse-loader> 
                     </div>
@@ -126,7 +131,7 @@ export default {
         return{
             isEditing: false,
             validationErrors:{},
-            picUploaded:false,
+            picUploaded:true,
             picError:false,
             picLoading:false,
             formData:{
@@ -136,20 +141,58 @@ export default {
                 sku:null,
                 supplier:null,
                 p_commission:0,
-                taxable:true,
+                taxable:null,
                 warehouse:null,
                 quantities:[],
-                p_image:""
+                p_image:"",
+                description:""
             },
             categoryList: [],
             wareHouseList: [],
         }
     },
     mounted(){
-        this.getCategories(),
-        this.getWarehouses()
+        this.getProduct()
     },
     methods:{
+        async getProductWarehouses(){
+            await axios.get('/getProductWarehouses/'+this.$route.params.id)
+            .then( response =>{
+                response.data.forEach( res =>{
+                    this.formData.warehouse.push(res.warehouse_id)
+                    this.formData.quantities.push({
+                        quantity:res.quantity,
+                        warehouse_id:res.warehouse_id,
+                        warehouse_name:res.w_name
+                    })
+                })
+            })
+        },
+        async getProduct(){
+            await axios.get('/products/'+this.$route.params.id)
+            .then( response => {
+                this.formData = {
+                    p_id:response.data.id,
+                    p_name:response.data.p_name ,
+                    price:response.data.price ,
+                    cat_id:response.data.cat_id ,
+                    sku:response.data.sku ,
+                    supplier:response.data.supplier ,
+                    p_commission:response.data.commission ,
+                    warehouse:[] ,
+                    quantities:[] ,
+                    p_image:response.data.p_image,
+                    taxable:response.data.taxable,
+                    description:response.data.description
+                }
+                if(this.formData.p_image === null){
+                    this.picUploaded = false
+                } 
+                this.getCategories()
+                this.getWarehouses()
+                this.getProductWarehouses()
+            })
+        },
         async saveDraft(){
             await axios.post('/saveDraft', this.formData)
             .then( response =>{
@@ -213,7 +256,7 @@ export default {
         async publishProduct(){
             this.isEditing = false
             if(this.picUploaded){
-                await axios.post('/products', this.formData)
+                await axios.put('/products/'+this.$route.params.id, this.formData)
                 .then( response =>{
                     this.$notify({
                         group: 'foo',
@@ -242,6 +285,31 @@ export default {
             data.append('photo', this.photo);
             this.img_loading = true;
             await axios.post('/uploadProductPic', data)
+            .then( response => {
+                this.formData.p_image = response.data.fileName
+                this.picUploaded = true
+                this.picLoading = false
+                this.picError = false
+                this.isEditing = true
+            })
+            .catch( error => {
+                if (error.response.status == 422){
+                    this.validationErrors = error.response.data.errors.photo;
+                    this.isEditing = false
+                }
+                this.picLoading = false;
+                this.picUploaded = false
+            })
+        },
+        async updatePic($event, index){
+            this.picLoading = true
+            const data = new FormData();
+            this.photo = $event.target.files[0];
+            
+            data.append('photo', this.photo);
+            data.append('p_id', this.$route.params.id)
+            this.img_loading = true;
+            await axios.post('/updateProductPic', data)
             .then( response => {
                 this.formData.p_image = response.data.fileName
                 this.picUploaded = true

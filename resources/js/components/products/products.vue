@@ -38,7 +38,7 @@
                         <td class="align-middle">{{product.created_at | moment("ddd, MMM Do YYYY")}}</td>
                         <td class="align-middle">
                             <router-link to="#" class="float-end "><span class="fa fa-trash-alt"></span></router-link>
-                            <router-link :to="`/admin/editProduct/`+product.id" class="float-end me-3"><span class="fa fa-edit"></span></router-link>
+                            <router-link :to="`/editProduct/`+product.id" class="float-end me-3"><span class="fa fa-edit"></span></router-link>
                         </td>
                     </tr>
                 </tbody>

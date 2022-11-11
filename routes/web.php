@@ -54,7 +54,7 @@ Route::middleware('auth:sanctum')->put('/updateZones/{id}', [zonesController::cl
 ///////////////////////////////////resources///////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->resource('/categories', categoriesController::class);
 Route::middleware('auth:sanctum')->resource('/warehouses', warehousesController::class);
-Route::resource('/products', productsController::class);
+Route::middleware('auth:sanctum')->resource('/products', productsController::class);
 Route::middleware('auth:sanctum')->resource('/orders', ordersController::class);
 Route::resource('/addressBooks', addressBooksController::class);
 Route::middleware('auth:sanctum')->resource('/drivers', driversController::class);
@@ -80,6 +80,7 @@ Route::middleware('auth:sanctum')->post('/deleteProductPic', [productsController
 Route::middleware('auth:sanctum')->post('/saveDraft', [productsController::class, 'saveDraft']);
 Route::middleware('auth:sanctum')->post('/searchItems', [productsController::class, 'searchItems']);
 Route::middleware('auth:sanctum')->put('/toggleFeature/{id}', [productsController::class, 'toggleFeature']);
+Route::middleware('auth:sanctum')->get('/getProductWarehouses/{id}', [productsController::class, 'getProductWarehouses']);
 ///////////////////////////////////agents/////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getAgents', [agentsController::class, 'getAgents']);
 Route::middleware('auth:sanctum')->get('/agentDetails/{id}', [agentsController::class, 'agentDetails']);
@@ -126,6 +127,9 @@ Route::any('/customerDetails/{slug}', function () {
     return view('home');
 });
 Route::any('/agentDetail/{slug}', function () {
+    return view('home');
+});
+Route::any('/editProduct/{slug}', function () {
     return view('home');
 });
 Route::any('/shippingDetails/{slug}', function () {
