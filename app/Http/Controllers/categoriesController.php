@@ -173,9 +173,27 @@ class categoriesController extends Controller
         return $data;
     }
 
-    public function getNodeCategories(){
-        $categories = Category::where('tree_level', 'NODE')->get();
+    public function getNodeCategories($id){
+        $ids = [];
+        //dd($this->getChildren(Category::find($id)));
+        $ids = $this->getChildrenIds(Category::find($id),$ids);
+        $categories = Category::where('tree_level', 'NODE')
+                              ->whereNotIn('id', $ids)->get();
         return $categories;
+    }
+
+    public function getChildrenIds($parent,$ids){
+        $children = Category::where('parent_id', $parent->id)->get();
+        if(count($children) > 0){
+            foreach($children as $child){
+                array_push($ids, $child->id);
+                $ids = $this->getChildrenIds($child, $ids);
+            }
+            return $ids;
+        }
+        else{
+            return $ids;
+        }
     }
 
     public function uploadSubPic(Request $request){

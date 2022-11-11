@@ -39,7 +39,7 @@ export default {
     },
     methods:{
         async getMainCategories(){
-            await axios.get('/getNodeCategories')
+            await axios.get('/getNodeCategories/'+this.category.id)
             .then( response =>{
                 this.mainCategories = response.data
             })

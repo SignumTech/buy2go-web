@@ -88,7 +88,7 @@ Route::middleware('auth:sanctum')->get('/agentOrders/{id}', [agentsController::c
 /////////////////////////////////Categories//////////////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getSubCategories', [categoriesController::class, 'getSubCategories']);
 Route::middleware('auth:sanctum')->get('/chooseSubCategories', [categoriesController::class, 'chooseSubCategories']);
-Route::middleware('auth:sanctum')->get('/getNodeCategories', [categoriesController::class, 'getNodeCategories']);
+Route::middleware('auth:sanctum')->get('/getNodeCategories/{id}', [categoriesController::class, 'getNodeCategories']);
 Route::get('/getMainCategories', [categoriesController::class, 'getMainCategories']);
 Route::middleware('auth:sanctum')->post('/uploadSubPic', [categoriesController::class, 'uploadSubPic']);
 Route::get('/getImediateSubCat/{id}', [categoriesController::class, 'getImediateSubCat']);
