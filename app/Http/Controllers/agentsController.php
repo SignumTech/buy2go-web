@@ -130,10 +130,10 @@ class agentsController extends Controller
         $paymentRequest = new PaymentRequest;
         $latestRequests = PaymentRequest::orderBy('created_at','DESC')->first();
         if($latestRequests){
-            $request->request_no = '#'.str_pad($latestRequests->id + 1, 8, "0", STR_PAD_LEFT);
+            $paymentRequest->request_no = '#'.str_pad($latestRequests->id + 1, 8, "0", STR_PAD_LEFT);
         }
         else{
-            $request->request_no = '#'.str_pad(1, 8, "0", STR_PAD_LEFT);
+            $paymentRequest->request_no = '#'.str_pad(1, 8, "0", STR_PAD_LEFT);
         }
         $paymentRequest->amount = $request->amount;
         $paymentRequest->user_id = auth()->user()->id;
