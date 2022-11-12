@@ -41,11 +41,18 @@ class agentsController extends Controller
 
     public function withdrawCash(Request $request){
         $this->validate($request, [
-            "amount" => "required | integer"
+            "request_no" => "required"
         ]);
 
         try{
             DB::beginTransaction();
+            $payment_request = PaymentRequest::where('request_no', $request->request_no)->first();
+            if($payment_request != auth()->user()->id){
+                return response('Unauthorized', 401);
+            }
+            $payment_request->request_status = 'PAID';
+            $payment_request->save();
+            
             $balance = Balance::where("user_id", auth()->user()->id)->lockForUpdate()->first();
             if($request->amount > $balance->balance){
                 return response ('Amount exceeds agent balance', 422);
@@ -150,4 +157,18 @@ class agentsController extends Controller
     public function showPaymentDetail($id){
         return PaymentRequest::find($id);
     }
+
+    public function getMyRequests(){
+        return PaymentRequest::where('user_id', auth()->user()->id)->get();
+    }
+
+    public function confirmRequest($id){
+        $payment = PaymentRequest::find($id);
+        $payment->request_status = 'CONFIRMED';
+        $payment->save();
+
+        return $payment;
+    }
+
+
 }
