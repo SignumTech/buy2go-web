@@ -30,8 +30,16 @@
                         <td><router-link :to="`/customerDetails/`+shop.id">Shop Details <span class="fa fa-external-link-alt"></span></router-link></td>
                     </tr>
                 </tbody>
-                
             </table>
+            <nav aria-label="Page d-flex m-auto navigation example" style="cursor:pointer">
+                    <ul class="pagination justify-content-center">
+                        <li v-for="pd,index in paginationData.links" :key="index" :class="(pd.active)?`page-item active text-white`:`page-item`">
+                            <a class="page-link" @click="getPage(pd.url)" aria-label="Previous">
+                                <span :class="(pd.active)?`text-white`:``" aria-hidden="true" v-html="pd.label"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
         </div>
     </div>
 </div>    
@@ -40,17 +48,26 @@
 export default {
     data(){
         return{
-            shops:{}
+            shops:{},
+            paginationData:{}
         }
     },
     mounted(){
         this.getShops()
     },
     methods:{
+        async getPage(pageUrl){
+            await axios.get(pageUrl)
+            .then( response => {
+                this.paginationData = response.data
+                this.shops = response.data.data;
+            })
+        },
         async getShops(){
             await axios.get('/getShops')
             .then( response =>{
-                this.shops = response.data
+                this.paginationData = response.data
+                this.shops = response.data.data;
             })
         }
     }

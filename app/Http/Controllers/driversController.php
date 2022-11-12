@@ -16,7 +16,7 @@ class driversController extends Controller
      */
     public function index()
     {
-        $drivers = User::where('user_role', 'DRIVER')->get();
+        $drivers = User::where('user_role', 'DRIVER')->paginate(10);
         foreach($drivers as $driver){
             $driver->routes = DriverDetail::join('zone_routes', 'driver_details.route_id', '=', 'zone_routes.id')
                                             ->where('driver_details.driver_id', $driver->id)

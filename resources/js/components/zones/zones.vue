@@ -29,6 +29,15 @@
                     </tr>
                 </tbody>
             </table>
+            <nav aria-label="Page d-flex m-auto navigation example" style="cursor:pointer">
+                <ul class="pagination justify-content-center">
+                    <li v-for="pd,index in paginationData" :key="index" :class="(pd.active)?`page-item active text-white`:`page-item`">
+                        <a class="page-link" @click="getPage(pd.url)" aria-label="Previous">
+                            <span :class="(pd.active)?`text-white`:``" aria-hidden="true" v-html="pd.label"></span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 </div>    
@@ -40,13 +49,21 @@ import viewAreaModalVue from './viewAreaModal.vue';
 export default {
     data(){
         return{
-            zones:{}
+            zones:{},
+            paginationData:{}
         }
     },
     mounted(){
         this.getZones();
     },
     methods:{
+        async getPage(pageUrl){
+            await axios.get(pageUrl)
+            .then( response => {
+                this.paginationData = response.data.links
+                this.zones = response.data.data
+            })
+        },
         editZonesModal(zone){
             this.$modal.show(
                 editZonesVue,
@@ -66,7 +83,8 @@ export default {
         async getZones(){
             await axios.get('/getZones')
             .then( response =>{
-                this.zones = response.data
+                this.zones = response.data.data
+                this.paginationData = response.data.links
             })
         },
         viewArea(route){

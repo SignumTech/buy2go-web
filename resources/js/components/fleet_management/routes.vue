@@ -32,6 +32,15 @@
                     </tr>
                 </tbody>
             </table>
+                        <nav aria-label="Page d-flex m-auto navigation example" style="cursor:pointer">
+                <ul class="pagination justify-content-center">
+                    <li v-for="pd,index in paginationData.links" :key="index" :class="(pd.active)?`page-item active text-white`:`page-item`">
+                        <a class="page-link" @click="getPage(pd.url)" aria-label="Previous">
+                            <span :class="(pd.active)?`text-white`:``" aria-hidden="true" v-html="pd.label"></span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 </div>    
@@ -41,13 +50,21 @@ import addRouteModalVue from './addRouteModal.vue'
 export default {
     data(){
         return{
-            routes:{}
+            routes:{},
+            paginationData:{}
         }
     },
     mounted(){
         this.getRoutes()
     },
     methods:{
+        async getPage(pageUrl){
+            await axios.get(pageUrl)
+            .then( response => {
+                this.paginationData = response.data
+                this.routes = response.data.data
+            })
+        },
         addRouteModal(){
             this.$modal.show(
                 addRouteModalVue,
@@ -59,7 +76,8 @@ export default {
         async getRoutes(){
             await axios.get('/routes')
             .then( response =>{
-                this.routes = response.data
+                this.routes = response.data.data
+                this.paginationData = response.data
             })
         },
     }

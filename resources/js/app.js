@@ -19,6 +19,7 @@ import numeral from 'numeral';
 import numFormat from 'vue-filter-number-format';
 import * as VueGoogleMaps from 'vue2-google-maps'
 import VueQRCodeComponent from 'vue-qr-generator'
+
 Vue.component('qr-code', VueQRCodeComponent)
 Vue.component('google-map', VueGoogleMaps.Map);
 Vue.component('google-marker', VueGoogleMaps.Marker);

@@ -10,7 +10,7 @@ use App\Models\OrderItem;
 class shopsController extends Controller
 {
     public function getShops(){
-        $shops = User::where('account_type', 'USER')->get();
+        $shops = User::where('account_type', 'USER')->paginate(10);
         foreach($shops as $shop){
             $shop->address = AddressBook::where('user_id', $shop->id)->get();
         }

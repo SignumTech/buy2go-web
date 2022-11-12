@@ -31,6 +31,15 @@
                     </tr>
                 </tbody>
             </table>
+            <nav aria-label="Page d-flex m-auto navigation example" style="cursor:pointer">
+                <ul class="pagination justify-content-center">
+                    <li v-for="pd,index in paginationData.links" :key="index" :class="(pd.active)?`page-item active text-white`:`page-item`">
+                        <a class="page-link" @click="getPage(pd.url)" aria-label="Previous">
+                            <span :class="(pd.active)?`text-white`:``" aria-hidden="true" v-html="pd.label"></span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 </div>    
@@ -41,17 +50,26 @@ import editModalVue from './editModal.vue'
 export default {
     data(){
         return{
-            drivers:{}
+            drivers:{},
+            paginationData:{}
         }
     },
     mounted(){
         this.getDrivers()
     },
     methods:{
+        async getPage(pageUrl){
+            await axios.get(pageUrl)
+            .then( response => {
+                this.paginationData = response.data
+                this.drivers = response.data.data
+            })
+        },
         async getDrivers(){
             await axios.get('/drivers')
             .then( response =>{
-                this.drivers = response.data
+                this.paginationData = response.data
+                this.drivers = response.data.data
             })
         },
         addDriverModal(){

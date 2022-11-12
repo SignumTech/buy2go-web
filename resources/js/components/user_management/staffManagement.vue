@@ -52,6 +52,15 @@
                             </tbody>
                         </table>
                         <Circle8 class="m-auto pt-5 pb-5" v-if="Loaded" style="width: 70px; height: 70px"></Circle8>
+                        <nav aria-label="Page d-flex m-auto navigation example" style="cursor:pointer">
+                            <ul class="pagination justify-content-center">
+                                <li v-for="pd,index in paginationData.links" :key="index" :class="(pd.active)?`page-item active text-white`:`page-item`">
+                                    <a class="page-link" @click="getPage(pd.url)" aria-label="Previous">
+                                        <span :class="(pd.active)?`text-white`:``" aria-hidden="true" v-html="pd.label"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav>
                     </div>
                 </div>
             </div>
@@ -75,13 +84,21 @@ export default {
             tableData:[],
             queryData:{
                 queryItem: ""
-            }
+            },
+            paginationData:{}
         }
     },
     mounted(){
         this.getStaff()
     },
     methods:{
+        async getPage(pageUrl){
+            await axios.get(pageUrl)
+            .then( response => {
+                this.paginationData = response.data
+                this.tableData = response.data.data;
+            })
+        },
         async searchUser(){
             await axios.post('/searchStaff', this.queryData)
             .then( response =>{
@@ -139,7 +156,8 @@ export default {
         async getStaff(){
             await axios.get('/getStaff')
             .then( response =>{
-                this.tableData = response.data;
+                this.paginationData = response.data
+                this.tableData = response.data.data;
                 this.Loaded = false
             })
         }

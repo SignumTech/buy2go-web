@@ -290,11 +290,11 @@ class productsController extends Controller
     }
 
     public function getProductsList(){
-        $products = Product::all();
+        $products = Product::paginate(10);
         foreach($products as $product){
             $product->stock = WarehouseDetail::where('p_id', $product->id)->sum('quantity');
         }
-
+        
         return $products;                
     }
 

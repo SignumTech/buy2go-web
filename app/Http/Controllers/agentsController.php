@@ -23,7 +23,7 @@ class agentsController extends Controller
                             $query->where('f_name', 'LIKE', '%'.$request->searchQuery.'%')
                                 ->orWhere('phone_no', 'LIKE', $request->searchQuery.'%');
                         })
-                        ->get();
+                        ->paginate(10);
         foreach($shops as $shop){
             $shop->address = AddressBook::where('user_id', $shop->id)->get();
         }
@@ -34,7 +34,7 @@ class agentsController extends Controller
     public function getAgents(){
         $agents = User::join('balances', 'users.id', 'balances.user_id')
                       ->where('account_type', 'AGENT')
-                      ->get();
+                      ->paginate(10);
         return $agents;
     }
 

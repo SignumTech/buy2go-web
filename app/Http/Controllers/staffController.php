@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 class staffController extends Controller
 {
     public function getStaff(){
-        $staff = User::where('account_type', 'Staff')->orderBy('users.f_name', 'ASC')->get();
+        $staff = User::where('account_type', 'Staff')->orderBy('users.f_name', 'ASC')->paginate(10);
 
         return $staff;
     }
@@ -91,7 +91,7 @@ class staffController extends Controller
         $staff = User::where("phone_no", $request->queryItem)
                      ->orWhere("f_name", $request->queryItem)
                      ->orderBy('users.f_name', 'ASC')
-                     ->get();
+                     ->paginate(10);
             
         return $staff;
     }

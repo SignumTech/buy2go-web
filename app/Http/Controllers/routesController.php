@@ -16,7 +16,7 @@ class routesController extends Controller
     public function index()
     {
         $routes = ZoneRoute::join('zones', 'zone_routes.zone_id', '=', 'zones.id')
-                           ->select('zone_routes.id', 'zone_routes.route_name', 'zones.zone_name')->get();
+                           ->select('zone_routes.id', 'zone_routes.route_name', 'zones.zone_name')->paginate(10);
         foreach($routes as $route){
             $route->drivers_count = DriverDetail::where('route_id', $route->id)->count();
             $route->shops_count = AddressBook::where('route_id', $route->id)->count();

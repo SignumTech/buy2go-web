@@ -29,7 +29,7 @@
                         
                         <td class="align-middle">{{product.stock}}</td>
                         <td class="align-middle">{{product.p_status}}</td>
-                        <td>
+                        <td class="align-middle">
                             <div class="form-check form-switch">
                                 <input @change="toggleFeature(product.id)" class="form-check-input" type="checkbox" :checked="product.featured==`FEATURED`">
                                 <label class="form-check-label" for="flexSwitchCheckChecked"> {{product.featured}}</label>
@@ -43,6 +43,15 @@
                     </tr>
                 </tbody>
             </table>
+            <nav aria-label="Page d-flex m-auto navigation example" style="cursor:pointer">
+                <ul class="pagination justify-content-center">
+                    <li v-for="pd,index in paginationData.links" :key="index" :class="(pd.active)?`page-item active text-white`:`page-item`">
+                        <a class="page-link" @click="getPage(pd.url)" aria-label="Previous">
+                            <span :class="(pd.active)?`text-white`:``" aria-hidden="true" v-html="pd.label"></span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -51,7 +60,9 @@
 export default {
     data(){
         return{
-            products:{}
+            products:{},
+            paginationData:{}
+
         }
     },
     mounted(){
@@ -59,6 +70,13 @@ export default {
         feather.replace();
     },
     methods:{
+        async getPage(pageUrl){
+            await axios.get(pageUrl)
+            .then( response => {
+                this.paginationData = response.data
+                this.products = response.data.data
+            })
+        },
         async toggleFeature(id){
             await axios.put('/toggleFeature/'+id)
             .then( response =>{
@@ -68,7 +86,9 @@ export default {
         async getProducts(){
             await axios.get('/getProductsList')
             .then( response =>{
-                this.products = response.data
+                console.log(response.data)
+                this.paginationData = response.data
+                this.products = response.data.data
             })
         },
         editProduct(product){

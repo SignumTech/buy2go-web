@@ -39,7 +39,7 @@ class zonesController extends Controller
     }
 
     public function getZones(){
-        $zones = Zone::all();
+        $zones = Zone::paginate(10);
         return $zones;
     }
 }

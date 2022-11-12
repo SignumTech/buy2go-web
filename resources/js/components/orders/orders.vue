@@ -30,44 +30,50 @@
                 <pulse-loader :color="`#011b48`" :size="`15px`"></pulse-loader> 
             </div>            
         </div>
-
     </div> 
     <div v-if="!loading" class="col-md-12">
         <div class="bg-white shadow-sm p-2">
-            
             <table class="table mt-2">
-                    <thead>
-                        <tr class="text-center">
-                            <th>Order No</th>
-                            <th>Order date</th>
-                            <th>Total</th>
-                            <th>No. of items</th>
-                            <th>Order Status</th>
-                            <th>Payment Status</th>
-                            <th>Payment Method</th>
-                            <th>Order Type</th>
-                            <th></th>
-                        </tr>                        
-                    </thead>
+                <thead>
+                    <tr class="text-center">
+                        <th>Order No</th>
+                        <th>Order date</th>
+                        <th>Total</th>
+                        <th>No. of items</th>
+                        <th>Order Status</th>
+                        <th>Payment Status</th>
+                        <th>Payment Method</th>
+                        <th>Order Type</th>
+                        <th></th>
+                    </tr>                        
+                </thead>
 
-                    <tbody>
-                        <tr v-for="order in orders" :key="order.id" class="border-bottom text-center align-middle">
-                            <td>
-                                {{order.order_no}}
-                            </td>
-                            <td>{{order.created_at | moment("ddd, MMM Do YYYY")}}</td>
-                            
-                            <td>{{order.total | numFormat}} ETB</td>
-                            <td>{{order.no_items}} items</td>
-                            <td>{{order.order_status}}</td>
-                            <td>{{order.payment_status}}</td>
-                            <td>{{order.payment_method}}</td>
-                            <td>{{order.order_type}}</td>
-                            <td><router-link :to="`/orderDetails/`+order.id">Order Details <span class="fa fa-external-link-alt"></span></router-link></td>
-                        </tr>                        
-                    </tbody>
-
-                </table>
+                <tbody>
+                    <tr v-for="order in orders" :key="order.id" class="border-bottom text-center align-middle">
+                        <td>
+                            {{order.order_no}}
+                        </td>
+                        <td>{{order.created_at | moment("ddd, MMM Do YYYY")}}</td>
+                        
+                        <td>{{order.total | numFormat}} ETB</td>
+                        <td>{{order.no_items}} items</td>
+                        <td>{{order.order_status}}</td>
+                        <td>{{order.payment_status}}</td>
+                        <td>{{order.payment_method}}</td>
+                        <td>{{order.order_type}}</td>
+                        <td><router-link :to="`/orderDetails/`+order.id">Order Details <span class="fa fa-external-link-alt"></span></router-link></td>
+                    </tr>                        
+                </tbody>
+            </table>
+            <nav aria-label="Page d-flex m-auto navigation example" style="cursor:pointer">
+                <ul class="pagination justify-content-center">
+                    <li v-for="pd,index in paginationData" :key="index" :class="(pd.active)?`page-item active text-white`:`page-item`">
+                        <a class="page-link" @click="getPage(pd.url)" aria-label="Previous">
+                            <span :class="(pd.active)?`text-white`:``" aria-hidden="true" v-html="pd.label"></span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 </div>  
@@ -83,6 +89,7 @@ export default {
         return{
             active:'all',
             orders:{},
+            paginationData:{},
             loading:true
         }
     },
@@ -90,6 +97,13 @@ export default {
         this.getAllOrders()
     },
     methods:{
+        async getPage(pageUrl){
+            await axios.get(pageUrl)
+            .then( response => {
+                this.paginationData = response.data.links
+                this.orders = response.data.data
+            })
+        },
         connect(){
 
         },
@@ -98,7 +112,8 @@ export default {
             this.loading = true
             await axios.get('/orders')
             .then( response =>{
-                this.orders = response.data
+                this.orders = response.data.data
+                this.paginationData = response.data.links
                 this.loading = false
             })
         },
@@ -107,7 +122,8 @@ export default {
             this.loading = true
             await axios.get('/getProcessing')
             .then( response =>{
-                this.orders = response.data
+                this.orders = response.data.data
+                this.paginationData = response.data.links
                 this.loading = false
             })
         },
@@ -116,7 +132,8 @@ export default {
             this.loading = true
             await axios.get('/getShipped')
             .then( response =>{
-                this.orders = response.data
+                this.orders = response.data.data
+                this.paginationData = response.data.links
                 this.loading = false
             })
         },
@@ -125,7 +142,8 @@ export default {
             this.loading = true
             await axios.get('/getDelivered')
             .then( response =>{
-                this.orders = response.data
+                this.orders = response.data.data
+                this.paginationData = response.data.links
                 this.loading = false
             })
         }

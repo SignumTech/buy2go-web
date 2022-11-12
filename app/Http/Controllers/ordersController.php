@@ -30,7 +30,7 @@ class ordersController extends Controller
      */
     public function index()
     { 
-        $orders = Order::orderBy("created_at", "DESC")->get();
+        $orders = Order::orderBy("created_at", "DESC")->paginate(10);
         return $orders;
     }
 
@@ -257,21 +257,21 @@ class ordersController extends Controller
     public function getProcessing(){
         $orders = Order::where('orders.order_status', "PROCESSING")
                        ->orderBy("created_at", "DESC")
-                       ->get();
+                       ->paginate(10);
         return $orders;
     }
 
     public function getShipped(){
         $orders = Order::where('orders.order_status', "SHIPPED")
                        ->orderBy("created_at", "DESC")
-                       ->get();
+                       ->paginate(10);
         return $orders;
     }
 
     public function getDelivered(){
         $orders = Order::where('orders.order_status', "DELIVERED")
                        ->orderBy("created_at", "DESC")
-                       ->get();
+                       ->paginate(10);
         return $orders;
     }
 
