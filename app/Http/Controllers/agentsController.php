@@ -136,7 +136,7 @@ class agentsController extends Controller
             $request->request_no = '#'.str_pad(1, 8, "0", STR_PAD_LEFT);
         }
         $paymentRequest->amount = $request->amount;
-        $paymentRequest->agent_id = auth()->user()->id;
+        $paymentRequest->user_id = auth()->user()->id;
         $paymentRequest->save();
 
         return $paymentRequest;
