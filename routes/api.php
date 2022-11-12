@@ -36,6 +36,7 @@ Route::middleware('auth:sanctum')->delete('/deleteCartItem/{id}', [cartControlle
 ///////////////////////////////////agents/////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->post('/searchShop', [agentsController::class, 'searchShop']);
 Route::middleware('auth:sanctum')->post('/withdrawCash', [agentsController::class, 'withdrawCash']);
+Route::middleware('auth:sanctum')->post('/placeRequest', [agentsController::class, 'placeRequest']);
 ///////////////////////////////////orders/////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->post('/addAgentOrder', [ordersController::class, 'addAgentOrder']);
 Route::middleware('auth:sanctum')->get('/getMyOrders', [ordersController::class, 'getMyOrders']);

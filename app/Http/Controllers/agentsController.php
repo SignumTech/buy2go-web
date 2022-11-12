@@ -9,6 +9,7 @@ use App\Models\Balance;
 use App\Models\BalanceHistory;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\PaymentRequest;
 use App\Events\CashWithdrawn;
 use DB;
 class agentsController extends Controller
@@ -119,5 +120,34 @@ class agentsController extends Controller
         $data['orders_count'] = $count;
         $data['orders'] = $orders;
         return $data;
+    }
+
+    public function placeRequest(Request $request){
+        $this->validate($request, [
+            "amount" => "required"
+        ]);
+
+        $paymentRequest = new PaymentRequest;
+        $latestRequests = PaymentRequest::orderBy('created_at','DESC')->first();
+        if($latestRequests){
+            $request->request_no = '#'.str_pad($latestRequests->id + 1, 8, "0", STR_PAD_LEFT);
+        }
+        else{
+            $request->request_no = '#'.str_pad(1, 8, "0", STR_PAD_LEFT);
+        }
+        $paymentRequest->amount = $request->amount;
+        $paymentRequest->agent_id = auth()->user()->id;
+        $paymentRequest->save();
+
+        return $paymentRequest;
+    }
+
+    public function getPaymentRequests(){
+        return PaymentRequest::join('users', 'payment_requests.user_id', '=', 'users.id')
+                             ->paginate(10);
+    }
+
+    public function showPaymentDetail($id){
+        return PaymentRequest::find($id);
     }
 }

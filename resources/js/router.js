@@ -24,6 +24,7 @@ import customerDetails from './components/customers/customerDetails.vue'
 import agents from './components/user_management/commissionAgents.vue'
 import agentDetails from './components/user_management/agentDetails.vue'
 import editProduct from './components/products/editProduct.vue'
+import paymentRequests from './components/user_management/paymentRequests.vue'
 Vue.use(Router)
 
 const routes = [
@@ -152,6 +153,13 @@ const routes = [
         name: 'EditProduct',
         props: true
     },
+    {
+        path: '/paymentRequests',
+        component: paymentRequests,
+        name: 'PaymentRequests',
+        props: true
+    },
+    
 ]
 
 export default new  Router({
