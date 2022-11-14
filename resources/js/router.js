@@ -15,6 +15,7 @@ import shippingDetails from './components/orders/shippingDetails.vue'
 import directions from './components/orders/directions.vue'
 import warehouse from './components/warehouses/warehouses.vue'
 import rolePermission from './components/user_management/rolePermission.vue'
+import creditServices from './components/user_management/creditServices.vue'
 import staffManagement from './components/user_management/staffManagement.vue'
 import vehiclesList from './components/fleet_management/vehicles.vue'
 import driversList from './components/fleet_management/drivers.vue'
@@ -164,6 +165,12 @@ const routes = [
         path: '/requestDetails/:id',
         component: requestDetails,
         name: 'RequestDetails',
+        props: true
+    },
+    {
+        path: '/creditServices',
+        component: creditServices,
+        name: 'CreditServices',
         props: true
     },
     

@@ -56,6 +56,9 @@
                       <li  :class="$route.path == `/paymentRequests` ? `active` : ``">
                           <router-link to="/paymentRequests"><i class="fa fa-hand-holding-usd"></i> Payment Requests</router-link>
                       </li>
+                      <li  :class="$route.path == `/creditServices` ? `active` : ``">
+                          <router-link to="/creditServices"><i class="fa fa-credit-card"></i> Credit Services</router-link>
+                      </li>
                     </ul>
                   </div>
                 </li>

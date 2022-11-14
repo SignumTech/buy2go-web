@@ -429,7 +429,7 @@ class ordersController extends Controller
         ]);
 
         $order = Order::find($id);
-        if(auth()->user()->id !=  $order->assigned_driver){
+        if(auth()->user()->id !=  $order->user_id){
             return response("Unauthorized",401);
         }
         $order->tx_ref = $request->tx_ref;
