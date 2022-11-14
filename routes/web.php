@@ -18,6 +18,7 @@ use App\Http\Controllers\notificationsController;
 use App\Http\Controllers\routesController;
 use App\Http\Controllers\shopsController;
 use App\Http\Controllers\agentsController;
+use App\Http\Controllers\creditsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes

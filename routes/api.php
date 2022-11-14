@@ -12,6 +12,7 @@ use App\Http\Controllers\addressBooksController;
 use App\Http\Controllers\wishlistsController;
 use App\Http\Controllers\balancesController;
 use App\Http\Controllers\agentsController;
+use App\Http\Controllers\creditsController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -64,6 +65,7 @@ Route::middleware('auth:sanctum')->delete('/removeFromWishlist/{id}', [wishlists
 Route::middleware('auth:sanctum')->resource('/categories', categoriesController::class);
 Route::middleware('auth:sanctum')->resource('/products', productsController::class);
 Route::middleware('auth:sanctum')->resource('/addressBooks', addressBookController::class);
+Route::middleware('auth:sanctum')->resource('/credits', creditsController::class);
 ////////////////////////////////////Products////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/productsByCategory/{id}', [productsController::class, 'productsByCategory']);
 Route::middleware('auth:sanctum')->post('/searchItems', [productsController::class, 'searchItems']);
