@@ -47,7 +47,7 @@ class agentsController extends Controller
         try{
             DB::beginTransaction();
             $payment_request = PaymentRequest::where('request_no', $request->request_no)->first();
-            if($payment_request != auth()->user()->id){
+            if($payment_request->user_id != auth()->user()->id){
                 return response('Unauthorized', 401);
             }
             $payment_request->request_status = 'PAID';
