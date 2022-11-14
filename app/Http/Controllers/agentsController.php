@@ -54,11 +54,11 @@ class agentsController extends Controller
             $payment_request->save();
 
             $balance = Balance::where("user_id", auth()->user()->id)->lockForUpdate()->first();
-            if($request->amount > $balance->balance){
+            if($payment_request->amount > $balance->balance){
                 return response ('Amount exceeds agent balance', 422);
             }
             else{
-                $balance->balance = $balance->balance - $request->amount;
+                $balance->balance = $balance->balance - $payment_request->amount;
                 $balance->save();
             }
 
@@ -70,7 +70,7 @@ class agentsController extends Controller
             else{
                 $transaction->transaction_no = '#'.str_pad(1, 8, "0", STR_PAD_LEFT);
             }
-            $transaction->amount = $request->amount;
+            $transaction->amount = $payment_request->amount;
             $transaction->user_id = auth()->user()->id;
             $transaction->transaction_type = 'Withdraw';
             $transaction->save();
