@@ -1,11 +1,15 @@
 <template>
 <form action="#" @submit.prevent="addZone">
     <div class="row p-4">
-        <div class="col-md-6">
+        <div class="col-md-4">
+            <label for="">Country</label>
+            <input required v-model="formData.country" type="text" class="form-control" placeholder="Sub city">
+        </div>
+        <div class="col-md-4">
             <label for="">City</label>
             <input required v-model="formData.city" type="text" class="form-control" placeholder="City">
         </div>
-        <div class="col-md-6">
+        <div class="col-md-4">
             <label for="">Sub city</label>
             <input required v-model="formData.subcity" type="text" class="form-control" placeholder="Sub city">
             <input type="hidden" v-model="formData.route">

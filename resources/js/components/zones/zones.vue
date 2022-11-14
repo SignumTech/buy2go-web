@@ -10,6 +10,7 @@
                 <thead>
                     <tr>
                         <th>#</th>
+                        <th>Country</th>
                         <th>City</th>
                         <th>Subcity</th>
                         <th>area</th>
@@ -19,6 +20,7 @@
                 <tbody>
                     <tr v-for="zone,index in zones" :key="index">
                         <td>{{index+1}}</td>
+                        <td>{{zone.country}}</td>
                         <td>{{zone.city}}</td>
                         <td>{{zone.subcity}}</td>
                         <td><h6 @click="viewArea(zone.route)" class="m-0" style="cursor:pointer"><strong>View on map <span class="fa fa-external-link-alt"></span></strong></h6></td>
