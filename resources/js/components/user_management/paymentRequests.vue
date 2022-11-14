@@ -9,10 +9,11 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Agent name</th>
                         <th>Request Number</th>
+                        <th>Agent name</th>
                         <th>Phone Number</th>
                         <th>Request Amount</th>
+                        <th>Request Status</th>
                         <th>Requested at</th>
                         <th></th>
                     </tr>
@@ -24,8 +25,9 @@
                         <td>{{request.f_name}} {{request.l_name}}</td>
                         <td>{{request.phone_no}}</td>
                         <td>{{request.amount}}</td>
-                        <td>{{request.created_at | moment("MMM Do YYYY")}}</td>
-                        <td><router-link :to="`/agentDetail/`+request.user_id">Agent Details <span class="fa fa-external-link-alt"></span></router-link></td>
+                        <td>{{request.request_status}}</td>
+                        <td>{{request.created_at | moment("MMM Do YYYY h:m:s a")}}</td>
+                        <td><router-link :to="`/requestDetails/`+request.id">Request Details <span class="fa fa-external-link-alt"></span></router-link></td>
                     </tr>
                 </tbody>
             </table>
@@ -61,7 +63,7 @@ export default {
             })
         },
         async getRequests(){
-            await axios.get('/getRequests')
+            await axios.get('/getPaymentRequests')
             .then( response =>{
                 this.paginationData = response.data
                 this.requests = response.data.data;

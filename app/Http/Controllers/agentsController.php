@@ -52,7 +52,7 @@ class agentsController extends Controller
             }
             $payment_request->request_status = 'PAID';
             $payment_request->save();
-            
+
             $balance = Balance::where("user_id", auth()->user()->id)->lockForUpdate()->first();
             if($request->amount > $balance->balance){
                 return response ('Amount exceeds agent balance', 422);
@@ -151,11 +151,21 @@ class agentsController extends Controller
 
     public function getPaymentRequests(){
         return PaymentRequest::join('users', 'payment_requests.user_id', '=', 'users.id')
+                             ->select(
+                                'payment_requests.id', 
+                                'payment_requests.request_no',
+                                'payment_requests.amount',
+                                'payment_requests.created_at',
+                                'users.f_name',
+                                'users.l_name',
+                                'payment_requests.request_status')
                              ->paginate(10);
     }
 
-    public function showPaymentDetail($id){
-        return PaymentRequest::find($id);
+    public function showPaymentRequest($id){
+        return PaymentRequest::join('users', 'payment_requests.user_id', '=', 'users.id')
+                              ->join('balances', 'users.id', '=', 'balances.user_id')
+                             ->where('payment_requests.id',$id)->first();
     }
 
     public function getMyRequests(){
@@ -164,6 +174,10 @@ class agentsController extends Controller
 
     public function confirmRequest($id){
         $payment = PaymentRequest::find($id);
+        $balance = Balance::where('user_id', $payment->user_id)->first()->balance;
+        if($payment->amount > $balance){
+            return response("Can not confirm request. Request amount exceeds agent balance!", 422);
+        }
         $payment->request_status = 'CONFIRMED';
         $payment->save();
 

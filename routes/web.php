@@ -87,8 +87,9 @@ Route::middleware('auth:sanctum')->get('/agentDetails/{id}', [agentsController::
 Route::middleware('auth:sanctum')->get('/agentOrders/{id}', [agentsController::class, 'agentOrders']);
 Route::middleware('auth:sanctum')->post('/placeRequest', [agentsController::class, 'placeRequest']);
 Route::middleware('auth:sanctum')->get('/getPaymentRequests', [agentsController::class, 'getPaymentRequests']);
-Route::middleware('auth:sanctum')->get('/showPaymentDetail/{id}', [agentsController::class, 'showPaymentDetail']);
+Route::middleware('auth:sanctum')->get('/showPaymentRequest/{id}', [agentsController::class, 'showPaymentRequest']);
 Route::middleware('auth:sanctum')->get('/getMyRequests', [agentsController::class, 'getMyRequests']);
+Route::middleware('auth:sanctum')->put('/confirmRequest/{id}', [agentsController::class, 'confirmRequest']);
 /////////////////////////////////Categories//////////////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getSubCategories', [categoriesController::class, 'getSubCategories']);
 Route::middleware('auth:sanctum')->get('/chooseSubCategories', [categoriesController::class, 'chooseSubCategories']);
@@ -139,5 +140,9 @@ Route::any('/editProduct/{slug}', function () {
 Route::any('/shippingDetails/{slug}', function () {
     return view('home');
 });
+Route::any('requestDetails/{slug}', function () {
+    return view('home');
+});
+
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
