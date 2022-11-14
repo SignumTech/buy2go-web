@@ -428,7 +428,7 @@ class ordersController extends Controller
             "payment_method" => "required",
             "payment_status" => "required"
         ]);
-
+        var_dump($request->credit_time);
         $order = Order::find($id);
         if(auth()->user()->id !=  $order->user_id){
             return response("Unauthorized",401);
