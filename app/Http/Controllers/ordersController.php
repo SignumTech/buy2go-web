@@ -435,7 +435,7 @@ class ordersController extends Controller
         $order->tx_ref = $request->tx_ref;
         $order->reference = $request->reference;
         $order->payment_status = $request->payment_status;
-        if($request->payment_method == 'CREDIT'){
+        if($request->payment_method == 'Credit'){
             $order->credit_deadline = Carbon::now()->addDays($request->credit_time);
         }
         $order->payment_method = $request->payment_method;
