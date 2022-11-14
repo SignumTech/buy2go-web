@@ -5,6 +5,7 @@
     </div>
     <div class="col-md-12 mt-3">
         <div class="bg-white rounded-1 p-3 shadow-sm">
+            <button  @click="addCreditsModal()" class="btn btn-primary btn-sm float-end shadow-sm text-white"><span class="fa fa-plus"></span> Add Credits</button>
             <table class="table px-2 mt-2">
                 <thead>
                     <tr>
@@ -23,7 +24,7 @@
                         <td>{{credit.created_at | moment("ddd, MMM Do YYYY")}}</td>
                         <td>
                             <span class="fa fa-trash-alt"></span>
-                            <span @click="editCredit(credit)" class="fa fa-edit ms-3"></span>
+                            <span @click="editCreditsModal(credit)" class="fa fa-edit ms-3"></span>
                         </td>
                     </tr>
                 </tbody>
@@ -33,6 +34,9 @@
 </div>   
 </template>
 <script>
+import AddCreditModal from './addCreditModal.vue'
+import editCreditModalVue from './editCreditModal.vue'
+
 export default {
     data(){
         return{
@@ -49,8 +53,21 @@ export default {
                 this.credits = response.data
             })
         },
-        async editCredit(){
-
+        addCreditsModal(){
+            this.$modal.show(
+                AddCreditModal,
+                {},
+                {height:'auto', width:'500px'},
+                {'closed':this.getCredits}
+            )
+        },
+        editCreditsModal(credit){
+            this.$modal.show(
+                editCreditModalVue,
+                {credits:credit},
+                {height:'auto', width:'500px'},
+                {'closed':this.getCredits}
+            )
         }
     }
 }

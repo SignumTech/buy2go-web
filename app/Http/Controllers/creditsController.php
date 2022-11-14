@@ -78,7 +78,17 @@ class creditsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            "credit_name" => "required",
+            "credit_time" => "required"
+        ]);
+
+        $country = CreditService::find($id);
+        $country->credit_name = $request->credit_name;
+        $country->credit_time = $request->credit_time;
+        $country->save();
+
+        return $country;
     }
 
     /**
