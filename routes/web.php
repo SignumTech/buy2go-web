@@ -84,6 +84,7 @@ Route::middleware('auth:sanctum')->get('/getDriverOrders', [ordersController::cl
 Route::middleware('auth:sanctum')->get('/acceptOrder/{id}', [ordersController::class, 'acceptOrder']);
 Route::middleware('auth:sanctum')->get('/rejectOrder/{id}', [ordersController::class, 'rejectOrder']);
 Route::middleware('auth:sanctum')->get('/getOrderDetails/{id}', [ordersController::class, 'getOrderDetails']);
+Route::middleware('auth:sanctum')->get('/getWarehouseOrders', [ordersController::class, 'getWarehouseOrders']);
 ///////////////////////////////////products/////////////////////////////////////////////////////////
 Route::get('/productsByCategory/{id}', [productsController::class, 'productsByCategory']);
 Route::post('/uploadProductPic', [productsController::class, 'uploadProductPic']);

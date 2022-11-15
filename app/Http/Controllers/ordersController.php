@@ -533,4 +533,25 @@ class ordersController extends Controller
             return $cart;
         }
     }
+
+    public function getWarehouseOrders(){
+        $warehouse = Warehouse::where('user_id', auth()->user()->id)->first();
+        if($warehouse){
+            $data = [];
+            $index = 0;
+            $orders = Order::where('warehouse_id', $warehouse->id)
+                       ->where('order_status', 'PENDING_PICKUP')
+                       ->get();
+            foreach($orders as $order){
+                $data[$index]['order_detail'] = $order;
+                $data[$index]['order_items'] = OrderItem::join('products', 'order_items.p_id', '=', 'products.id')
+                                                        ->where('order_id', $order->id)->get();
+                $index++;
+            }
+            return $data;
+        }
+        else{
+            return response("No warehouses available", 401);
+        }
+    }
 }
