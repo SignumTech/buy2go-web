@@ -83,6 +83,7 @@ export default {
         connect(){
             window.Echo.channel(`cash_withdrawn.${this.request.user_id}`)
             .listen('CashWithdrawn', (e) => {
+                this.getRequest();
                 console.log(e);
             });
         },
