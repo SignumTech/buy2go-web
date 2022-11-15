@@ -8,14 +8,14 @@ class zonesController extends Controller
 {
     public function addZones(Request $request){
         $this->validate($request, [
-            "city" => "required",
-            "subcity" => "required",
+            "zone_name" => "required",
+            "sub_city_id" => "required",
             "route" => "required"
         ]);
 
         $zone = new Zone;
-        $zone->city = $request->city;
-        $zone->subcity = $request->subcity;
+        $zone->zone_name = $request->zone_name;
+        $zone->sub_city_id = $request->sub_city_id;
         $zone->route = json_encode($request->route);
         $zone->save();
 
@@ -24,14 +24,14 @@ class zonesController extends Controller
 
     public function updateZones(Request $request, $id){
         $this->validate($request, [
-            "city" => "required",
-            "subcity" => "required",
+            "zone_name" => "required",
+            "sub_city_id" => "required",
             "route" => "required"
         ]);
 
         $zone = Zone::find($id);
-        $zone->city = $request->city;
-        $zone->subcity = $request->subcity;
+        $zone->zone_name = $request->zone_name;
+        $zone->sub_city_id = $request->sub_city_id;
         $zone->route = json_encode($request->route);
         $zone->save();
 
@@ -39,7 +39,11 @@ class zonesController extends Controller
     }
 
     public function getZones(){
-        $zones = Zone::paginate(10);
+        $zones = Zone::join('sub_cities', 'sub_cities.id', '=', 'zones.sub_city_id')
+                     ->join('cities', 'sub_cities.city_id', '=', 'cities.id')
+                     ->join('countries', 'countries.id', 'cities.country_id')
+                     ->select('zones.route','zones.zone_name', 'zones.sub_city_id', 'zones.id', 'cities.city_name', 'sub_cities.sub_city_name', 'countries.country_name')
+                     ->paginate(10);
         return $zones;
     }
 }

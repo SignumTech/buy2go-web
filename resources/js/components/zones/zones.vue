@@ -10,9 +10,10 @@
                 <thead>
                     <tr>
                         <th>#</th>
-                        <th>Country</th>
-                        <th>City</th>
+                        <th>Zone</th>
                         <th>Subcity</th>
+                        <th>City</th>
+                        <th>Country</th>
                         <th>area</th>
                         <th></th>
                     </tr>
@@ -20,9 +21,10 @@
                 <tbody>
                     <tr v-for="zone,index in zones" :key="index">
                         <td>{{index+1}}</td>
-                        <td>{{zone.country}}</td>
-                        <td>{{zone.city}}</td>
-                        <td>{{zone.subcity}}</td>
+                        <td>{{zone.zone_name}}</td>
+                        <td>{{zone.sub_city_name}}</td>
+                        <td>{{zone.city_name}}</td>
+                        <td>{{zone.country_name}}</td>
                         <td><h6 @click="viewArea(zone.route)" class="m-0" style="cursor:pointer"><strong>View on map <span class="fa fa-external-link-alt"></span></strong></h6></td>
                         <td class="text-center">
                             <span class="fa fa-trash-alt"></span>

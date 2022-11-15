@@ -2,12 +2,15 @@
 <form action="#" @submit.prevent="updateZone">
     <div class="row p-4">
         <div class="col-md-6">
-            <label for="">City</label>
-            <input required v-model="formData.city" type="text" class="form-control" placeholder="City">
+            <label for="">Zone Name</label>
+            <input required v-model="formData.zone_name" class="form-control" type="text" placeholder="Zone name">
         </div>
         <div class="col-md-6">
             <label for="">Sub city</label>
-            <input required v-model="formData.subcity" type="text" class="form-control" placeholder="Sub city">
+            <select required v-model="formData.sub_city_id" class="form-select">
+                <option value=""></option>
+                <option v-for="sc,index in subCities" :key="index" :value="sc.id">{{sc.sub_city_name}}/{{sc.city_name}}</option>
+            </select>
             <input type="hidden" v-model="formData.route">
         </div>
         <div class="col-md-12 mt-3">
@@ -35,16 +38,24 @@ export default {
                 subcity:null
             },
             edited: null,
-            paths: []
+            paths: [],
+            subCities:{}
         }
     },
     mounted(){
         this.formData = this.zone
         this.paths = JSON.parse(this.zone.route)
         this.formData.route = JSON.parse(this.zone.route)
+        this.getSubCities()
         
     },
     methods:{
+        async getSubCities(){
+            await axios.get('/getSubCities')
+            .then( response =>{
+                this.subCities = response.data
+            })
+        },
         async updateZone(){
             await axios.put('/updateZones/'+this.zone.id, this.formData)
             .then( response =>{
