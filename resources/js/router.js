@@ -9,6 +9,7 @@ import ordersList from './components/orders/orders.vue'
 import categoryList from './components/categories/categories.vue'
 import warehouseList from './components/warehouses/warehouses.vue'
 import zones from './components/zones/zones.vue'
+import locations from './components/zones/locations.vue'
 import addZones from './components/zones/addZones.vue'
 import orderDetails from './components/orders/orderDetails.vue'
 import shippingDetails from './components/orders/shippingDetails.vue'
@@ -171,6 +172,12 @@ const routes = [
         path: '/creditServices',
         component: creditServices,
         name: 'CreditServices',
+        props: true
+    },
+    {
+        path: '/locations',
+        component: locations,
+        name: 'Locations',
         props: true
     },
     

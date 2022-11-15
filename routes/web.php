@@ -19,6 +19,7 @@ use App\Http\Controllers\routesController;
 use App\Http\Controllers\shopsController;
 use App\Http\Controllers\agentsController;
 use App\Http\Controllers\creditsController;
+use App\Http\Controllers\locationsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,6 +38,16 @@ Route::middleware('auth:sanctum')->get('/getShopsWithNoRoutes', [shopsController
 Route::middleware('auth:sanctum')->get('/shopDetails/{id}', [shopsController::class, 'shopDetails']);
 Route::middleware('auth:sanctum')->get('/shopOrders/{id}', [shopsController::class, 'shopOrders']);
 Route::middleware('auth:sanctum')->get('/shopLocations/{id}', [shopsController::class, 'shopLocations']);
+/////////////////////////////////////locations//////////////////////////////////////////////////////////
+Route::middleware('auth:sanctum')->get('/getCountries', [locationsController::class, 'getCountries']);
+Route::middleware('auth:sanctum')->get('/getCities', [locationsController::class, 'getCities']);
+Route::middleware('auth:sanctum')->get('/getSubCities', [locationsController::class, 'getSubCities']);
+Route::middleware('auth:sanctum')->post('/addCountry', [locationsController::class, 'addCountry']);
+Route::middleware('auth:sanctum')->post('/addCity', [locationsController::class, 'addCity']);
+Route::middleware('auth:sanctum')->post('/addSubCity', [locationsController::class, 'addSubCity']);
+Route::middleware('auth:sanctum')->put('/updateSubCity/{id}', [locationsController::class, 'updateSubCity']);
+Route::middleware('auth:sanctum')->put('/updateCountry/{id}', [locationsController::class, 'updateCountry']);
+Route::middleware('auth:sanctum')->put('/updateCity/{id}', [locationsController::class, 'updateCity']);
 /////////////////////////////////////dashboard////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/salesThirty', [dashboardController::class, 'salesThirty']);
 Route::middleware('auth:sanctum')->get('/salesToday', [dashboardController::class, 'salesToday']);

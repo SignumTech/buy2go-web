@@ -24,8 +24,18 @@
                 <li :class="$route.path == `/warehouse` ? `active nav-item` : ``">
                   <router-link class="nav-link a-admin" to="/warehouse"><i data-feather="home"></i> Warehouses</router-link>
                 </li>
-                <li :class="$route.path == `/zones` ? `active nav-item` : ``">
-                  <router-link class="nav-link a-admin" to="/zones"><i data-feather="map"></i> Zones</router-link>
+                <li>
+                  <a data-bs-toggle="collapse" href="#z_ma" aria-expanded="false" aria-controls="collapseExample"><i data-feather="map"></i> Zones & Locations</a>
+                  <div class="collapse" id="z_ma">
+                    <ul class="collapse list-unstyled" id="z_ma">
+                      <li :class="$route.path == `/zones` ? `active nav-item` : ``">
+                        <router-link class="nav-link a-admin" to="/zones"><i class="fa fa-map"></i> Zones</router-link>
+                      </li>
+                      <li :class="$route.path == `/locations` ? `active` : ``">
+                          <router-link to="/locations"><i class="fa fa-map-marked-alt"></i> Locations</router-link>
+                      </li>                  
+                    </ul>
+                  </div>
                 </li>
                 <li>
                   <a data-bs-toggle="collapse" href="#us_ma" aria-expanded="false" aria-controls="collapseExample"><i data-feather="truck"></i> Fleet Management</a>
