@@ -17,6 +17,7 @@ use App\Models\Product;
 use App\Events\DriverRejectedOrder;
 use DB;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
 
 use App\Notifications\OrderStatusUpdated;
 use Illuminate\Support\Facades\Notification;
@@ -323,6 +324,7 @@ class ordersController extends Controller
                        })
                        ->get();
         foreach($orders as $order){
+            $data[$index]['order_hash'] = Hash::make($order->order_no);
             $data[$index]['order_detail'] = $order;
             $data[$index]['delivery_detail'] = AddressBook::where('user_id', $order->user_id)->first();
             $data[$index]['order_items'] = OrderItem::join('products', 'order_items.p_id', '=', 'products.id')
@@ -405,9 +407,13 @@ class ordersController extends Controller
         return $order;
     }
 
-    public function confirmPickup($id){
+    public function confirmPickup(Request $request, $id){
+        $this->validate($request, [
+            "order_hash" => "required"
+        ]);
+        
         $order = Order::find($id);
-        if(auth()->user()->id !=  $order->assigned_driver){
+        if(!Hash::check($request->order_hash, $order->order_no)){
             return response("Unauthorized",401);
         }
         $order->order_status = "SHIPPED";
@@ -428,7 +434,7 @@ class ordersController extends Controller
             "payment_method" => "required",
             "payment_status" => "required"
         ]);
-        var_dump($request->credit_time);
+        
         $order = Order::find($id);
         if(auth()->user()->id !=  $order->user_id){
             return response("Unauthorized",401);
@@ -543,6 +549,7 @@ class ordersController extends Controller
                        ->where('order_status', 'PENDING_PICKUP')
                        ->get();
             foreach($orders as $order){
+                $data[$index]['order_hash'] = Hash::make($order->order_no);
                 $data[$index]['order_detail'] = $order;
                 $data[$index]['order_items'] = OrderItem::join('products', 'order_items.p_id', '=', 'products.id')
                                                         ->where('order_id', $order->id)->get();
