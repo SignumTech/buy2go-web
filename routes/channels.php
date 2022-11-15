@@ -20,3 +20,7 @@ Broadcast::channel('order_rejected.{orderId}', function ($user, $id) {
     return Auth::check();
     //return (int) $user->id === (int) $id;
 });
+Broadcast::channel('cash_withdrawn.{userId}', function ($user, $id) {
+    return Auth::check();
+    //return (int) $user->id === (int) $id;
+});

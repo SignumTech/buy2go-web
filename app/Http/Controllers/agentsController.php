@@ -77,7 +77,7 @@ class agentsController extends Controller
             $transaction->save();
             DB::commit();
             $user = User::find(auth()->user()->id);
-            //broadcast(new CashWithdrawn($user))->toOthers();
+            broadcast(new CashWithdrawn($user))->toOthers();
             return $transaction;
         }
         catch (\Exception $e) {

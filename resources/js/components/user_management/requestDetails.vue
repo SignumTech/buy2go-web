@@ -77,8 +77,15 @@ export default {
             await axios.get('/showPaymentRequest/'+this.$route.params.id)
             .then( response =>{
                 this.request = response.data
+                this.connect()
             })
-        }
+        },
+        connect(){
+            window.Echo.channel(`cash_withdrawn.${this.request.user_id}`)
+            .listen('CashWithdrawn', (e) => {
+                console.log(e);
+            });
+        },
     }
 }
 </script>
