@@ -48,9 +48,8 @@ class agentsController extends Controller
         try{
             DB::beginTransaction();
             $payment_request = PaymentRequest::find($id);
-            var_dump(Hash::check($request->request_no, $payment_request->request_no));
-            dd($payment_request->user_id != auth()->user()->id);
-            if($payment_request->user_id != auth()->user()->id || !Hash::check($request->request_no, $payment_request->request_no)){
+
+            if($payment_request->user_id != auth()->user()->id || !Hash::check($payment_request->request_no,$request->request_no)){
                 return response('Unauthorized', 401);
             }
             $payment_request->request_status = 'PAID';
