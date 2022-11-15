@@ -9,21 +9,21 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
-use App\Models\User;
+use App\Models\PaymentRequest;
 
 class CashWithdrawn implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-    public $user;
+    public $payment_request;
     public $afterCommit = true;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct( User $user)
+    public function __construct( PaymentRequest $payment_request)
     {
-        $this->user = $user;
+        $this->payment_request = $payment_request;
     }
 
     /**
@@ -33,6 +33,6 @@ class CashWithdrawn implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('cash_withdrawn.'.$this->user->id);
+        return new PrivateChannel('cash_withdrawn.'.$this->payment_request->id);
     }
 }
