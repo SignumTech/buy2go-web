@@ -11,6 +11,7 @@
                 <tr>
                     <th>#</th>
                     <th>Warehouse Name</th>
+                    <th>Warehouse Manager</th>
                     <th>Stock</th>
                     <th>location</th>
                     <th></th>
@@ -20,6 +21,7 @@
                 <tr v-for="warehouse,index in warehouses" :key="index">
                     <td>{{index+1}}</td>
                     <td>{{warehouse.w_name}}</td>
+                    <td>{{warehouse.f_name}} {{warehouse.l_name}}</td>
                     <td>{{warehouse.stock}}</td>
                     <td><h6 @click="viewArea(warehouse.location)" class="m-0" style="cursor:pointer"><strong>View on map <span class="fa fa-external-link-alt"></span></strong></h6></td>
                     <td class="text-center">

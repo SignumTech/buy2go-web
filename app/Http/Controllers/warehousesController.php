@@ -14,7 +14,9 @@ class warehousesController extends Controller
      */
     public function index()
     {
-        $warehouses = Warehouse::get();
+        $warehouses = Warehouse::join('users', 'warehouses.user_id', '=', 'users.id')
+                               ->select('users.f_name', 'users.l_name', 'warehouses.w_name', 'warehouses.id', 'warehouses.user_id', 'warehouses.location')
+                               ->get();
         foreach($warehouses as $warehouse){
             $warehouse->stock = WarehouseDetail::where('warehouse_id', $warehouse->id)->sum('quantity');
         }
@@ -41,11 +43,13 @@ class warehousesController extends Controller
     {
         $this->validate($request, [
             "w_name" => "required",
-            "location" => "required"
+            "location" => "required",
+            "user_id" => "required"
         ]);
 
         $warehouse = new Warehouse;
         $warehouse->w_name = $request->w_name;
+        $warehouse->user_id = $request->user_id;
         $warehouse->location = json_encode($request->location);
         $warehouse->save();
 
@@ -85,11 +89,13 @@ class warehousesController extends Controller
     {
         $this->validate($request, [
             "w_name" => "required",
+            "user_id" => "required",
             "location" => "required"
         ]);
 
         $warehouse = Warehouse::find($id);
         $warehouse->w_name = $request->w_name;
+        $warehouse->user_id = $request->user_id;
         $warehouse->location = json_encode($request->location);
         $warehouse->save();
 

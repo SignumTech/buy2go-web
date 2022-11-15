@@ -1,9 +1,16 @@
 <template>
-<div class="row p-3">
-    <form action="#" @submit.prevent="addWarehouse">
-        <div class="col-md-12">
+<form action="#" @submit.prevent="addWarehouse">
+    <div class="row p-3">
+        <div class="col-md-6">
             <label for="">Warehouse Name</label>
             <input required v-model="formData.w_name" type="text" class="form-control" placeholder="Warehouse name">
+        </div>
+        <div class="col-md-6">
+            <label for="">Warehouse Manager</label>
+            <select class="form-select" v-model="formData.user_id">
+                <option value=""></option>
+                <option v-for="manager,index in managers" :key="index" :value="manager.id">{{manager.f_name}} {{manager.l_name}}</option>
+            </select>
         </div>
         <div class="col-md-12 mt-3">
             <h5 for="" class="m-0 ">Location <span v-if="formData.location" class="fs-6">(longitude: {{formData.location.lng}} latitude: {{formData.location.lat}})</span></h5>
@@ -16,19 +23,21 @@
         <div class="col-md-12 mt-3">
             <button type="submit" class="form-control btn btn-primary"><span class="fa fa-plus"></span> ADD WAREHOUSE</button>
         </div>
-    </form>
-</div>    
+    </div>  
+</form>  
 </template>
 <script>
 export default {
     data(){
         return{
+            managers:{},
             formData:{
                 w_name:null,
                 location:{
                     lat: 8.9806,
                     lng: 38.7578
-                }
+                },
+                user_id:null
             },
             center: {
                 lat: 8.9806,
@@ -42,7 +51,16 @@ export default {
             }]
         }
     },
+    mounted(){
+        this.getWarehouseManager()
+    },
     methods:{
+        async getWarehouseManager(){
+            await axios.get('/getWarehouseManagers')
+            .then( response =>{
+                this.managers = response.data
+            })
+        },
         async addWarehouse(){
             await axios.post('/warehouses', this.formData)
             .then( response =>{

@@ -137,4 +137,9 @@ class staffController extends Controller
         $user->delete();
         return $user;
     }
+
+    public function getWarehouseManagers(){
+        $managers = User::where('user_role', 'WAREHOUSE MANAGER')->get();
+        return $managers;
+    }
 }
