@@ -20,6 +20,8 @@ use App\Http\Controllers\shopsController;
 use App\Http\Controllers\agentsController;
 use App\Http\Controllers\creditsController;
 use App\Http\Controllers\locationsController;
+use App\Exports\OrdersExport;
+use Maatwebsite\Excel\Facades\Excel;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -30,6 +32,10 @@ use App\Http\Controllers\locationsController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/exportUsers', function () {
+    return Excel::download(new OrdersExport, 'users.xlsx');
+});
 /////////////////////////////////////drivers//////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getRouteDrivers/{route_id}', [driversController::class, 'getRouteDrivers']);
 /////////////////////////////////////shop//////////////////////////////////////////////////////////

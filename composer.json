@@ -13,6 +13,7 @@
         "laravel/sanctum": "2.x",
         "laravel/tinker": "^2.5",
         "laravel/ui": "3.x",
+        "maatwebsite/excel": "^3.1",
         "pusher/pusher-php-server": "^7.2"
     },
     "require-dev": {
