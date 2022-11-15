@@ -29,7 +29,7 @@
                     <h6 class="text-center">The agent will scan the below QR code to get paid.</h6>
                 </div>
                 <div class="col-md-12 d-flex justify-content-center p-4">
-                    <qr-code :text="request.request_no"></qr-code>
+                    <qr-code :text="request.request_hash"></qr-code>
                 </div>
             </div>
             <div class="row">

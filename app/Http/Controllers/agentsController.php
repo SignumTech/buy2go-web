@@ -12,6 +12,7 @@ use App\Models\OrderItem;
 use App\Models\PaymentRequest;
 use App\Events\CashWithdrawn;
 use DB;
+use Illuminate\Support\Facades\Hash;
 class agentsController extends Controller
 {
     public function searchShop(Request $request){
@@ -39,15 +40,15 @@ class agentsController extends Controller
         return $agents;
     }
 
-    public function withdrawCash(Request $request){
+    public function withdrawCash(Request $request, $id){
         $this->validate($request, [
             "request_no" => "required"
         ]);
 
         try{
             DB::beginTransaction();
-            $payment_request = PaymentRequest::where('request_no', $request->request_no)->first();
-            if($payment_request->user_id != auth()->user()->id){
+            $payment_request = PaymentRequest::find($id);
+            if($payment_request->user_id != auth()->user()->id || !Hash::check($request->request_no, $payment_request->request_no)){
                 return response('Unauthorized', 401);
             }
             $payment_request->request_status = 'PAID';
@@ -163,9 +164,13 @@ class agentsController extends Controller
     }
 
     public function showPaymentRequest($id){
-        return PaymentRequest::join('users', 'payment_requests.user_id', '=', 'users.id')
+        $paymentRequest = PaymentRequest::join('users', 'payment_requests.user_id', '=', 'users.id')
                               ->join('balances', 'users.id', '=', 'balances.user_id')
-                             ->where('payment_requests.id',$id)->first();
+                             ->where('payment_requests.id',$id)
+                             ->first();
+        $paymentRequest->request_hash = Hash::make($paymentRequest->request_no);
+
+        return $paymentRequest;
     }
 
     public function getMyRequests(){
