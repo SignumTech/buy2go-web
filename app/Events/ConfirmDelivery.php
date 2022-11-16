@@ -10,12 +10,10 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class DriverAssigned implements ShouldBroadcast
+class ConfirmDelivery implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-    
     public $user;
-    public $afterCommit = true;
     /**
      * Create a new event instance.
      *
@@ -33,6 +31,6 @@ class DriverAssigned implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('driver_assigned.'.$this->user->id);
+        return new PrivateChannel('confirm_delivery.'.$this->user->id);
     }
 }

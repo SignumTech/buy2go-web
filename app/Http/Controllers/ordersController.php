@@ -18,7 +18,9 @@ use App\Events\DriverRejectedOrder;
 use DB;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
-
+use App\Events\DriverAssigned;
+use App\Events\ConfirmPickup;
+use App\Events\ConfirmDelivery;
 use App\Notifications\OrderStatusUpdated;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Notifications\Notifiable;
@@ -303,6 +305,10 @@ class ordersController extends Controller
             }
             
             DB::commit();
+            $driver = User::find($order->assigned_driver);
+            $message = 'You have been assigned to delivery order_no '.$order->order_no;
+            Notification::send($driver, new OrderStatusUpdated($message,$order));
+            broadcast(new DriverAssigned($driver))->toOthers();
             return $order;
         }
         catch (\Exception $e) {
@@ -425,7 +431,7 @@ class ordersController extends Controller
         $driver = User::find($order->assigned_driver)->f_name;
         $message = $driver.' picked up order number. '.$order->order_no.' from warehouse';
         Notification::send($admin, new OrderStatusUpdated($message,$order));
-
+        broadcast(new ConfirmPickup($driver))->toOthers();
         return $order;
     }
     
@@ -453,10 +459,10 @@ class ordersController extends Controller
 
         //Notification
         $admin = User::where('user_role', 'ADMIN')->get();
-        $driver = User::find($order->assigned_driver)->f_name;
+        $driver = User::find($order->assigned_driver);
         $message = "Order ".$order->order_no." was delivered successfully.";
         Notification::send($admin, new OrderStatusUpdated($message,$order));
-
+        broadcast(new ConfirmDelivery($driver))->toOthers();
         return $order;
     }
 
