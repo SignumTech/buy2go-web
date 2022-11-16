@@ -60,6 +60,7 @@ export default {
     },
     mounted(){
         this.getRequest()
+        this.connect()
     },
     methods:{
         async confirmRequest(){
@@ -77,11 +78,10 @@ export default {
             await axios.get('/showPaymentRequest/'+this.$route.params.id)
             .then( response =>{
                 this.request = response.data
-                this.connect()
             })
         },
         connect(){
-            window.Echo.private('cash_withdrawn.'+this.request.id)
+            window.Echo.private('cash_withdrawn.'+this.$route.params.id)
             .listen('CashWithdrawn', (e) => {
                 this.getRequest()
                 console.log(e)
