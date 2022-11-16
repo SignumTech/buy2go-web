@@ -45,8 +45,8 @@ class agentsController extends Controller
             "request_no" => "required"
         ]);
 
-        try{
-            DB::beginTransaction();
+        //try{
+            //DB::beginTransaction();
             $payment_request = PaymentRequest::find($id);
 
             if($payment_request->user_id != auth()->user()->id || !Hash::check($payment_request->request_no,$request->request_no)){
@@ -76,17 +76,17 @@ class agentsController extends Controller
             $transaction->user_id = auth()->user()->id;
             $transaction->transaction_type = 'Withdraw';
             $transaction->save();
-            DB::commit();
+            //DB::commit();
             
             broadcast(new CashWithdrawn($payment_request))->toOthers();
             return $transaction;
-        }
+        /*}
         catch (\Exception $e) {
             DB::rollBack();
 
             throw $e;
             return response('Order Error', 422);
-        }
+        }*/
         
     }
     
