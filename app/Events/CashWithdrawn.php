@@ -15,7 +15,7 @@ class CashWithdrawn implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
     public $payment_request;
-    //public $afterCommit = true;
+    public $afterCommit = true;
     /**
      * Create a new event instance.
      *

@@ -81,10 +81,10 @@ export default {
             })
         },
         connect(){
-            window.Echo.channel('cash_withdrawn.'+this.request.id)
+            window.Echo.private('cash_withdrawn.'+this.request.id)
             .listen('CashWithdrawn', (e) => {
-                this.getRequest();
-                console.log(e);
+                this.getRequest()
+                console.log(e)
             });
         },
     }
