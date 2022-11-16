@@ -414,7 +414,7 @@ class ordersController extends Controller
         ]);
         
         $order = Order::find($id);
-        if(!Hash::check($request->order_hash, $order->order_no)){
+        if(!Hash::check($order->order_no, $request->order_hash)){
             return response("Unauthorized",401);
         }
         $order->order_status = "SHIPPED";
