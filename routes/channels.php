@@ -31,7 +31,7 @@ Broadcast::channel('driver_assigned.{userId}', function ($user, $id) {
 Broadcast::channel('confirm_pickup.{userId}', function ($user, $id) {
     return Auth::check();
     //return (int) $user->id === (int) $id;
-}, ['gaurds' => ['api']]);
+});
 Broadcast::channel('confirm_delivery.{userId}', function ($user, $id) {
     return Auth::check();
     //return (int) $user->id === (int) $id;
