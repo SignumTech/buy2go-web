@@ -28,7 +28,7 @@ Broadcast::channel('driver_assigned.{userId}', function ($user, $id) {
     return Auth::check();
     //return (int) $user->id === (int) $id;
 });
-Broadcast::channel('confirm_pickup.{userId}', function ($user, $id) {
+Broadcast::middleware('auth:sanctum')->channel('confirm_pickup.{userId}', function ($user, $id) {
     return Auth::check();
     //return (int) $user->id === (int) $id;
 });

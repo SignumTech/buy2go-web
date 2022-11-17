@@ -298,6 +298,14 @@ class productsController extends Controller
         return $products;                
     }
 
+    public function getPriceRange(){
+        $data = [];
+        $data['max'] = Product::max('price');
+        $data['min'] = Product::min('price');
+
+        return $data;
+    }
+
     public function deleteProductPic(Request $request){
         $this->validate($request, [
             "fileName" => "required"
@@ -485,6 +493,27 @@ class productsController extends Controller
 
     public function getFeatured(Request $request){
         $products = Product::where('featured', 'FEATURED')->get();
+        return $products;
+    }
+
+    public function filterProducts(Request $request){
+        $products = Product::when($request->p_name !=null, function ($q) use($request){
+                                return $q->where('p_name', 'LIKE', '%'.$request->p_name.'%');
+                            })
+                            ->when($request->featured !=null, function ($q) use($request){
+                                return $q->where('featured', $request->featured);
+                            })
+                            ->when($request->status !=null, function ($q) use($request){
+                                return $q->where('p_status', $request->status);
+                            })
+                            ->when($request->priceRange !=null, function ($q) use($request){
+                                return $q->where('price', '<=', $request->priceRange);
+                            })
+                            ->paginate(10);
+        foreach($products as $product){
+            $product->stock = WarehouseDetail::where('p_id', $product->id)->sum('quantity');
+        }
+
         return $products;
     }
 }

@@ -4,6 +4,43 @@
         <h5><strong>Products</strong></h5>
     </div>
     <div class="col-md-12 mt-3">
+        <div class="bg-white rounded-1 p-2 shadow-sm">
+            <div class="row">
+                <div class="col-md-2">
+                    <label for="">Product Name</label>
+                    <input v-model="queryData.p_name" type="text" class="form-control rounded-1" placeholder="Product Name">
+                    
+                </div>
+                <div class="col-md-2">
+                    <label for="">Status</label>
+                    <select v-model="queryData.status" class="form-select rounded-1">
+                        <option :value="null">All statuses</option>
+                        <option value="PUBLISHED">Published</option>
+                        <option value="DRAFT">Drafts</option>
+                    </select>
+                </div>
+                <div class="col-md-2 align-self-center">
+                    <input v-model="queryData.priceRange" :min="range.min" :max="range.max" type="range" class="form-range rounded-1">
+                    <h6 class="m-0">{{range.min}} ETB <span class="float-end">{{range.max}} ETB</span></h6>
+                </div>
+                <div class="col-md-2">
+                    <label for="">Featured</label>
+                    <select v-model="queryData.featured" class="form-select rounded-1">
+                        <option :value="null">All products</option>
+                        <option value="FEATURED">Featured</option>
+                        <option value="NOT_FEATURED">Not Featured</option>
+                    </select>
+                </div>
+                <div class="col-md-2 align-self-end">
+                    <button @click="filterProducts()" class="btn btn-success form-control rounded-1"><span class="fa fa-filter"></span> Filter</button>
+                </div>
+                <div class="col-md-2 align-self-end">
+                    <button class="btn btn-primary form-control rounded-1"><span class="fa fa-file-export"></span> Export</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 mt-3">
         <div class="bg-white rounded-1 p-3 shadow-sm">
             <router-link to="/addProduct" class="btn btn-primary btn-sm float-end shadow text-white"><span class="fa fa-plus"></span> Add Product</router-link>
             <table class="table px-2 table-sm mt-2">
@@ -61,15 +98,36 @@ export default {
     data(){
         return{
             products:{},
-            paginationData:{}
+            paginationData:{},
+            range:{},
+            queryData:{
+                p_name:null,
+                featured:null,
+                status:null,
+                priceRange:null
+            }
 
         }
     },
     mounted(){
         this.getProducts()
+        this.getPriceRange()
         feather.replace();
     },
     methods:{
+        async filterProducts(){
+            await axios.post('/getProductsList', this.queryData)
+            .then( response => {
+                this.paginationData = response.data
+                this.products = response.data.data
+            })
+        },
+        async getPriceRange(){
+            await axios.get('/getPriceRange')
+            .then( response =>{
+                this.range = response.data
+            })
+        },
         async getPage(pageUrl){
             await axios.get(pageUrl)
             .then( response => {
@@ -86,7 +144,6 @@ export default {
         async getProducts(){
             await axios.get('/getProductsList')
             .then( response =>{
-                console.log(response.data)
                 this.paginationData = response.data
                 this.products = response.data.data
             })

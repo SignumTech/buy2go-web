@@ -92,15 +92,17 @@ Route::middleware('auth:sanctum')->get('/rejectOrder/{id}', [ordersController::c
 Route::middleware('auth:sanctum')->get('/getOrderDetails/{id}', [ordersController::class, 'getOrderDetails']);
 Route::middleware('auth:sanctum')->get('/getWarehouseOrders', [ordersController::class, 'getWarehouseOrders']);
 ///////////////////////////////////products/////////////////////////////////////////////////////////
-Route::get('/productsByCategory/{id}', [productsController::class, 'productsByCategory']);
-Route::post('/uploadProductPic', [productsController::class, 'uploadProductPic']);
-Route::post('/updateProductPic', [productsController::class, 'updateProductPic']);
-Route::get('/getProductsList', [productsController::class, 'getProductsList']);
+Route::middleware('auth:sanctum')->get('/productsByCategory/{id}', [productsController::class, 'productsByCategory']);
+Route::middleware('auth:sanctum')->post('/uploadProductPic', [productsController::class, 'uploadProductPic']);
+Route::middleware('auth:sanctum')->post('/updateProductPic', [productsController::class, 'updateProductPic']);
+Route::middleware('auth:sanctum')->get('/getProductsList', [productsController::class, 'getProductsList']);
 Route::middleware('auth:sanctum')->post('/deleteProductPic', [productsController::class, 'deleteProductPic']);
 Route::middleware('auth:sanctum')->post('/saveDraft', [productsController::class, 'saveDraft']);
 Route::middleware('auth:sanctum')->post('/searchItems', [productsController::class, 'searchItems']);
 Route::middleware('auth:sanctum')->put('/toggleFeature/{id}', [productsController::class, 'toggleFeature']);
 Route::middleware('auth:sanctum')->get('/getProductWarehouses/{id}', [productsController::class, 'getProductWarehouses']);
+Route::middleware('auth:sanctum')->get('/getPriceRange', [productsController::class, 'getPriceRange']);
+Route::middleware('auth:sanctum')->post('/getProductsList', [productsController::class, 'filterProducts']);
 ///////////////////////////////////agents/////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getAgents', [agentsController::class, 'getAgents']);
 Route::middleware('auth:sanctum')->get('/agentDetails/{id}', [agentsController::class, 'agentDetails']);
