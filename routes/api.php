@@ -65,7 +65,7 @@ Route::middleware('auth:sanctum')->delete('/removeFromWishlist/{id}', [wishlists
 ///////////////////////////////////resources///////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->resource('/categories', categoriesController::class);
 Route::middleware('auth:sanctum')->resource('/products', productsController::class);
-Route::middleware('auth:sanctum')->resource('/addressBooks', addressBookController::class);
+Route::middleware('auth:sanctum')->resource('/addressBooks', addressBooksController::class);
 Route::middleware('auth:sanctum')->resource('/credits', creditsController::class);
 ////////////////////////////////////Products////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/productsByCategory/{id}', [productsController::class, 'productsByCategory']);
