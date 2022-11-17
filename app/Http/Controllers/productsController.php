@@ -534,6 +534,7 @@ class productsController extends Controller
         ->when($request->priceRange !=null, function ($q) use($request){
             return $q->where('price', '<=', $request->priceRange);
         })
+        ->select('id', 'p_name', 'price', 'description', 'commission', 'sku', 'supplier', 'featured', 'created_at', 'updated_at')
         ->get();
         foreach($products as $product){
             $product->stock = WarehouseDetail::where('p_id', $product->id)->sum('quantity');
