@@ -13,6 +13,7 @@ use App\Http\Controllers\wishlistsController;
 use App\Http\Controllers\balancesController;
 use App\Http\Controllers\agentsController;
 use App\Http\Controllers\creditsController;
+use App\Http\Controllers\notificationsController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,6 +24,8 @@ use App\Http\Controllers\creditsController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+///////////////////////////////////Notifications/////////////////////////////////////////////////////////
+Route::middleware('auth:sanctum')->get('/getMyNotifications', [notificationsController::class, 'getMyNotifications']);
 ///////////////////////////////////resources///////////////////////////////////////////////////////
 /*Route::post('/mobGoogleLogin', [socialiteController::class, 'mobGoogleLogin']);
 Route::post('/mobFacebookLogin', [socialiteController::class, 'mobFacebookLogin']);*/

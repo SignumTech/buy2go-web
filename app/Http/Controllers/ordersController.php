@@ -431,7 +431,7 @@ class ordersController extends Controller
         $driver = User::find($order->assigned_driver);
         $message = $driver->f_name.' picked up order number. '.$order->order_no.' from warehouse';
         Notification::send($admin, new OrderStatusUpdated($message,$order));
-        broadcast(new ConfirmPickup($driver))->toOthers();
+        broadcast(new ConfirmPickup($order))->toOthers();
         return $order;
     }
     

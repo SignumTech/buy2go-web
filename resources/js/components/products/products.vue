@@ -35,7 +35,9 @@
                     <button @click="filterProducts()" class="btn btn-success form-control rounded-1"><span class="fa fa-filter"></span> Filter</button>
                 </div>
                 <div class="col-md-2 align-self-end">
-                    <button class="btn btn-primary form-control rounded-1"><span class="fa fa-file-export"></span> Export</button>
+                    <form action="#" @submit.prevent="exportProducts">
+                        <button type="submit" class="btn btn-primary form-control rounded-1"><span class="fa fa-file-export"></span> Export</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -115,6 +117,23 @@ export default {
         feather.replace();
     },
     methods:{
+        async exportProducts(){
+            await axios.post('/exportProducts', this.queryData, {responseType: 'blob'})
+            .then( response =>{
+                const href = URL.createObjectURL(response.data);
+
+                // create "a" HTML element with href to file & click
+                const link = document.createElement('a');
+                link.href = href;
+                link.setAttribute('download', 'products.xlsx'); //or any other extension
+                document.body.appendChild(link);
+                link.click();
+
+                // clean up "a" element & remove ObjectURL
+                document.body.removeChild(link);
+                URL.revokeObjectURL(href);
+            })
+        },
         async filterProducts(){
             await axios.post('/getProductsList', this.queryData)
             .then( response => {

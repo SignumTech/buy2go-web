@@ -10,6 +10,9 @@ use App\Models\Wishlist;
 use DB;
 use Image;
 use Storage;
+use App\Exports\ProductsExport;
+use Maatwebsite\Excel\Facades\Excel;
+
 class productsController extends Controller
 {
     /**
@@ -515,5 +518,26 @@ class productsController extends Controller
         }
 
         return $products;
+    }
+
+    public function exportProducts(Request $request){
+        
+        $products = Product::when($request->p_name !=null, function ($q) use($request){
+            return $q->where('p_name', 'LIKE', '%'.$request->p_name.'%');
+        })
+        ->when($request->featured !=null, function ($q) use($request){
+            return $q->where('featured', $request->featured);
+        })
+        ->when($request->status !=null, function ($q) use($request){
+            return $q->where('p_status', $request->status);
+        })
+        ->when($request->priceRange !=null, function ($q) use($request){
+            return $q->where('price', '<=', $request->priceRange);
+        })
+        ->get();
+        foreach($products as $product){
+            $product->stock = WarehouseDetail::where('p_id', $product->id)->sum('quantity');
+        }
+        return Excel::download(new ProductsExport($products), 'products.xlsx');
     }
 }

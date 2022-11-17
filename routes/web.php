@@ -20,8 +20,7 @@ use App\Http\Controllers\shopsController;
 use App\Http\Controllers\agentsController;
 use App\Http\Controllers\creditsController;
 use App\Http\Controllers\locationsController;
-use App\Exports\OrdersExport;
-use Maatwebsite\Excel\Facades\Excel;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,9 +32,7 @@ use Maatwebsite\Excel\Facades\Excel;
 |
 */
 
-Route::get('/exportUsers', function () {
-    return Excel::download(new OrdersExport, 'users.xlsx');
-});
+
 /////////////////////////////////////drivers//////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getRouteDrivers/{route_id}', [driversController::class, 'getRouteDrivers']);
 /////////////////////////////////////shop//////////////////////////////////////////////////////////
@@ -103,6 +100,8 @@ Route::middleware('auth:sanctum')->put('/toggleFeature/{id}', [productsControlle
 Route::middleware('auth:sanctum')->get('/getProductWarehouses/{id}', [productsController::class, 'getProductWarehouses']);
 Route::middleware('auth:sanctum')->get('/getPriceRange', [productsController::class, 'getPriceRange']);
 Route::middleware('auth:sanctum')->post('/getProductsList', [productsController::class, 'filterProducts']);
+Route::middleware('auth:sanctum')->post('/exportProducts', [productsController::class, 'exportProducts']);
+
 ///////////////////////////////////agents/////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getAgents', [agentsController::class, 'getAgents']);
 Route::middleware('auth:sanctum')->get('/agentDetails/{id}', [agentsController::class, 'agentDetails']);
