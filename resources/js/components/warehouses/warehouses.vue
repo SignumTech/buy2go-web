@@ -4,6 +4,32 @@
     <h5><strong>Warehouses</strong></h5>
 </div>
 <div class="col-md-12 mt-3">
+        <div class="bg-white rounded-1 p-2 shadow-sm">
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="">Warehouse Name</label>
+                    <input v-model="queryData.w_name" type="text" class="form-control rounded-1" placeholder="Warehouse Name">
+                    
+                </div>
+                <div class="col-md-3">
+                    <label for="">Warehouse Manager</label>
+                    <select v-model="queryData.user_id" class="form-select rounded-1">
+                        <option :value="null">All managers</option>
+                        <option v-for="manager,index in managers" :key="index" :value="manager.id">{{manager.f_name}} {{manager.l_name}}</option>
+                    </select>
+                </div>
+                <div class="col-md-3 align-self-end">
+                    <button @click="filterWarehouses()" class="btn btn-success form-control rounded-1"><span class="fa fa-filter"></span> Filter</button>
+                </div>
+                <div class="col-md-3 align-self-end">
+                    <form action="#" @submit.prevent="exportWarehouses">
+                        <button type="submit" class="btn btn-primary form-control rounded-1"><span class="fa fa-file-export"></span> Export</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+<div class="col-md-12 mt-3">
     <div class="bg-white rounded-1 p-3 shadow-sm">
         <button @click="addWarehouseModal()" class="btn btn-primary btn-sm float-end shadow-sm text-white"><span class="fa fa-plus"></span> Add Warehouse</button>
         <table class="table px-2 mt-2">
@@ -42,13 +68,48 @@ import viewAreaModalVue from './viewWarehouseModal.vue';
 export default {
 data(){
     return{
-        warehouses:{}
+        warehouses:{},
+        queryData:{
+            w_name:null,
+            user_id:null,
+        },
+        managers:{}
     }
 },
 mounted(){
     this.getWarehouses();
+    this.getWarehouseManager()
 },
 methods:{
+    async getWarehouseManager(){
+        await axios.get('/getWarehouseManagers')
+        .then( response =>{
+            this.managers = response.data
+        })
+    },
+    async exportWarehouses(){
+        await axios.post('/exportWarehouses', this.queryData, {responseType: 'blob'})
+        .then( response =>{
+            const href = URL.createObjectURL(response.data);
+
+            // create "a" HTML element with href to file & click
+            const link = document.createElement('a');
+            link.href = href;
+            link.setAttribute('download', 'warehouses'+Date.now()+'.xlsx'); //or any other extension
+            document.body.appendChild(link);
+            link.click();
+
+            // clean up "a" element & remove ObjectURL
+            document.body.removeChild(link);
+            URL.revokeObjectURL(href);
+        })
+    },
+    async filterWarehouses(){
+        await axios.post('/filterWarehouses', this.queryData)
+        .then( response =>{
+            this.warehouses = response.data
+        })
+    },
     async getWarehouses(){
         await axios.get('/warehouses')
         .then( response =>{

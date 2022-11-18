@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Warehouse;
 use App\Models\WarehouseDetail;
+use App\Exports\WarehouseExport;
+use Maatwebsite\Excel\Facades\Excel;
 class warehousesController extends Controller
 {
     /**
@@ -111,6 +113,33 @@ class warehousesController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function filterWarehouses(Request $request){
+        $warehouses = $this->filterData($request)->select('warehouses.id', 'warehouses.w_name','users.f_name', 'users.l_name', 'warehouses.location')->get();
+        foreach($warehouses as $warehouse){
+            $warehouse->stock = WarehouseDetail::where('warehouse_id', $warehouse->id)->sum('quantity');
+        }
+
+        return $warehouses;
+    }
+
+    public function exportWarehouses(Request $request){
+        $warehouses = $this->filterData($request)->select('warehouses.id', 'warehouses.w_name','users.f_name', 'users.l_name', 'warehouses.location')->get();
+        foreach($warehouses as $warehouse){
+            $warehouse->stock = WarehouseDetail::where('warehouse_id', $warehouse->id)->sum('quantity');
+        }
+        return Excel::download(new WarehouseExport($warehouses), 'warehouses.xlsx');
+    }
+
+    public function filterData(Request $request){
+        return Warehouse::join('users', 'warehouses.user_id', '=', 'users.id')
+                        ->when($request->w_name !=null, function ($q) use($request){
+                            return $q->where('w_name', 'LIKE', '%'.$request->w_name.'%');
+                        })
+                        ->when($request->user_id !=null, function ($q) use($request){
+                            return $q->where('user_id', $request->user_id);
+                        });        
     }
 
 }
