@@ -125,6 +125,7 @@ Route::middleware('auth:sanctum')->get('/getImediateSubCat/{id}', [categoriesCon
 Route::middleware('auth:sanctum')->post('/makeChild', [categoriesController::class, 'makeChild']);
 Route::middleware('auth:sanctum')->get('/getAllNodeCategories', [categoriesController::class, 'getAllNodeCategories']);
 Route::middleware('auth:sanctum')->post('/filterCategories', [categoriesController::class, 'filterCategories']);
+Route::middleware('auth:sanctum')->post('/exportCategories', [categoriesController::class, 'exportCategories']);
 //////////////////////////////////////addressbook//////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getMyAddresses', [addressBooksController::class, 'getMyAddresses']);
 ///////////////////////////////////staff/////////////////////////////////////////////////////////////////

@@ -60,7 +60,7 @@
                     <button @click="filterCategories()" class="btn btn-success form-control rounded-1"><span class="fa fa-filter"></span> Filter</button>
                 </div>
                 <div class="col-md-3 align-self-end">
-                    <form action="#" @submit.prevent="exportOrders">
+                    <form action="#" @submit.prevent="exportCategories">
                         <button type="submit" class="btn btn-primary form-control rounded-1"><span class="fa fa-file-export"></span> Export</button>
                     </form>
                 </div>
@@ -136,6 +136,23 @@ export default {
         this.getNodeCategories()
     },
     methods:{
+        async exportCategories(){
+            await axios.post('/exportCategories', this.queryData, {responseType: 'blob'})
+            .then( response =>{
+                const href = URL.createObjectURL(response.data);
+
+                // create "a" HTML element with href to file & click
+                const link = document.createElement('a');
+                link.href = href;
+                link.setAttribute('download', 'categories'+Date.now()+'.xlsx'); //or any other extension
+                document.body.appendChild(link);
+                link.click();
+
+                // clean up "a" element & remove ObjectURL
+                document.body.removeChild(link);
+                URL.revokeObjectURL(href);
+            })
+        },
         async getNodeCategories(){
             await axios.get('/getAllNodeCategories')
             .then( response =>{
