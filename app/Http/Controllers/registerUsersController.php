@@ -67,11 +67,14 @@ class registerUsersController extends Controller
 
     public function resetPassword(Request $request){
         $this->validate($request, [
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'newPassword' => ['required', 'string', 'min:8']
+            'password' => ['required', 'string', 'min:8'],
+            'newPassword' => ['required', 'string', 'min:8' , 'confirmed']
         ]);
 
         $user = User::find(auth()->user()->id);
+        if(!Hash::check($request->password, $user->password)){
+            return response("Wrong old password", 422);
+        }
         $user->password = Hash::make($request->newPassword);
         $user->save();
 
@@ -80,5 +83,20 @@ class registerUsersController extends Controller
         $user_token = $user->createToken($user->f_name);
 
         return ['token' => $user_token->plainTextToken];
+    }
+
+    public function forgetPassword(Request $request){
+        $this->validate($request, [
+            'phone_no' => ['required', 'digits:10', 'unique:users'],
+            'password' => ['required', 'string', 'min:8']
+        ]);
+
+        $user = User::where('phone_no', $request->phone_no)->first();
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        $user_token = $user->createToken($user->f_name);
+        return ['token' => $user_token->plainTextToken];
+
     }
 }
