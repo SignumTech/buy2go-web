@@ -67,7 +67,7 @@ class registerUsersController extends Controller
 
     public function resetPassword(Request $request){
         $this->validate($request, [
-            'password' => ['required', 'string', 'min:8'],
+            'oldPassword' => ['required', 'string', 'min:8'],
             'newPassword' => ['required', 'string', 'min:8' , 'confirmed']
         ]);
 
