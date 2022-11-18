@@ -172,6 +172,9 @@ class categoriesController extends Controller
 
         return $data;
     }
+    public function getAllNodeCategories(){
+        return  Category::where('tree_level', 'NODE')->get();
+    }
 
     public function getNodeCategories($id){
         $ids = [];
@@ -274,5 +277,23 @@ class categoriesController extends Controller
         $category->save();
 
         return $category;
+    }
+
+    public function filterCategories(Request $request){
+        $categories = Category::where('cat_type', 'CHILD')
+                            ->when($request->cat_name !=null, function ($q) use($request){
+                                return $q->where('cat_name', 'LIKE', '%'.$request->cat_name.'%');
+                            })
+                            ->when($request->parent_id !=null, function ($q) use($request){
+                                return $q->where('parent_id', $request->parent_id);
+                            })
+                            ->get();
+                            
+        foreach($categories as $cat){
+            $count = Product::where('cat_id', $cat->id)->count();
+            $cat->items = $count + $this->categoryItemCount($cat->id);
+            $cat->parent_name = Category::where('id', $cat->parent_id)->select('cat_name')->first()->cat_name;
+        }
+        return $categories;
     }
 }

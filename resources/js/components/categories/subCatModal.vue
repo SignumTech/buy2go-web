@@ -62,7 +62,7 @@
         },
         methods:{
             async getMainCategories(){
-                await axios.get('/getNodeCategories')
+                await axios.get('/getAllNodeCategories')
                 .then( response =>{
                     this.mainCategories = response.data
                 })

@@ -119,10 +119,12 @@ Route::middleware('auth:sanctum')->put('/confirmRequest/{id}', [agentsController
 Route::middleware('auth:sanctum')->get('/getSubCategories', [categoriesController::class, 'getSubCategories']);
 Route::middleware('auth:sanctum')->get('/chooseSubCategories', [categoriesController::class, 'chooseSubCategories']);
 Route::middleware('auth:sanctum')->get('/getNodeCategories/{id}', [categoriesController::class, 'getNodeCategories']);
-Route::get('/getMainCategories', [categoriesController::class, 'getMainCategories']);
+Route::middleware('auth:sanctum')->get('/getMainCategories', [categoriesController::class, 'getMainCategories']);
 Route::middleware('auth:sanctum')->post('/uploadSubPic', [categoriesController::class, 'uploadSubPic']);
-Route::get('/getImediateSubCat/{id}', [categoriesController::class, 'getImediateSubCat']);
+Route::middleware('auth:sanctum')->get('/getImediateSubCat/{id}', [categoriesController::class, 'getImediateSubCat']);
 Route::middleware('auth:sanctum')->post('/makeChild', [categoriesController::class, 'makeChild']);
+Route::middleware('auth:sanctum')->get('/getAllNodeCategories', [categoriesController::class, 'getAllNodeCategories']);
+Route::middleware('auth:sanctum')->post('/filterCategories', [categoriesController::class, 'filterCategories']);
 //////////////////////////////////////addressbook//////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getMyAddresses', [addressBooksController::class, 'getMyAddresses']);
 ///////////////////////////////////staff/////////////////////////////////////////////////////////////////
