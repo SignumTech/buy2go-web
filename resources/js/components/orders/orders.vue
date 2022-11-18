@@ -24,25 +24,26 @@
                 </div>
                 <div class="col-md-2 align-self-center">
                     <label for="">Payment Status</label>
-                    <select v-model="queryData.order_status" class="form-select rounded-1">
+                    <select v-model="queryData.payment_status" class="form-select rounded-1">
                         <option :value="null">All statuses</option>
-                        <option value="PROCESSING">Processing</option>
-                        <option value="PENDING_CONFIRMATION">Pending Confirmation</option>
+                        <option value="PAID">Paid</option>
+                        <option value="UNPAID">Unpaid</option>
                     </select>
                 </div>
-                <div class="col-md-2">
-                    <label for="">Featured</label>
-                    <select v-model="queryData.featured" class="form-select rounded-1">
-                        <option :value="null">All products</option>
-                        <option value="FEATURED">Featured</option>
-                        <option value="NOT_FEATURED">Not Featured</option>
+                <div class="col-md-2 align-self-center">
+                    <label for="">Payment Methods</label>
+                    <select v-model="queryData.payment_method" class="form-select rounded-1">
+                        <option :value="null">All methods</option>
+                        <option value="Cash on delivery">Cash on delivery</option>
+                        <option value="Credit">Credit</option>
+                        <option value="Online Gateway">Online gateway</option>
                     </select>
                 </div>
                 <div class="col-md-2 align-self-end">
-                    <button @click="filterProducts()" class="btn btn-success form-control rounded-1"><span class="fa fa-filter"></span> Filter</button>
+                    <button @click="filterOrders()" class="btn btn-success form-control rounded-1"><span class="fa fa-filter"></span> Filter</button>
                 </div>
                 <div class="col-md-2 align-self-end">
-                    <form action="#" @submit.prevent="exportProducts">
+                    <form action="#" @submit.prevent="exportOrders">
                         <button type="submit" class="btn btn-primary form-control rounded-1"><span class="fa fa-file-export"></span> Export</button>
                     </form>
                 </div>
@@ -142,7 +143,12 @@ export default {
             orders:{},
             paginationData:{},
             loading:true,
-            queryData:{},
+            queryData:{
+                order_no:null,
+                order_status:null,
+                payment_status:null,
+                payment_method:null,
+            },
             range:{}
         }
     },
@@ -150,11 +156,38 @@ export default {
         this.getAllOrders()
     },
     methods:{
+        async exportOrders(){
+            await axios.post('/exportOrders')
+            .then( response =>{
+                const href = URL.createObjectURL(response.data);
+
+                // create "a" HTML element with href to file & click
+                const link = document.createElement('a');
+                link.href = href;
+                link.setAttribute('download', 'orders'+Date.now()+'.xlsx'); //or any other extension
+                document.body.appendChild(link);
+                link.click();
+
+                // clean up "a" element & remove ObjectURL
+                document.body.removeChild(link);
+                URL.revokeObjectURL(href);
+            })
+        },
         async getPage(pageUrl){
             await axios.get(pageUrl)
             .then( response => {
                 this.paginationData = response.data.links
                 this.orders = response.data.data
+            })
+        },
+        async filterOrders(){
+            this.active = ''
+            this.loading = true
+            await axios.get('/filterOrders', {params: this.queryData})
+            .then( response =>{
+                this.orders = response.data.data
+                this.paginationData = response.data.links
+                this.loading = false
             })
         },
         connect(){

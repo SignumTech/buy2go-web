@@ -90,6 +90,7 @@ Route::middleware('auth:sanctum')->get('/getOrderDetails/{id}', [ordersControlle
 Route::middleware('auth:sanctum')->get('/getWarehouseOrders', [ordersController::class, 'getWarehouseOrders']);
 Route::middleware('auth:sanctum')->get('/getPendingConfirmation', [ordersController::class, 'getPendingConfirmation']);
 Route::middleware('auth:sanctum')->get('/getPendingPickup', [ordersController::class, 'getPendingPickup']);
+Route::middleware('auth:sanctum')->get('/filterOrders', [ordersController::class, 'filterOrders']);
 ///////////////////////////////////products/////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/productsByCategory/{id}', [productsController::class, 'productsByCategory']);
 Route::middleware('auth:sanctum')->post('/uploadProductPic', [productsController::class, 'uploadProductPic']);

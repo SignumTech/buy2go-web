@@ -132,6 +132,7 @@ class ordersController extends Controller
 
         $data = [];
         $data['order_details'] = $order;
+        $data['order_hash'] = Hash::make($order->order_no);
         $data['order_items'] = $order_items;
         $data['delivery_details'] = $delivery_details;
         return $data;
@@ -583,5 +584,22 @@ class ordersController extends Controller
         else{
             return response("No warehouses available", 401);
         }
+    }
+
+    public function filterOrders(Request $request){
+        $orders = Order::when($request->order_no !=null, function ($q) use($request){
+                            return $q->where('order_no', $request->order_no);
+                        })
+                        ->when($request->payment_status !=null, function ($q) use($request){
+                            return $q->where('payment_status', $request->payment_status);
+                        })
+                        ->when($request->order_status !=null, function ($q) use($request){
+                            return $q->where('order_status', $request->order_status);
+                        })
+                        ->when($request->payment_method !=null, function ($q) use($request){
+                            return $q->where('payment_method', $request->payment_method);
+                        })
+                        ->paginate(3);
+        return $orders;
     }
 }
