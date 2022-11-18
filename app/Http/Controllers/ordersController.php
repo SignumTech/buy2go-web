@@ -128,10 +128,12 @@ class ordersController extends Controller
                             ->join('products', 'order_items.p_id', '=', 'products.id')
                             ->where('orders.id', $id)
                             ->get();
+        $delivery_details = AddressBook::find($order->id);
 
         $data = [];
         $data['order_details'] = $order;
         $data['order_items'] = $order_items;
+        $data['delivery_details'] = $delivery_details;
         return $data;
     }
 
