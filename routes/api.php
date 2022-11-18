@@ -61,6 +61,7 @@ Route::middleware('auth:sanctum')->get('/getMyDeliveredOrders', [ordersControlle
 Route::middleware('auth:sanctum')->get('/getMyPendingOrders', [ordersController::class, 'getMyPendingOrders']);
 Route::middleware('auth:sanctum')->put('/repurchaseOrder/{id}', [ordersController::class, 'repurchaseOrder']);
 Route::middleware('auth:sanctum')->get('/getWarehouseOrders', [ordersController::class, 'getWarehouseOrders']);
+Route::middleware('auth:sanctum')->get('/getOrderDetails/{id}', [ordersController::class, 'getOrderDetails']);
 /////////////////////////////////////whishlists///////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->put('/addToWishlist/{id}', [wishlistsController::class, 'addToWishlist']);
 Route::middleware('auth:sanctum')->get('/getMyWishlist', [wishlistsController::class, 'getMyWishlist']);

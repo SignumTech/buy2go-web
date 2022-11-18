@@ -279,6 +279,20 @@ class ordersController extends Controller
         return $orders;
     }
 
+    public function getPendingConfirmation(){
+        $orders = Order::where('orders.order_status', "PENDING_CONFIRMATION")
+                       ->orderBy("created_at", "DESC")
+                       ->paginate(10);
+        return $orders;
+    }
+
+    public function getPendingPickup(){
+        $orders = Order::where('orders.order_status', "PENDING_PICKUP")
+                       ->orderBy("created_at", "DESC")
+                       ->paginate(10);
+        return $orders;
+    }
+
     public function assignDetails(Request $request, $id){
         $this->validate($request, [
             "warehouse_id" => "required",

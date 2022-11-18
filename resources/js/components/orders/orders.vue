@@ -3,24 +3,75 @@
     <div class="col-md-12">
         <h5><strong>Orders</strong></h5>
     </div>
-    <div class="col-md-12">
+    <div class="col-md-12 mt-3">
+        <div class="bg-white rounded-1 p-2 shadow-sm">
+            <div class="row">
+                <div class="col-md-2">
+                    <label for="">Order No.</label>
+                    <input v-model="queryData.order_no" type="text" class="form-control rounded-1" placeholder="Order Number">
+                    
+                </div>
+                <div class="col-md-2">
+                    <label for="">Status</label>
+                    <select v-model="queryData.order_status" class="form-select rounded-1">
+                        <option :value="null">All statuses</option>
+                        <option value="PROCESSING">Processing</option>
+                        <option value="PENDING_CONFIRMATION">Pending Confirmation</option>
+                        <option value="PENDING_PICKUP">Pending Pickup</option>
+                        <option value="SHIPPED">Shipped</option>
+                        <option value="DELIVERED">Delivered</option>
+                    </select>
+                </div>
+                <div class="col-md-2 align-self-center">
+                    <label for="">Payment Status</label>
+                    <select v-model="queryData.order_status" class="form-select rounded-1">
+                        <option :value="null">All statuses</option>
+                        <option value="PROCESSING">Processing</option>
+                        <option value="PENDING_CONFIRMATION">Pending Confirmation</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
+                    <label for="">Featured</label>
+                    <select v-model="queryData.featured" class="form-select rounded-1">
+                        <option :value="null">All products</option>
+                        <option value="FEATURED">Featured</option>
+                        <option value="NOT_FEATURED">Not Featured</option>
+                    </select>
+                </div>
+                <div class="col-md-2 align-self-end">
+                    <button @click="filterProducts()" class="btn btn-success form-control rounded-1"><span class="fa fa-filter"></span> Filter</button>
+                </div>
+                <div class="col-md-2 align-self-end">
+                    <form action="#" @submit.prevent="exportProducts">
+                        <button type="submit" class="btn btn-primary form-control rounded-1"><span class="fa fa-file-export"></span> Export</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-12 mt-3">
         <div class="bg-white shadow-sm p-2">
             <div class="row ms-0 me-0">
-                <div @click="getAllOrders()" :class="(active==`all`)?`col-md-3 p-2 border-bottom border-dark border-3`:`col-md-3 p-2 orders-hover rounded-1`" style="cursor:pointer">
-                    <h5 class="text-center m-0"><span class="fa fa-shopping-bag"></span> All Ordered</h5>
+                <div @click="getAllOrders()" :class="(active==`all`)?`col-md-2 p-2 border-bottom border-dark border-3`:`col-md-2 p-2 orders-hover rounded-1`" style="cursor:pointer">
+                    <h6 class="text-center m-0"><span class="fa fa-shopping-bag"></span> All Ordered</h6>
                 </div>
-                <div @click="getProcessing()" :class="(active==`PROCESSING`)?`col-md-3 p-2 orders-hover border-bottom border-dark border-3`:`col-md-3 p-2 orders-hover rounded-1`" style="cursor:pointer">
-                    <h5 class="text-center m-0"><span class="fa fa-cart-plus"></span> Processing</h5>
+                <div @click="getProcessing()" :class="(active==`PROCESSING`)?`col-md-2 p-2 orders-hover border-bottom border-dark border-3`:`col-md-2 p-2 orders-hover rounded-1`" style="cursor:pointer">
+                    <h6 class="text-center m-0"><span class="fa fa-cart-plus"></span> Processing</h6>
                     
                 </div>
-                <div @click="getShipped()" :class="(active==`SHIPPED`)?`col-md-3 p-2 orders-hover border-bottom border-dark border-3`:`col-md-3 p-2 orders-hover rounded-1`" style="cursor:pointer">
-                    <h5 class="text-center m-0"><span class="fa fa-shipping-fast"></span> Shipped</h5>
+                <div @click="getPendingConfirmation()" :class="(active==`PENDING_CONFIRMATION`)?`col-md-2 p-2 orders-hover border-bottom border-dark border-3`:`col-md-2 p-2 orders-hover rounded-1`" style="cursor:pointer">
+                    <h6 class="text-center m-0"><span class="fa fa-user-plus"></span> Pending Confirmation</h6>
+                </div>
+                <div @click="getPendingPickup()" :class="(active==`PENDING_PICKUP`)?`col-md-2 p-2 orders-hover border-bottom border-dark border-3`:`col-md-2 p-2 orders-hover rounded-1`" style="cursor:pointer">
+                    <h6 class="text-center m-0"><span class="fa fa-truck-loading"></span> Pending Pickup</h6>
+                </div> 
+                <div @click="getShipped()" :class="(active==`SHIPPED`)?`col-md-2 p-2 orders-hover border-bottom border-dark border-3`:`col-md-2 p-2 orders-hover rounded-1`" style="cursor:pointer">
+                    <h6 class="text-center m-0"><span class="fa fa-shipping-fast"></span> Shipped</h6>
                     
                 </div>
-                <div @click="getDelivered()" :class="(active==`DELIVERED`)?`col-md-3 p-2 orders-hover border-bottom border-dark border-3`:`col-md-3 p-2 orders-hover rounded-1`" style="cursor:pointer">
-                    <h5 class="text-center m-0"><span class="fa fa-box-open"></span> Delivered</h5>
-                    
-                </div>            
+                <div @click="getDelivered()" :class="(active==`DELIVERED`)?`col-md-2 p-2 orders-hover border-bottom border-dark border-3`:`col-md-2 p-2 orders-hover rounded-1`" style="cursor:pointer">
+                    <h6 class="text-center m-0"><span class="fa fa-box-open"></span> Delivered</h6>
+                </div>           
             </div>
         </div>
     </div>
@@ -53,7 +104,7 @@
                         <td>
                             {{order.order_no}}
                         </td>
-                        <td>{{order.created_at | moment("ddd, MMM Do YYYY")}}</td>
+                        <td>{{order.created_at | moment("MMM Do YYYY H:m:s a")}}</td>
                         
                         <td>{{order.total | numFormat}} ETB</td>
                         <td>{{order.no_items}} items</td>
@@ -90,7 +141,9 @@ export default {
             active:'all',
             orders:{},
             paginationData:{},
-            loading:true
+            loading:true,
+            queryData:{},
+            range:{}
         }
     },
     mounted(){
@@ -111,6 +164,26 @@ export default {
             this.active = 'all'
             this.loading = true
             await axios.get('/orders')
+            .then( response =>{
+                this.orders = response.data.data
+                this.paginationData = response.data.links
+                this.loading = false
+            })
+        },
+        async getPendingConfirmation(){
+            this.active = 'PENDING_CONFIRMATION'
+            this.loading = true
+            await axios.get('/getPendingConfirmation')
+            .then( response =>{
+                this.orders = response.data.data
+                this.paginationData = response.data.links
+                this.loading = false
+            })
+        },
+        async getPendingPickup(){
+            this.active = 'PENDING_PICKUP'
+            this.loading = true
+            await axios.get('/getPendingPickup')
             .then( response =>{
                 this.orders = response.data.data
                 this.paginationData = response.data.links
