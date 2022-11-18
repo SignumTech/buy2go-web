@@ -64,4 +64,21 @@ class registerUsersController extends Controller
 
         return ['token' => $user_token->plainTextToken];
     }
+
+    public function resetPassword(Request $request){
+        $this->validate($request, [
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'user_id' => "required | integer"
+        ]);
+
+        $user = User::find($request->user_id);
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        auth()->login($user);
+
+        $user_token = $user->createToken($user->f_name);
+
+        return ['token' => $user_token->plainTextToken];
+    }
 }

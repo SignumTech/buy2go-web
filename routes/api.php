@@ -91,6 +91,7 @@ Route::post('/getAgentToken', [getTokenController::class, 'getAgentToken']);
 Route::post('/getWarehouseToken', [getTokenController::class, 'getWarehouseToken']);
 Route::post('/registerUser', [registerUsersController::class, 'registerUser']);
 Route::post('/registerAgent', [registerUsersController::class, 'registerAgent']);
+Route::middleware('auth:sanctum')->post('/resetPassword', [registerUsersController::class, 'resetPassword']);
 //////////////////////////////////////addressbook//////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getMyAddresses', [addressBooksController::class, 'getMyAddresses']);
 ///////////////////////////////////////////////////////////////////////////////
