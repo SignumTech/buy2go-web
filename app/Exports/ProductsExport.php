@@ -22,7 +22,7 @@ class ProductsExport implements FromCollection,ShouldAutoSize,WithStyles
     {
         $headers = ["Id", "Product Name", "Price", "description", "Commission Percentage", "SKU", "Supplier", "Feature status", "Created at", "Updated at", "stock"];
         return collect([$headers,$this->products]);
-        //return $this->products;
+        
     }
 
     public function styles(Worksheet $sheet)

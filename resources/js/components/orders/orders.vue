@@ -117,10 +117,19 @@
                     </tr>                        
                 </tbody>
             </table>
-            <nav aria-label="Page d-flex m-auto navigation example" style="cursor:pointer">
+            <nav v-if="!filtered && orderData.total > orderData.per_page" aria-label="Page d-flex m-auto navigation example" style="cursor:pointer">
                 <ul class="pagination justify-content-center">
                     <li v-for="pd,index in paginationData" :key="index" :class="(pd.active)?`page-item active text-white`:`page-item`">
                         <a class="page-link" @click="getPage(pd.url)" aria-label="Previous">
+                            <span :class="(pd.active)?`text-white`:``" aria-hidden="true" v-html="pd.label"></span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <nav v-if="filtered && orderData.total > orderData.per_page" aria-label="Page d-flex m-auto navigation example" style="cursor:pointer">
+                <ul class="pagination justify-content-center">
+                    <li v-for="pd,index in paginationData" :key="index" :class="(pd.active)?`page-item active text-white`:`page-item`">
+                        <a class="page-link" @click="getFilteredPage(pd.url)" aria-label="Previous">
                             <span :class="(pd.active)?`text-white`:``" aria-hidden="true" v-html="pd.label"></span>
                         </a>
                     </li>
@@ -149,7 +158,9 @@ export default {
                 payment_status:null,
                 payment_method:null,
             },
-            range:{}
+            range:{},
+            filtered:false,
+            orderData:{}
         }
     },
     mounted(){
@@ -157,7 +168,7 @@ export default {
     },
     methods:{
         async exportOrders(){
-            await axios.post('/exportOrders')
+            await axios.post('/exportOrders', this.queryData, {responseType: 'blob'})
             .then( response =>{
                 const href = URL.createObjectURL(response.data);
 
@@ -180,10 +191,19 @@ export default {
                 this.orders = response.data.data
             })
         },
+        async getFilteredPage(pageUrl){
+            await axios.post(pageUrl)
+            .then( response => {
+                this.orderData = response.data 
+                this.paginationData = response.data.links
+                this.orders = response.data.data
+            })
+        },
         async filterOrders(){
             this.active = ''
             this.loading = true
-            await axios.get('/filterOrders', {params: this.queryData})
+            this.filtered = true
+            await axios.post('/filterOrders', this.queryData)
             .then( response =>{
                 this.orders = response.data.data
                 this.paginationData = response.data.links
@@ -196,8 +216,10 @@ export default {
         async getAllOrders(){
             this.active = 'all'
             this.loading = true
+            this.filtered = false
             await axios.get('/orders')
             .then( response =>{
+                this.orderData = response.data 
                 this.orders = response.data.data
                 this.paginationData = response.data.links
                 this.loading = false
@@ -206,8 +228,10 @@ export default {
         async getPendingConfirmation(){
             this.active = 'PENDING_CONFIRMATION'
             this.loading = true
+            this.filtered = false
             await axios.get('/getPendingConfirmation')
             .then( response =>{
+                this.orderData = response.data 
                 this.orders = response.data.data
                 this.paginationData = response.data.links
                 this.loading = false
@@ -216,8 +240,10 @@ export default {
         async getPendingPickup(){
             this.active = 'PENDING_PICKUP'
             this.loading = true
+            this.filtered = false
             await axios.get('/getPendingPickup')
             .then( response =>{
+                this.orderData = response.data 
                 this.orders = response.data.data
                 this.paginationData = response.data.links
                 this.loading = false
@@ -226,8 +252,10 @@ export default {
         async getProcessing(){
             this.active = 'PROCESSING'
             this.loading = true
+            this.filtered = false
             await axios.get('/getProcessing')
             .then( response =>{
+                this.orderData = response.data 
                 this.orders = response.data.data
                 this.paginationData = response.data.links
                 this.loading = false
@@ -236,8 +264,10 @@ export default {
         async getShipped(){
             this.active = 'SHIPPED'
             this.loading = true
+            this.filtered = false
             await axios.get('/getShipped')
             .then( response =>{
+                this.orderData = response.data 
                 this.orders = response.data.data
                 this.paginationData = response.data.links
                 this.loading = false
@@ -246,8 +276,10 @@ export default {
         async getDelivered(){
             this.active = 'DELIVERED'
             this.loading = true
+            this.filtered = false
             await axios.get('/getDelivered')
             .then( response =>{
+                this.orderData = response.data 
                 this.orders = response.data.data
                 this.paginationData = response.data.links
                 this.loading = false

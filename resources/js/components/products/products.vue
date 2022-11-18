@@ -82,7 +82,7 @@
                     </tr>
                 </tbody>
             </table>
-            <nav aria-label="Page d-flex m-auto navigation example" style="cursor:pointer">
+            <nav v-if="paginationData.total > paginationData.per_page" aria-label="Page d-flex m-auto navigation example" style="cursor:pointer">
                 <ul class="pagination justify-content-center">
                     <li v-for="pd,index in paginationData.links" :key="index" :class="(pd.active)?`page-item active text-white`:`page-item`">
                         <a class="page-link" @click="getPage(pd.url)" aria-label="Previous">

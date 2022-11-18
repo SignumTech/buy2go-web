@@ -24,6 +24,8 @@ use App\Events\ConfirmDelivery;
 use App\Notifications\OrderStatusUpdated;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Notifications\Notifiable;
+use App\Exports\OrdersExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ordersController extends Controller
 {
@@ -479,7 +481,7 @@ class ordersController extends Controller
         $driver = User::find($order->assigned_driver);
         $message = "Order ".$order->order_no." was delivered successfully.";
         Notification::send($admin, new OrderStatusUpdated($message,$order));
-        broadcast(new ConfirmDelivery($driver))->toOthers();
+        broadcast(new ConfirmDelivery($order))->toOthers();
         return $order;
     }
 
@@ -587,19 +589,30 @@ class ordersController extends Controller
     }
 
     public function filterOrders(Request $request){
+        
+        $orders = $this->filteredData($request)->paginate(10);
+        return $orders;
+    }
+
+    public function exportOrders(Request $request){
+        $orders = $this->filteredData($request)->select('id', 'order_no', 'total', 'order_status', 'payment_status', 'payment_method', 'order_type', 'created_at');
+        return Excel::download(new OrdersExport($orders->get()), 'orders.xlsx');
+    }
+
+    public function filteredData(Request $request){
         $orders = Order::when($request->order_no !=null, function ($q) use($request){
-                            return $q->where('order_no', $request->order_no);
-                        })
-                        ->when($request->payment_status !=null, function ($q) use($request){
-                            return $q->where('payment_status', $request->payment_status);
-                        })
-                        ->when($request->order_status !=null, function ($q) use($request){
-                            return $q->where('order_status', $request->order_status);
-                        })
-                        ->when($request->payment_method !=null, function ($q) use($request){
-                            return $q->where('payment_method', $request->payment_method);
-                        })
-                        ->paginate(3);
+            return $q->where('order_no', $request->order_no);
+        })
+        ->when($request->payment_status !=null, function ($q) use($request){
+            return $q->where('payment_status', $request->payment_status);
+        })
+        ->when($request->order_status !=null, function ($q) use($request){
+            return $q->where('order_status', $request->order_status);
+        })
+        ->when($request->payment_method !=null, function ($q) use($request){
+            return $q->where('payment_method', $request->payment_method);
+        });
+
         return $orders;
     }
 }
