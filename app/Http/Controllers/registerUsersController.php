@@ -72,17 +72,13 @@ class registerUsersController extends Controller
         ]);
 
         $user = User::find(auth()->user()->id);
-        if(!Hash::check($request->password, $user->password)){
+        if(!Hash::check($request->oldPassword, $user->password)){
             return response("Wrong old password", 422);
         }
         $user->password = Hash::make($request->newPassword);
         $user->save();
 
-        auth()->login($user);
-
-        $user_token = $user->createToken($user->f_name);
-
-        return ['token' => $user_token->plainTextToken];
+        return $user;
     }
 
     public function forgetPassword(Request $request){
@@ -98,5 +94,18 @@ class registerUsersController extends Controller
         $user_token = $user->createToken($user->f_name);
         return ['token' => $user_token->plainTextToken];
 
+    }
+
+    public function updateProfile(Request $request){
+        $this->validate($request, [
+            "f_name" => "required",
+            "l_name" => "required",
+        ]);
+        $user = user::find(auth()->user()->id);
+        $user->f_name = $request->f_name;
+        $user->l_name = $request->l_name;
+        $user->save();
+
+        return $user;
     }
 }

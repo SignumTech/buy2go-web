@@ -93,6 +93,7 @@ Route::post('/registerUser', [registerUsersController::class, 'registerUser']);
 Route::post('/registerAgent', [registerUsersController::class, 'registerAgent']);
 Route::middleware('auth:sanctum')->post('/resetPassword', [registerUsersController::class, 'resetPassword']);
 Route::post('/forgetPassword', [registerUsersController::class, 'forgetPassword']);
+Route::middleware('auth:sanctum')->put('/updateProfile', [registerUsersController::class, 'updateProfile']);
 //////////////////////////////////////addressbook//////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getMyAddresses', [addressBooksController::class, 'getMyAddresses']);
 ///////////////////////////////////////////////////////////////////////////////
