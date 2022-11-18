@@ -68,11 +68,11 @@ class registerUsersController extends Controller
     public function resetPassword(Request $request){
         $this->validate($request, [
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'user_id' => "required | integer"
+            'newPassword' => ['required', 'string', 'min:8']
         ]);
 
-        $user = User::find($request->user_id);
-        $user->password = Hash::make($request->password);
+        $user = User::find(auth()->user()->id);
+        $user->password = Hash::make($request->newPassword);
         $user->save();
 
         auth()->login($user);
