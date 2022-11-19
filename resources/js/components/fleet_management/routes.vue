@@ -3,6 +3,31 @@
     <div class="col-md-12">
         <h5><strong>Routes</strong></h5>
     </div>
+    <div class="col-md-12 mt-3">
+        <div class="bg-white rounded-1 p-2 shadow-sm">
+            <div class="row">
+                <div class="col-md-3">
+                    <label for="">Route Name</label>
+                    <input v-model="queryData.route_name" type="text" class="form-control rounded-1" placeholder="Zone Name">
+                </div>
+                <div class="col-md-3">
+                    <label for="">Zones</label>
+                    <select v-model="queryData.zone_id" class="form-select rounded-1">
+                        <option :value="null">All Zones</option>
+                        <option v-for="zone,index in zones" :key="index" :value="zone.id">{{zone.zone_name}}</option>
+                    </select>
+                </div>
+                <div class="col-md-3 align-self-end">
+                    <button @click="filterRoutes()" class="btn btn-success form-control rounded-1"><span class="fa fa-filter"></span> Filter</button>
+                </div>
+                <div class="col-md-3 align-self-end">
+                    <form action="#" @submit.prevent="exportRoutes">
+                        <button type="submit" class="btn btn-primary form-control rounded-1"><span class="fa fa-file-export"></span> Export</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="col-md-12">
         <div class="bg-white rounded-1 shadow-sm p-3">
             <button @click="addRouteModal()" class="btn btn-primary btn-sm float-end shadow-sm text-white"><span class="fa fa-plus"></span> Add Routes</button>
@@ -32,7 +57,7 @@
                     </tr>
                 </tbody>
             </table>
-                        <nav aria-label="Page d-flex m-auto navigation example" style="cursor:pointer">
+            <nav aria-label="Page d-flex m-auto navigation example" style="cursor:pointer">
                 <ul class="pagination justify-content-center">
                     <li v-for="pd,index in paginationData.links" :key="index" :class="(pd.active)?`page-item active text-white`:`page-item`">
                         <a class="page-link" @click="getPage(pd.url)" aria-label="Previous">
@@ -50,19 +75,56 @@ import addRouteModalVue from './addRouteModal.vue'
 export default {
     data(){
         return{
+            zones:{},
             routes:{},
-            paginationData:{}
+            paginationData:{},
+            queryData:{
+                route_name:null,
+                zone_id:null
+            },
+            
         }
     },
     mounted(){
         this.getRoutes()
+        this.getZones()
     },
     methods:{
+        async filterRoutes(){
+            await axios.post('/filterRoutes', this.queryData)
+            .then( response => {
+                this.paginationData = response.data
+                this.routes = response.data.data
+            })
+        },
+        async exportRoutes(){
+            await axios.post('/exportRoutes', this.queryData, {responseType: 'blob'})
+            .then( response =>{
+                const href = URL.createObjectURL(response.data);
+
+                // create "a" HTML element with href to file & click
+                const link = document.createElement('a');
+                link.href = href;
+                link.setAttribute('download', 'routes'+Date.now()+'.xlsx'); //or any other extension
+                document.body.appendChild(link);
+                link.click();
+
+                // clean up "a" element & remove ObjectURL
+                document.body.removeChild(link);
+                URL.revokeObjectURL(href);
+            })
+        },
         async getPage(pageUrl){
             await axios.get(pageUrl)
             .then( response => {
                 this.paginationData = response.data
                 this.routes = response.data.data
+            })
+        },
+        async getZones(){
+            await axios.get('/getZones')
+            .then( response =>{
+                this.zones = response.data.data
             })
         },
         addRouteModal(){

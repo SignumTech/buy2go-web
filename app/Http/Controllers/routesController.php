@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\ZoneRoute;
 use App\Models\DriverDetail;
 use App\Models\AddressBook;
+use App\Exports\routeExport;
+use Maatwebsite\Excel\Facades\Excel;
 class routesController extends Controller
 {
     /**
@@ -116,5 +118,37 @@ class routesController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function filterRoutes(Request $request){
+        
+        $routes = $this->filterData($request)->paginate(10);
+        foreach($routes as $route){
+            $route->drivers_count = DriverDetail::where('route_id', $route->id)->count();
+            $route->shops_count = AddressBook::where('route_id', $route->id)->count();
+        }
+        return $routes;
+    }
+
+    public function exportRoutes(Request $request){
+        $routes = $this->filterData($request)->get();
+        foreach($routes as $route){
+            $route->drivers_count = DriverDetail::where('route_id', $route->id)->count();
+            $route->shops_count = AddressBook::where('route_id', $route->id)->count();
+        }
+        return Excel::download(new routeExport($routes), 'routes.xlsx');
+    }
+
+    public function filterData(Request $request){
+        $routes = ZoneRoute::join('zones', 'zone_routes.zone_id', '=', 'zones.id')
+                            ->when($request->route_name !=null, function ($q) use($request){
+                                return $q->where('route_name', 'LIKE', '%'.$request->route_name.'%');
+                            })
+                            ->when($request->zone_id !=null, function ($q) use($request){
+                                return $q->where('zone_routes.zone_id', $request->zone_id);
+                            })
+                           ->select('zone_routes.id', 'zone_routes.route_name', 'zones.zone_name');
+        
+        return $routes;
     }
 }

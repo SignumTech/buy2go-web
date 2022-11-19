@@ -25,7 +25,7 @@ class agentsController extends Controller
                             $query->where('f_name', 'LIKE', '%'.$request->searchQuery.'%')
                                 ->orWhere('phone_no', 'LIKE', $request->searchQuery.'%');
                         })
-                        ->paginate(10);
+                        ->get();
         foreach($shops as $shop){
             $shop->address = AddressBook::where('user_id', $shop->id)->get();
         }
