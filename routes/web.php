@@ -66,6 +66,8 @@ Route::middleware('auth:sanctum')->post('/salesReport', [dashboardController::cl
 Route::middleware('auth:sanctum')->get('/getZones', [zonesController::class, 'getZones']);
 Route::middleware('auth:sanctum')->post('/addZones', [zonesController::class, 'addZones']);
 Route::middleware('auth:sanctum')->put('/updateZones/{id}', [zonesController::class, 'updateZones']);
+Route::middleware('auth:sanctum')->post('/filterZones', [zonesController::class, 'filterZones']);
+Route::middleware('auth:sanctum')->post('/exportZones', [zonesController::class, 'exportZones']);
 ///////////////////////////////////resources///////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->resource('/categories', categoriesController::class);
 Route::middleware('auth:sanctum')->resource('/warehouses', warehousesController::class);

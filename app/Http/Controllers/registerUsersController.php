@@ -83,7 +83,7 @@ class registerUsersController extends Controller
 
     public function forgetPassword(Request $request){
         $this->validate($request, [
-            'phone_no' => ['required', 'digits:10', 'unique:users'],
+            'phone_no' => ['required'],
             'password' => ['required', 'string', 'min:8']
         ]);
 
