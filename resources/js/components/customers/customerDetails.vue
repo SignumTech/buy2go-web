@@ -80,16 +80,21 @@ export default {
     },
     mounted(){
         this.getShopDetails()
-        this.getShopOrders()
-        this.getShopLocations()
+            this.getShopOrders()
+            this.getShopLocations()
     },
     methods:{
+        updateData(){
+            this.getShopDetails()
+            this.getShopOrders()
+            this.getShopLocations()
+        },
         verifyModal(){
             this.$modal.show(
                 verifyShopModalVue,
                 {shop_id:this.$route.params.id},
                 {height:"auto", width:'500px'},
-                {"closed":this.getShopDetails}
+                {"closed":this.updateData}
             )
         },
         async getShopDetails(){
