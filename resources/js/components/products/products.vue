@@ -74,7 +74,7 @@
                                 <label class="form-check-label" for="flexSwitchCheckChecked"> {{product.featured}}</label>
                             </div>
                         </td>
-                        <td class="align-middle">{{product.created_at | moment("ddd, MMM Do YYYY")}}</td>
+                        <td class="align-middle">{{product.created_at | moment("MMM Do YYYY h:m:s a")}}</td>
                         <td class="align-middle">
                             <router-link to="#" class="float-end "><span class="fa fa-trash-alt"></span></router-link>
                             <router-link :to="`/editProduct/`+product.id" class="float-end me-3"><span class="fa fa-edit"></span></router-link>
