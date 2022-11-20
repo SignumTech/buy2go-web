@@ -43,6 +43,7 @@ Route::middleware('auth:sanctum')->put('/withdrawCash/{id}', [agentsController::
 Route::middleware('auth:sanctum')->post('/placeRequest', [agentsController::class, 'placeRequest']);
 Route::middleware('auth:sanctum')->get('/showPaymentRequest/{id}', [agentsController::class, 'showPaymentRequest']);
 Route::middleware('auth:sanctum')->get('/getMyRequests', [agentsController::class, 'getMyRequests']);
+Route::middleware('auth:sanctum')->get('/agentOrders/{id}', [agentsController::class, 'agentOrders']);
 ///////////////////////////////////orders/////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->post('/addAgentOrder', [ordersController::class, 'addAgentOrder']);
 Route::middleware('auth:sanctum')->get('/getMyOrders', [ordersController::class, 'getMyOrders']);

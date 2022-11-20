@@ -30,7 +30,7 @@ class shopsController extends Controller
 
     public function shopDetails($id){
         $data = [];
-        $data['shop_details'] = User::select('users.f_name', 'users.l_name', 'users.phone_no', 'users.created_at')->find($id);
+        $data['shop_details'] = User::select('users.f_name', 'users.shop_status', 'users.l_name', 'users.phone_no', 'users.created_at')->find($id);
         $data['average_order'] = $this->calculate_average_order($id);
         $last_order = Order::where('user_id', $id)->latest('created_at')->select('order_no', 'created_at')->first();
         if($last_order){
@@ -73,5 +73,29 @@ class shopsController extends Controller
     public function shopLocations($id){
         $address = AddressBook::where('user_id', $id)->get();
         return $address;
+    }
+
+    public function verfiyShop(Request $request, $id){
+        $this->validate($request, [
+            "regular_address" => "required",
+            "lng" => "required",
+            "lat" => "required"
+        ]);
+        $geolocation = [];
+        $geolocation['lat'] = $request->lat;
+        $geolocation['lng'] = $request->lng;
+
+
+        $shop = new AddressBook;
+        $shop->user_id = $id;
+        $shop->regular_address = $request->regular_address;
+        $shop->geolocation = json_encode($geolocation);
+        $shop->save();
+
+        $user = User::find($id);
+        $user->shop_status = 'VERIFIED';
+        $user->save();
+
+        return $shop;
     }
 }

@@ -41,6 +41,7 @@ Route::middleware('auth:sanctum')->get('/getShopsWithNoRoutes', [shopsController
 Route::middleware('auth:sanctum')->get('/shopDetails/{id}', [shopsController::class, 'shopDetails']);
 Route::middleware('auth:sanctum')->get('/shopOrders/{id}', [shopsController::class, 'shopOrders']);
 Route::middleware('auth:sanctum')->get('/shopLocations/{id}', [shopsController::class, 'shopLocations']);
+Route::middleware('auth:sanctum')->put('/verfiyShop/{id}', [shopsController::class, 'verfiyShop']);
 /////////////////////////////////////locations//////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getCountries', [locationsController::class, 'getCountries']);
 Route::middleware('auth:sanctum')->get('/getCities', [locationsController::class, 'getCities']);

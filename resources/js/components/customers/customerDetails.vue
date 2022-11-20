@@ -32,7 +32,7 @@
         </div>
     </div>
     <div class="col-md-8">
-        <div class="bg-warning rounded-1 shadow-sm">
+        <div v-if="shopDetails.shop_details.verification_status === `NOT_VERIFIED`" class="bg-warning rounded-1 shadow-sm">
             <div class="row mx-0 border-bottom p-3">
                 <div class="col-md-6 align-self-center">
                     <h5 class="mb-0"><span class="fa fa-exclamation-triangle"></span> This shop is not verified!</h5>
@@ -96,6 +96,7 @@ export default {
             await axios.get('/shopDetails/'+this.$route.params.id)
             .then( response =>{
                 this.shopDetails = response.data
+                console.log(this.shopDetails)
             })
         },
         async getShopOrders(){
