@@ -51,7 +51,7 @@
                         <td>{{route.shops_count}}</td>
                         <td>{{route.zone_name}}</td>
                         <td class="text-center">
-                            <span @click="editModal(route)" class="fa fa-edit "></span>
+                            <span @click="editModal(route.id)" class="fa fa-edit "></span>
                             <span  class="fa fa-trash-alt ms-3"></span>
                         </td>
                     </tr>
@@ -72,6 +72,7 @@
 </template>
 <script>
 import addRouteModalVue from './addRouteModal.vue'
+import editRouteModalVue from './editRouteModal.vue'
 export default {
     data(){
         return{
@@ -90,6 +91,14 @@ export default {
         this.getZones()
     },
     methods:{
+        editModal(id){
+            this.$modal.show(
+                editRouteModalVue,
+                {route_id:id},
+                {height:"auto", width:"80%"},
+                {"closed":this.getRoutes}
+            )
+        },
         async filterRoutes(){
             await axios.post('/filterRoutes', this.queryData)
             .then( response => {

@@ -26,7 +26,7 @@ export default {
         }
     },
     mounted(){
-        console.log(JSON.parse(this.location).lat)
+        console.log(parseFloat(JSON.parse(this.location).lat))
         this.center.lat = parseFloat(JSON.parse(this.location).lat)
         this.center.lng = parseFloat(JSON.parse(this.location).lng)
 

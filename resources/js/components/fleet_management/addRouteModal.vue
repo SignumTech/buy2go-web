@@ -12,27 +12,6 @@
             <google-marker v-for="m,index in shopMarkers" @click="addShop(m)"  :key="`sh`+index"  :icon="markerIcon" :position="m.position" :clickable="true" :draggable="false" ></google-marker>
             <google-marker v-for="m,index in warehouseMarkers" :icon="`/storage/settings/warehouse.png`"  :key="`wh`+index" :position="m.position" :clickable="true" :draggable="false" @click="toggleInfoWindow(m,i)"></google-marker>
             <gmap-polygon v-for="path,index in zonePath" :key="index" :paths="path" :editable="false" :draggable="false" @paths_changed="updateEdited($event)"></gmap-polygon>
-            <!--<DirectionsRenderer
-            v-for="route_path,index in formData.route_path"
-            :key="`d`+index"
-            travelMode="DRIVING"
-            :origin="route_path[0]"
-            :destination="route_path[1]"
-            />-->
-            <!--<DirectionsRenderer
-            travelMode="DRIVING"
-            v-for="paths,index in formData.route_path"
-            :key="index"
-            :origin="formData.route_path[0]"
-            :destination="formData.route_path[formData.route_path.length - 1]"
-            :waypoints="[{location:{lat:8.983966+(index/100),lng:38.555250+(index/100)}}, {location:{lat:9.015504+(index/100),lng:38.730625+(index/100)}}]"
-            />-->
-            <RouteRenderer
-            travelMode="DRIVING"
-            :routePath="newPath"
-            :map="map"
-            />
-
         </GmapMap>
     </div>
     <div class="col-md-3">
@@ -115,7 +94,6 @@ export default {
         this.getWarehouses()
         this.getZones()
         this.$refs.mapRef.$mapPromise.then(map => this.map = map)
-        this.runSnapToRoad()
     },
     methods:{
         removeAll(){},
@@ -124,6 +102,7 @@ export default {
             this.formData.selectedShops = this.formData.selectedShops.splice(this.formData.selectedShops.indexOf(node.id),1)
         },
         displayZone(){
+            this.getShops()
             var myZone = this.zones.find(zone=> zone.id == this.formData.zone_id)
             this.zonePath = JSON.parse(myZone.route)
             var polyCheck = new google.maps.Polygon({
@@ -133,9 +112,18 @@ export default {
             this.warehouseMarkers = [];
             this.shops.forEach(shop => {
                 shop.address.forEach( address =>{
-                    if(google.maps.geometry.poly.containsLocation(JSON.parse(address.geolocation), polyCheck)){
+                    if(google.maps.geometry.poly.containsLocation({
+                            lat:parseFloat(JSON.parse(address.geolocation).lat),
+                            lng:parseFloat(JSON.parse(address.geolocation).lng)
+                        }, polyCheck)){
+                        
+                        console.log(parseFloat(JSON.parse(address.geolocation).lng))
                         this.shopMarkers.push({
-                            position: JSON.parse(address.geolocation),
+                            
+                            position:{
+                                lat:parseFloat(JSON.parse(address.geolocation).lat),
+                                lng:parseFloat(JSON.parse(address.geolocation).lng)
+                            } ,
                             id: address.id,
                             address: address.regular_address,
                             infoOptions: {
@@ -153,10 +141,16 @@ export default {
 
             }); 
             this.warehouses.forEach(warehouse => {
-                if(google.maps.geometry.poly.containsLocation(JSON.parse(warehouse.location), polyCheck)){
+                if(google.maps.geometry.poly.containsLocation({
+                            lat:parseFloat(JSON.parse(warehouse.location).lat),
+                            lng:parseFloat(JSON.parse(warehouse.location).lng)
+                    }, polyCheck)){
 
                     this.warehouseMarkers.push({
-                        position: JSON.parse(warehouse.location),
+                        position:{
+                            lat:parseFloat(JSON.parse(warehouse.location).lat),
+                            lng:parseFloat(JSON.parse(warehouse.location).lng)
+                        } ,
                         infoOptions: {
                             content: '<strong>'+warehouse.w_name+'</strong>',
                             //optional: offset infowindow so it visually sits nicely on top of our marker

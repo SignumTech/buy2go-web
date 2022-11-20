@@ -99,6 +99,7 @@ class routesController extends Controller
         $this->validate($request, [
             "route_name" => "required",
             "zone_id" => "required",
+            "selectedShops" => "required"
         ]);
 
         $route = ZoneRoute::find($id);
@@ -106,7 +107,16 @@ class routesController extends Controller
         $route->zone_id = $request->zone_id;
         $route->save();
 
+        $shops = AddressBook::where('route_id', $route->id)->update(['route_id'=> null]);
+        foreach($request->selectedShops as $shop){
+            $address = AddressBook::find($shop);
+            $address->route_id = $route->id;
+            $address->save();
+        }
+
         return $route;
+        
+        
     }
 
     /**
@@ -150,5 +160,12 @@ class routesController extends Controller
                            ->select('zone_routes.id', 'zone_routes.route_name', 'zones.zone_name');
         
         return $routes;
+    }
+
+    public function getRoute($id){
+        $route = ZoneRoute::find($id);
+        $route->selectedShops = AddressBook::where('route_id', $id)->pluck('id');
+        $route->addresses = AddressBook::where('route_id', $id)->get();
+        return $route;
     }
 }
