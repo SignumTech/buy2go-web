@@ -206,7 +206,7 @@ export default {
             orderItems.forEach(item =>{
                 
                 subtotal = subtotal+(item.price*item.quantity)
-                if(item.taxable == 1){
+                if(parseInt(item.taxable) == 1){
                     total = total+(item.price*item.quantity*1.15)
                     vat = vat+(item.price*item.quantity*0.15)
                 }
