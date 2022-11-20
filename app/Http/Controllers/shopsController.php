@@ -98,4 +98,44 @@ class shopsController extends Controller
 
         return $shop;
     }
+
+    public function addShop(Request $request, $id){
+        $this->validate($request, [
+            "regular_address" => "required",
+            "lng" => "required",
+            "lat" => "required"
+        ]);
+        $geolocation = [];
+        $geolocation['lat'] = $request->lat;
+        $geolocation['lng'] = $request->lng;
+
+
+        $shop = new AddressBook;
+        $shop->user_id = $id;
+        $shop->regular_address = $request->regular_address;
+        $shop->geolocation = json_encode($geolocation);
+        $shop->save();
+
+        return $shop;
+    }
+
+    public function updateShop(Request $request, $id){
+        $this->validate($request, [
+            "regular_address" => "required",
+            "lng" => "required",
+            "lat" => "required"
+        ]);
+        $geolocation = [];
+        $geolocation['lat'] = $request->lat;
+        $geolocation['lng'] = $request->lng;
+
+
+        $shop = AddressBook::find($id);
+        $shop->user_id = $request->user_id;
+        $shop->regular_address = $request->regular_address;
+        $shop->geolocation = json_encode($geolocation);
+        $shop->save();
+
+        return $shop;
+    }
 }

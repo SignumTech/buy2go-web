@@ -28,6 +28,7 @@ import agentDetails from './components/user_management/agentDetails.vue'
 import editProduct from './components/products/editProduct.vue'
 import paymentRequests from './components/user_management/paymentRequests.vue'
 import requestDetails from './components/user_management/requestDetails.vue'
+import salesReport from './components/sales_report/salesReport.vue'
 Vue.use(Router)
 
 const routes = [
@@ -178,6 +179,12 @@ const routes = [
         path: '/locations',
         component: locations,
         name: 'Locations',
+        props: true
+    },
+    {
+        path: '/salesReport',
+        component: salesReport,
+        name: 'SalesReport',
         props: true
     },
     

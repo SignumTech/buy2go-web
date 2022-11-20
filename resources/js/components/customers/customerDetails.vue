@@ -23,9 +23,9 @@
         </div>
         <div class="bg-white rounded-1 shadow-sm p-4 mt-3">
             <div class="row">
-                <h6><strong>Shop Locations</strong></h6>
+                <h6><strong>Shop Locations <span @click="addShop()" class="fa fa-plus float-end"></span></strong></h6>
                 <div v-for="address,index in locations" :key="index" class="col-md-12 mt-2">
-                    <h6 class="mb-2"><span class="fa fa-map-marker-alt"></span> {{address.regular_address}}</h6>
+                    <h6 class="mb-2"><span class="fa fa-map-marker-alt"></span> {{address.regular_address}} <span class="fa fa-trash-alt float-end"></span> <span @click="editShop(address)" class="fa fa-edit me-3 float-end"></span> </h6>
                 </div>
             </div>
             
@@ -69,6 +69,8 @@
 </div>
 </template>
 <script>
+import addShopModalVue from './addShopModal.vue'
+import editShopModalVue from './editShopModal.vue'
 import verifyShopModalVue from './verifyShopModal.vue'
 export default {
     data(){
@@ -84,10 +86,26 @@ export default {
             this.getShopLocations()
     },
     methods:{
+        editShop(address){
+            this.$modal.show(
+                editShopModalVue,
+                {address:address},
+                {height:"auto", width:'500px'},
+                {"closed":this.updateData}
+            )
+        },
         updateData(){
             this.getShopDetails()
             this.getShopOrders()
             this.getShopLocations()
+        },
+        addShop(){
+            this.$modal.show(
+                addShopModalVue,
+                {shop_id:this.$route.params.id},
+                {height:"auto", width:'500px'},
+                {"closed":this.updateData}
+            )
         },
         verifyModal(){
             this.$modal.show(

@@ -12,7 +12,7 @@
                 <li :class="$route.path == `/dashboard` ? `active nav-item` : ``">
                   <router-link class="nav-link a-admin" to="/dashboard"><i data-feather="pie-chart"></i> Dashboard <span class="sr-only"></span></router-link>
                 </li>
-                <li :class="$route.path == `productList` ? `active nav-item` : ``">
+                <li :class="$route.path == `/productList` ? `active nav-item` : ``">
                   <router-link class="nav-link a-admin" to="/productList"><i data-feather="box"></i> Products</router-link>
                 </li>
                 <li :class="$route.path == `/ordersList` ? `active nav-item` : ``">
@@ -72,8 +72,8 @@
                     </ul>
                   </div>
                 </li>
-                <li :class="$route.path == `/setting` ? `active nav-item` : ``">
-                  <router-link class="nav-link a-admin" to="/setting"><i data-feather="trending-up"></i> Sales Report</router-link>
+                <li :class="$route.path == `/salesReport` ? `active nav-item` : ``">
+                  <router-link class="nav-link a-admin" to="/salesReport"><i data-feather="trending-up"></i> Sales Report</router-link>
                 </li>
                 <li :class="$route.path == `/customers` ? `active nav-item` : ``">
                   <router-link class="nav-link a-admin" to="/customers"><i data-feather="users"></i> Customers</router-link>
