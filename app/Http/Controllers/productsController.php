@@ -293,7 +293,7 @@ class productsController extends Controller
     }
 
     public function getProductsList(){
-        $products = Product::paginate(10);
+        $products = Product::orderBy('created_at', 'DESC')->paginate(10);
         foreach($products as $product){
             $product->stock = WarehouseDetail::where('p_id', $product->id)->sum('quantity');
         }
