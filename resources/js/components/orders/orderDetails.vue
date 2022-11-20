@@ -104,7 +104,7 @@
                             <tr v-for="ot in orderItems" :key="ot.id" class="align-middle">
                                 <td class="ps-2 text-center"><img :src="`/storage/productsThumb/`+ot.p_image" class="img img-fluid" style="width:70px;height:auto"></td>
                                 <td class="ps-2">
-                                    <h6>{{ot.p_name}}</h6>                                
+                                    <h6>{{ot.p_name}} <span v-if="!ot.taxable" class="bg-warning float-end p-1 rounded-pill px-2 shadow-sm">Non Taxable Item</span></h6>                                
                                 </td>
                                 <td class="ps-2 text-center">{{ot.quantity}}</td>
                                 <td class="ps-2 text-center">{{ot.price | numFormat}} ETB</td>
@@ -117,9 +117,9 @@
                     <h5 v-if="order.order_type == `AGENT_ORDER`"><span class="badge rounded-pill bg-info text-dark">Ordered by agent</span></h5>
                 </div>     
                 <div class="col-md-4 border-bottom border-3 mt-3">
-                    <h6 class="mt-2">Sub total: <span class="float-end">{{order.total/1.15 | numFormat}} ETB</span></h6>
-                    <h6 class="mt-2">Tax (15% VAT): <span class="float-end">{{order.total/1.15 * 0.15 | numFormat}} ETB</span></h6>
-                    <h5 class="mt-2"><strong>Total: <span class="float-end">{{order.total | numFormat}} ETB</span></strong></h5>
+                    <h6 class="mt-2">Sub total: <span class="float-end">{{taxCalculations.subTotal | numFormat}} ETB</span></h6>
+                    <h6 class="mt-2">Tax (15% VAT): <span class="float-end">{{taxCalculations.vat | numFormat}} ETB</span></h6>
+                    <h5 class="mt-2"><strong>Total: <span class="float-end">{{taxCalculations.total | numFormat}} ETB</span></strong></h5>
                     </div>
                     <div @click="addressModal(address.geolocation)" class="col-md-6 mt-5">
                         <h5 class="border-bottom">Shipping Information</h5>
@@ -154,6 +154,11 @@ export default {
     data(){
         return{
             order:{},
+            taxCalculations:{
+                subTotal:null,
+                vat:null,
+                total:null
+            },
             orderItems:[],
             address:{},
             loading:true,
@@ -189,9 +194,27 @@ export default {
             .then( response =>{
                 this.order = response.data.order_details
                 this.orderItems = response.data.order_items
-
+                this.taxCalculations = this.calculateTax(this.orderItems)
+                console.log(this.taxCalculations)
                 this.getAddress(response.data.order_details.delivery_details)
             })
+        },
+        calculateTax(orderItems){
+            var subtotal = 0;
+            var vat=0;
+            var total = 0;
+            orderItems.forEach(item =>{
+                
+                subtotal = subtotal+(item.price*item.quantity)
+                if(item.taxable == 1){
+                    total = total+(item.price*item.quantity*1.15)
+                    vat = vat+(item.price*item.quantity*0.15)
+                }
+                else{
+                    total = total+(item.price*item.quantity)
+                }
+            })
+            return {subTotal:subtotal,vat:vat,total:total}
         },
         async getAddress(id){
             await axios.get('/addressBooks/'+id)
