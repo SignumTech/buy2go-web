@@ -81,10 +81,14 @@ export default {
     },
     methods:{
         async verifyAgent(){
-            await axios.put('/verfiyAgent/'+this.$route.params.id)
-            .then( response =>{
-                this.getagent();    
-            })
+            var check = confirm("Are you sure you want to verifiy this agent?")
+            if(check){
+                await axios.put('/verfiyAgent/'+this.$route.params.id)
+                .then( response =>{
+                    this.getagent();    
+                })
+            }
+            
         },
         payAgent(agent){
             this.$modal.show(

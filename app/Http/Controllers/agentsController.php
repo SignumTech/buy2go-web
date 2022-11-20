@@ -92,7 +92,7 @@ class agentsController extends Controller
     
     public function agentDetails($id){
         $data = [];
-        $data['agent_details'] = User::select('users.f_name', 'users.l_name', 'users.phone_no', 'users.created_at')->find($id);
+        $data['agent_details'] = User::select('users.f_name', 'users.shop_status', 'users.l_name', 'users.phone_no', 'users.created_at')->find($id);
         $data['average_order'] = $this->calculate_agent_average_order($id);
         $data['agent_balance'] = Balance::where('user_id', $id)->select('balance')->first()->balance;
         $last_order = Order::where('agent_id', $id)->latest('created_at')->select('order_no', 'created_at')->first();
