@@ -9,7 +9,7 @@
             <input v-model="formData.regular_address" type="text" class="form-control" placeholder="Eg. Shemsu shop, Ayat adebabay, Ayat">
         </div>
         <div class="col-md-12 mt-3">
-            <h6>To use precise location click Geo Location <button class="btn btn-primary btn-sm float-end"><span class="fa fa-map-marker-alt "></span> Geo Location</button></h6>
+            <h6>To use precise location click Geo Location <button type="button" @click="getGeoLocation()" class="btn btn-primary btn-sm float-end"><span class="fa fa-map-marker-alt "></span> Geo Location</button></h6>
         </div>
         <div class="col-md-6 mt-1">
             <label for="">Longitude</label>
@@ -33,12 +33,20 @@ export default {
                 regular_address:null,
                 lat:null,
                 lng:null,
-            }
+            },
+            coordinates:{}
         }
     },
     methods:{
-        async verifyAccount(){
-            await axios.post('/verifyAccount', this.formData)
+        async getGeoLocation(){
+            await this.$getLocation({})
+            .then(coordinates => {
+                console.log(coordinates);
+            })
+            .catch(error => alert(error));
+        },
+        async verifyShop(){
+            await axios.post('/verifyShop', this.formData)
             .then( response =>{
                 this.$emit('close')
             })
