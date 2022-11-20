@@ -32,7 +32,17 @@
         </div>
     </div>
     <div class="col-md-8">
-        <div class="bg-white rounded-1 shadow-sm">
+        <div class="bg-warning rounded-1 shadow-sm">
+            <div class="row mx-0 border-bottom p-3">
+                <div class="col-md-6 align-self-center">
+                    <h5 class="mb-0"><span class="fa fa-exclamation-triangle"></span> This shop is not verified!</h5>
+                </div>
+                <div class="col-md-6">
+                    <button @click="verifyModal()" class="btn btn-success btn-sm float-end shadow-sm text-white"><span class="fa fa-check-circle"></span> Verify Shop</button>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white rounded-1 shadow-sm mt-2">
             <div class="row mx-0 border-bottom p-3">
                 <div class="col-md-6">
                     <h5 class="mb-0"><strong>Orders</strong></h5>
@@ -59,6 +69,7 @@
 </div>
 </template>
 <script>
+import verifyShopModalVue from './verifyShopModal.vue'
 export default {
     data(){
         return{
@@ -73,6 +84,14 @@ export default {
         this.getShopLocations()
     },
     methods:{
+        verifyModal(){
+            this.$modal.show(
+                verifyShopModalVue,
+                {shop_id:this.$route.params.id},
+                {height:"auto", width:'500px'},
+                {"closed":this.getShopDetails}
+            )
+        },
         async getShopDetails(){
             await axios.get('/shopDetails/'+this.$route.params.id)
             .then( response =>{

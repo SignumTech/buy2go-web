@@ -98,7 +98,10 @@ class registerUsersController extends Controller
         $user->save();
 
         $user_token = $user->createToken($user->f_name);
-        return ['token' => $user_token->plainTextToken];
+        return [
+            'token' => $user_token->plainTextToken,
+            'user' => $user
+        ];
 
     }
 
