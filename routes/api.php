@@ -26,6 +26,7 @@ use App\Http\Controllers\notificationsController;
 */
 ///////////////////////////////////Notifications/////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getMyNotifications', [notificationsController::class, 'getMyNotifications']);
+Route::middleware('auth:sanctum')->get('/markAllAsRead', [notificationsController::class, 'markAllAsRead']);
 ///////////////////////////////////resources///////////////////////////////////////////////////////
 /*Route::post('/mobGoogleLogin', [socialiteController::class, 'mobGoogleLogin']);
 Route::post('/mobFacebookLogin', [socialiteController::class, 'mobFacebookLogin']);*/

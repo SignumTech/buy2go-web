@@ -104,9 +104,17 @@
                               </li>
                               <li class="nav-item dropdown px-3">
                                   <a class="nav-link dropdown-toggle p-0" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                      <span class="fa fa-bell pr-2" style="font-size: 20px"></span><span class="badge bg-danger mx-1">{{$store.state.auth.notifications.length}}</span><strong></strong>
+                                      <span class="fa fa-bell pr-2" style="font-size: 20px"></span><span v-if="$store.state.auth.notifications.length > 0" class="badge bg-danger mx-1">{{$store.state.auth.notifications.length}}</span><strong></strong>
                                   </a>
-                                  <ul class="dropdown-menu rounded-1" aria-labelledby="navbarDropdown" style="max-height:500px;overflow-y: auto; overflow-x:hidden">
+                                  <ul class="dropdown-menu rounded-1" aria-labelledby="navbarDropdown" style="max-height:500px; min-width:400px; overflow-y: auto; overflow-x:hidden">
+                                    <li>
+                                      <div v-if="$store.state.auth.notifications.length > 0" class="row m-0">
+                                        <div class="col-md-12">
+                                          <h6 class="text-end"><span @click="markAllAsRead()" class="pt-3 px-2" style="cursor:pointer"><span class="fa fa-check-double"></span> Mark all as read.</span></h6>
+                                        </div>
+                                      </div>
+                                      
+                                    </li>
                                     <li v-for="notification,index in $store.state.auth.notifications" :key="index" style="width:400px">
                                       <div class="row m-0 bg-light border-bottom">
                                         <div class="col-md-1 align-self-center text-center">
@@ -117,8 +125,15 @@
                                         </div>
                                       </div>
                                     </li>
-                                    <li>
-                                      <a @click="markAllAsRead()" class="float-end pt-3 px-2">Mark all as read.</a>
+                                    <li v-if="$store.state.auth.notifications.length == 0">
+                                      <div class="row m-0 bg-light border-bottom">
+                                        <div class="col-md-1 align-self-center text-center">
+                                          <span class="fa fa-bell-slash"></span>
+                                        </div>
+                                        <div class="col-md-11 px-3 py-2">
+                                          <h6 class="m-0">There are 0 notifications.</h6>
+                                        </div>
+                                      </div>
                                     </li>
                                   </ul>
                               </li>
