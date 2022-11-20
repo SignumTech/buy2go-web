@@ -490,7 +490,7 @@ class ordersController extends Controller
         foreach($orders as $order){
             $order->items = OrderItem::join('products', 'order_items.p_id', '=', 'products.id')
                                      ->where('order_items.order_id', $order->id)
-                                     ->get();
+                                     ->paginate(12);
         }
         return $orders;
     }
