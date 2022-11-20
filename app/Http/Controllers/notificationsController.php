@@ -9,6 +9,15 @@ class notificationsController extends Controller
     public function getMyNotifications(){
         
         $user = User::find(auth()->user()->id);
-        return $user->notifications;
+        return $user->unreadNotifications;
+    }
+
+    public function markAsRead($id){
+        
+    }
+
+    public function markAllAsRead(){
+        $user = User::find(auth()->user()->id);
+        $user->unreadNotifications()->update(['read_at' => now()]);
     }
 }

@@ -82,6 +82,7 @@ Route::middleware('auth:sanctum')->resource('/drivers', driversController::class
 Route::middleware('auth:sanctum')->resource('/routes', routesController::class);
 ///////////////////////////////////Notifications/////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getMyNotifications', [notificationsController::class, 'getMyNotifications']);
+Route::middleware('auth:sanctum')->get('/markAllAsRead', [notificationsController::class, 'markAllAsRead']);
 ///////////////////////////////////orders/////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getProcessing', [ordersController::class, 'getProcessing']);
 Route::middleware('auth:sanctum')->get('/getShipped', [ordersController::class, 'getShipped']);

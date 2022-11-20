@@ -117,6 +117,9 @@
                                         </div>
                                       </div>
                                     </li>
+                                    <li>
+                                      <a @click="markAllAsRead()" class="float-end pt-3 px-2">Mark all as read.</a>
+                                    </li>
                                   </ul>
                               </li>
                               <li class="nav-item px-3">
@@ -193,6 +196,12 @@
       
     },
     methods:{
+      async markAllAsRead(){
+        await axios.get('/markAllAsRead')
+        .then( response =>{
+          this.getNotifications()
+        })
+      },
       notif(){
         this.$notify({
                   group: 'main',
