@@ -44,6 +44,7 @@ Route::middleware('auth:sanctum')->post('/placeRequest', [agentsController::clas
 Route::middleware('auth:sanctum')->get('/showPaymentRequest/{id}', [agentsController::class, 'showPaymentRequest']);
 Route::middleware('auth:sanctum')->get('/getMyRequests', [agentsController::class, 'getMyRequests']);
 Route::middleware('auth:sanctum')->get('/agentOrders/{id}', [agentsController::class, 'agentOrders']);
+Route::middleware('auth:sanctum')->get('/getAgentOrders', [agentsController::class, 'getAgentOrders']);
 ///////////////////////////////////orders/////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->post('/addAgentOrder', [ordersController::class, 'addAgentOrder']);
 Route::middleware('auth:sanctum')->get('/getMyOrders', [ordersController::class, 'getMyOrders']);

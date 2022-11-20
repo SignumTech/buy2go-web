@@ -190,5 +190,27 @@ class agentsController extends Controller
         return $payment;
     }
 
+    public function verfiyAgent(Request $request, $id){
+        $agent = User::find($id);
+        $agent->shop_status = 'VERIFIED';
+        $agent->save();
+        
+        return $agent;
+    }
+
+    public function getAgentOrders(){
+        $orders = Order::where('agent_id', auth()->user()->id)->get();
+        foreach($orders as $order){
+            $order->items_count = OrderItem::where('order_id', $order->id)->count();
+        }
+        $sum = Order::where('agent_id', auth()->user()->id)->sum('total');
+        $count = Order::where('agent_id', auth()->user()->id)->count();
+        $data = [];
+        $data['total_spent'] = $sum;
+        $data['orders_count'] = $count;
+        $data['orders'] = $orders;
+        return $data;
+    }
+
 
 }
