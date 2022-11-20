@@ -8,9 +8,14 @@
             <label for="">Shop name and address.</label>
             <input v-model="formData.regular_address" type="text" class="form-control" placeholder="Eg. Shemsu shop, Ayat adebabay, Ayat">
         </div>
-        <div class="col-md-12 mt-3">
+        <div v-if="!locationLoading" class="col-md-12 mt-3">
             <h6>To use precise location click Geo Location <button type="button" @click="getGeoLocation()" class="btn btn-primary btn-sm float-end"><span class="fa fa-map-marker-alt "></span> Geo Location</button></h6>
         </div>
+        <div v-if="locationLoading" class="col-md-12 mt-3">
+            <div class="d-flex justify-content-center align-self-center">
+                <pulse-loader :color="`#011b48`" :size="`15px`"></pulse-loader> 
+            </div>            
+        </div> 
         <div class="col-md-6 mt-1">
             <label for="">Longitude</label>
             <input v-model="formData.lng" type="number" class="form-control" placeholder="Longitude">
@@ -26,7 +31,11 @@
 </form>
 </template>
 <script>
+import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 export default {
+    components:{
+            PulseLoader
+        },
     data(){
         return{
             formData:{
@@ -34,16 +43,23 @@ export default {
                 lat:null,
                 lng:null,
             },
-            coordinates:{}
+            coordinates:{},
+            locationLoading:false
         }
     },
     methods:{
         async getGeoLocation(){
+            this.locationLoading = true
             await this.$getLocation({})
             .then(coordinates => {
-                console.log(coordinates);
+                this.formData.lat =coordinates.lat
+                this.formData.lng = coordinates.lng
+                this.locationLoading = false
             })
-            .catch(error => alert(error));
+            .catch(error => {
+                alert(error)
+                this.locationLoading = false
+            });
         },
         async verifyShop(){
             await axios.post('/verifyShop', this.formData)
