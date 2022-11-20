@@ -31,7 +31,10 @@ class registerUsersController extends Controller
 
         $user_token = $user->createToken($user->f_name);
 
-        return ['token' => $user_token->plainTextToken];
+        return [
+            'token' => $user_token->plainTextToken,
+            'user' => $user
+        ];
     }
 
     public function registerAgent(Request $request){
@@ -62,7 +65,10 @@ class registerUsersController extends Controller
 
         $user_token = $user->createToken($user->f_name);
 
-        return ['token' => $user_token->plainTextToken];
+        return [
+            'token' => $user_token->plainTextToken,
+            'user' => $user
+        ];
     }
 
     public function resetPassword(Request $request){
