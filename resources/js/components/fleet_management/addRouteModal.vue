@@ -206,7 +206,7 @@ export default {
         async getZones(){
             await axios.get('/getZones')
             .then( response =>{
-                this.zones = response.data
+                this.zones = response.data.data
             })
         },
         async saveRoute(){

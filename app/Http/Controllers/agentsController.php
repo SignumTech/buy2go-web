@@ -199,16 +199,22 @@ class agentsController extends Controller
     }
 
     public function getAgentOrders(){
-        $orders = Order::where('agent_id', auth()->user()->id)->get();
-        foreach($orders as $order){
-            $order->items_count = OrderItem::where('order_id', $order->id)->count();
-        }
-        $sum = Order::where('agent_id', auth()->user()->id)->sum('total');
-        $count = Order::where('agent_id', auth()->user()->id)->count();
         $data = [];
-        $data['total_spent'] = $sum;
-        $data['orders_count'] = $count;
-        $data['orders'] = $orders;
+        $index = 0;
+        $orders = Order::where('agent_id', auth()->user()->id)
+                       ->orderBy('created_at', 'DESC')
+                       ->get();
+        foreach($orders as $order){
+            $data[$index]['order_hash'] = Hash::make($order->order_no);
+            $data[$index]['order_detail'] = $order;
+            $data[$index]['delivery_detail'] = AddressBook::where('user_id', $order->user_id)->first();
+            $data[$index]['order_items'] = OrderItem::join('products', 'order_items.p_id', '=', 'products.id')
+                                                    ->where('order_id', $order->id)->get();
+            $data[$index]['warehouse_detail'] = Warehouse::where('id', $order->warehouse_id)->first();
+            $index++;
+        }
+        
+        
         return $data;
     }
 
