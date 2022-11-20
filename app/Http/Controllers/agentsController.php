@@ -10,6 +10,7 @@ use App\Models\BalanceHistory;
 use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\PaymentRequest;
+use App\Models\Warehouse;
 use App\Events\CashWithdrawn;
 use DB;
 use Illuminate\Support\Facades\Hash;
@@ -205,7 +206,7 @@ class agentsController extends Controller
                        ->orderBy('created_at', 'DESC')
                        ->get();
         foreach($orders as $order){
-            $data[$index]['order_hash'] = Hash::make($order->order_no);
+            
             $data[$index]['order_detail'] = $order;
             $data[$index]['delivery_detail'] = AddressBook::where('user_id', $order->user_id)->first();
             $data[$index]['order_items'] = OrderItem::join('products', 'order_items.p_id', '=', 'products.id')
