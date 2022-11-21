@@ -486,11 +486,11 @@ class ordersController extends Controller
     }
 
     public function getMyOrders(){
-        $orders = Order::where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC')->get();
+        $orders = Order::where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC')->paginate(12);
         foreach($orders as $order){
             $order->items = OrderItem::join('products', 'order_items.p_id', '=', 'products.id')
                                      ->where('order_items.order_id', $order->id)
-                                     ->paginate(12);
+                                     ->get();
         }
         return $orders;
     }
