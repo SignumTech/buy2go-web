@@ -35,9 +35,15 @@
                                     <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).Marketing">Marketing</span>
                                     <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).Warehouses">Warehouses</span>
                                     <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).Zones">Zones</span>
+                                    <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).Routes">Fleet Management</span>
+                                    <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).Routes">Routes</span>
+                                    <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).Drivers">Drivers</span>
                                     <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).UserManagement">User Management</span>
                                     <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).RoleManagement">Role Management</span>
                                     <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).StaffManagement">Staff Management</span>
+                                    <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).CommissionAgents">Commission Agent</span>
+                                    <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).PaymentRequests">Payment Request</span>
+                                    <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).CreditService">Credit Services</span>
                                     <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).SalesReport">SalesReport</span>
                                     <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).Customers">Customers</span>
                                 </td>
