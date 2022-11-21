@@ -570,7 +570,7 @@ class ordersController extends Controller
             $orders = Order::where('warehouse_id', $warehouse->id)
                        ->where('order_status', 'PENDING_PICKUP')
                        ->orderBy('created_at', 'DESC')
-                       ->paginate(12);
+                       ->paginate(8);
             foreach($orders as $order){
                 $order->order_hash = Hash::make($order->order_no);
                 $order->delivery_detail = AddressBook::where('user_id', $order->user_id)->first();

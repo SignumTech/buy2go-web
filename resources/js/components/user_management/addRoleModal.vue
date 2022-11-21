@@ -163,12 +163,18 @@ export default {
                     this.data.permissions.Categories = true;
                 }
             }
-            if(page === 'Marketing'){
-                if(this.data.permissions.FlashSales === true){
-                    this.data.permissions.FlashSales = false;
+            if(page === 'FleetManagement'){
+                if(this.data.permissions.Routes === true){
+                    this.data.permissions.Routes = false;
                 }
                 else{
-                    this.data.permissions.FlashSales = true;
+                    this.data.permissions.Routes = true;
+                }
+                if(this.data.permissions.Drivers === true){
+                    this.data.permissions.Drivers = false;
+                }
+                else{
+                    this.data.permissions.Drivers = true;
                 }
             }
             if(page === 'UserManagement'){
@@ -195,6 +201,12 @@ export default {
                 }
                 else{
                     this.data.permissions.PaymentRequest = true;
+                }
+                if(this.data.permissions.CreditService === true){
+                    this.data.permissions.CreditService = false;
+                }
+                else{
+                    this.data.permissions.CreditService = true;
                 }
             }
             if(page === 'SalesReport'){
