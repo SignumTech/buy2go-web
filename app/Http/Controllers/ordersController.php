@@ -383,7 +383,7 @@ class ordersController extends Controller
         $index = 0;
         $orders = Order::where('assigned_driver', auth()->user()->id)
                        ->orderBy('created_at', 'DESC')
-                       ->get();
+                       ->paginate(12);
         foreach($orders as $order){
             $data[$index]['order_hash'] = Hash::make($order->order_no);
             $data[$index]['order_detail'] = $order;

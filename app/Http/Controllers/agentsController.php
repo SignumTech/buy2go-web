@@ -204,7 +204,7 @@ class agentsController extends Controller
         $index = 0;
         $orders = Order::where('agent_id', auth()->user()->id)
                        ->orderBy('created_at', 'DESC')
-                       ->get();
+                       ->paginate(12);
         foreach($orders as $order){
             
             $data[$index]['order_detail'] = $order;

@@ -15,7 +15,7 @@ class balancesController extends Controller
 
     public function balanceHistory(){
         $history = BalanceHistory::where('user_id', auth()->user()->id)
-                                 ->orderBy('created_at', 'DESC')->get();
+                                 ->orderBy('created_at', 'DESC')->paginate(12);
         return $history;
     }
 }
