@@ -21,7 +21,7 @@
                 </div>
                 <div class="col-md-2 align-self-center">
                     <input v-model="queryData.priceRange" :min="range.min" :max="range.max" type="range" class="form-range rounded-1">
-                    <h6 class="m-0">{{range.min}} ETB <span class="float-end">{{range.max}} ETB</span></h6>
+                    <h6 class="m-0">{{range.min}} ETB <span class="float-end">{{queryData.priceRange}} ETB</span></h6>
                 </div>
                 <div class="col-md-2">
                     <label for="">Featured</label>
@@ -161,6 +161,7 @@ export default {
             await axios.get('/getPriceRange')
             .then( response =>{
                 this.range = response.data
+                this.queryData.priceRange = response.data.max
             })
         },
         async getPage(pageUrl){
