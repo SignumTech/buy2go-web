@@ -122,7 +122,10 @@ class categoriesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $category = Category::find($id);
+        $category->delete();
+
+        return $category;
     }
 
     public function getMainCategories(){

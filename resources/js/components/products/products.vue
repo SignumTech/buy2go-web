@@ -76,8 +76,8 @@
                         </td>
                         <td class="align-middle">{{product.created_at | moment("MMM Do YYYY h:m:s a")}}</td>
                         <td class="align-middle">
-                            <router-link to="#" class="float-end "><span class="fa fa-trash-alt"></span></router-link>
-                            <router-link :to="`/editProduct/`+product.id" class="float-end me-3"><span class="fa fa-edit"></span></router-link>
+                            <a type="button"><span @click="deleteProduct(product.id)" class="fa fa-trash-alt float-end"></span></a>
+                            <router-link :to="`/editProduct/`+product.id" class="float-end me-2"><span class="fa fa-edit"></span></router-link>
                         </td>
                     </tr>
                 </tbody>
@@ -117,6 +117,22 @@ export default {
         feather.replace();
     },
     methods:{
+        async deleteProduct(id){
+            var check = confirm("Are you sure you want to delete this product?")
+            if(check){
+                await axios.delete('/products/'+id)
+                .then( response =>{
+                    this.$notify({
+                        group: 'foo',
+                        type: 'success',
+                        title: 'Product Deleted',
+                        text: 'Product Deleted Successfully.'
+                    });
+                    this.getProducts()
+                })
+            }
+            
+        },
         async exportProducts(){
             await axios.post('/exportProducts', this.queryData, {responseType: 'blob'})
             .then( response =>{
