@@ -9,22 +9,22 @@
             </div>
             <nav v-if="authenticated" id="sidebar" class="border-end" style="height: 100vh; overflow-y: auto">
               <ul class="list-unstyled components">
-                <li :class="$route.path == `/dashboard` ? `active nav-item` : ``">
+                <li v-if="$store.state.auth.permissions.Dashboard" :class="$route.path == `/dashboard` ? `active nav-item` : ``">
                   <router-link class="nav-link a-admin" to="/dashboard"><i data-feather="pie-chart"></i> Dashboard <span class="sr-only"></span></router-link>
                 </li>
-                <li :class="$route.path == `/productList` ? `active nav-item` : ``">
+                <li v-if="$store.state.auth.permissions.Products" :class="$route.path == `/productList` ? `active nav-item` : ``">
                   <router-link class="nav-link a-admin" to="/productList"><i data-feather="box"></i> Products</router-link>
                 </li>
-                <li :class="$route.path == `/ordersList` ? `active nav-item` : ``">
+                <li v-if="$store.state.auth.permissions.Orders" :class="$route.path == `/ordersList` ? `active nav-item` : ``">
                   <router-link class="nav-link a-admin" to="/ordersList"><i data-feather="shopping-cart"></i> Orders</router-link>
                 </li>
-                <li :class="$route.path == `/categoryList` ? `active nav-item` : ``">
+                <li v-if="$store.state.auth.permissions.Categories" :class="$route.path == `/categoryList` ? `active nav-item` : ``">
                   <router-link class="nav-link a-admin" to="/categoryList"><i data-feather="grid"></i> Categories</router-link>
                 </li>
-                <li :class="$route.path == `/warehouse` ? `active nav-item` : ``">
+                <li v-if="$store.state.auth.permissions.Warehouses" :class="$route.path == `/warehouse` ? `active nav-item` : ``">
                   <router-link class="nav-link a-admin" to="/warehouse"><i data-feather="home"></i> Warehouses</router-link>
                 </li>
-                <li>
+                <li v-if="$store.state.auth.permissions.Zones">
                   <a data-bs-toggle="collapse" href="#z_ma" aria-expanded="false" aria-controls="collapseExample"><i data-feather="map"></i> Zones & Locations</a>
                   <div class="collapse" id="z_ma">
                     <ul class="collapse list-unstyled" id="z_ma">
@@ -37,45 +37,45 @@
                     </ul>
                   </div>
                 </li>
-                <li>
+                <li v-if="$store.state.auth.permissions.FleetManagement">
                   <a data-bs-toggle="collapse" href="#us_ma" aria-expanded="false" aria-controls="collapseExample"><i data-feather="truck"></i> Fleet Management</a>
                   <div class="collapse" id="us_ma">
                     <ul class="collapse list-unstyled" id="us_ma">
-                      <li :class="$route.path == `/routeList` ? `active` : ``">
+                      <li v-if="$store.state.auth.permissions.Routes" :class="$route.path == `/routeList` ? `active` : ``">
                           <router-link to="/routeList"><i class="fa fa-route"></i> Routes</router-link>
                       </li>
-                      <li :class="$route.path == `/driversList` ? `active` : ``">
+                      <li v-if="$store.state.auth.permissions.Drivers" :class="$route.path == `/driversList` ? `active` : ``">
                           <router-link to="/driversList"><i class="fa fa-user-alt"></i> Drivers</router-link>
                       </li>                      
                     </ul>
                   </div>
                 </li>
-                <li>
+                <li v-if="$store.state.auth.permissions.UserManagement">
                   <a data-bs-toggle="collapse" href="#u_m" aria-expanded="false" aria-controls="collapseExample"><i data-feather="user"></i> User Management</a>
                   <div class="collapse" id="u_m">
                     <ul class="collapse list-unstyled" id="u_m">
-                      <li  :class="$route.path == `/staffManagement` ? `active` : ``">
+                      <li v-if="$store.state.auth.permissions.StaffManagement"  :class="$route.path == `/staffManagement` ? `active` : ``">
                           <router-link to="/staffManagement"><i class="fa fa-users"></i> Staff Management</router-link>
                       </li>
-                      <li  :class="$route.path == `/rolePermission` ? `active` : ``">
+                      <li v-if="$store.state.auth.permissions.RolePermission" :class="$route.path == `/rolePermission` ? `active` : ``">
                           <router-link to="/rolePermission"><i class="fa fa-key"></i> Role Permission</router-link>
                       </li>
-                      <li  :class="$route.path == `/agents` ? `active` : ``">
+                      <li v-if="$store.state.auth.permissions.CommissionAgents"  :class="$route.path == `/agents` ? `active` : ``">
                           <router-link to="/agents"><i class="fa fa-user-tie"></i> Commission Agents</router-link>
                       </li>
-                      <li  :class="$route.path == `/paymentRequests` ? `active` : ``">
+                      <li v-if="$store.state.auth.permissions.PaymentRequests" :class="$route.path == `/paymentRequests` ? `active` : ``">
                           <router-link to="/paymentRequests"><i class="fa fa-hand-holding-usd"></i> Payment Requests</router-link>
                       </li>
-                      <li  :class="$route.path == `/creditServices` ? `active` : ``">
+                      <li v-if="$store.state.auth.permissions.CreditService" :class="$route.path == `/creditServices` ? `active` : ``">
                           <router-link to="/creditServices"><i class="fa fa-credit-card"></i> Credit Services</router-link>
                       </li>
                     </ul>
                   </div>
                 </li>
-                <li :class="$route.path == `/salesReport` ? `active nav-item` : ``">
+                <li v-if="$store.state.auth.permissions.SalesReport" :class="$route.path == `/salesReport` ? `active nav-item` : ``">
                   <router-link class="nav-link a-admin" to="/salesReport"><i data-feather="trending-up"></i> Sales Report</router-link>
                 </li>
-                <li :class="$route.path == `/customers` ? `active nav-item` : ``">
+                <li v-if="$store.state.auth.permissions.Customers" :class="$route.path == `/customers` ? `active nav-item` : ``">
                   <router-link class="nav-link a-admin" to="/customers"><i data-feather="users"></i> Customers</router-link>
                 </li>
               </ul>
@@ -197,6 +197,10 @@
     mounted(){
       
       this.authenticated = this.$store.state.auth.authenticated
+      this.$store.dispatch('auth/permissions')
+      .then( () =>{
+          this.permissions = this.$store.state.auth.permissions
+      })
       this.getNotifications()
       this.connect();
       feather.replace();
