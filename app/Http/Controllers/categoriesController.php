@@ -140,7 +140,7 @@ class categoriesController extends Controller
     public function getSubCategories(){
         
         $categories = Category::where('cat_type', 'CHILD')->get();
-        dd($categories);
+        
         foreach($categories as $cat){
             $count = Product::where('cat_id', $cat->id)->count();
             $cat->items = $count + $this->categoryItemCount($cat->id);
