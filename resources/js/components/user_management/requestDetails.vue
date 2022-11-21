@@ -84,6 +84,12 @@ export default {
             window.Echo.private('cash_withdrawn.'+this.$route.params.id)
             .listen('CashWithdrawn', (e) => {
                 this.getRequest()
+                this.$notify({
+                    group: 'main',
+                    type: 'success',
+                    title: 'Payment Successful',
+                    text: 'Payment was complted successfully.'
+                });
                 console.log(e)
             });
         },
