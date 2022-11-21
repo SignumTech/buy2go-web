@@ -75,7 +75,7 @@ export default {
                 response.data.data.forEach(route=>{
                     this.routes.push({
                         id:route.id,
-                        label:route.route_name
+                        label:route.route_name+' | '+route.zone_name
                     })
                 })
             })

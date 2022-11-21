@@ -62,7 +62,7 @@ class driversController extends Controller
             $driver->f_name = $request->f_name;
             $driver->l_name = $request->l_name;
             $driver->phone_no = $request->phone_no;
-            $driver->account_type = "Staff";
+            $driver->account_type = "DRIVER";
             $driver->user_role = "DRIVER";
             $driver->save();
             
