@@ -32,7 +32,18 @@
         <input class="form-check-input" @click="changeState('Zones')" v-model="data.permissions.Zones" type="checkbox" value="Sales"> Zones
     </div>
     <div class="col-md-12 pt-2">
-        <input class="form-check-input" @click="changeState('Marketing')" v-model="data.permissions.Marketing" type="checkbox" value="Sales"> Marketing
+        <span class="mr-3" data-bs-toggle="collapse" href="#fleet_m" role="button" aria-expanded="false" aria-controls="collapseExample" style="padding-right: 12px">
+            <span class="fa fa-angle-down"> </span> 
+        </span>
+        <input class="form-check-input" @click="changeState('FleetManagement')" v-model="data.permissions.FleetManagement" type="checkbox" value="Sales"> Fleet Management
+        <div class="collapse mt-2 ms-5" id="fleet_m">
+            <div>
+                <input class="form-check-input" v-model="data.permissions.Routes" type="checkbox" value="Sales"> Routes
+            </div>
+            <div>
+                <input class="form-check-input" v-model="data.permissions.Drivers" type="checkbox" value="Sales"> Drivers
+            </div>
+        </div>
     </div>
     <div class="col-md-12 pt-2">
         <span class="mr-3" data-bs-toggle="collapse" href="#business_m" role="button" aria-expanded="false" aria-controls="collapseExample" style="padding-right: 12px">
@@ -45,6 +56,15 @@
             </div>
             <div>
                 <input class="form-check-input" v-model="data.permissions.StaffManagement" type="checkbox" value="Sales"> Staff Management
+            </div>
+            <div>
+                <input class="form-check-input" v-model="data.permissions.PaymentRequest" type="checkbox" value="Sales"> Payment Request
+            </div>
+            <div>
+                <input class="form-check-input" v-model="data.permissions.CommissionAgents" type="checkbox" value="Sales"> Commission Agents
+            </div>
+            <div>
+                <input class="form-check-input" v-model="data.permissions.CreditService" type="checkbox" value="Sales"> Credit Service
             </div>
         </div>
     </div>
@@ -79,9 +99,15 @@ export default {
                     Categories: false,
                     Marketing: false,
                     FlashSales: false,
+                    FleetManagement: false,
+                    Routes:false,
+                    Drivers:false,
                     UserManagement: false,
                     StaffManagement: false,
                     RolePermission: false,
+                    CreditService: false,
+                    PaymentRequest: false,
+                    CommissionAgents: false,
                     SalesReport: false,
                     Customers: false,
                 }
