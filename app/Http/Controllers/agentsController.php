@@ -176,7 +176,7 @@ class agentsController extends Controller
     }
 
     public function getMyRequests(){
-        return PaymentRequest::where('user_id', auth()->user()->id)->get();
+        return PaymentRequest::where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC')->paginate(12);
     }
 
     public function confirmRequest($id){
