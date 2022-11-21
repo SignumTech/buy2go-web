@@ -138,4 +138,19 @@ class shopsController extends Controller
 
         return $shop;
     }
+
+    public function searchCustomer(Request $request){
+        $this->validate( $request, [
+            "queryItem" => "required"
+        ]);
+        
+        $user = User::where(function ($q) use($request){
+                        return $q->where("phone_no", 'like', '%'.$request->queryItem.'%')
+                                 ->orWhere("f_name", 'like', '%'.$request->queryItem.'%');
+                    })
+                    ->where('user_role', 'USER')
+                    ->paginate(10);
+                     
+        return $user;
+    }
 }

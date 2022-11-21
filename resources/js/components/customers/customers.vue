@@ -4,7 +4,17 @@
         <h5><strong>Customers</strong></h5>
     </div>
     <div class="col-md-12">
-        <div class="bg-white rounded-1 shadow-sm p-3">
+        <div class="bg-white shadow-sm rounded-lg">
+            <div class="row m-0 p-3 border-bottom">
+                <div class="col-md-4">
+                    <input type="text" v-model="queryData.queryItem" class="form-control" placeholder="Phone/Name">
+                </div>
+                <div class="col-md-4">
+                    <button @click="searchUser()" class="btn btn-primary"><span class="fa fa-search"></span> Search</button>
+                </div>
+            </div>
+        </div>
+        <div class="bg-white rounded-1 shadow-sm mt-3 p-3">
             <table class="table table-sm mt-3">
                 <thead>
                     <tr>
@@ -49,13 +59,23 @@ export default {
     data(){
         return{
             shops:{},
-            paginationData:{}
+            paginationData:{},
+            queryData:{
+                queryItem: ""
+            },
         }
     },
     mounted(){
         this.getShops()
     },
     methods:{
+        async searchUser(){
+            await axios.post('/searchCustomer', this.queryData)
+            .then( response =>{
+                this.paginationData = response.data
+                this.shops = response.data.data;
+            })
+        },
         async getPage(pageUrl){
             await axios.get(pageUrl)
             .then( response => {
