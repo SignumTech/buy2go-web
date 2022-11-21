@@ -499,7 +499,7 @@ class productsController extends Controller
     }
 
     public function getFeatured(Request $request){
-        $products = Product::where('featured', 'FEATURED')->get();
+        $products = Product::where('featured', 'FEATURED')->orderBy('created_at', 'DESC')->get();
         return $products;
     }
 
