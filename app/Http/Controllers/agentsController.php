@@ -162,7 +162,7 @@ class agentsController extends Controller
                                 'users.f_name',
                                 'users.l_name',
                                 'payment_requests.request_status')
-                             ->paginate(10);
+                             ->paginate(5);
     }
 
     public function showPaymentRequest($id){
