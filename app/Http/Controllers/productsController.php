@@ -391,7 +391,7 @@ class productsController extends Controller
         else{
             $products = Product::where('cat_id', $id)
                                         ->where('p_status', 'PUBLISHED')
-                                        ->paginate(5);
+                                        ->paginate(12);
             foreach($products as $product){
                 $wish_item = Wishlist::where('p_id', $product->id)
                                      ->where('user_id', auth()->user()->id)
@@ -420,7 +420,7 @@ class productsController extends Controller
         else{
             $products = Product::where('cat_id', $id)
                                         ->where('p_status', 'PUBLISHED')
-                                        ->paginate(5);
+                                        ->paginate(12);
             foreach($products as $product){
                 $wish_item = Wishlist::where('p_id', $product->id)
                                         ->where('user_id', auth()->user()->id)
