@@ -30,7 +30,7 @@
                                 <td class="align-middle">{{mc.cat_name}}</td>
                                 <td class="align-middle">{{mc.items}}</td>
                                 <td class="align-middle text-center">
-                                    <span class="fa fa-trash-alt me-3"></span>
+                                    <span @click="deleteCategory(sc.id)" class="fa fa-trash-alt me-3"></span>
                                     <span @click="editMainModal(mc)" class="fa fa-edit me-3"></span>
                                     <span @click="makeChild(mc)" class="fa fa-child me-3"></span>
                                 </td>
@@ -101,7 +101,7 @@
                                 <td class="align-middle">{{sc.items}}</td>
                                 <td class="align-middle">{{sc.parent_name}}</td>
                                 <td class="align-middle text-center">
-                                    <span class="fa fa-trash-alt me-3"></span>
+                                    <span @click="deleteCategory(sc.id)" class="fa fa-trash-alt me-3"></span>
                                     <span @click="editSubModal(sc)" class="fa fa-edit me-3"></span>
                                 </td>
                             </tr>
@@ -136,6 +136,24 @@ export default {
         this.getNodeCategories()
     },
     methods:{
+        
+        async deleteCategory(id){
+            var check = confirm("Are you sure you want to delete this category?")
+            if(check){
+                await axios.delete('/categories/'+id)
+                .then( response =>{
+                    this.$notify({
+                        group: 'foo',
+                        type: 'success',
+                        title: 'Category Deleted',
+                        text: 'Category Deleted Successfully.'
+                    });
+                    this.getMainCategories()
+                    this.getSubCategories()
+                })
+            }
+            
+        },
         async exportCategories(){
             await axios.post('/exportCategories', this.queryData, {responseType: 'blob'})
             .then( response =>{
