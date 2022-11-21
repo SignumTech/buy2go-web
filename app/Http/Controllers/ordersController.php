@@ -567,20 +567,19 @@ class ordersController extends Controller
     public function getWarehouseOrders(){
         $warehouse = Warehouse::where('user_id', auth()->user()->id)->first();
         if($warehouse){
-            $data = [];
-            $index = 0;
             $orders = Order::where('warehouse_id', $warehouse->id)
                        ->where('order_status', 'PENDING_PICKUP')
                        ->orderBy('created_at', 'DESC')
                        ->paginate(12);
             foreach($orders as $order){
-                $data[$index]['order_hash'] = Hash::make($order->order_no);
-                $data[$index]['order_detail'] = $order;
-                $data[$index]['order_items'] = OrderItem::join('products', 'order_items.p_id', '=', 'products.id')
-                                                        ->where('order_id', $order->id)->get();
-                $index++;
+                $order->order_hash = Hash::make($order->order_no);
+                $order->delivery_detail = AddressBook::where('user_id', $order->user_id)->first();
+                $order->order_items = OrderItem::join('products', 'order_items.p_id', '=', 'products.id')
+                                                        ->where('order_id', $order->id)
+                                                        ->get();
+                $order->warehouse_detail = Warehouse::where('id', $order->warehouse_id)->first();
             }
-            return $data;
+            return $orders;
         }
         else{
             return response("No warehouses available", 401);

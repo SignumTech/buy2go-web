@@ -184,6 +184,18 @@ export default {
                 else{
                     this.data.permissions.StaffManagement = true;
                 }
+                if(this.data.permissions.CommissionAgents === true){
+                    this.data.permissions.CommissionAgents = false;
+                }
+                else{
+                    this.data.permissions.CommissionAgents = true;
+                }
+                if(this.data.permissions.PaymentRequest === true){
+                    this.data.permissions.PaymentRequest = false;
+                }
+                else{
+                    this.data.permissions.PaymentRequest = true;
+                }
             }
             if(page === 'SalesReport'){
                 if(this.data.permissions.SalesReport === true){
