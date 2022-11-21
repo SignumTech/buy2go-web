@@ -22,7 +22,7 @@
                         <td>{{index+1}}</td>
                         <td>{{driver.f_name}} {{driver.l_name}}</td>
                         <td>{{driver.phone_no}}</td>
-                        <td>{{driver.routes[0].l_plate}}</td>
+                        <td>{{driver.l_plate}}</td>
                         <td><p v-for="route,index in driver.routes" :key="index">{{route.route_name}}</p></td>
                         <td class="text-center">
                             <span @click="editModal(driver)" class="fa fa-edit "></span>

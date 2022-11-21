@@ -88,8 +88,8 @@ class staffController extends Controller
             "queryItem" => "required"
         ]);
 
-        $staff = User::where("phone_no", $request->queryItem)
-                     ->orWhere("f_name", $request->queryItem)
+        $staff = User::where("phone_no", 'like', '%'.$request->queryItem.'%')
+                     ->orWhere("f_name", 'like', '%'.$request->queryItem.'%')
                      ->orderBy('users.f_name', 'ASC')
                      ->paginate(10);
             

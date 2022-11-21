@@ -21,6 +21,7 @@ class driversController extends Controller
             $driver->routes = DriverDetail::join('zone_routes', 'driver_details.route_id', '=', 'zone_routes.id')
                                             ->where('driver_details.driver_id', $driver->id)
                                             ->get();
+            $driver->l_plate = DriverDetail::where('driver_id', $driver->id)->first()->l_plate;
         }
         
         

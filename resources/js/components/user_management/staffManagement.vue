@@ -102,7 +102,8 @@ export default {
         async searchUser(){
             await axios.post('/searchStaff', this.queryData)
             .then( response =>{
-                this.tableData = response.data;
+                this.paginationData = response.data
+                this.tableData = response.data.data;
             })
         },
         async deleteUser(id){

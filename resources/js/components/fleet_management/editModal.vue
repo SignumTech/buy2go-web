@@ -80,7 +80,7 @@ export default {
         async getRoutes(){
             await axios.get('/routes')
             .then( response => {
-                response.data.forEach(route=>{
+                response.data.data.forEach(route=>{
                     this.routes.push({
                         id:route.id,
                         label:route.route_name
