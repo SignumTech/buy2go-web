@@ -64,6 +64,12 @@ export default {
         async verifyShop(){
             await axios.put('/verfiyShop/'+this.$route.params.id, this.formData)
             .then( response =>{
+                this.$notify({
+                    group: 'foo',
+                    type: 'success',
+                    title: 'Shop Verification',
+                    text: 'Shop Verified Successfully'
+                });
                 this.$emit('close')
             })
         }

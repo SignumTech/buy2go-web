@@ -60,6 +60,12 @@ export default {
         async addDriver(){
             await axios.post('/drivers', this.formData)
             .then( response =>{
+                this.$notify({
+                    group: 'foo',
+                    type: 'success',
+                    title: 'Driver added',
+                    text: 'The main category was updated successfully'
+                });
                 this.$emit('close')
             })
         },

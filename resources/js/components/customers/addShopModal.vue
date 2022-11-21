@@ -64,6 +64,12 @@ export default {
         async addShop(){
             await axios.put('/addShop/'+this.$route.params.id, this.formData)
             .then( response =>{
+                this.$notify({
+                    group: 'foo',
+                    type: 'success',
+                    title: 'Shop Added',
+                    text: 'Shop added successfully'
+                });
                 this.$emit('close')
             })
         }

@@ -73,7 +73,7 @@
                     this.$notify({
                         group: 'foo',
                         type: 'success',
-                        title: 'Main Category',
+                        title: 'Sub Category',
                         text: 'The main category was added successfully'
                     });
                     this.$emit('close')
