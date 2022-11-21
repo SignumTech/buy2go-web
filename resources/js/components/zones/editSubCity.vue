@@ -48,6 +48,11 @@ export default {
         async updateSubCity(){
             await axios.put('/updateSubCity/'+this.formData.id, this.formData)
             .then( response => {
+                this.$notify({
+                    group: 'foo',
+                    title: 'Sub City updated',
+                    text: 'Sub City updated successfully'
+                });
                 this.$emit('close')
             })
         }

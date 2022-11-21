@@ -64,7 +64,7 @@ export default {
                     group: 'foo',
                     type: 'success',
                     title: 'Driver added',
-                    text: 'The main category was updated successfully'
+                    text: 'Driver was added successfully'
                 });
                 this.$emit('close')
             })

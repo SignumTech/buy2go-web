@@ -68,6 +68,12 @@ export default {
         async addDriver(){
             await axios.put('/drivers/'+this.formData.id, this.formData)
             .then( response =>{
+                this.$notify({
+                    group: 'foo',
+                    type: 'success',
+                    title: 'Driver Updated',
+                    text: 'Driver updated successfully'
+                });
                 this.$emit('close')
             })
         },

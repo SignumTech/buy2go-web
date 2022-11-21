@@ -135,9 +135,10 @@ export default {
             .then( response =>{
                 this.$notify({
                     group: 'foo',
-                    title: 'Successfully Added a User!',
-                    text: ''
+                    title: 'User added',
+                    text: 'Successfully Added a User!'
                 });
+                
                 this.$emit('close')
             })
             .catch( error =>{

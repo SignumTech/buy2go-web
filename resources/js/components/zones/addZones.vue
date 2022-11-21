@@ -56,6 +56,11 @@ export default {
         async addZone(){
             await axios.post('/addZones', this.formData)
             .then( response =>{
+                this.$notify({
+                    group: 'foo',
+                    title: 'Zone Added',
+                    text: 'Zone added successfully'
+                });
                 this.$emit('close')
             })
         },

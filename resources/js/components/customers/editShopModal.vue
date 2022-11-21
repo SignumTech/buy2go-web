@@ -71,6 +71,12 @@ export default {
         async updateShop(){
             await axios.put('/updateShop/'+this.address.id, this.formData)
             .then( response =>{
+                this.$notify({
+                    group: 'foo',
+                    type: 'success',
+                    title: 'Shop Updated',
+                    text: 'Shop updated successfully'
+                });
                 this.$emit('close')
             })
         }

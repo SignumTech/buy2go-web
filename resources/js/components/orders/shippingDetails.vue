@@ -125,6 +125,12 @@ export default {
         async shipOrder(){
             await axios.put('/assignDetails/'+this.id, this.formData)
             .then( response =>{
+                this.$notify({
+                    group: 'foo',
+                    type: 'success',
+                    title: 'Details Assigned',
+                    text: 'Details assigned successfully'
+                });
                 window.location.replace('/ordersList')
             })
         },

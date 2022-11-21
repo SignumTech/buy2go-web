@@ -180,6 +180,12 @@ export default {
             this.isClicked = true
             await axios.post('/createRolePermission', this.data)
             .then( response => {
+                this.$notify({
+                        group: 'foo',
+                        type: 'success',
+                        title: 'Role Permission Added',
+                        text: 'role permission added successfully!'
+                    });
                 this.$emit('close');
             })
             .catch( error =>{
@@ -192,6 +198,12 @@ export default {
         async updatePermission(){
             await axios.post('/updateRolePermission', this.data)
             .then( response => {
+                this.$notify({
+                        group: 'foo',
+                        type: 'success',
+                        title: 'Role Permission Updated',
+                        text: 'Role permission updatedsuccessfully!'
+                    });
                 this.$emit('close');
             })
             .catch( error =>{

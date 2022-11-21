@@ -59,6 +59,11 @@ export default {
         async updateZone(){
             await axios.put('/updateZones/'+this.zone.id, this.formData)
             .then( response =>{
+                this.$notify({
+                    group: 'foo',
+                    title: 'Zone Updated',
+                    text: 'Zone updated successfully'
+                });
                 this.$emit('close')
             })
         },

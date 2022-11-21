@@ -47,6 +47,11 @@ export default {
         async updateCity(){
             await axios.put('/updateCity/'+this.formData.id, this.formData)
             .then( response => {
+                this.$notify({
+                    group: 'foo',
+                    title: 'City updated',
+                    text: 'City updated successfully'
+                });
                 this.$emit('close')
             })
         }

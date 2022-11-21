@@ -46,6 +46,11 @@ export default {
         async addSubCity(){
             await axios.post('/addSubCity', this.formData)
             .then( response => {
+                this.$notify({
+                    group: 'foo',
+                    title: 'Sub City Added',
+                    text: 'Sub City added successfully'
+                });
                 this.$emit('close')
             })
         }

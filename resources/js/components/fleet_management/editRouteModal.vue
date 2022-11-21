@@ -249,8 +249,8 @@ export default {
                 this.$notify({
                         group: 'foo',
                         type: 'success',
-                        title: 'Route added!',
-                        text: 'You have successfuly added a route'
+                        title: 'Route updated!',
+                        text: 'Route updated successfully'
                     });
                 this.$emit('close')
             })

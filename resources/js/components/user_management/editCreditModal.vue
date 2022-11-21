@@ -31,6 +31,11 @@ export default {
         async updateCredit(){
             await axios.put('/credits/'+this.formData.id, this.formData)
             .then( response =>{
+                this.$notify({
+                    group: 'foo',
+                    title: 'Credit updated',
+                    text: 'Credit updated successfully.'
+                });
                 this.$emit('close')
             })
         },        

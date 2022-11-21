@@ -31,6 +31,11 @@ export default {
         async updateCountry(){
             await axios.put('/updateCountry/'+this.formData.id, this.formData)
             .then( response => {
+                this.$notify({
+                    group: 'foo',
+                    title: 'Country updated',
+                    text: 'Country updated successfully'
+                });
                 this.$emit('close')
             })
         }

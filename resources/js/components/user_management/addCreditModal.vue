@@ -30,11 +30,16 @@ export default {
         async addCredit(){
             await axios.post('/credits', this.formData)
             .then( response =>{
+                this.$notify({
+                        group: 'foo',
+                        type: 'success',
+                        title: 'Credit Added',
+                        text: 'Credit added successfully.'
+                    });
                 this.$emit('close')
             })
         },        
     }
 }
 </script>
-    
     
