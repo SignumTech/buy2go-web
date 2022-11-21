@@ -54,7 +54,10 @@ class getTokenController extends Controller
             }
             $user_token = $user->createToken($user->f_name);
 
-            return ['token' => $user_token->plainTextToken]; 
+            return [
+                'token' => $user_token->plainTextToken,
+                'user' => $user
+            ];
         }
         else{
             return response("Wrong credentials", 401);
