@@ -630,7 +630,7 @@ class ordersController extends Controller
             $item->save();
             $admin = User::where('user_role', 'ADMIN')->get();
             $user = User::find($order->user_id);
-            $admin_message = 'Warehouse manager made changes to order '+$order->order_no;
+            $admin_message = 'Warehouse manager made changes to order '.$order->order_no;
             Notification::send($admin, new OrderStatusUpdated($admin_message,$order));
             return $item;
         }
@@ -646,7 +646,7 @@ class ordersController extends Controller
             $item->save();
 
             $admin = User::where('user_role', 'ADMIN')->get();
-            $admin_message = 'Warehouse manager made changes to order '+$order->order_no;
+            $admin_message = 'Warehouse manager made changes to order '.$order->order_no;
             Notification::send($admin, new OrderStatusUpdated($admin_message,$order));
             return $item;
         }
@@ -671,8 +671,8 @@ class ordersController extends Controller
 
             $admin = User::where('user_role', 'ADMIN')->get();
             $user = User::find($order->user_id);
-            $admin_message = 'Warehouse manager made changes to order '+$order->order_no;
-            $user_message = "There are some changes on order "+$order->order_no;
+            $admin_message = 'Warehouse manager made changes to order '.$order->order_no;
+            $user_message = "There are some changes on order ".$order->order_no;
             Notification::send($user, new OrderStatusUpdated($user_message,$order));
             Notification::send($admin, new OrderStatusUpdated($admin_message,$order));
             return $item;
