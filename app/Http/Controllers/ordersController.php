@@ -628,6 +628,10 @@ class ordersController extends Controller
             $item->item_status = 'UPDATED';
             $item->updated_quantity = $request->quantity;
             $item->save();
+            $admin = User::where('user_role', 'ADMIN')->get();
+            $user = User::find($order->user_id);
+            $admin_message = 'Warehouse manager made changes to order '+$order->order_no;
+            Notification::send($admin, new OrderStatusUpdated($admin_message,$order));
             return $item;
         }
         else{
@@ -640,6 +644,10 @@ class ordersController extends Controller
             $item->item_status = 'UPDATED';
             $item->updated_quantity = $request->quantity;
             $item->save();
+
+            $admin = User::where('user_role', 'ADMIN')->get();
+            $admin_message = 'Warehouse manager made changes to order '+$order->order_no;
+            Notification::send($admin, new OrderStatusUpdated($admin_message,$order));
             return $item;
         }
     }
@@ -660,6 +668,13 @@ class ordersController extends Controller
             $item->item_status = 'UPDATED';
             $item->updated_quantity = $request->quantity;
             $item->save();
+
+            $admin = User::where('user_role', 'ADMIN')->get();
+            $user = User::find($order->user_id);
+            $admin_message = 'Warehouse manager made changes to order '+$order->order_no;
+            $user_message = "There are some changes on order "+$order->order_no;
+            Notification::send($user, new OrderStatusUpdated($user_message,$order));
+            Notification::send($admin, new OrderStatusUpdated($admin_message,$order));
             return $item;
         }
     }
@@ -673,7 +688,7 @@ class ordersController extends Controller
         }
         $item->item_status = 'REMOVED';
         $item->save();
-        //Notification::send($admin, new OrderStatusUpdated($message,$order));
+        Notification::send($admin, new OrderStatusUpdated($message,$order));
         return $item;
     }
 }
