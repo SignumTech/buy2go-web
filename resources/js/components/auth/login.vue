@@ -22,6 +22,9 @@
                 <div v-if="loading" class="d-flex justify-content-center mt-5">
                     <bounce-loader  :color="`#011b48`" :size="size"></bounce-loader> 
                 </div>
+                <div class="mt-3" v-if="valErrors">
+                    <h6 class="text-center text-danger"><strong>The credentials do not match our records!</strong></h6>
+                  </div>
                 <div class="mt-5">
                     <button v-if="!loading" type="submit" class="form-control form-control-auth-btn btn btn-primary">
                         <h5 class="m-0"><strong>LOG IN</strong></h5>
@@ -51,9 +54,10 @@ export default {
         size: '40px',
         margin: 'auto',
         loading: false,
+        valErrors:false,
         form: {
-        phone_no: '',
-        password: '',
+            phone_no: '',
+            password: '',
         }
     }
     },
@@ -66,8 +70,15 @@ export default {
     async submit () {
         this.loading = true
         await this.signIn(this.form)
-        window.location.replace('/dashboard')
+        .then( response =>{
+            window.location.replace('/dashboard')
+            this.loading = false
+        })
+        .catch( error =>{
+            this.valErrors = true
+        })
         this.loading = false
+        
     }
     }
 }
