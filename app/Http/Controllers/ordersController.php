@@ -388,6 +388,7 @@ class ordersController extends Controller
             $order->delivery_detail = AddressBook::where('user_id', $order->user_id)->first();
             $order->order_items = OrderItem::join('products', 'order_items.p_id', '=', 'products.id')
                                                     ->where('order_id', $order->id)
+                                                    ->select('order_items.*', 'products.p_name', 'products.price', 'products.description', 'products.p_image', 'products.cat_id', 'products.commission', 'products.p_status', 'products.sku', 'products.taxable', 'products.deleted_at')
                                                     ->get();
             $order->warehouse_detail = Warehouse::where('id', $order->warehouse_id)->first();
         }
@@ -488,6 +489,7 @@ class ordersController extends Controller
         foreach($orders as $order){
             $order->items = OrderItem::join('products', 'order_items.p_id', '=', 'products.id')
                                      ->where('order_items.order_id', $order->id)
+                                     ->select('order_items.*', 'products.p_name', 'products.price', 'products.description', 'products.p_image', 'products.cat_id', 'products.commission', 'products.p_status', 'products.sku', 'products.taxable', 'products.deleted_at')
                                      ->get();
         }
         return $orders;
@@ -576,6 +578,7 @@ class ordersController extends Controller
                 $order->delivery_detail = AddressBook::where('user_id', $order->user_id)->first();
                 $order->order_items = OrderItem::join('products', 'order_items.p_id', '=', 'products.id')
                                                         ->where('order_id', $order->id)
+                                                        ->select('order_items.*', 'products.p_name', 'products.price', 'products.description', 'products.p_image', 'products.cat_id', 'products.commission', 'products.p_status', 'products.sku', 'products.taxable', 'products.deleted_at')
                                                         ->get();
                 $order->warehouse_detail = Warehouse::where('id', $order->warehouse_id)->first();
             }
