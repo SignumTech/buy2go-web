@@ -160,7 +160,7 @@ class ordersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
     }
 
     /**
@@ -612,5 +612,65 @@ class ordersController extends Controller
         });
 
         return $orders;
+    }
+
+    public function updateItemQuantity(Request $request, $id){
+        $this->validate($request, [
+            "quantity" => "required"
+        ]);
+        $item = OrderItem::find($id);
+        $order = Order::find($item->order_id);
+        
+        if($order->order_status != "SHIPPED" || $order->order_status != "DELIVERED"){
+            $item->item_status = 'UPDATED';
+            $item->updated_quantity = $request->quantity;
+            $item->save();
+            return $item;
+        }
+        else{
+            if($request->quantity > $item->quantity){
+                return response("Item already shipped", 422);
+            }
+            elseif($request->quantity == $item->quantity){
+                return $item;
+            }
+            $item->item_status = 'UPDATED';
+            $item->updated_quantity = $request->quantity;
+            $item->save();
+            return $item;
+        }
+    }
+    public function updateWarehouseItemQuantity(Request $request, $id){
+        $this->validate($request, [
+            "quantity" => "required"
+        ]);
+        $item = OrderItem::find($id);
+        $order = Order::find($item->order_id);
+        
+        if($order->order_status != "SHIPPED" || $order->order_status != "DELIVERED"){
+            if($request->quantity > $item->quantity){
+                return response("Item already shipped", 422);
+            }
+            elseif($request->quantity == $item->quantity){
+                return $item;
+            }
+            $item->item_status = 'UPDATED';
+            $item->updated_quantity = $request->quantity;
+            $item->save();
+            return $item;
+        }
+    }
+
+    public function removeItem($id){
+        $item = OrderItem::find($id);
+        $order = Order::find($item->order_id);
+        $warehouse = Warehouse::find($order->warehouse_id);
+        if(auth()->user()->id != $order->user || auth()->user()->id != $warehouse->user_id){
+            return response('Unauthorized', 401);
+        }
+        $item->item_status = 'REMOVED';
+        $item->save();
+        //Notification::send($admin, new OrderStatusUpdated($message,$order));
+        return $item;
     }
 }
