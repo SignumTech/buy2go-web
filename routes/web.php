@@ -165,7 +165,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 Auth::routes();
-Route::any('{slug}', function () {
+Route::middleware(['check-permission'])->any('{slug}', function () {
     return view('home');
 });
 Route::any('/orderDetails/{slug}', function () {
