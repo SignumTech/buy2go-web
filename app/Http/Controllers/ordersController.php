@@ -632,16 +632,16 @@ class ordersController extends Controller
                 $item->save();
             }
             else{
-                if($j_item->quantity > $item->quantity){
-                    return response("Item already shipped", 422);
+                if($j_item->quantity < $item->quantity){
+                    $item->item_status = 'UPDATED';
+                    $item->updated_quantity = $j_item->quantity;
+                    $item->save();
+                    //return response("Item already shipped", 422);
                 }
-                elseif($j_item->quantity == $item->quantity){
-                    return $item;
+                else{
+                    continue;
                 }
-                $item->item_status = 'UPDATED';
-                $item->updated_quantity = $j_item->quantity;
-                $item->save();
-
+                
             }
         }
 
@@ -661,16 +661,17 @@ class ordersController extends Controller
             $item = OrderItem::find($j_item->id);
             
             if($order->order_status != "SHIPPED" || $order->order_status != "DELIVERED"){
-                if($j_item->quantity > $item->quantity){
-                    return response("Item already shipped", 422);
+                
+                if($j_item->quantity < $item->quantity){
+                    $item->item_status = 'UPDATED';
+                    $item->updated_quantity = $j_item->quantity;
+                    $item->save();
+                    //return response("Item already shipped", 422);
                 }
-                elseif($j_item->quantity == $item->quantity){
-                    return $item;
+                else{
+                    continue;
                 }
-                $item->item_status = 'UPDATED';
-                $item->updated_quantity = $j_item->quantity;
-                $item->save();
-
+    
             }
         }
         $admin = User::where('user_role', 'ADMIN')->get();
