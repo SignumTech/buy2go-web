@@ -39,6 +39,7 @@
                 </div>
                 <div class="col-md-6">
                     <button @click="verifyModal()" class="btn btn-success btn-sm float-end shadow-sm text-white"><span class="fa fa-check-circle"></span> Verify Shop</button>
+                    <button @click="addSalesManager()" class="btn btn-primary btn-sm float-end shadow-sm text-white me-3"><span class="fa fa-user-plus"></span> Assign Sales</button>
                 </div>
             </div>
         </div>
@@ -69,7 +70,7 @@
 </div>
 </template>
 <script>
-import addShopModalVue from './addShopModal.vue'
+import addSalesModalVue from './addSalesModal.vue'
 import editShopModalVue from './editShopModal.vue'
 import verifyShopModalVue from './verifyShopModal.vue'
 export default {
@@ -98,6 +99,14 @@ export default {
             this.getShopDetails()
             this.getShopOrders()
             this.getShopLocations()
+        },
+        addSalesManager(){
+            this.$modal.show(
+                addSalesModalVue,
+                {shop_id:this.$route.params.id},
+                {height:"auto", width:'500px'},
+                {"closed":this.updateData}
+            )
         },
         addShop(){
             this.$modal.show(

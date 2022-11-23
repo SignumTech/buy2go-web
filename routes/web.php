@@ -151,6 +151,7 @@ Route::middleware('auth:sanctum')->get('/getStaffPermissions', [staffController:
 Route::middleware('auth:sanctum')->get('/getWarehouseManagers', [staffController::class, 'getWarehouseManagers']);
 Route::middleware('auth:sanctum')->post('/filterWarehouses', [warehousesController::class, 'filterWarehouses']);
 Route::middleware('auth:sanctum')->post('/exportWarehouses', [warehousesController::class, 'exportWarehouses']);
+Route::middleware('auth:sanctum')->get('/getSalesManagers', [staffController::class, 'getSalesManagers']);
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->post('/createRolePermission', [rolePermissionController::class, 'createRolePermission']);
 Route::middleware('auth:sanctum')->post('/updateRolePermission', [rolePermissionController::class, 'updateRolePermission']);
