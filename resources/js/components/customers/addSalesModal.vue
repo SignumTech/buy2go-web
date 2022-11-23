@@ -3,11 +3,14 @@
     <div class="col-md-12">
         <h5>Add Sales Manager</h5>
     </div>
-    <div class="col-md-12">
+    <div class="col-md-12 mt-2">
         <select class="form-select">
             <option value=""></option>
             <option v-for="sm,index in salesManagers" :key="index" :value="sm.id">{{sm.f_name}} {{sm.l_name}}</option>
         </select>
+    </div>
+    <div class="col-md-12 mt-3">
+        <button class="btn btn-primary form-control"><span class="fa fa-user-plus"></span> Assign</button>
     </div>
 </div>    
 </template>

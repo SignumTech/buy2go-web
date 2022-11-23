@@ -619,64 +619,67 @@ class ordersController extends Controller
 
     public function updateItemQuantity(Request $request, $id){
         $this->validate($request, [
-            "quantity" => "required"
+            "items" => "required"
         ]);
-        $item = OrderItem::find($id);
-        $order = Order::find($item->order_id);
-        
-        if($order->order_status != "SHIPPED" || $order->order_status != "DELIVERED"){
-            $item->item_status = 'UPDATED';
-            $item->updated_quantity = $request->quantity;
-            $item->save();
-            $admin = User::where('user_role', 'ADMIN')->get();
-            $user = User::find($order->user_id);
-            $admin_message = 'Warehouse manager made changes to order '.$order->order_no;
-            Notification::send($admin, new OrderStatusUpdated($admin_message,$order));
-            return $item;
-        }
-        else{
-            if($request->quantity > $item->quantity){
-                return response("Item already shipped", 422);
-            }
-            elseif($request->quantity == $item->quantity){
-                return $item;
-            }
-            $item->item_status = 'UPDATED';
-            $item->updated_quantity = $request->quantity;
-            $item->save();
+        $items = $request->items;
+        $order = Order::find($id);
 
-            $admin = User::where('user_role', 'ADMIN')->get();
-            $admin_message = 'Warehouse manager made changes to order '.$order->order_no;
-            Notification::send($admin, new OrderStatusUpdated($admin_message,$order));
-            return $item;
+        foreach($items as $j_item){
+            $item = OrderItem::find($j_item->id);           
+            if($order->order_status != "SHIPPED" || $order->order_status != "DELIVERED"){
+                $item->item_status = 'UPDATED';
+                $item->updated_quantity = $j_item->quantity;
+                $item->save();
+            }
+            else{
+                if($j_item->quantity > $item->quantity){
+                    return response("Item already shipped", 422);
+                }
+                elseif($j_item->quantity == $item->quantity){
+                    return $item;
+                }
+                $item->item_status = 'UPDATED';
+                $item->updated_quantity = $j_item->quantity;
+                $item->save();
+
+            }
         }
+
+        $admin = User::where('user_role', 'ADMIN')->get();
+        $admin_message = 'User made changes to order '.$order->order_no;
+        Notification::send($admin, new OrderStatusUpdated($admin_message,$order));
+        return $order;
     }
     public function updateWarehouseItemQuantity(Request $request, $id){
         $this->validate($request, [
-            "quantity" => "required"
+            "items" => "required"
         ]);
-        $item = OrderItem::find($id);
-        $order = Order::find($item->order_id);
-        
-        if($order->order_status != "SHIPPED" || $order->order_status != "DELIVERED"){
-            if($request->quantity > $item->quantity){
-                return response("Item already shipped", 422);
-            }
-            elseif($request->quantity == $item->quantity){
-                return $item;
-            }
-            $item->item_status = 'UPDATED';
-            $item->updated_quantity = $request->quantity;
-            $item->save();
+        $items = $request->items;
+        $order = Order::find($id);
 
-            $admin = User::where('user_role', 'ADMIN')->get();
-            $user = User::find($order->user_id);
-            $admin_message = 'Warehouse manager made changes to order '.$order->order_no;
-            $user_message = "There are some changes on order ".$order->order_no;
-            Notification::send($user, new OrderStatusUpdated($user_message,$order));
-            Notification::send($admin, new OrderStatusUpdated($admin_message,$order));
-            return $item;
+        foreach($items as $j_item){
+            $item = OrderItem::find($j_item->id);
+            
+            if($order->order_status != "SHIPPED" || $order->order_status != "DELIVERED"){
+                if($j_item->quantity > $item->quantity){
+                    return response("Item already shipped", 422);
+                }
+                elseif($j_item->quantity == $item->quantity){
+                    return $item;
+                }
+                $item->item_status = 'UPDATED';
+                $item->updated_quantity = $j_item->quantity;
+                $item->save();
+
+            }
         }
+        $admin = User::where('user_role', 'ADMIN')->get();
+        $user = User::find($order->user_id);
+        $admin_message = 'Warehouse manager made changes to order '.$order->order_no;
+        $user_message = "There are some changes on order ".$order->order_no;
+        Notification::send($user, new OrderStatusUpdated($user_message,$order));
+        Notification::send($admin, new OrderStatusUpdated($admin_message,$order));
+        return $order;
     }
 
     public function removeItem($id){
@@ -688,6 +691,7 @@ class ordersController extends Controller
         }
         $item->item_status = 'REMOVED';
         $item->save();
+        $admin_message = 'An item was removed from order '.$order->order_no;
         Notification::send($admin, new OrderStatusUpdated($message,$order));
         return $item;
     }
