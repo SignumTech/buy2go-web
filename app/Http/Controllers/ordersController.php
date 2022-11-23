@@ -621,7 +621,7 @@ class ordersController extends Controller
         $this->validate($request, [
             "items" => "required"
         ]);
-        $items = $request->items;
+        $items = json_decode($request->items);
         $order = Order::find($id);
 
         foreach($items as $j_item){
@@ -654,7 +654,7 @@ class ordersController extends Controller
         $this->validate($request, [
             "items" => "required"
         ]);
-        $items = $request->items;
+        $items = json_decode($request->items);
         $order = Order::find($id);
 
         foreach($items as $j_item){
