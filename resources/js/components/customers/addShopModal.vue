@@ -25,7 +25,7 @@
             <input required v-model="formData.lat" type="number" step="any" class="form-control" placeholder="Latitude">
         </div>
         <div class="col-md-12 mt-3">
-            <button type="submit" class="btn btn-primary form-control"><span class="fa fa-check-circle"></span> Verify</button>
+            <button type="submit" class="btn btn-primary form-control"><span class="fa fa-check-circle"></span> Add Location</button>
         </div>
     </div>    
 </form>
