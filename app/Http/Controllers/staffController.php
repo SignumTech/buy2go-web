@@ -147,4 +147,16 @@ class staffController extends Controller
         $sales = User::where('user_role', 'SALES')->get();
         return $sales;
     }
+
+    public function goOnline(){
+        $user = User::find(auth()->user()->id);
+        $user->online_status = 'ONLINE';
+        $user->save();
+    }
+
+    public function goOffline(){
+        $user = User::find(auth()->user()->id);
+        $user->online_status = 'OFFLINE';
+        $user->save();
+    }
 }

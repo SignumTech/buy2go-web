@@ -203,6 +203,7 @@
       })
       this.getNotifications()
       this.connect();
+      this.connectOnline();
       feather.replace();
     },
     updated(){
@@ -215,6 +216,33 @@
       
     },
     methods:{
+      connectOnline(){
+        window.Echo.join(`online.0`)
+        .here(()=>{
+          this.goOnline();
+        } )
+        .joining((me)=>{
+          this.goOnline();
+        })
+        .leaving((me)=>{
+          this.goOffline();
+        })
+        .listen('NewMessage', (e) => {
+            //
+        });
+      },
+      async goOnline(){
+        await axios.post('/goOnline')
+        .then( response =>{
+
+        })
+      },
+      async goOffline(){
+        await axios.post('/goOffline')
+        .then( response =>{
+
+        })
+      },
       async markAllAsRead(){
         await axios.get('/markAllAsRead')
         .then( response =>{

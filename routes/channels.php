@@ -36,3 +36,9 @@ Broadcast::channel('confirm_delivery.{orderId}', function ($user, $id) {
     return Auth::check();
     //return (int) $user->id === (int) $id;
 });
+Broadcast::channel('online.{id}', function ($user, $id=0) {
+    if (Auth::check()) {
+        return ['id' => $user->id, 'name' => $user->f_name];
+    }
+    //return (int) $user->id === (int) $id;
+});
