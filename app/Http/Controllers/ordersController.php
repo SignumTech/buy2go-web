@@ -480,6 +480,7 @@ class ordersController extends Controller
         if(!Hash::check($order->order_no, $request->order_hash)){
             return response("Unauthorized",401);
         }
+        $this->updateInventory($id);
         $order->order_status = "SHIPPED";
         $order->save();
 
@@ -492,6 +493,25 @@ class ordersController extends Controller
         return $order;
     }
     
+    public function updateInventory($id){
+        $order = Order::find($id);
+        $items = OrderItem::where('order_id', $id)->get();
+        foreach($items as $item){
+            $warehouse_item = WarehouseDetail::where('p_id', $item->p_id)
+                                             ->where('warehouse_id', $order->warehouse_id)
+                                             ->first();
+            if($item->item_status == 'UPDATED'){
+                $warehouse_item->quantity = $warehouse_item->quantity - $item->updated_quantity;
+                $warehouse_item->save();
+            }
+            else{
+                $warehouse_item->quantity = $warehouse_item->quantity - $item->quantity;
+                $warehouse_item->save();
+            }
+        }
+        return $order;
+
+    }
 
     public function confirmDelivery(Request $request, $id){
         $this->validate($request,[
@@ -730,11 +750,29 @@ class ordersController extends Controller
         $order = Order::find($item->order_id);
         $warehouse = Warehouse::find($order->warehouse_id);
         if(auth()->user()->id == $order->user_id || auth()->user()->id == $warehouse->user_id){
-            $item->item_status = 'REMOVED';
-            $item->save();
-            $admin = User::where('user_role', 'ADMIN')->get();
-            $message = 'An item was removed from order '.$order->order_no;
-            Notification::send($admin, new OrderStatusUpdated($message,$order));
+            if(auth()->user()->user_role == 'USER' && ($order->order_status == 'PROCESSING' || $order->order_status == 'PENDING_CONFIRMATION' || $order->order_status == 'PENDING_PICKUP')){
+                $item->delete();
+                return $item;
+            }
+            if(auth()->user()->user_role == 'USER' && $order->order_status == 'SHIPPED'){
+                $item->item_status = 'REMOVED';
+                $item->save();
+                $admin = User::where('user_role', 'ADMIN')->get();
+                $message = 'An item was removed from order '.$order->order_no;
+                Notification::send($admin, new OrderStatusUpdated($message,$order));
+                return $item;
+            }
+            if(auth()->user()->user_role == 'WAREHOUSE MANAGER' && ($order->order_status == 'PROCESSING' || $order->order_status == 'PENDING_CONFIRMATION' || $order->order_status == 'PENDING_PICKUP')){
+                $item->item_status = 'REMOVED';
+                $item->save();
+                $admin = User::where('user_role', 'ADMIN')->get();
+                $user = User::find($order->user_id);
+                $message = 'An item was removed from order '.$order->order_no;
+                $user_message = "An item was removed from order ".$order->order_no;
+                Notification::send($user, new OrderStatusUpdated($user_message,$order));
+                Notification::send($admin, new OrderStatusUpdated($message,$order));
+                return $item;
+            }
             return $item;
         }
         else{

@@ -31,6 +31,6 @@ class OnlineStatus
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('channel-name');
+        return new PresenceChannel('online');
     }
 }
