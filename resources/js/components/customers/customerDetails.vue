@@ -18,14 +18,17 @@
                     <h6>{{shopDetails.average_order | numFormat}} ETB</h6>
                     <h6 class="mt-3"><strong>Shop Registered</strong></h6>
                     <h6>{{shopDetails.shop_details.created_at | moment("MMM Do YYYY")}}</h6>
-                    <h6 class="mt-3"><strong>Sales Manager <span v-if="!shopDetails.sales_manager && shopDetails.shop_details.shop_status === `VERIFIED`" @click="addSalesManager()" class="fa fa-plus"></span></strong></h6>
-                    <h6 v-if="shopDetails.sales_manager">{{shopDetails.sales_manager.f_name}} {{shopDetails.sales_manager.l_name}} <span @click="editSalesManager(shopDetails.sales_manager)" class="fa fa-edit"></span></h6>
+                    <div v-if="$store.state.auth.user.user_role == `ADMIN`">
+                        <h6 class="mt-3"><strong>Sales Manager <span v-if="!shopDetails.sales_manager && shopDetails.shop_details.shop_status === `VERIFIED`" @click="addSalesManager()" class="fa fa-plus"></span></strong></h6>
+                        <h6 v-if="shopDetails.sales_manager">{{shopDetails.sales_manager.f_name}} {{shopDetails.sales_manager.l_name}} <span @click="editSalesManager(shopDetails.sales_manager)" class="fa fa-edit"></span></h6>                        
+                    </div>
+
                 </div>
             </div>
         </div>
         <div class="bg-white rounded-1 shadow-sm p-4 mt-3">
             <div class="row">
-                <h6><strong>Shop Locations <span v-if="shopDetails.sales_manager" @click="addShop()" class="fa fa-plus float-end"></span></strong></h6>
+                <h6><strong>Shop Locations <span v-if="shopDetails.sales_manager && shopDetails.shop_details.shop_status == `VERIFIED`" @click="addShop()" class="fa fa-plus float-end"></span></strong></h6>
                 <div v-for="address,index in locations" :key="index" class="col-md-12 mt-2">
                     <h6 class="mb-2"><span class="fa fa-map-marker-alt"></span> {{address.regular_address}} <span class="fa fa-trash-alt float-end"></span> <span @click="editShop(address)" class="fa fa-edit me-3 float-end"></span> </h6>
                 </div>

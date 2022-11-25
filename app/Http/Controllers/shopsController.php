@@ -15,7 +15,23 @@ use App\Notifications\ShopAssigned;
 class shopsController extends Controller
 {
     public function getShops(){
+        if(auth()->user()->user_role == 'SALES'){
+            return $this->getSalesShops();
+        }
         $shops = User::where('account_type', 'USER')->paginate(10);
+        foreach($shops as $shop){
+            $shop->address = AddressBook::where('user_id', $shop->id)->get();
+        }
+
+        return $shops;
+    }
+
+    public function getSalesShops(){
+        $shops = User::join('shop_managers', 'users.id', 'shop_managers.shop_id')
+                     ->where('shop_managers.sales_manager', auth()->user()->id)
+                     ->select('users.*')
+                     ->where('account_type', 'USER')
+                     ->paginate(10);
         foreach($shops as $shop){
             $shop->address = AddressBook::where('user_id', $shop->id)->get();
         }
