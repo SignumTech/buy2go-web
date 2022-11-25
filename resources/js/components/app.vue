@@ -3,7 +3,7 @@
     <div class="row m-0">
         <div class="p-0 shadow-sm" style="background-color:#fff; width:18%" v-if="authenticated">
             <div class="row m-0" style="background-color: #011b48;">
-                <div class="col-md-12 p-4">
+                <div @click="disconnect()" class="col-md-12 p-4">
                   <img class="img img-fluid d-block m-auto" src="/storage/settings/logo.png" style="width:auto; height: 45px;">
                 </div>
             </div>
@@ -209,16 +209,19 @@
     updated(){
       feather.replace();
     },
+    created() {
+      window.addEventListener("beforeunload", this.leaving);
+    }, 
     computed: {
       togggle(){
           this.authenticated = this.$store.state.auth.authenticated; 
       },
       
     },
-    destroyed(){
-      this.goOffline();
-    },
     methods:{
+      leaving(){
+        this.goOffline()
+      },
       connectOnline(){
         window.Echo.join(`online.0`)
         .here(()=>{
@@ -245,6 +248,9 @@
         .then( response =>{
 
         })
+      },
+      disconnect(){
+        window.Echo.leave(`online.0`);
       },
       async markAllAsRead(){
         await axios.get('/markAllAsRead')
