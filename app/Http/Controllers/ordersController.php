@@ -729,13 +729,16 @@ class ordersController extends Controller
         $item = OrderItem::find($id);
         $order = Order::find($item->order_id);
         $warehouse = Warehouse::find($order->warehouse_id);
-        if(auth()->user()->id != $order->user_id || auth()->user()->id != $warehouse->user_id){
+        if(auth()->user()->id == $order->user_id || auth()->user()->id == $warehouse->user_id){
+            $item->item_status = 'REMOVED';
+            $item->save();
+            $admin_message = 'An item was removed from order '.$order->order_no;
+            Notification::send($admin, new OrderStatusUpdated($message,$order));
+            return $item;
+        }
+        else{
             return response('Unauthorized', 401);
         }
-        $item->item_status = 'REMOVED';
-        $item->save();
-        $admin_message = 'An item was removed from order '.$order->order_no;
-        Notification::send($admin, new OrderStatusUpdated($message,$order));
-        return $item;
+        
     }
 }
