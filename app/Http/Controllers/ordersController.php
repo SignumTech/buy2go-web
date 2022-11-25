@@ -185,7 +185,6 @@ class ordersController extends Controller
         $rtms = User::where('user_role', 'RTM')
                     ->where('online_status', 'ONLINE')
                     ->get();
-                    dd($rtms);
         $data = [];
         foreach($rtms as $rtm){
             $row = [];
@@ -194,6 +193,8 @@ class ordersController extends Controller
                                  ->count();
             array_push($data, $row);
         }
+
+        dd($data);
         
         return array_search(min($data), $data);
     }
