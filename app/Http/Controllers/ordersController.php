@@ -194,7 +194,7 @@ class ordersController extends Controller
             array_push($data, $row);
         }
         var_dump($data);
-        dd(min($data));
+        dd($data);
         dd(array_search(min($data), $data));
         
         return array_search(min($data), $data);
