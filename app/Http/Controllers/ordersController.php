@@ -191,7 +191,7 @@ class ordersController extends Controller
             $row[$rtm->id] = Order::where('rtm_id', $rtm->id)
                                  ->where('order_status', 'PROCESSING')
                                  ->count();
-            $data.push($row);
+            array_push($data, $row);
         }
         
         return array_search(min($data), $data);
