@@ -193,6 +193,7 @@ class ordersController extends Controller
                                  ->count();
             array_push($data, $row);
         }
+        var_dump($data);
         dd(min($data));
         dd(array_search(min($data), $data));
         
