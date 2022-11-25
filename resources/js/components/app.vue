@@ -215,6 +215,9 @@
       },
       
     },
+    destroyed(){
+      this.goOffline();
+    },
     methods:{
       connectOnline(){
         window.Echo.join(`online.0`)

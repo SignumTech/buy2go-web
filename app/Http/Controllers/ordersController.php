@@ -690,13 +690,13 @@ class ordersController extends Controller
             $item = OrderItem::find($j_item->id);           
             if($order->order_status != "SHIPPED" || $order->order_status != "DELIVERED"){
                 $item->item_status = 'UPDATED';
-                $item->updated_quantity = $j_item->quantity;
+                $item->updated_quantity = $j_item->updated_quantity;
                 $item->save();
             }
             else{
-                if($j_item->quantity < $item->quantity){
+                if($j_item->updated_quantity < $item->quantity){
                     $item->item_status = 'UPDATED';
-                    $item->updated_quantity = $j_item->quantity;
+                    $item->updated_quantity = $j_item->updated_quantity;
                     $item->save();
                     //return response("Item already shipped", 422);
                 }
@@ -724,9 +724,9 @@ class ordersController extends Controller
             
             if($order->order_status != "SHIPPED" || $order->order_status != "DELIVERED"){
                 
-                if($j_item->quantity < $item->quantity){
+                if($j_item->updated_quantity < $item->quantity){
                     $item->item_status = 'UPDATED';
-                    $item->updated_quantity = $j_item->quantity;
+                    $item->updated_quantity = $j_item->updated_quantity;
                     $item->save();
                     //return response("Item already shipped", 422);
                 }
