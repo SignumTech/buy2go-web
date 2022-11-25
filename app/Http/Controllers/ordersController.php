@@ -684,6 +684,7 @@ class ordersController extends Controller
             "items" => "required"
         ]);
         $items = json_decode($request->items);
+        var_dump($items);
         $order = Order::find($id);
 
         foreach($items as $j_item){
