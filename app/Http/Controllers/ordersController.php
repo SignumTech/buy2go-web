@@ -191,7 +191,7 @@ class ordersController extends Controller
             $row[$rtm->id] = Order::where('rtm_id', $rtm->id)
                                  ->where('order_status', 'PROCESSING')
                                  ->count();
-            $data = array_merge($data, $row);
+            $data = $data + $row;
             //array_push($data, $row);
         }
         var_dump($data);
