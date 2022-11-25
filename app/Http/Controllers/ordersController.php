@@ -689,6 +689,9 @@ class ordersController extends Controller
         foreach($items as $j_item){
             $item = OrderItem::find($j_item->id);           
             if($order->order_status != "SHIPPED" || $order->order_status != "DELIVERED"){
+                if($j_item->quantity == $item->quantity){
+                    continue;
+                }
                 $item->item_status = 'UPDATED';
                 $item->updated_quantity = $j_item->quantity;
                 $item->save();
