@@ -732,7 +732,8 @@ class ordersController extends Controller
         if(auth()->user()->id == $order->user_id || auth()->user()->id == $warehouse->user_id){
             $item->item_status = 'REMOVED';
             $item->save();
-            $admin_message = 'An item was removed from order '.$order->order_no;
+            $admin = User::where('user_role', 'ADMIN')->get();
+            $message = 'An item was removed from order '.$order->order_no;
             Notification::send($admin, new OrderStatusUpdated($message,$order));
             return $item;
         }
