@@ -36,6 +36,12 @@ class ordersController extends Controller
      */
     public function index()
     { 
+        if(auth()->user()->user_role == 'RTM'){
+            $orders = Order::where('rtm_id', auth()->user()->id)
+                            ->orderBy("created_at", "DESC")
+                            ->paginate(10);
+            return $orders;
+        }
         $orders = Order::orderBy("created_at", "DESC")->paginate(10);
         return $orders;
     }
@@ -79,6 +85,7 @@ class ordersController extends Controller
             $order->user_id = auth()->user()->id;
             $order->delivery_details = $request->address;
             $order->payment_status = 'UNPAID';
+            $order->rtm_id = $this->loadBalancer();
             $order->save();
 
             $cart_items = Cart::join('cart_items', 'carts.id', '=', 'cart_items.cart_id')
@@ -174,6 +181,22 @@ class ordersController extends Controller
         //
     }
 
+    public function loadBalancer(){
+        $rtms = User::where('user_role', 'RTM')
+                    ->where('online_status', 'ONLINE')
+                    ->get();
+        $data = [];
+        foreach($rtms as $rtm){
+            $row = [];
+            $row[$rtm->id] = Order::where('rtm_id', $rtm->id)
+                                 ->where('order_status', 'PROCESSING')
+                                 ->count();
+            $data.push($row);
+        }
+        
+        return array_search(min($data), $data);
+    }
+
     public function addAgentOrder(Request $request){
         $this->validate($request, [
             'cart_id' => 'required | integer',
@@ -199,6 +222,7 @@ class ordersController extends Controller
             $order->payment_status = 'UNPAID';
             $order->agent_id = auth()->user()->id;
             $order->order_type = "AGENT_ORDER";
+            $order->rtm_id = $this->loadBalancer();
             $order->save();
 
             $cart_items = Cart::join('cart_items', 'carts.id', '=', 'cart_items.cart_id')
@@ -265,6 +289,9 @@ class ordersController extends Controller
 
     public function getProcessing(){
         $orders = Order::where('orders.order_status', "PROCESSING")
+                       ->when(auth()->user()->user_role == 'RTM', function ($q) {
+                            $q->where('rtm_id', auth()->user()->id);
+                       })
                        ->orderBy("created_at", "DESC")
                        ->paginate(10);
         return $orders;
@@ -272,6 +299,9 @@ class ordersController extends Controller
 
     public function getShipped(){
         $orders = Order::where('orders.order_status', "SHIPPED")
+                        ->when(auth()->user()->user_role == 'RTM', function ($q) {
+                            $q->where('rtm_id', auth()->user()->id);
+                        })
                        ->orderBy("created_at", "DESC")
                        ->paginate(10);
         return $orders;
@@ -279,6 +309,9 @@ class ordersController extends Controller
 
     public function getDelivered(){
         $orders = Order::where('orders.order_status', "DELIVERED")
+                        ->when(auth()->user()->user_role == 'RTM', function ($q) {
+                            $q->where('rtm_id', auth()->user()->id);
+                        })
                        ->orderBy("created_at", "DESC")
                        ->paginate(10);
         return $orders;
@@ -286,6 +319,9 @@ class ordersController extends Controller
 
     public function getPendingConfirmation(){
         $orders = Order::where('orders.order_status', "PENDING_CONFIRMATION")
+                        ->when(auth()->user()->user_role == 'RTM', function ($q) {
+                                $q->where('rtm_id', auth()->user()->id);
+                        })
                        ->orderBy("created_at", "DESC")
                        ->paginate(10);
         return $orders;
@@ -293,6 +329,9 @@ class ordersController extends Controller
 
     public function getPendingPickup(){
         $orders = Order::where('orders.order_status', "PENDING_PICKUP")
+                        ->when(auth()->user()->user_role == 'RTM', function ($q) {
+                            $q->where('rtm_id', auth()->user()->id);
+                        })
                        ->orderBy("created_at", "DESC")
                        ->paginate(10);
         return $orders;
@@ -612,6 +651,9 @@ class ordersController extends Controller
         })
         ->when($request->payment_method !=null, function ($q) use($request){
             return $q->where('payment_method', $request->payment_method);
+        })
+        ->when(auth()->user()->user_role == 'RTM', function ($q) {
+            $q->where('rtm_id', auth()->user()->id);
         });
 
         return $orders;
@@ -687,7 +729,7 @@ class ordersController extends Controller
         $item = OrderItem::find($id);
         $order = Order::find($item->order_id);
         $warehouse = Warehouse::find($order->warehouse_id);
-        if(auth()->user()->id != $order->user || auth()->user()->id != $warehouse->user_id){
+        if(auth()->user()->id != $order->user_id || auth()->user()->id != $warehouse->user_id){
             return response('Unauthorized', 401);
         }
         $item->item_status = 'REMOVED';
