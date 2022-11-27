@@ -197,8 +197,13 @@ class ordersController extends Controller
         }
         //var_dump($data);
         //dd(array_search(min($data), $data));
+        if(count($rtms) > 0){
+            return array_search(min($data), $data);
+        }
+        else{
+            return null;
+        }
         
-        return array_search(min($data), $data);
     }
 
     public function addAgentOrder(Request $request){
