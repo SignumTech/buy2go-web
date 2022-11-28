@@ -828,4 +828,40 @@ class ordersController extends Controller
 
         return $orders;
     }
+
+    public function confirmReturn(Request $request, $id){
+        $this->validate($request, [
+            "order_hash" => "required"
+        ]);
+        
+        $order = Order::find($id);
+        if(!Hash::check($order->order_no, $request->order_hash)){
+            return response("Unauthorized",401);
+        }
+        $this->updateReturnInventory($id);
+        $order->order_status = "SHIPPED";
+        $order->save();
+
+        //Notification
+        $admin = User::where('user_role', 'ADMIN')->get();
+        $driver = User::find($order->assigned_driver);
+        $message = $driver->f_name.' returned items to warehouse for order . '.$order->order_no.' from warehouse';
+        Notification::send($admin, new OrderStatusUpdated($message,$order));
+        broadcast(new ConfirmPickup($order))->toOthers();
+        return $order;
+    }
+
+    public function updateReturnInventory($id){
+        $order = Order::find($id);
+        $items = OrderItem::where('order_id', $id)->get();
+        foreach($items as $item){
+            $warehouse_item = WarehouseDetail::where('p_id', $item->p_id)
+                                             ->where('warehouse_id', $order->warehouse_id)
+                                             ->first();
+
+            $warehouse_item->quantity = $warehouse_item->quantity + ($item->quantity - $item->updated_quantity);
+            $warehouse_item->save();
+        }
+        return $order;
+    }
 }
