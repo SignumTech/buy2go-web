@@ -699,15 +699,29 @@ class ordersController extends Controller
             $item = OrderItem::find($j_item->id);           
             if($order->order_status != "SHIPPED" || $order->order_status != "DELIVERED"){
                 $item->item_status = 'UPDATED';
+                $item->last_updated_by = 'USER';
                 $item->updated_quantity = $j_item->updated_quantity;
                 $item->save();
             }
             else{
                 if($j_item->updated_quantity < $item->quantity){
                     $item->item_status = 'UPDATED';
+                    $item->last_updated_by = 'USER';
                     $item->updated_quantity = $j_item->updated_quantity;
                     $item->save();
-                    //return response("Item already shipped", 422);
+                    //update returns.
+
+                    $order->return_status = "HAS_RETURNS";
+                    $order->save();
+                }
+                elseif($j_item->updated_quantity == $item->quantity){
+                    $item->item_status = 'UPDATED';
+                    $item->last_updated_by = 'USER';
+                    $item->updated_quantity = $j_item->updated_quantity;
+                    $item->save();
+
+                    $order->return_status = "NO_RETURNS";
+                    $order->save();
                 }
                 else{
                     continue;
@@ -735,6 +749,8 @@ class ordersController extends Controller
                 
                 if($j_item->updated_quantity < $item->quantity){
                     $item->item_status = 'UPDATED';
+                    $item->last_updated_by = 'WAREHOUSE';
+                    $item->warehouse_limit = $j_item->updated_quantity;
                     $item->updated_quantity = $j_item->updated_quantity;
                     $item->save();
                     //return response("Item already shipped", 422);
@@ -743,6 +759,9 @@ class ordersController extends Controller
                     continue;
                 }
     
+            }
+            else{
+                return response("Order is already shipped. Unable to update order", 422);
             }
         }
         $admin = User::where('user_role', 'ADMIN')->get();
@@ -765,6 +784,7 @@ class ordersController extends Controller
             }
             if(auth()->user()->user_role == 'USER' && $order->order_status == 'SHIPPED'){
                 $item->item_status = 'REMOVED';
+                $item->last_updated_by = 'USER';
                 $item->save();
                 $admin = User::where('user_role', 'ADMIN')->get();
                 $message = 'An item was removed from order '.$order->order_no;
@@ -773,6 +793,7 @@ class ordersController extends Controller
             }
             if(auth()->user()->user_role == 'WAREHOUSE MANAGER' && ($order->order_status == 'PROCESSING' || $order->order_status == 'PENDING_CONFIRMATION' || $order->order_status == 'PENDING_PICKUP')){
                 $item->item_status = 'REMOVED';
+                $item->last_updated_by = 'WAREHOUSE';
                 $item->save();
                 $admin = User::where('user_role', 'ADMIN')->get();
                 $user = User::find($order->user_id);
@@ -788,5 +809,23 @@ class ordersController extends Controller
             return response('Unauthorized', 401);
         }
         
+    }
+
+    public function getReturnOrders(){
+        $orders = Order::where('assigned_driver', auth()->user()->id)
+                       ->where('return_status', 'HAS_RETURNS')
+                       ->orderBy('created_at', 'DESC')
+                       ->paginate(12);
+        foreach($orders as $order){
+            $order->order_hash = Hash::make($order->order_no);
+            $order->delivery_detail = AddressBook::where('user_id', $order->user_id)->first();
+            $order->order_items = OrderItem::join('products', 'order_items.p_id', '=', 'products.id')
+                                                    ->where('order_id', $order->id)
+                                                    ->select('order_items.*', 'products.p_name', 'products.price', 'products.description', 'products.p_image', 'products.cat_id', 'products.commission', 'products.p_status', 'products.sku', 'products.taxable', 'products.deleted_at')
+                                                    ->get();
+            $order->warehouse_detail = Warehouse::where('id', $order->warehouse_id)->first();
+        }
+
+        return $orders;
     }
 }

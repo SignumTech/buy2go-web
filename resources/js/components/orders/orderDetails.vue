@@ -108,7 +108,7 @@
                                 </td>
                                 <td class="ps-2 text-center">{{ot.quantity}}</td>
                                 <td class="ps-2 text-center">{{ot.price | numFormat}} ETB</td>
-                                <td class="ps-2 text-center">{{order.order_status}}</td>
+                                <td class="ps-2 text-center">{{order.item_status?order.item_status:`UNCHANGED`}}</td>
                             </tr>
                         </tbody>
                     </table>
