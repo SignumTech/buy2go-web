@@ -101,7 +101,7 @@ class getTokenController extends Controller
         if(!$user){
             return response("Wrong credentials", 401);
         }
-        if(!in_array($user->user_role, ["WAREHOUSE MANAGER"])){
+        if(!in_array($user->user_role, ["WAREHOUSE_MANAGER"])){
             return response("Access Denied", 401);
         }
         if (Hash::check($request->password, $user->password)) {
