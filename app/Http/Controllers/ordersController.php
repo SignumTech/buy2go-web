@@ -729,7 +729,7 @@ class ordersController extends Controller
             }
 
         }
-        var_dump($returnCount);
+        
         if($returnCount > 0){
             $order->return_status = "HAS_RETURNS";
             $order->save();
