@@ -838,6 +838,30 @@ class ordersController extends Controller
         return $orders;
     }
 
+    public function getWarehouseReturnOrders(){
+        $warehouse = Warehouse::where('user_id', auth()->user()->id)->first();
+        if($warehouse){
+            $orders = Order::where('warehouse_id', $warehouse->id)
+                       ->where('order_status', 'DELIVERED')
+                       ->where('return_status', 'HAS_RETURNS')
+                       ->orderBy('created_at', 'DESC')
+                       ->paginate(8);
+            foreach($orders as $order){
+                $order->order_hash = Hash::make($order->order_no);
+                $order->delivery_detail = AddressBook::where('user_id', $order->user_id)->first();
+                $order->order_items = OrderItem::join('products', 'order_items.p_id', '=', 'products.id')
+                                                        ->where('order_id', $order->id)
+                                                        ->select('order_items.*', 'products.p_name', 'products.price', 'products.description', 'products.p_image', 'products.cat_id', 'products.commission', 'products.p_status', 'products.sku', 'products.taxable', 'products.deleted_at')
+                                                        ->get();
+                $order->warehouse_detail = Warehouse::where('id', $order->warehouse_id)->first();
+            }
+            return $orders;
+        }
+        else{
+            return response("No warehouses available", 401);
+        }
+    }
+
     public function confirmReturn(Request $request, $id){
         $this->validate($request, [
             "order_hash" => "required"

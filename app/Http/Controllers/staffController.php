@@ -139,7 +139,7 @@ class staffController extends Controller
     }
 
     public function getWarehouseManagers(){
-        $managers = User::where('user_role', 'WAREHOUSE MANAGER')->get();
+        $managers = User::where('user_role', 'WAREHOUSE_MANAGER')->get();
         return $managers;
     }
 

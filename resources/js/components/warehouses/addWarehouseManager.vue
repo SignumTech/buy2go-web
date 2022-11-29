@@ -1,6 +1,6 @@
 <template>
     <div class="row p-3">
-        <form action="#" @submit.prevent="addDriver">
+        <form action="#" @submit.prevent="addManager">
             <div class="col-md-12">
                 <h5>Add Warehouse Manager</h5>
             </div>
@@ -17,7 +17,7 @@
                 <input required v-model="formData.phone_no" type="number" class="form-control" placeholder="Phone Number">
             </div>
             <div class="col-md-12 mt-3">
-                <button type="submit" class="btn btn-primary form-control"><span class="fa fa-plus"></span> ADD DRIVER</button>
+                <button type="submit" class="btn btn-primary form-control"><span class="fa fa-plus"></span> ADD MANAGER</button>
             </div>
         </form>
     </div>
@@ -42,14 +42,14 @@ export default {
         this.getRoutes()
     },
     methods:{
-        async addDriver(){
-            await axios.post('/drivers', this.formData)
+        async addManager(){
+            await axios.post('/addWarehouseManager', this.formData)
             .then( response =>{
                 this.$notify({
                     group: 'foo',
                     type: 'success',
-                    title: 'Driver added',
-                    text: 'Driver was added successfully'
+                    title: 'Warehouse Manager added',
+                    text: 'Warehouse Manager was added successfully'
                 });
                 this.$emit('close')
             })

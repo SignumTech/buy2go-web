@@ -21,7 +21,7 @@
                         <td>{{index+1}}</td>
                         <td>{{manager.f_name}} {{manager.l_name}}</td>
                         <td>{{manager.phone_no}}</td>
-                        <td>{{manager.created_at | moment("YY-M-d")}}</td>
+                        <td>{{manager.created_at | moment("MMM Do YYYY H:m:s a")}}</td>
                         <td>
                             <span @click="editModal(driver)" class="fa fa-edit "></span>
                             <span  class="fa fa-trash-alt ms-3"></span>

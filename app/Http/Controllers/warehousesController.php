@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Warehouse;
+use App\Models\User;
 use App\Models\WarehouseDetail;
 use App\Exports\WarehouseExport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -152,6 +153,9 @@ class warehousesController extends Controller
         $manager = new User;
         $manager->f_name = $request->f_name;
         $manager->l_name = $request->l_name;
+        $manager->phone_no = $request->phone_no;
+        $manager->account_type = 'WAREHOUSE_MANAGER';
+        $manager->user_role = 'WAREHOUSE_MANAGER';
         $manager->save();
 
         return $manager;
