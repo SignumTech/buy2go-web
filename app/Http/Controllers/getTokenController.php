@@ -116,4 +116,5 @@ class getTokenController extends Controller
             return response("Wrong credentials", 401);
         }
     }
+
 }
