@@ -734,6 +734,10 @@ class ordersController extends Controller
             $order->return_status = "HAS_RETURNS";
             $order->save();
         }
+        else{
+            $order->return_status = "NO_RETURNS";
+            $order->save();
+        }
 
         $admin = User::where('user_role', 'ADMIN')->get();
         $admin_message = 'User made changes to order '.$order->order_no;
@@ -868,5 +872,24 @@ class ordersController extends Controller
             $warehouse_item->save();
         }
         return $order;
+    }
+
+    public function getReturnOrderDetails($id){
+        $order = Order::find($id);
+        $order_items = OrderItem::join('products', 'order_items.p_id', '=', 'products.id')
+                            ->where('order_items.order_id', $id)
+                            ->select('order_items.*', 'products.p_name', 'products.price', 'products.description', 'products.p_image', 'products.cat_id', 'products.commission', 'products.p_status', 'products.sku', 'products.taxable', 'products.deleted_at')
+                            ->get();
+        foreach($order_items as $item){
+            $item->quantity = $item->quantity - $item->updated_quantity;
+        }
+        $delivery_details = AddressBook::find($order->delivery_details);
+
+        $data = [];
+        $data['order_details'] = $order;
+        $data['order_hash'] = Hash::make($order->order_no);
+        $data['order_items'] = $order_items;
+        $data['delivery_details'] = $delivery_details;
+        return $data;
     }
 }
