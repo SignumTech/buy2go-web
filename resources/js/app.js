@@ -20,6 +20,9 @@ import numFormat from 'vue-filter-number-format';
 import * as VueGoogleMaps from 'vue2-google-maps'
 import VueQRCodeComponent from 'vue-qr-generator'
 import VueGeolocation from 'vue-browser-geolocation';
+import VueCountryCode from "vue-country-code";
+
+Vue.use(VueCountryCode);
 Vue.use(VueGeolocation);
 Vue.component('qr-code', VueQRCodeComponent)
 Vue.component('google-map', VueGoogleMaps.Map);
