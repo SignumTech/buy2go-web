@@ -120,6 +120,7 @@ class registerUsersController extends Controller
 
     public function checkPhoneNumber(Request $request){
         $phone_no = '';
+        var_dump(strlen($request->phone_number));
         if(strlen($request->phone_number) == 10){
             $phone_no = $request->country_code.substr($request->phon_no, 1);
         }
