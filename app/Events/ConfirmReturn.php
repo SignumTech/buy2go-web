@@ -11,7 +11,7 @@ use Illuminate\Foundation\Events\Dispatchable;
 use App\Models\Order;
 use Illuminate\Queue\SerializesModels;
 
-class ConfirmReturn
+class ConfirmReturn implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
     
