@@ -29,6 +29,7 @@ import editProduct from './components/products/editProduct.vue'
 import paymentRequests from './components/user_management/paymentRequests.vue'
 import requestDetails from './components/user_management/requestDetails.vue'
 import salesReport from './components/sales_report/salesReport.vue'
+import warehouseManagers from './components/warehouses/warehouseManagers.vue'
 Vue.use(Router)
 
 const routes = [
@@ -185,6 +186,12 @@ const routes = [
         path: '/salesReport',
         component: salesReport,
         name: 'SalesReport',
+        props: true
+    },
+    {
+        path: '/warehouseManagers',
+        component: warehouseManagers,
+        name: 'WarehouseManagers',
         props: true
     },
     

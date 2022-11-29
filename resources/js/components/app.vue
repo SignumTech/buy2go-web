@@ -21,8 +21,18 @@
                 <li v-if="$store.state.auth.permissions.Categories" :class="$route.path == `/categoryList` ? `active nav-item` : ``">
                   <router-link class="nav-link a-admin" to="/categoryList"><i data-feather="grid"></i> Categories</router-link>
                 </li>
-                <li v-if="$store.state.auth.permissions.Warehouses" :class="$route.path == `/warehouse` ? `active nav-item` : ``">
-                  <router-link class="nav-link a-admin" to="/warehouse"><i data-feather="home"></i> Warehouses</router-link>
+                <li v-if="$store.state.auth.permissions.Warehouses">
+                  <a data-bs-toggle="collapse" href="#w_ma" aria-expanded="false" aria-controls="collapseExample"><i data-feather="home"></i> Warehouse Management</a>
+                  <div class="collapse" id="w_ma">
+                    <ul class="collapse list-unstyled" id="w_ma">
+                      <li :class="$route.path == `/warehouse` ? `active nav-item` : ``">
+                        <router-link class="nav-link a-admin" to="/warehouse"><i class="fa fa-warehouse"></i> Warehouses</router-link>
+                      </li>
+                      <li :class="$route.path == `/warehouseManagers` ? `active` : ``">
+                          <router-link to="/warehouseManagers"><i class="fa fa-user-friends"></i> Warehouse Managers</router-link>
+                      </li>                  
+                    </ul>
+                  </div>
                 </li>
                 <li v-if="$store.state.auth.permissions.Zones">
                   <a data-bs-toggle="collapse" href="#z_ma" aria-expanded="false" aria-controls="collapseExample"><i data-feather="map"></i> Zones & Locations</a>

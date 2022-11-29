@@ -694,6 +694,7 @@ class ordersController extends Controller
         ]);
         $items = json_decode($request->items);
         $order = Order::find($id);
+        $returnCount = 0;
 
         foreach($items as $j_item){
             $item = OrderItem::find($j_item->id);           
@@ -710,24 +711,25 @@ class ordersController extends Controller
                     $item->updated_quantity = $j_item->updated_quantity;
                     $item->save();
                     //update returns.
-
-                    $order->return_status = "HAS_RETURNS";
-                    $order->save();
+                    $returnCount++;
                 }
                 elseif($j_item->updated_quantity == $item->quantity){
                     $item->item_status = 'UPDATED';
                     $item->last_updated_by = 'USER';
                     $item->updated_quantity = $j_item->updated_quantity;
                     $item->save();
-
-                    $order->return_status = "NO_RETURNS";
-                    $order->save();
+                    
                 }
                 else{
                     continue;
                 }
                 
             }
+        }
+
+        if($returnCount > 0){
+            $order->return_status = "NO_RETURNS";
+            $order->save();
         }
 
         $admin = User::where('user_role', 'ADMIN')->get();
