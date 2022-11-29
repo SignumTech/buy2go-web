@@ -692,21 +692,13 @@ class ordersController extends Controller
         $this->validate($request, [
             "items" => "required"
         ]);
-        $items = json_decode(json_encode($request->items));
+        $items = json_decode($request->items);
         $order = Order::find($id);
         $returnCount = 0;
 
         foreach($items as $j_item){
             $item = OrderItem::find($j_item->id);   
-            dd($order->order_status);       
-            if($order->order_status != "SHIPPED" || $order->order_status != "DELIVERED"){
-                $item->item_status = 'UPDATED';
-                $item->last_updated_by = 'USER';
-                $item->updated_quantity = $j_item->updated_quantity;
-                $item->save();
-                var_dump('not shipped or delivered');
-            }
-            else{
+            if($order->order_status == "SHIPPED" || $order->order_status == "DELIVERED"){
                 if($j_item->updated_quantity < $item->quantity){
                     $item->item_status = 'UPDATED';
                     $item->last_updated_by = 'USER';
@@ -714,7 +706,7 @@ class ordersController extends Controller
                     $item->save();
                     //update returns.
                     $returnCount++;
-                    var_dump("it is working here");
+                    
                 }
                 elseif($j_item->updated_quantity == $item->quantity){
                     $item->item_status = 'UPDATED';
@@ -727,7 +719,15 @@ class ordersController extends Controller
                     continue;
                 }
                 
+            }    
+            else{
+                $item->item_status = 'UPDATED';
+                $item->last_updated_by = 'USER';
+                $item->updated_quantity = $j_item->updated_quantity;
+                $item->save();
+                
             }
+
         }
         var_dump($returnCount);
         if($returnCount > 0){
