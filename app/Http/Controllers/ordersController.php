@@ -754,8 +754,11 @@ class ordersController extends Controller
         foreach($items as $j_item){
             $item = OrderItem::find($j_item->id);
             
-            if($order->order_status != "SHIPPED" || $order->order_status != "DELIVERED"){
-                
+            if($order->order_status == "SHIPPED" || $order->order_status == "DELIVERED"){
+                return response("Order is already shipped. Unable to update order", 422);
+  
+            }
+            else{
                 if($j_item->updated_quantity < $item->quantity){
                     $item->item_status = 'UPDATED';
                     $item->last_updated_by = 'WAREHOUSE';
@@ -767,10 +770,6 @@ class ordersController extends Controller
                 else{
                     continue;
                 }
-    
-            }
-            else{
-                return response("Order is already shipped. Unable to update order", 422);
             }
         }
         $admin = User::where('user_role', 'ADMIN')->get();

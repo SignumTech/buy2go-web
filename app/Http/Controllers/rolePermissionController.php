@@ -9,12 +9,14 @@ class rolePermissionController extends Controller
     public function createRolePermission(Request $request){
         $this->validate($request, [
             "role" => "required",
-            "permissions" => "required"
+            "permissions" => "required",
+            "deletable" => "required"
         ]);
 
         $rolePermission = new RolePermission;
         $rolePermission->role = $request->role;
         $rolePermission->permissions = json_encode($request->permissions);
+        $rolePermission->deletable = $request->deletable;
         $rolePermission->save();
 
         return $rolePermission;
@@ -23,12 +25,14 @@ class rolePermissionController extends Controller
 
         $this->validate($request, [
             "role" => "required",
-            "permissions" => "required"
+            "permissions" => "required",
+            "deletable" => "required"
         ]);
 
         $rolePermission = RolePermission::find($request->id);
         $rolePermission->role = $request->role;
         $rolePermission->permissions = json_encode($request->permissions);
+        $rolePermission->deletable = $request->deletable;
         $rolePermission->save();
 
         return $rolePermission;

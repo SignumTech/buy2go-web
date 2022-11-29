@@ -49,7 +49,7 @@
                                 </td>
                                 <td>
                                     <span @click="showEditRoleModal(td.id)" class="fa fa-edit float-end me-3"></span>
-                                    <span @click="deleteRole(td.id)" class="fa fa-trash-alt float-end me-3"></span>
+                                    <span v-if="td.deletable" @click="deleteRole(td.id)" class="fa fa-trash-alt float-end me-3"></span>
                                 </td>
                             </tr>
                         </tbody>

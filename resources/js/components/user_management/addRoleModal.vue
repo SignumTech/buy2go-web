@@ -3,12 +3,18 @@
     <div class="col-md-12 border-bottom p-2">
         <h5>{{modalType == 'Edit' ? "Edit" : "Add"}} role</h5>
     </div>
-    <div class="col-md-2 pt-2">
+    <div class="col-md-6">
         <label><strong>Role </strong></label>
-    </div>
-    <div class="col-md-12">
         <input type="text" class="form-control" v-model="data.role">
         <h6 class="text-danger m-0" v-for="an in valErrors.role" :key="an.id">{{an}}</h6>
+    </div>
+    <div class="col-md-6">
+        <label for="">Role Type</label>
+        <select class="form-select" v-model="data.deletable" id="">
+            <option :value=null></option>
+            <option :value=true>Removable</option>
+            <option :value=false>Non removable</option>
+        </select>
     </div>
     <div class="col-md-12 pt-2">
         <h6>Access Permission</h6>
@@ -92,6 +98,7 @@ export default {
             data:{
                 role: null,
                 id: null,
+                deletable:null,
                 permissions:{
                     Dashboard: false,
                     Products: false,
