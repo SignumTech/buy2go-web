@@ -123,7 +123,7 @@ class registerUsersController extends Controller
             "country_code" => "required",
             "phone_no" => "required | unique:users"
         ]);
-
+        dd('test');
         if(strlen($request->phone_number == 10)){
             $phone_no = substr($request->phon_no, 1);
         }
