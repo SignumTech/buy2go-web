@@ -126,11 +126,11 @@ class registerUsersController extends Controller
         else{
             $request->phone_no = $request->country_code.$request->phone_no;
         }
-        $this->validate($request, [
-            "country_code" => "required",
-            "phone_no" => "required | unique:users"
-        ]);
+        $phone_no = User::where('phone_no', $request->phone_no)->first();
+        if($phone_no){
+            return response('Phone already exists', 422);
+        }
 
-        return $phone_no;
+        return $request->phone_no;
     }
 }
