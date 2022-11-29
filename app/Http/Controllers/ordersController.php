@@ -728,7 +728,7 @@ class ordersController extends Controller
         }
 
         if($returnCount > 0){
-            $order->return_status = "NO_RETURNS";
+            $order->return_status = "HAS_RETURNS";
             $order->save();
         }
 
