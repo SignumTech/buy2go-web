@@ -119,6 +119,11 @@ class registerUsersController extends Controller
     }
 
     public function checkPhoneNumber(Request $request){
+        $this->validate($request, [
+            "country_code" => "required",
+            "phone_no" => "required"
+        ]);
+        
                 
         if(strlen($request->phone_no) == 10){
             $request->phone_no = $request->country_code.substr($request->phone_no, 1);
