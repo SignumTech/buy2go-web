@@ -124,6 +124,9 @@ class registerUsersController extends Controller
         if(strlen($request->phone_no) == 10){
             $phone_no = $request->country_code.substr($request->phone_no, 1);
         }
+        else{
+            $phone_no = $request->country_code.$request->phone_no;
+        }
         $this->validate($request, [
             "country_code" => "required",
             "phone_no" => "required | unique:users"
