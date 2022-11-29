@@ -1,7 +1,7 @@
 <template>
 <div class="row mt-4">
     <div class="col-md-12">
-        <h5><strong>Drivers</strong></h5>
+        <h5><strong>Warehouse Managers</strong></h5>
     </div>
     <div class="col-md-12">
         <div class="bg-white rounded-1 shadow-sm p-3">
@@ -23,7 +23,7 @@
                         <td>{{manager.phone_no}}</td>
                         <td>{{manager.created_at | moment("MMM Do YYYY H:m:s a")}}</td>
                         <td>
-                            <span @click="editModal(driver)" class="fa fa-edit "></span>
+                            <span @click="editWarehouseManager(manager)" class="fa fa-edit "></span>
                             <span  class="fa fa-trash-alt ms-3"></span>
                         </td>
                     </tr>
@@ -35,6 +35,7 @@
 </template>
 <script>
 import addWarehouseManagerVue from './addWarehouseManager.vue'
+import editWarehouseManagentVue from './editWarehouseManagent.vue'
 export default {
     data(){
         return{
@@ -49,6 +50,14 @@ export default {
             this.$modal.show(
                 addWarehouseManagerVue,
                 {"modalType" : "Add"},
+                { height: "auto", width: "500px"},
+                {"closed" : this.getWarehouseManagers}   
+            )
+        },
+        editWarehouseManager(manager){
+            this.$modal.show(
+                editWarehouseManagentVue,
+                {manager : manager},
                 { height: "auto", width: "500px"},
                 {"closed" : this.getWarehouseManagers}   
             )

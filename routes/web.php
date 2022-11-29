@@ -154,6 +154,7 @@ Route::middleware('auth:sanctum')->get('/getWarehouseManagers', [staffController
 Route::middleware('auth:sanctum')->post('/filterWarehouses', [warehousesController::class, 'filterWarehouses']);
 Route::middleware('auth:sanctum')->post('/exportWarehouses', [warehousesController::class, 'exportWarehouses']);
 Route::middleware('auth:sanctum')->post('/addWarehouseManager', [warehousesController::class, 'addWarehouseManager']);
+Route::middleware('auth:sanctum')->put('/updateWarehouseManager/{id}', [warehousesController::class, 'updateWarehouseManager']);
 Route::middleware('auth:sanctum')->get('/getSalesManagers', [staffController::class, 'getSalesManagers']);
 Route::middleware('auth:sanctum')->post('/goOnline', [staffController::class, 'goOnline']);
 Route::middleware('auth:sanctum')->post('/goOffline', [staffController::class, 'goOffline']);

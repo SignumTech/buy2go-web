@@ -917,4 +917,6 @@ class ordersController extends Controller
         $data['delivery_details'] = $delivery_details;
         return $data;
     }
+
+    
 }

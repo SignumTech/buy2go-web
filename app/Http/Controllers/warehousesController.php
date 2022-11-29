@@ -160,6 +160,24 @@ class warehousesController extends Controller
 
         return $manager;
     }
+
+    public function updateWarehouseManager(Request $request, $id){
+        $this->validate($request, [
+            "f_name" => "required",
+            "l_name" => "required",
+            "phone_no" => "required"
+        ]);
+
+        $manager = User::find($id);
+        $manager->f_name = $request->f_name;
+        $manager->l_name = $request->l_name;
+        $manager->phone_no = $request->phone_no;
+        $manager->account_type = 'WAREHOUSE_MANAGER';
+        $manager->user_role = 'WAREHOUSE_MANAGER';
+        $manager->save();
+
+        return $manager;
+    }
         
 
 }
