@@ -792,8 +792,9 @@ class ordersController extends Controller
                 return $item;
             }
             if(auth()->user()->user_role == 'USER' && $order->order_status == 'SHIPPED'){
-                $item->item_status = 'REMOVED';
+                $item->item_status = 'USER_REMOVED';
                 $item->last_updated_by = 'USER';
+                $item->updated_quantity = 0;
                 $item->save();
                 $admin = User::where('user_role', 'ADMIN')->get();
                 $message = 'An item was removed from order '.$order->order_no;
@@ -801,8 +802,9 @@ class ordersController extends Controller
                 return $item;
             }
             if(auth()->user()->user_role == 'WAREHOUSE MANAGER' && ($order->order_status == 'PROCESSING' || $order->order_status == 'PENDING_CONFIRMATION' || $order->order_status == 'PENDING_PICKUP')){
-                $item->item_status = 'REMOVED';
+                $item->item_status = 'WAREHOUSE_REMOVED';
                 $item->last_updated_by = 'WAREHOUSE';
+                $item->updated_quantity = 0;
                 $item->save();
                 $admin = User::where('user_role', 'ADMIN')->get();
                 $user = User::find($order->user_id);
@@ -908,7 +910,7 @@ class ordersController extends Controller
         $items = [];
         foreach($order_items as $item){
             $item->return_quantity = $item->quantity - $item->updated_quantity;
-            if($item->quantity - $item->updated_quantity > 0){
+            if($item->quantity - $item->updated_quantity > 0 || $item->item_status == `USER_REMOVED`){
                 array_push($items, $item);
             }
         }
