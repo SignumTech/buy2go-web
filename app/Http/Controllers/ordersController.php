@@ -692,9 +692,8 @@ class ordersController extends Controller
         $this->validate($request, [
             "items" => "required"
         ]);
-        $items = json_decode($request->items);
+        $items = json_decode(json_encode($request->items));
         $order = Order::find($id);
-        var_dump($items);
         $returnCount = 0;
 
         foreach($items as $j_item){
