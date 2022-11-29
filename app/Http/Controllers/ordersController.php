@@ -694,15 +694,18 @@ class ordersController extends Controller
         ]);
         $items = json_decode($request->items);
         $order = Order::find($id);
+        var_dump($order);
         $returnCount = 0;
 
         foreach($items as $j_item){
-            $item = OrderItem::find($j_item->id);           
+            $item = OrderItem::find($j_item->id);   
+                   
             if($order->order_status != "SHIPPED" || $order->order_status != "DELIVERED"){
                 $item->item_status = 'UPDATED';
                 $item->last_updated_by = 'USER';
                 $item->updated_quantity = $j_item->updated_quantity;
                 $item->save();
+                var_dump('not shipped or delivered');
             }
             else{
                 if($j_item->updated_quantity < $item->quantity){
