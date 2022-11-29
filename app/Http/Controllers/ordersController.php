@@ -698,7 +698,7 @@ class ordersController extends Controller
 
         foreach($items as $j_item){
             $item = OrderItem::find($j_item->id);   
-                   
+            dd($order->order_status);       
             if($order->order_status != "SHIPPED" || $order->order_status != "DELIVERED"){
                 $item->item_status = 'UPDATED';
                 $item->last_updated_by = 'USER';
