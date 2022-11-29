@@ -142,4 +142,20 @@ class warehousesController extends Controller
                         });        
     }
 
+    public function addWarehouseManager(Request $request){
+        $this->validate($request, [
+            "f_name" => "required",
+            "l_name" => "required",
+            "phone_no" => "required"
+        ]);
+
+        $manager = new User;
+        $manager->f_name = $request->f_name;
+        $manager->l_name = $request->l_name;
+        $manager->save();
+
+        return $manager;
+    }
+        
+
 }

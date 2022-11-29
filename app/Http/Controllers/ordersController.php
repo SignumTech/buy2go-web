@@ -878,10 +878,11 @@ class ordersController extends Controller
         $order = Order::find($id);
         $order_items = OrderItem::join('products', 'order_items.p_id', '=', 'products.id')
                             ->where('order_items.order_id', $id)
+                            ->where('order_items.quantity', '>', 'order_items.updated_quantity')
                             ->select('order_items.*', 'products.p_name', 'products.price', 'products.description', 'products.p_image', 'products.cat_id', 'products.commission', 'products.p_status', 'products.sku', 'products.taxable', 'products.deleted_at')
                             ->get();
         foreach($order_items as $item){
-            $item->quantity = $item->quantity - $item->updated_quantity;
+            $item->return_quantity = $item->quantity - $item->updated_quantity;
         }
         $delivery_details = AddressBook::find($order->delivery_details);
 

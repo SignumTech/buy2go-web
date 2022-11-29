@@ -5,7 +5,7 @@
     </div>
     <div class="col-md-12">
         <div class="bg-white rounded-1 shadow-sm p-3">
-            <button @click="addDriverModal()" class="btn btn-primary btn-sm float-end shadow-sm text-white"><span class="fa fa-plus"></span> Add Warehouse Managers</button>
+            <button @click="addWarehouseManager()" class="btn btn-primary btn-sm float-end shadow-sm text-white"><span class="fa fa-plus"></span> Add Warehouse Managers</button>
             <table class="table table-sm mt-3">
                 <thead>
                     <tr>
@@ -34,6 +34,7 @@
 </div>    
 </template>
 <script>
+import addWarehouseManagerVue from './addWarehouseManager.vue'
 export default {
     data(){
         return{
@@ -44,6 +45,14 @@ export default {
         this.getWarehouseManagers()
     },
     methods:{
+        addWarehouseManager(){
+            this.$modal.show(
+                addWarehouseManagerVue,
+                {"modalType" : "Add"},
+                { height: "auto", width: "500px"},
+                {"closed" : this.getWarehouseManagers}   
+            )
+        },
         async getWarehouseManagers(){
             await axios.get('/getWarehouseManagers')
             .then( response =>{
