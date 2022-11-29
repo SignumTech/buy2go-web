@@ -20,6 +20,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 use App\Events\DriverAssigned;
 use App\Events\ConfirmPickup;
+use App\Events\ConfirmReturn;
 use App\Events\ConfirmDelivery;
 use App\Notifications\OrderStatusUpdated;
 use Illuminate\Support\Facades\Notification;
@@ -879,7 +880,7 @@ class ordersController extends Controller
         $driver = User::find($order->assigned_driver);
         $message = $driver->f_name.' returned items to warehouse for order . '.$order->order_no.' from warehouse';
         Notification::send($admin, new OrderStatusUpdated($message,$order));
-        broadcast(new ConfirmPickup($order))->toOthers();
+        broadcast(new ConfirmReturn($order))->toOthers();
         return $order;
     }
 

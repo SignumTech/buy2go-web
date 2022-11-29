@@ -32,6 +32,10 @@ Broadcast::channel('confirm_pickup.{orderId}', function ($user, $id) {
     return Auth::check();
     //return (int) $user->id === (int) $id;
 });
+Broadcast::channel('confirm_return.{orderId}', function ($user, $id) {
+    return Auth::check();
+    //return (int) $user->id === (int) $id;
+});
 Broadcast::channel('confirm_delivery.{orderId}', function ($user, $id) {
     return Auth::check();
     //return (int) $user->id === (int) $id;
