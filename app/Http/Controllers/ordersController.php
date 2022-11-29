@@ -872,7 +872,7 @@ class ordersController extends Controller
             return response("Unauthorized",401);
         }
         $this->updateReturnInventory($id);
-        $order->order_status = "SHIPPED";
+        $order->return_status = "RETURNED";
         $order->save();
 
         //Notification
