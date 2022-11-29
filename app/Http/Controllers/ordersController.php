@@ -694,7 +694,7 @@ class ordersController extends Controller
         ]);
         $items = json_decode($request->items);
         $order = Order::find($id);
-        var_dump($order);
+        var_dump($items);
         $returnCount = 0;
 
         foreach($items as $j_item){
