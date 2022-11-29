@@ -905,15 +905,19 @@ class ordersController extends Controller
                             ->where('order_items.quantity', '>', 'order_items.updated_quantity')
                             ->select('order_items.*', 'products.p_name', 'products.price', 'products.description', 'products.p_image', 'products.cat_id', 'products.commission', 'products.p_status', 'products.sku', 'products.taxable', 'products.deleted_at')
                             ->get();
+        $items = [];
         foreach($order_items as $item){
             $item->return_quantity = $item->quantity - $item->updated_quantity;
+            if($item->quantity - $item->updated_quantity > 0){
+                array_push($items, $item);
+            }
         }
         $delivery_details = AddressBook::find($order->delivery_details);
 
         $data = [];
         $data['order_details'] = $order;
         $data['order_hash'] = Hash::make($order->order_no);
-        $data['order_items'] = $order_items;
+        $data['order_items'] = $items;
         $data['delivery_details'] = $delivery_details;
         return $data;
     }
