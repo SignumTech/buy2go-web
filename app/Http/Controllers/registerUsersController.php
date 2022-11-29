@@ -122,7 +122,7 @@ class registerUsersController extends Controller
         $phone_no = '';
         
         if(strlen($request->phone_no) == 10){
-            $phone_no = $request->country_code.substr($request->phon_no, 1);
+            $phone_no = $request->country_code.substr($request->phone_no, 1);
         }
         $this->validate($request, [
             "country_code" => "required",
