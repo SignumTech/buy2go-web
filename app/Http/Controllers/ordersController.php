@@ -824,21 +824,51 @@ class ordersController extends Controller
         if(auth()->user()->id == $order->user_id || auth()->user()->id == $warehouse->user_id){
             if(auth()->user()->user_role == 'USER' && ($order->order_status == 'PROCESSING' || $order->order_status == 'PENDING_CONFIRMATION' || $order->order_status == 'PENDING_PICKUP')){
                 $item->delete();
+                if($product->taxable){
+                    if($item->updated_quantity){
+                        $order->total = $order->total - (($product->price * $item->update_quantity)*1.15);
+                    }
+                    else{
+                        $order->total = $order->total - (($product->price * $item->quantity)*1.15);
+                    }
+                    
+                }
+                else{
+                    if($item->updated_quantity){
+                        $order->total = $order->total - (($product->price * $item->update_quantity));
+                    }
+                    else{
+                        $order->total = $order->total - (($product->price * $item->quantity));
+                    }
+                }
+                $order->save();
                 return $item;
             }
             if(auth()->user()->user_role == 'USER' && $order->order_status == 'SHIPPED'){
                 $item->item_status = 'USER_REMOVED';
                 $item->last_updated_by = 'USER';
-                $item->updated_quantity = 0;
-                $item->save();
+                
 
                 if($product->taxable){
-                    $order->total = $order->total - (($product->price * $item->quantity)*1.15);
+                    if($item->updated_quantity){
+                        $order->total = $order->total - (($product->price * $item->update_quantity)*1.15);
+                    }
+                    else{
+                        $order->total = $order->total - (($product->price * $item->quantity)*1.15);
+                    }
+                    
                 }
                 else{
-                    $order->total = $order->total - (($product->price * $item->quantity));
+                    if($item->updated_quantity){
+                        $order->total = $order->total - (($product->price * $item->update_quantity));
+                    }
+                    else{
+                        $order->total = $order->total - (($product->price * $item->quantity));
+                    }
                 }
                 
+                $item->updated_quantity = 0;
+                $item->save();
                 $order->return_status = "HAS_RETURNS";
                 $order->save();
 
@@ -850,6 +880,23 @@ class ordersController extends Controller
             if(auth()->user()->user_role == 'WAREHOUSE_MANAGER' && ($order->order_status == 'PROCESSING' || $order->order_status == 'PENDING_CONFIRMATION' || $order->order_status == 'PENDING_PICKUP')){
                 $item->item_status = 'WAREHOUSE_REMOVED';
                 $item->last_updated_by = 'WAREHOUSE';
+                if($product->taxable){
+                    if($item->updated_quantity){
+                        $order->total = $order->total - (($product->price * $item->update_quantity)*1.15);
+                    }
+                    else{
+                        $order->total = $order->total - (($product->price * $item->quantity)*1.15);
+                    }
+                    
+                }
+                else{
+                    if($item->updated_quantity){
+                        $order->total = $order->total - (($product->price * $item->update_quantity));
+                    }
+                    else{
+                        $order->total = $order->total - (($product->price * $item->quantity));
+                    }
+                }
                 $item->updated_quantity = 0;
                 $item->save();
                 $admin = User::where('user_role', 'ADMIN')->get();
