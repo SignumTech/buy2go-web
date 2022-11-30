@@ -20,8 +20,8 @@
                 <tbody>
                     <tr v-for="driver,index in drivers" :key="index">
                         <td>{{index+1}}</td>
-                        <td>{{driver.f_name}} {{driver.l_name}}</td>
-                        <td>+{{driver.phone_no}}</td>
+                        <td>{{driver.f_name}}-{{driver.l_name}}</td>
+                        <td>+{{driver.country_code}}-{{driver.phone_no}}</td>
                         <td>{{driver.l_plate}}</td>
                         <td><p v-for="route,index in driver.routes" :key="index">{{route.route_name}}</p></td>
                         <td class="text-center">

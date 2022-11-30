@@ -16,9 +16,16 @@
             </div>
             <div class="col-md-12 mt-2">
                 <label for="">Phone Number</label>
-                <div class="input-group">
-                    <input required v-model="formData.phone_no" type="number" class="form-control" placeholder="Phone Number">
-                </div>
+                <vue-tel-input
+                v-if="loaded"
+                @country-changed="onSelect"
+                :autoFormat="false" 
+                v-model="phone_no"
+                :inputOptions="inputOptions"
+                :dropdownOptions="dropDownOptions"
+                :autoDefaultCountry="false"
+                :defaultCountry="formData.country_code"
+                ></vue-tel-input>
                 <h6 class="text-danger m-0" v-for="an in valErrors.phone_no" :key="an.id">{{an}}</h6>
             </div>
             <div class="col-md-12 mt-3">
@@ -36,10 +43,25 @@ export default {
     },
     data(){
         return{
+            loaded:false,
+            phone_no: null,
+            inputOptions:{
+                required:true,
+                placeholder:'Phone Number'
+            },
+            dropDownOptions:{
+                showSearchBox:true,
+                showDialCodeInList:true,
+                showDialCodeInList:true,
+                showDialCodeInSelection:true,
+                width:'390px',
+                showFlags:true,
+            },
             formData:{
                 f_name:"",
                 l_name:"",
                 phone_no:"",
+                country_code:""
             },
             valErrors:{},
             routes:[]
@@ -48,18 +70,20 @@ export default {
     mounted(){
         this.formData = this.manager
         this.phone_no = this.manager.phone_no
+        this.loaded = true
     },
     methods:{
         onSelect({name, iso2, dialCode}){
-            this.country_code = dialCode
+            
+            this.formData.country_code = dialCode
         },
-        formatPhoneNo(phone_no){    
-            if(phone_no.length == 10 && phone_no.charAt(0)=='0'){
+        formatPhoneNo(phone_no){ 
+            if(phone_no.length == 10 || phone_no.charAt(0)=='0'){
                 
-                return this.country_code+phone_no.substring(1)
+                return phone_no.substring(1)
             }
             else{
-                return this.country_code+phone_no
+                return phone_no
             }
         },
         async updateManager(){

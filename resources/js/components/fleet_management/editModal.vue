@@ -14,7 +14,16 @@
             </div>
             <div class="col-md-12 mt-2">
                 <label for="">Phone Number</label>
-                <input required v-model="formData.phone_no" type="number" class="form-control" placeholder="Phone Number">
+                <vue-tel-input
+                v-if="loaded"
+                @country-changed="onSelect"
+                :autoFormat="false" 
+                v-model="phone_no"
+                :inputOptions="inputOptions"
+                :dropdownOptions="dropDownOptions"
+                :autoDefaultCountry="false"
+                :defaultCountry="formData.country_code"
+                ></vue-tel-input>
             </div>
             <div class="col-md-12 mt-2">
                 <label for="">License plate number</label>
@@ -44,28 +53,59 @@ export default {
     props:["driver","l_plate"],
     data(){
         return{
+            loaded:false,
+            phone_no: null,
+            inputOptions:{
+                required:true,
+                placeholder:'Phone Number'
+            },
+            dropDownOptions:{
+                showSearchBox:true,
+                showDialCodeInList:true,
+                showDialCodeInList:true,
+                showDialCodeInSelection:true,
+                width:'390px',
+                showFlags:true,
+            },
             formData:{
                 f_name:"",
                 l_name:"",
                 l_plate:"",
                 phone_no:"",
                 zone_id:"",
-                route_id:[]
+                route_id:[],
+                country_code:""
             },
             routes:[]
         }
     },
     mounted(){
         this.formData = this.driver
+        this.phone_no = this.driver.phone_no
         this.formData.l_plate = this.l_plate
         this.formData.route_id = []
         this.driver.routes.forEach(route=>{
             this.formData.route_id.push(route.id)
         })
         this.getRoutes()
+        this.loaded = true
     },
     methods:{
+        onSelect({name, iso2, dialCode}){
+            console.log(dialCode)
+            this.formData.country_code = dialCode
+        },
+        formatPhoneNo(phone_no){ 
+            if(phone_no.length == 10 || phone_no.charAt(0)=='0'){
+                
+                return phone_no.substring(1)
+            }
+            else{
+                return phone_no
+            }
+        },
         async addDriver(){
+            this.formData.phone_no = this.formatPhoneNo(this.phone_no)
             await axios.put('/drivers/'+this.formData.id, this.formData)
             .then( response =>{
                 this.$notify({

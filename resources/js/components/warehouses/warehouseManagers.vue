@@ -20,7 +20,7 @@
                     <tr v-for="manager,index in managers" :key="index">
                         <td>{{index+1}}</td>
                         <td>{{manager.f_name}} {{manager.l_name}}</td>
-                        <td>{{manager.phone_no}}</td>
+                        <td>+{{manager.country_code}}-{{manager.phone_no}}</td>
                         <td>{{manager.created_at | moment("MMM Do YYYY H:m:s a")}}</td>
                         <td>
                             <span @click="editWarehouseManager(manager)" class="fa fa-edit "></span>

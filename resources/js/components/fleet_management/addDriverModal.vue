@@ -17,20 +17,12 @@
             <div class="col-md-12 mt-2">
                 <label for="">Phone Number</label>
                 <vue-tel-input
+                @country-changed="onSelect"
                 :autoFormat="false" 
-                v-model="value"
+                v-model="phone_no"
                 :inputOptions="inputOptions"
-                :dropDownOptions="dropDownOptions"
+                :dropdownOptions="dropDownOptions"
                 ></vue-tel-input>
-                <div class="input-group">
-                    <vue-country-code
-                        @onSelect="onSelect"
-                        :enabledCountryCode="true"
-                    >
-                    </vue-country-code>
-                    <input required v-model="phone_no" type="number" class="form-control" placeholder="Phone Number">
-                    
-                </div>
                 <h6 class="text-danger m-0" v-for="an in valErrors.phone_no" :key="an.id">{{an}}</h6>
             </div>
             <div class="col-md-12 mt-2">
@@ -62,14 +54,17 @@ export default {
     },
     data(){
         return{
-            value:null,
             inputOptions:{
                 required:true,
+                placeholder:'Phone Number'
             },
             dropDownOptions:{
                 showSearchBox:true,
-                showDialCodeInList:true
-
+                showDialCodeInList:true,
+                showDialCodeInList:true,
+                showDialCodeInSelection:true,
+                width:'390px',
+                showFlags:true,
             },
             formData:{
                 f_name:"",
@@ -89,15 +84,15 @@ export default {
     },
     methods:{
         onSelect({name, iso2, dialCode}){
-            this.country_code = dialCode
+            this.formData.country_code = dialCode
         },
         formatPhoneNo(phone_no){ 
-            if(phone_no.length == 10 && phone_no.charAt(0)=='0'){
+            if(phone_no.length == 10 || phone_no.charAt(0)=='0'){
                 
-                return this.country_code+phone_no.substring(1)
+                return phone_no.substring(1)
             }
             else{
-                return this.country_code+phone_no
+                return phone_no
             }
         },
         async addDriver(){

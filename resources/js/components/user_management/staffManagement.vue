@@ -124,7 +124,7 @@ export default {
         },
         async editUser(staff){
             this.$modal.show(
-                addusermodal,
+                editUserModalVue,
                 {"user_data" : staff,"modalType" : "Edit"},
                 { height: "450", width: "700px"},
                 {"closed" : this.closeAdd}

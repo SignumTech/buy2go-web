@@ -49,12 +49,16 @@
             </div>
             <div class="col-md-7">
                 <div class="input-group">
-                    <vue-country-code
-                        @onSelect="onSelect"
-                        :enabledCountryCode="true"
-                    >
-                    </vue-country-code>
-                    <input type="number" v-model="phone_no" class="form form-control">
+                    <vue-tel-input
+                    v-if="loaded"
+                    @country-changed="onSelect"
+                    :autoFormat="false" 
+                    v-model="phone_no"
+                    :inputOptions="inputOptions"
+                    :dropdownOptions="dropDownOptions"
+                    :autoDefaultCountry="false"
+                    :defaultCountry="formData.country_code"
+                    ></vue-tel-input>
                 </div>
                 
                 <h6 class="text-danger m-0" v-for="an in valErrors.phone_no" :key="an.id">{{an}}</h6>
@@ -103,6 +107,19 @@ export default {
     props:["user_data", "modalType"],
     data (){
         return{
+            loaded:false,
+            inputOptions:{
+                required:true,
+                placeholder:'Phone Number'
+            },
+            dropDownOptions:{
+                showSearchBox:true,
+                showDialCodeInList:true,
+                showDialCodeInList:true,
+                showDialCodeInSelection:true,
+                width:'390px',
+                showFlags:true,
+            },
             isClicked: false,
             valErrors: {},
             formData :{
@@ -125,30 +142,33 @@ export default {
     mounted(){
         if(this.modalType == "Edit"){
             this.formData = this.user_data
+            this.phone_no = this.user_data.phone_no
             this.edit = true
         }
         else{
             this.add = true
         }
         this.getRoles()
+        this.loaded = true
     },
     methods:{
-        onSelect({name, iso2, dialCode}){
-            this.country_code = dialCode
-        },
         async getRoles(){
             await axios.get('/getRoles')
             .then( response =>{
                 this.roles = response.data
             })
         },
+        onSelect({name, iso2, dialCode}){
+            console.log(dialCode)
+            this.formData.country_code = dialCode
+        },
         formatPhoneNo(phone_no){ 
-            if(phone_no.length == 10 && phone_no.charAt(0)=='0'){
+            if(phone_no.length == 10 || phone_no.charAt(0)=='0'){
                 
-                return this.country_code+phone_no.substring(1)
+                return phone_no.substring(1)
             }
             else{
-                return this.country_code+phone_no
+                return phone_no
             }
         },
         async addUser(){
@@ -174,6 +194,7 @@ export default {
         },
         async editUser(){
             this.isClicked = true
+            this.formData.phone_no = this.formatPhoneNo(this.phone_no)
             await axios.post('/editStaff', this.formData)
             .then( response =>{
                 this.$notify({
