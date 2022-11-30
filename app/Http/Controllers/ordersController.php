@@ -696,16 +696,19 @@ class ordersController extends Controller
         $items = json_decode($request->items);
         $order = Order::find($id);
         $returnCount = 0;
-
         foreach($items as $j_item){
-            $item = OrderItem::find($j_item->id);   
+            $item = OrderItem::find($j_item->id);
+            $product = Product::find($j_item->p_id);   
             if($order->order_status == "SHIPPED" || $order->order_status == "DELIVERED"){
                 if($j_item->updated_quantity < $item->quantity){
                     $item->item_status = 'UPDATED';
                     $item->last_updated_by = 'USER';
                     $item->updated_quantity = $j_item->updated_quantity;
                     $item->save();
-                    //update returns.
+                    //update orders total
+                    $order->total = $order->total -(($product->price * $j_item->updated_quantity)*1.15);
+                    $order->save();
+
                     $returnCount++;
                     
                 }
@@ -726,7 +729,14 @@ class ordersController extends Controller
                 $item->last_updated_by = 'USER';
                 $item->updated_quantity = $j_item->updated_quantity;
                 $item->save();
-                
+                if($j_item->updated_quantity < $item->quantity){
+                    $order->total = $order->total -(($product->price * $j_item->updated_quantity)*1.15);
+                    $order->save();
+                }
+                elseif($j_item->updated_quantity > $item->quantity){
+                    $order->total = $order->total +(($product->price * $j_item->updated_quantity)*1.15);
+                    $order->save();
+                }
             }
 
         }
@@ -751,13 +761,12 @@ class ordersController extends Controller
         ]);
         $items = json_decode($request->items);
         $order = Order::find($id);
-
+        
         foreach($items as $j_item){
             $item = OrderItem::find($j_item->id);
-            
+            $product = Product::find($j_item->p_id);   
             if($order->order_status == "SHIPPED" || $order->order_status == "DELIVERED"){
                 return response("Order is already shipped. Unable to update order", 422);
-  
             }
             else{
                 if($j_item->updated_quantity < $item->quantity){
@@ -766,6 +775,9 @@ class ordersController extends Controller
                     $item->warehouse_limit = $j_item->updated_quantity;
                     $item->updated_quantity = $j_item->updated_quantity;
                     $item->save();
+
+                    $order->total = $order->total -(($product->price * $j_item->updated_quantity)*1.15);
+                    $order->save();
                     //return response("Item already shipped", 422);
                 }
                 else{
@@ -784,6 +796,7 @@ class ordersController extends Controller
 
     public function removeItem($id){
         $item = OrderItem::find($id);
+        $product = Product::find($item->p_id);  
         $order = Order::find($item->order_id);
         $warehouse = Warehouse::find($order->warehouse_id);
         if(auth()->user()->id == $order->user_id || auth()->user()->id == $warehouse->user_id){
@@ -796,6 +809,11 @@ class ordersController extends Controller
                 $item->last_updated_by = 'USER';
                 $item->updated_quantity = 0;
                 $item->save();
+
+                $order->total = $order->total - (($product->price * $item->quantity)*1.15);
+                $order->return_status = "HAS_RETURNS";
+                $order->save();
+                
                 $admin = User::where('user_role', 'ADMIN')->get();
                 $message = 'An item was removed from order '.$order->order_no;
                 Notification::send($admin, new OrderStatusUpdated($message,$order));
@@ -814,6 +832,7 @@ class ordersController extends Controller
                 Notification::send($admin, new OrderStatusUpdated($message,$order));
                 return $item;
             }
+            
             return $item;
         }
         else{
