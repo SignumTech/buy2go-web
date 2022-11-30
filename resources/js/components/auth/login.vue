@@ -64,6 +64,7 @@ export default {
         phone_no:null,
         form: {
             phone_no: null,
+            country_code: null,
             password: null,
         },
         country_code: null
@@ -72,18 +73,18 @@ export default {
 
     methods: {
         onSelect({name, iso2, dialCode}){
-            this.country_code = dialCode
+            this.form.country_code = dialCode
         },
     ...mapActions({
         signIn: 'auth/signIn'
     }),
     formatPhoneNo(phone_no){
-        if(phone_no.length == 10 && phone_no.charAt(0)=='0'){
+        if(phone_no.length == 10 || phone_no.charAt(0)=='0'){
             
-            return this.country_code+phone_no.substring(1)
+            return phone_no.substring(1)
         }
         else{
-            return this.country_code+phone_no
+            return phone_no
         }
     },
     async submit () {
