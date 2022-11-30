@@ -13,7 +13,7 @@ class getTokenController extends Controller
             "phone_no" => "required",
             "password" => "required|string"
         ]);
-        $user = User::where('phone_no', $request->phone_no)->first();
+        $user = User::where('phone_no', $this->formatPhoneNumber($request))->first();
         if(!$user){
             return response("Wrong credentials", 401);
         }
@@ -41,7 +41,7 @@ class getTokenController extends Controller
             "phone_no" => "required",
             "password" => "required|string"
         ]);
-        $user = User::where('phone_no', $request->phone_no)->first();
+        $user = User::where('phone_no', $this->formatPhoneNumber($request))->first();
         if(!$user){
             return response("Wrong credentials", 401);
         }
@@ -69,7 +69,7 @@ class getTokenController extends Controller
             "phone_no" => "required",
             "password" => "required|string"
         ]);
-        $user = User::where('phone_no', $request->phone_no)->first();
+        $user = User::where('phone_no', $this->formatPhoneNumber($request))->first();
         if(!$user){
             return response("Wrong credentials", 401);
         }
@@ -97,7 +97,7 @@ class getTokenController extends Controller
             "phone_no" => "required",
             "password" => "required|string"
         ]);
-        $user = User::where('phone_no', $request->phone_no)->first();
+        $user = User::where('phone_no', $this->formatPhoneNumber($request))->first();
         if(!$user){
             return response("Wrong credentials", 401);
         }
@@ -115,6 +115,20 @@ class getTokenController extends Controller
         else{
             return response("Wrong credentials", 401);
         }
+    }
+
+    public function formatPhoneNumber(Request $request){
+        $this->validate($request, [
+            "country_code" => "required",
+            "phone_no" => "required"
+        ]);
+        if(strlen($request->phone_no) == 10){
+            $request->phone_no = $request->country_code.substr($request->phone_no, 1);
+        }
+        else{
+            $request->phone_no = $request->country_code.$request->phone_no;
+        }
+        return $request->phone_no;
     }
 
 }

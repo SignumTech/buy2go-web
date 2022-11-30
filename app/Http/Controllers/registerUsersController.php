@@ -138,4 +138,6 @@ class registerUsersController extends Controller
 
         return $request->phone_no;
     }
+
+    
 }
