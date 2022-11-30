@@ -147,7 +147,7 @@ class warehousesController extends Controller
         $this->validate($request, [
             "f_name" => "required",
             "l_name" => "required",
-            "phone_no" => "required"
+            "phone_no" => "required | unique:users"
         ]);
 
         $manager = new User;

@@ -17,7 +17,7 @@
                 <label>* First Name</label>
             </div>
             <div class="col-md-7">
-                <input type="text" v-model="formData.f_name" class="form form-control">
+                <input placeholder="First Name" type="text" v-model="formData.f_name" class="form form-control">
                 <input  type="hidden" v-model="formData.id" class="form form-control">
                 <h6 class="text-danger m-0" v-for="an in valErrors.f_name" :key="an.id">{{an}}</h6>
             </div>
@@ -28,7 +28,7 @@
                 <label>* Last Name</label>
             </div>
             <div class="col-md-7">
-                <input type="text" v-model="formData.l_name" class="form form-control">
+                <input placeholder="Last Name" type="text" v-model="formData.l_name" class="form form-control">
                 <input  type="hidden" v-model="formData.id" class="form form-control">
                 <h6 class="text-danger m-0" v-for="an in valErrors.l_name" :key="an.id">{{an}}</h6>
             </div>
@@ -39,7 +39,7 @@
                 <label>* Title</label>
             </div>
             <div class="col-md-7">
-                <input type="text" v-model="formData.title" class="form form-control">
+                <input placeholder="Job Title" type="text" v-model="formData.title" class="form form-control">
                 <h6 class="text-danger m-0" v-for="an in valErrors.title" :key="an.id">{{an}}</h6>
             </div>
         </div>
@@ -48,7 +48,15 @@
                 <label>* Phone Number</label>
             </div>
             <div class="col-md-7">
-                <input type="number" v-model="formData.phone_no" class="form form-control">
+                <div class="input-group">
+                    <vue-country-code
+                        @onSelect="onSelect"
+                        :enabledCountryCode="true"
+                    >
+                    </vue-country-code>
+                    <input type="number" v-model="phone_no" class="form form-control">
+                </div>
+                
                 <h6 class="text-danger m-0" v-for="an in valErrors.phone_no" :key="an.id">{{an}}</h6>
             </div>
         </div>
@@ -57,7 +65,7 @@
                 <label>* Email Address</label>
             </div>
             <div class="col-md-7">
-                <input type="email" v-model="formData.email" class="form form-control">
+                <input placeholder="Email address" type="email" v-model="formData.email" class="form form-control">
                 <h6 class="text-danger m-0" v-for="an in valErrors.email" :key="an.id">{{an}}</h6>
             </div>
         </div>
@@ -66,7 +74,7 @@
                 <label>* User role</label>
             </div>
             <div class="col-md-7">
-                <select v-model="formData.user_role" class="form-control">
+                <select v-model="formData.user_role" class="form-select">
                     <option value=""></option>
                     <option 
                     v-for="role in roles"
@@ -106,6 +114,8 @@ export default {
                 email : "",
                 user_role : "",
             },
+            country_code: null,
+            phone_no: null,
             roles:[],
             activation :{},
             edit : false,
@@ -123,14 +133,27 @@ export default {
         this.getRoles()
     },
     methods:{
+        onSelect({name, iso2, dialCode}){
+            this.country_code = dialCode
+        },
         async getRoles(){
             await axios.get('/getRoles')
             .then( response =>{
                 this.roles = response.data
             })
         },
+        formatPhoneNo(phone_no){ 
+            if(phone_no.length == 10 && phone_no.charAt(0)=='0'){
+                
+                return this.country_code+phone_no.substring(1)
+            }
+            else{
+                return this.country_code+phone_no
+            }
+        },
         async addUser(){
             this.isClicked = true
+            this.formData.phone_no = this.formatPhoneNo(this.phone_no)
             await axios.post('/registerStaff', this.formData)
             .then( response =>{
                 this.$notify({

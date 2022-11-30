@@ -20,7 +20,7 @@ class staffController extends Controller
             'f_name' => "required | string",
             'l_name' => "required | string",
             'title' => "required | string",
-            'phone_no' => "required|integer|digits:9",
+            'phone_no' => "required | unique:users",
             'user_role' => "required | string",
             'email' => "required | email | unique:users",
         ]);

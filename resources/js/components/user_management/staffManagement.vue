@@ -41,7 +41,7 @@
                                 <td>{{td.l_name}}</td>
                                 <td>{{td.title}}</td>
                                 <td>{{td.email}}</td>
-                                <td>{{td.phone_no}}</td>
+                                <td>+{{td.phone_no}}</td>
                                 <td>{{td.user_role}}</td>
                                 <td class="text-center">
                                     <span @click="editUser(td.id)" class="fa fa-edit me-5" style="cursor:pointer"></span>

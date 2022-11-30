@@ -15,7 +15,7 @@ class registerUsersController extends Controller
             'l_name' => ['required', 'string', 'max:255'],
             //'preference' => ['required', 'string', 'max:255'],
             //'phone_no' => ['required','regex:/(01)[0-9]{9}/'],
-            'phone_no' => ['required', 'digits:10', 'unique:users'],
+            'phone_no' => ['required', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 

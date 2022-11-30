@@ -31,7 +31,7 @@
                     <tr v-for="shop,index in shops" :key="index">
                         <td class="align-middle">{{index+1}}</td>
                         <td class="align-middle">{{shop.f_name}} {{shop.l_name}}</td>
-                        <td class="align-middle">{{shop.phone_no}}</td>
+                        <td class="align-middle">+{{shop.phone_no}}</td>
                         <td class="align-middle">
                             <p v-for="address,index in shop.address" :key="index"><span class="fa fa-map-marker-alt"></span> {{address.regular_address}} | {{address.route_name}}</p>
                         </td>

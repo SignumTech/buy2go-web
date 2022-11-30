@@ -158,6 +158,7 @@ Route::middleware('auth:sanctum')->put('/updateWarehouseManager/{id}', [warehous
 Route::middleware('auth:sanctum')->get('/getSalesManagers', [staffController::class, 'getSalesManagers']);
 Route::middleware('auth:sanctum')->post('/goOnline', [staffController::class, 'goOnline']);
 Route::middleware('auth:sanctum')->post('/goOffline', [staffController::class, 'goOffline']);
+Route::middleware('auth:sanctum')->delete('/deleteStaff/{id}', [staffController::class, 'deleteStaff']);
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->post('/createRolePermission', [rolePermissionController::class, 'createRolePermission']);
 Route::middleware('auth:sanctum')->post('/updateRolePermission', [rolePermissionController::class, 'updateRolePermission']);
