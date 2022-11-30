@@ -8,12 +8,12 @@
                         <img class="img img-fluid" src="/storage/settings/store_placeholder.png" alt="">
                     </div>
                     <h5 class="text-center mt-3"><strong>{{shopDetails.shop_details.f_name}} {{shopDetails.shop_details.l_name}}</strong></h5>
-                    <h6 class="text-center">+251-{{shopDetails.shop_details.phone_no}}</h6>
+                    <h6 class="text-center">+{{shopDetails.shop_details.country_code}}-{{shopDetails.shop_details.phone_no}}</h6>
                     <hr>
                 </div>
                 <div class="col-md-12">
                     <h6><strong>Last Order</strong></h6>
-                    <h6>{{shopDetails.last_order.order_no}} - {{shopDetails.last_order.created_at | moment("MMM Do YYYY")}}</h6>
+                    <h6 v-if="shopDetails.last_order">{{shopDetails.last_order.order_no}} - {{shopDetails.last_order.created_at | moment("MMM Do YYYY")}}</h6>
                     <h6 class="mt-3"><strong>Average Order Value</strong></h6>
                     <h6>{{shopDetails.average_order | numFormat}} ETB</h6>
                     <h6 class="mt-3"><strong>Shop Registered</strong></h6>
@@ -89,7 +89,16 @@ import verifyShopModalVue from './verifyShopModal.vue'
 export default {
     data(){
         return{
-            shopDetails:{},
+            shopDetails:{
+                shop_details:{
+                    country_code:null,
+                    created_at:null,
+                    f_name:null,
+                    l_name:null,
+                    phone_no:null,
+                    shop_status:null
+                }
+            },
             orders:{},
             locations:{}
         }
@@ -149,7 +158,6 @@ export default {
             await axios.get('/shopDetails/'+this.$route.params.id)
             .then( response =>{
                 this.shopDetails = response.data
-                console.log(this.shopDetails)
             })
         },
         async getShopOrders(){
