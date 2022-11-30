@@ -33,7 +33,7 @@ class registerUsersController extends Controller
 
         return [
             'token' => $user_token->plainTextToken,
-            'user' => $user
+            'user' => User::find($user->id)
         ];
     }
 
@@ -67,7 +67,7 @@ class registerUsersController extends Controller
 
         return [
             'token' => $user_token->plainTextToken,
-            'user' => $user
+            'user' => User::find($user->id)
         ];
     }
 
@@ -100,7 +100,7 @@ class registerUsersController extends Controller
         $user_token = $user->createToken($user->f_name);
         return [
             'token' => $user_token->plainTextToken,
-            'user' => $user
+            'user' => User::find($user->id)
         ];
 
     }
