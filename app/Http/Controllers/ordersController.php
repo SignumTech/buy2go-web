@@ -706,7 +706,12 @@ class ordersController extends Controller
                     $item->updated_quantity = $j_item->updated_quantity;
                     $item->save();
                     //update orders total
-                    $order->total = $order->total -(($product->price * $j_item->updated_quantity)*1.15);
+                    if($product->taxable){
+                        $order->total = $order->total -(($product->price * ($item->quantity - $j_item->updated_quantity))*1.15);
+                    }
+                    else{
+                        $order->total = $order->total -(($product->price * ($item->quantity - $j_item->updated_quantity)));
+                    }
                     $order->save();
 
                     $returnCount++;
@@ -730,11 +735,23 @@ class ordersController extends Controller
                 $item->updated_quantity = $j_item->updated_quantity;
                 $item->save();
                 if($j_item->updated_quantity < $item->quantity){
-                    $order->total = $order->total -(($product->price * $j_item->updated_quantity)*1.15);
+                    //update orders total
+                    if($product->taxable){
+                        $order->total = $order->total -(($product->price * ($item->quantity - $j_item->updated_quantity))*1.15);
+                    }
+                    else{
+                        $order->total = $order->total -(($product->price * ($item->quantity - $j_item->updated_quantity)));
+                    }
                     $order->save();
                 }
                 elseif($j_item->updated_quantity > $item->quantity){
-                    $order->total = $order->total +(($product->price * $j_item->updated_quantity)*1.15);
+                    //update orders total
+                    if($product->taxable){
+                        $order->total = $order->total -(($product->price * ($item->quantity - $j_item->updated_quantity))*1.15);
+                    }
+                    else{
+                        $order->total = $order->total -(($product->price * ($j_item->updated_quantity - $item->quantity)));
+                    }
                     $order->save();
                 }
             }
@@ -776,7 +793,12 @@ class ordersController extends Controller
                     $item->updated_quantity = $j_item->updated_quantity;
                     $item->save();
 
-                    $order->total = $order->total -(($product->price * $j_item->updated_quantity)*1.15);
+                    if($product->taxable){
+                        $order->total = $order->total -(($product->price * ($item->quantity - $j_item->updated_quantity))*1.15);
+                    }
+                    else{
+                        $order->total = $order->total -(($product->price * ($item->quantity - $j_item->updated_quantity)));
+                    }
                     $order->save();
                     //return response("Item already shipped", 422);
                 }
@@ -810,10 +832,16 @@ class ordersController extends Controller
                 $item->updated_quantity = 0;
                 $item->save();
 
-                $order->total = $order->total - (($product->price * $item->quantity)*1.15);
+                if($product->taxable){
+                    $order->total = $order->total - (($product->price * $item->quantity)*1.15);
+                }
+                else{
+                    $order->total = $order->total - (($product->price * $item->quantity));
+                }
+                
                 $order->return_status = "HAS_RETURNS";
                 $order->save();
-                
+
                 $admin = User::where('user_role', 'ADMIN')->get();
                 $message = 'An item was removed from order '.$order->order_no;
                 Notification::send($admin, new OrderStatusUpdated($message,$order));
