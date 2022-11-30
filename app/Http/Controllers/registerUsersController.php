@@ -17,11 +17,13 @@ class registerUsersController extends Controller
             //'phone_no' => ['required','regex:/(01)[0-9]{9}/'],
             'phone_no' => ['required', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'country_code' => ['required']
         ]);
 
         $user = new User;
         $user->f_name = $request->f_name;
         $user->l_name = $request->l_name;
+        $user->country_code = $request->country_code;
         $user->phone_no = $request->phone_no;
         $user->password = Hash::make($request->password);
         $user->account_type = "USER";
@@ -51,6 +53,7 @@ class registerUsersController extends Controller
         $user = new User;
         $user->f_name = $request->f_name;
         $user->l_name = $request->l_name;
+        $user->country_code = $request->country_code;
         $user->phone_no = $request->phone_no;
         $user->password = Hash::make($request->password);
         $user->account_type = "AGENT";
@@ -126,10 +129,7 @@ class registerUsersController extends Controller
         
                 
         if(strlen($request->phone_no) == 10){
-            $request->phone_no = $request->country_code.substr($request->phone_no, 1);
-        }
-        else{
-            $request->phone_no = $request->country_code.$request->phone_no;
+            $request->phone_no = substr($request->phone_no, 1);
         }
         $phone_no = User::where('phone_no', $request->phone_no)->first();
         if($phone_no){
@@ -138,6 +138,5 @@ class registerUsersController extends Controller
 
         return $request->phone_no;
     }
-
     
 }

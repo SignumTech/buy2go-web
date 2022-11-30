@@ -16,6 +16,12 @@
             </div>
             <div class="col-md-12 mt-2">
                 <label for="">Phone Number</label>
+                <vue-tel-input
+                :autoFormat="false" 
+                v-model="value"
+                :inputOptions="inputOptions"
+                :dropDownOptions="dropDownOptions"
+                ></vue-tel-input>
                 <div class="input-group">
                     <vue-country-code
                         @onSelect="onSelect"
@@ -56,6 +62,15 @@ export default {
     },
     data(){
         return{
+            value:null,
+            inputOptions:{
+                required:true,
+            },
+            dropDownOptions:{
+                showSearchBox:true,
+                showDialCodeInList:true
+
+            },
             formData:{
                 f_name:"",
                 l_name:"",

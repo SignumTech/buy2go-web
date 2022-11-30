@@ -801,7 +801,7 @@ class ordersController extends Controller
                 Notification::send($admin, new OrderStatusUpdated($message,$order));
                 return $item;
             }
-            if(auth()->user()->user_role == 'WAREHOUSE MANAGER' && ($order->order_status == 'PROCESSING' || $order->order_status == 'PENDING_CONFIRMATION' || $order->order_status == 'PENDING_PICKUP')){
+            if(auth()->user()->user_role == 'WAREHOUSE_MANAGER' && ($order->order_status == 'PROCESSING' || $order->order_status == 'PENDING_CONFIRMATION' || $order->order_status == 'PENDING_PICKUP')){
                 $item->item_status = 'WAREHOUSE_REMOVED';
                 $item->last_updated_by = 'WAREHOUSE';
                 $item->updated_quantity = 0;

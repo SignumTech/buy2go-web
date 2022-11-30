@@ -53,6 +53,7 @@ class driversController extends Controller
             "l_name" => "required",
             "l_plate" => "required",
             "route_id" => "required",
+            "country_code" => "required",
             "phone_no" => "required|unique:users"
         ]);
         try {
@@ -61,6 +62,7 @@ class driversController extends Controller
             $driver = new User;
             $driver->f_name = $request->f_name;
             $driver->l_name = $request->l_name;
+            $driver->country_code = $request->country_code;
             $driver->phone_no = $request->phone_no;
             $driver->account_type = "DRIVER";
             $driver->user_role = "DRIVER";
@@ -126,6 +128,8 @@ class driversController extends Controller
             "f_name" => "required",
             "l_name" => "required",
             "l_plate" => "required",
+            "country_code" => "required",
+            "phone_no" => "required|unique:users",
             "route_id" => "required"
         ]);
         try {
@@ -134,6 +138,7 @@ class driversController extends Controller
             $driver = User::find($id);
             $driver->f_name = $request->f_name;
             $driver->l_name = $request->l_name;
+            $driver->country_code = $request->country_code;
             $driver->phone_no = $request->phone_no;
             $driver->account_type = "Staff";
             $driver->user_role = "DRIVER";

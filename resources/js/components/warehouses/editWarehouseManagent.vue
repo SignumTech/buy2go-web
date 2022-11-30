@@ -17,12 +17,7 @@
             <div class="col-md-12 mt-2">
                 <label for="">Phone Number</label>
                 <div class="input-group">
-                    <vue-country-code
-                        @onSelect="onSelect"
-                        :enabledCountryCode="true"
-                    >
-                    </vue-country-code>
-                    <input required v-model="phone_no" type="number" class="form-control" placeholder="Phone Number">
+                    <input required v-model="formData.phone_no" type="number" class="form-control" placeholder="Phone Number">
                 </div>
                 <h6 class="text-danger m-0" v-for="an in valErrors.phone_no" :key="an.id">{{an}}</h6>
             </div>
@@ -46,9 +41,7 @@ export default {
                 l_name:"",
                 phone_no:"",
             },
-            phone_no: null,
             valErrors:{},
-            country_code:null,
             routes:[]
         }
     },

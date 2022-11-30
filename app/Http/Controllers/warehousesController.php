@@ -147,12 +147,14 @@ class warehousesController extends Controller
         $this->validate($request, [
             "f_name" => "required",
             "l_name" => "required",
+            "country_code" => "required",
             "phone_no" => "required | unique:users"
         ]);
 
         $manager = new User;
         $manager->f_name = $request->f_name;
         $manager->l_name = $request->l_name;
+        $manager->country_code = $request->country_code;
         $manager->phone_no = $request->phone_no;
         $manager->account_type = 'WAREHOUSE_MANAGER';
         $manager->user_role = 'WAREHOUSE_MANAGER';
@@ -165,12 +167,14 @@ class warehousesController extends Controller
         $this->validate($request, [
             "f_name" => "required",
             "l_name" => "required",
+            "country_code"=>"required",
             "phone_no" => "required"
         ]);
 
         $manager = User::find($id);
         $manager->f_name = $request->f_name;
         $manager->l_name = $request->l_name;
+        $manager->country_code = $request->country_code;
         $manager->phone_no = $request->phone_no;
         $manager->account_type = 'WAREHOUSE_MANAGER';
         $manager->user_role = 'WAREHOUSE_MANAGER';

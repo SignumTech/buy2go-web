@@ -20,6 +20,7 @@ class staffController extends Controller
             'f_name' => "required | string",
             'l_name' => "required | string",
             'title' => "required | string",
+            'country_code' => 'required',
             'phone_no' => "required | unique:users",
             'user_role' => "required | string",
             'email' => "required | email | unique:users",
@@ -29,6 +30,7 @@ class staffController extends Controller
         $staff->f_name = $request->f_name;
         $staff->l_name = $request->l_name;
         $staff->title = $request->title;
+        $staff->country_code = $request->country_code;
         $staff->phone_no = $request->phone_no;
         $staff->email = $request->email;
         $staff->user_role = $request->user_role;
@@ -45,6 +47,7 @@ class staffController extends Controller
             'f_name' => "required | string",
             'l_name' => "required | string",
             'title' => "required | string",
+            'country_code'=>"required",
             'phone_no' => "required|integer|digits:9",
             'user_role' => "required | string",
             'email' => "required | email ",
@@ -55,6 +58,7 @@ class staffController extends Controller
         $staff->f_name = $request->f_name;
         $staff->l_name = $request->l_name;
         $staff->title = $request->title;
+        $staff->country_code = $request->country_code;
         $staff->phone_no = $request->phone_no;
         $staff->email = $request->email;
         $staff->user_role = $request->user_role;

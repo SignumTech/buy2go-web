@@ -41,6 +41,7 @@
         "vue-qr-generator": "^3.0.1",
         "vue-router": "^3.5.2",
         "vue-spinner": "^1.0.4",
+        "vue-tel-input": "^5.12.0",
         "vue2-flip-countdown": "^0.11.2",
         "vue2-google-maps": "^0.10.7",
         "vuex": "^3.6.2"

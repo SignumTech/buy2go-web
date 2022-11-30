@@ -52,9 +52,11 @@
                     <vue-country-code
                         @onSelect="onSelect"
                         :enabledCountryCode="true"
+                        :selectedCountryCode="true"
+                        :enableSearchField="true"
                     >
                     </vue-country-code>
-                    <input type="number" v-model="phone_no" class="form form-control">
+                    <input type="number" v-model="formData.phone_no" class="form form-control">
                 </div>
                 
                 <h6 class="text-danger m-0" v-for="an in valErrors.phone_no" :key="an.id">{{an}}</h6>
@@ -113,9 +115,8 @@ export default {
                 phone_no : "",
                 email : "",
                 user_role : "",
+                country_code: null,
             },
-            country_code: null,
-            phone_no: null,
             roles:[],
             activation :{},
             edit : false,
@@ -134,7 +135,7 @@ export default {
     },
     methods:{
         onSelect({name, iso2, dialCode}){
-            this.country_code = dialCode
+            this.formData.country_code = dialCode
         },
         async getRoles(){
             await axios.get('/getRoles')
@@ -143,17 +144,17 @@ export default {
             })
         },
         formatPhoneNo(phone_no){ 
-            if(phone_no.length == 10 && phone_no.charAt(0)=='0'){
+            if(phone_no.length == 10 || phone_no.charAt(0)=='0'){
                 
-                return this.country_code+phone_no.substring(1)
+                return phone_no.substring(1)
             }
             else{
-                return this.country_code+phone_no
+                return phone_no
             }
         },
         async addUser(){
             this.isClicked = true
-            this.formData.phone_no = this.formatPhoneNo(this.phone_no)
+            this.formData.phone_no = this.formatPhoneNo(this.formData.phone_no)
             await axios.post('/registerStaff', this.formData)
             .then( response =>{
                 this.$notify({

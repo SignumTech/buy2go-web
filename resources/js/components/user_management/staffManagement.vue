@@ -41,10 +41,10 @@
                                 <td>{{td.l_name}}</td>
                                 <td>{{td.title}}</td>
                                 <td>{{td.email}}</td>
-                                <td>+{{td.phone_no}}</td>
+                                <td>+{{td.country_code}}-{{td.phone_no}}</td>
                                 <td>{{td.user_role}}</td>
                                 <td class="text-center">
-                                    <span @click="editUser(td.id)" class="fa fa-edit me-5" style="cursor:pointer"></span>
+                                    <span @click="editUser(td)" class="fa fa-edit me-5" style="cursor:pointer"></span>
                                     <span @click="deleteUser(td.id)" class="fa fa-trash-alt me-5" style="cursor:pointer"></span>
                                     <span @click="showResetModal(td.id)" class="fa fa-key" style="cursor:pointer"></span>
                                 </td>
@@ -71,6 +71,7 @@
 <script>
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 import addusermodal from './addUserModal.vue'
+import editUserModalVue from './editUserModal.vue'
 import resetstaffpass from './staffResetPass.vue'
 export default {
     components:{
@@ -121,16 +122,13 @@ export default {
             }
 
         },
-        async editUser(id){
-            await axios.get('/showStaff/'+id)
-            .then(response =>{
-                this.$modal.show(
-                    addusermodal,
-                    {"user_data" : response.data,"modalType" : "Edit"},
-                    { height: "450", width: "700px"},
-                    {"closed" : this.closeAdd}
-                );
-            })
+        async editUser(staff){
+            this.$modal.show(
+                addusermodal,
+                {"user_data" : staff,"modalType" : "Edit"},
+                { height: "450", width: "700px"},
+                {"closed" : this.closeAdd}
+            );
         },
         async showResetModal(id){
             await axios.get('/showStaff/'+id)

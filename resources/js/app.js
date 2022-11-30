@@ -21,7 +21,10 @@ import * as VueGoogleMaps from 'vue2-google-maps'
 import VueQRCodeComponent from 'vue-qr-generator'
 import VueGeolocation from 'vue-browser-geolocation';
 import VueCountryCode from "vue-country-code";
+import VueTelInput from 'vue-tel-input';
+import 'vue-tel-input/dist/vue-tel-input.css';
 
+Vue.use(VueTelInput);
 Vue.use(VueCountryCode);
 Vue.use(VueGeolocation);
 Vue.component('qr-code', VueQRCodeComponent)
