@@ -699,79 +699,48 @@ class ordersController extends Controller
         foreach($items as $j_item){
             $item = OrderItem::find($j_item->id);
             $product = Product::find($j_item->p_id);   
-            if($order->order_status == "SHIPPED" || $order->order_status == "DELIVERED"){
-                if($j_item->updated_quantity < $item->quantity){
-                    $item->item_status = 'UPDATED';
-                    $item->last_updated_by = 'USER';
-                    $item->updated_quantity = $j_item->updated_quantity;
-                    $item->save();
-                    //update orders total
-                    if($product->taxable){
-                        $order->total = $order->total -(($product->price * ($item->quantity - $j_item->updated_quantity))*1.15);
-                    }
-                    else{
-                        $order->total = $order->total -(($product->price * ($item->quantity - $j_item->updated_quantity)));
-                    }
-                    $order->save();
+            if($order->order_status == "SHIPPED"){
 
-                    $returnCount++;
-                    
+                if(!$this->checkQuantity($j_item, $item)){
+                    return response('Item is already shipped', 422);
                 }
-                elseif($j_item->updated_quantity == $item->quantity){
-                    $item->item_status = 'UPDATED';
-                    $item->last_updated_by = 'USER';
-                    $item->updated_quantity = $j_item->updated_quantity;
-                    $item->save();
-                    
-                }
-                else{
-                    continue;
-                }
-                
+                $item->item_status = 'UPDATED';
+                $item->last_updated_by = 'USER';
+                $item->updated_quantity = $j_item->updated_quantity;
+                $item->save();
+
+                $returnCount++;
+                       
             }    
             else{
                 $item->item_status = 'UPDATED';
                 $item->last_updated_by = 'USER';
                 $item->updated_quantity = $j_item->updated_quantity;
                 $item->save();
-                if($j_item->updated_quantity < $item->quantity){
-                    //update orders total
-                    if($product->taxable){
-                        $order->total = $order->total -(($product->price * ($item->quantity - $j_item->updated_quantity))*1.15);
-                    }
-                    else{
-                        $order->total = $order->total -(($product->price * ($item->quantity - $j_item->updated_quantity)));
-                    }
-                    $order->save();
-                }
-                elseif($j_item->updated_quantity > $item->quantity){
-                    //update orders total
-                    if($product->taxable){
-                        $order->total = $order->total +(($product->price * ($item->quantity - $j_item->updated_quantity))*1.15);
-                    }
-                    else{
-                        $order->total = $order->total +(($product->price * ($j_item->updated_quantity - $item->quantity)));
-                    }
-                    $order->save();
-                }
             }
 
         }
         
-        if($returnCount > 0){
-            $order->return_status = "HAS_RETURNS";
-            $order->save();
-        }
-        else{
-            $order->return_status = "NO_RETURNS";
-            $order->save();
-        }
+        //update orders total
+        $order = $this->calculateTotal($order);
+        $order->return_status = ($returnCount > 0)?"HAS_RETURNS":"NO_RETURNS";
+        $order->save();
 
         $admin = User::where('user_role', 'ADMIN')->get();
         $admin_message = 'User made changes to order '.$order->order_no;
         Notification::send($admin, new OrderStatusUpdated($admin_message,$order));
         return $order;
     }
+
+    public function checkQuantity($j_item, $item){
+        if($item->item_status == 'UPDATED'){
+            return ($j_item->updated_quantity > $item->updated_quantity)?true:false;
+        }
+        else{
+            return ($j_item->updated_quantity > $item->quantity)?true:false;
+        }
+    }
+
     public function updateWarehouseItemQuantity(Request $request, $id){
         $this->validate($request, [
             "items" => "required"
@@ -873,26 +842,32 @@ class ordersController extends Controller
         
     }
 
-    public function calculateTotal($product, $item, $order){
-        if($product->taxable){
-            if($item->updated_quantity){
-                $order->total = $order->total - (($product->price * $item->updated_quantity)*1.15);
+    public function calculateTotal($order){
+        $items = OrderItem::where('order_id', $order->id)->get();
+        $total = 0;
+        foreach($items as $item){
+            $product = Product::find($item->p_id);
+            if($item->item_status == 'UPDATED'){
+                $total = $total + $this->calculateTax($product, $item->updated_quantity);
+            }
+            elseif($item->item_status == 'USER_REMOVED' || $item->item_status == 'WAREHOUSE_REMOVED'){
+                $total = $total + $this->calculateTax($product, $item->updated_quantity);
             }
             else{
-                $order->total = $order->total - (($product->price * $item->quantity)*1.15);
+                $total = $total + $this->calculateTax($product, $item->quantity);
             }
-            
+        }
+        $order->total = $total;
+        return $order;
+    }
+
+    public function calculateTax($product, $quantity){
+        if($product->taxable){
+            return $product->price * $quantity * 1.15;
         }
         else{
-            if($item->updated_quantity){
-                $order->total = $order->total - (($product->price * $item->updated_quantity));
-            }
-            else{
-                $order->total = $order->total - (($product->price * $item->quantity));
-            }
+            return $product->price * $quantity ;
         }
-
-        return $order;
     }
 
     public function getReturnOrders(){
