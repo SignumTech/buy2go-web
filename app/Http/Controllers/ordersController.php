@@ -946,6 +946,7 @@ class ordersController extends Controller
                             ->where('order_items.shipped_quantity', '>', 'order_items.updated_quantity')
                             ->select('order_items.*', 'products.p_name', 'products.price', 'products.description', 'products.p_image', 'products.cat_id', 'products.commission', 'products.p_status', 'products.sku', 'products.taxable', 'products.deleted_at')
                             ->get();
+        dd($order_items);
         $items = [];
         foreach($order_items as $item){
             $item->return_quantity = $item->shipped_quantity - $item->updated_quantity;
