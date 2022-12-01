@@ -215,13 +215,13 @@ export default {
                     }
                 }
                 else{
-                    subtotal = subtotal+(item.price*item.updated_quantity)
+                    subtotal = subtotal+(item.price*item.quantity)
                     if(parseInt(item.taxable) === 1){
-                        total = total+(item.price*item.updated_quantity*1.15)
-                        vat = vat+(item.price*item.updated_quantity*0.15)
+                        total = total+(item.price*item.quantity*1.15)
+                        vat = vat+(item.price*item.quantity*0.15)
                     }
                     else{
-                        total = total+(item.price*item.updated_quantity)
+                        total = total+(item.price*item.quantity)
                     }
                 }
                 
