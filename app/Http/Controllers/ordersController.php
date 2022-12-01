@@ -755,7 +755,7 @@ class ordersController extends Controller
                 return response("Order is already shipped. Unable to update order", 422);
             }
             else{
-                if($this->checkQuantity($j_item, $item)){
+                if(!$this->checkQuantity($j_item, $item)){
                     $item->item_status = 'UPDATED';
                     $item->last_updated_by = 'WAREHOUSE';
                     $item->warehouse_limit = $j_item->updated_quantity;
