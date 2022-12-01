@@ -932,7 +932,7 @@ class ordersController extends Controller
             $warehouse_item = WarehouseDetail::where('p_id', $item->p_id)
                                              ->where('warehouse_id', $order->warehouse_id)
                                              ->first();
-            if($item->item_status == 'UPDATED'){
+            if($item->item_status == 'UPDATED' || $item->item_status == 'USER_REMOVED'){
                 $warehouse_item->quantity = $warehouse_item->quantity + ($item->shipped_quantity - $item->updated_quantity);
                 $warehouse_item->save();
             }
