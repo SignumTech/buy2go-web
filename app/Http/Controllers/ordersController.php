@@ -755,27 +755,20 @@ class ordersController extends Controller
                 return response("Order is already shipped. Unable to update order", 422);
             }
             else{
-                if($j_item->updated_quantity < $item->quantity){
+                if(checkQuantity($j_item, $item)){
                     $item->item_status = 'UPDATED';
                     $item->last_updated_by = 'WAREHOUSE';
                     $item->warehouse_limit = $j_item->updated_quantity;
                     $item->updated_quantity = $j_item->updated_quantity;
                     $item->save();
-
-                    if($product->taxable){
-                        $order->total = $order->total -(($product->price * ($item->quantity - $j_item->updated_quantity))*1.15);
-                    }
-                    else{
-                        $order->total = $order->total -(($product->price * ($item->quantity - $j_item->updated_quantity)));
-                    }
-                    $order->save();
-                    //return response("Item already shipped", 422);
-                }
-                else{
-                    continue;
+                    
                 }
             }
         }
+
+        $order = $this->calculateTotal($order);
+        $order->save();
+
         $admin = User::where('user_role', 'ADMIN')->get();
         $user = User::find($order->user_id);
         $admin_message = 'Warehouse manager made changes to order '.$order->order_no;
@@ -793,24 +786,21 @@ class ordersController extends Controller
         if(auth()->user()->id == $order->user_id || auth()->user()->id == $warehouse->user_id){
             if(auth()->user()->user_role == 'USER' && ($order->order_status == 'PROCESSING' || $order->order_status == 'PENDING_CONFIRMATION' || $order->order_status == 'PENDING_PICKUP')){
                 
-                $order = $this->calculateTotal($product, $item, $order);
+                $item->delete();
+                $order = $this->calculateTotal($order);
                 
                 $order->save();
-
-                $item->delete();
-                
                 return $item;
             }
             if(auth()->user()->user_role == 'USER' && $order->order_status == 'SHIPPED'){
                 $item->item_status = 'USER_REMOVED';
                 $item->last_updated_by = 'USER';
-                $order = $this->calculateTotal($product, $item, $order);
-                $order->save();
-
                 $item->updated_quantity = 0;
                 $item->save();
+
+                $order = $this->calculateTotal($order);
                 $order->return_status = "HAS_RETURNS";
-                
+                $order->save();
 
                 $admin = User::where('user_role', 'ADMIN')->get();
                 $message = 'An item was removed from order '.$order->order_no;
@@ -820,11 +810,11 @@ class ordersController extends Controller
             if(auth()->user()->user_role == 'WAREHOUSE_MANAGER' && ($order->order_status == 'PROCESSING' || $order->order_status == 'PENDING_CONFIRMATION' || $order->order_status == 'PENDING_PICKUP')){
                 $item->item_status = 'WAREHOUSE_REMOVED';
                 $item->last_updated_by = 'WAREHOUSE';
-
-                $order = $this->calculateTotal($product, $item, $order);
-                $order->save();
                 $item->updated_quantity = 0;
                 $item->save();
+
+                $order = $this->calculateTotal($order);
+                $order->save();
                 $admin = User::where('user_role', 'ADMIN')->get();
                 $user = User::find($order->user_id);
                 $message = 'An item was removed from order '.$order->order_no;
