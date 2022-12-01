@@ -701,7 +701,7 @@ class ordersController extends Controller
             $product = Product::find($j_item->p_id);   
             if($order->order_status == "SHIPPED"){
 
-                if(!$this->checkQuantity($j_item, $item)){
+                if($this->checkQuantity($j_item, $item)){
                     return response('Item is already shipped', 422);
                 }
                 $item->item_status = 'UPDATED';
