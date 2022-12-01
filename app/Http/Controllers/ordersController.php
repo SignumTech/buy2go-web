@@ -954,7 +954,7 @@ class ordersController extends Controller
                 array_push($items, $item);
             }
         }
-        dd($items);
+        
         $delivery_details = AddressBook::find($order->delivery_details);
 
         $data = [];
