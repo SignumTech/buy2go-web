@@ -123,10 +123,10 @@ class getTokenController extends Controller
             "phone_no" => "required"
         ]);
         if(strlen($request->phone_no) == 10){
-            $request->phone_no = $request->country_code.substr($request->phone_no, 1);
+            $request->phone_no = substr($request->phone_no, 1);
         }
         else{
-            $request->phone_no = $request->country_code.$request->phone_no;
+            $request->phone_no = $request->phone_no;
         }
         return $request->phone_no;
     }

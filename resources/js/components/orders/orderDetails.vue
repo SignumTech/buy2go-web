@@ -106,7 +106,7 @@
                                 <td class="ps-2">
                                     <h6>{{ot.p_name}} <span v-if="!parseInt(ot.taxable)" class="bg-warning float-end p-1 rounded-pill px-2 shadow-sm">Non Taxable Item</span></h6>                                
                                 </td>
-                                <td class="ps-2 text-center">{{ot.quantity}}</td>
+                                <td class="ps-2 text-center">{{order.item_status == 'UPDATED'?ot.quantity:ot.updated_quantity}}</td>
                                 <td class="ps-2 text-center">{{ot.price | numFormat}} ETB</td>
                                 <td class="ps-2 text-center">{{order.item_status?order.item_status:`UNCHANGED`}}</td>
                             </tr>
@@ -204,15 +204,27 @@ export default {
             var vat=0;
             var total = 0;
             orderItems.forEach(item =>{
-                
-                subtotal = subtotal+(item.price*item.quantity)
-                if(parseInt(item.taxable) === 1){
-                    total = total+(item.price*item.quantity*1.15)
-                    vat = vat+(item.price*item.quantity*0.15)
+                if(item.item_status != null){
+                    subtotal = subtotal+(item.price*item.updated_quantity)
+                    if(parseInt(item.taxable) === 1){
+                        total = total+(item.price*item.updated_quantity*1.15)
+                        vat = vat+(item.price*item.updated_quantity*0.15)
+                    }
+                    else{
+                        total = total+(item.price*item.updated_quantity)
+                    }
                 }
                 else{
-                    total = total+(item.price*item.quantity)
+                    subtotal = subtotal+(item.price*item.updated_quantity)
+                    if(parseInt(item.taxable) === 1){
+                        total = total+(item.price*item.updated_quantity*1.15)
+                        vat = vat+(item.price*item.updated_quantity*0.15)
+                    }
+                    else{
+                        total = total+(item.price*item.updated_quantity)
+                    }
                 }
+                
             })
             return {subTotal:subtotal,vat:vat,total:total}
         },
