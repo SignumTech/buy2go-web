@@ -825,7 +825,7 @@ class ordersController extends Controller
             if(auth()->user()->user_role == 'USER' && ($order->order_status == 'PROCESSING' || $order->order_status == 'PENDING_CONFIRMATION' || $order->order_status == 'PENDING_PICKUP')){
                 
                 $order = $this->calculateTotal($product, $item, $order);
-                dd($order);
+               // dd($order);
                 $order->save();
 
                 $item->delete();
