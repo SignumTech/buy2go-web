@@ -825,7 +825,7 @@ class ordersController extends Controller
             if(auth()->user()->user_role == 'USER' && ($order->order_status == 'PROCESSING' || $order->order_status == 'PENDING_CONFIRMATION' || $order->order_status == 'PENDING_PICKUP')){
                 
                 $order = $this->calculateTotal($product, $item, $order);
-               // dd($order);
+                
                 $order->save();
 
                 $item->delete();
@@ -876,7 +876,7 @@ class ordersController extends Controller
     public function calculateTotal($product, $item, $order){
         if($product->taxable){
             if($item->updated_quantity){
-                $order->total = $order->total - (($product->price * $item->update_quantity)*1.15);
+                $order->total = $order->total - (($product->price * $item->updated_quantity)*1.15);
             }
             else{
                 $order->total = $order->total - (($product->price * $item->quantity)*1.15);
@@ -885,7 +885,7 @@ class ordersController extends Controller
         }
         else{
             if($item->updated_quantity){
-                $order->total = $order->total - (($product->price * $item->update_quantity));
+                $order->total = $order->total - (($product->price * $item->updated_quantity));
             }
             else{
                 $order->total = $order->total - (($product->price * $item->quantity));
