@@ -491,6 +491,7 @@ class ordersController extends Controller
             return response("Unauthorized",401);
         }
         $this->updateInventory($id);
+        $this->recordShippedQuantity($id);
         $order->order_status = "SHIPPED";
         $order->save();
 
@@ -960,6 +961,22 @@ class ordersController extends Controller
         $data['order_items'] = $items;
         $data['delivery_details'] = $delivery_details;
         return $data;
+    }
+
+    public function recordShippedQuantity($id){
+        $order = Order::find($id);
+        $items = OrderItem::where('order_id', $id)->get();
+        foreach($items as $item){
+            if($item->item_status == 'UPDATED'){
+                $item->shipped_quantity = $item->updated_quantity;
+                $item->save();
+            }
+            else{
+                $item->shipped_quantity = $item->quantity;
+                $item->save();
+            }
+        }
+        return $order;
     }
 
     
