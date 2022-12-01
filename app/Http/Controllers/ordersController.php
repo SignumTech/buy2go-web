@@ -933,7 +933,7 @@ class ordersController extends Controller
                                              ->where('warehouse_id', $order->warehouse_id)
                                              ->first();
 
-            $warehouse_item->quantity = $warehouse_item->quantity + ($item->quantity - $item->updated_quantity);
+            $warehouse_item->quantity = $warehouse_item->quantity + ($item->quantity - $item->shipped_quantity);
             $warehouse_item->save();
         }
         return $order;
@@ -943,7 +943,7 @@ class ordersController extends Controller
         $order = Order::find($id);
         $order_items = OrderItem::join('products', 'order_items.p_id', '=', 'products.id')
                             ->where('order_items.order_id', $id)
-                            ->where('order_items.quantity', '>', 'order_items.updated_quantity')
+                            ->where('order_items.shipped_quantity', '>', 'order_items.updated_quantity')
                             ->select('order_items.*', 'products.p_name', 'products.price', 'products.description', 'products.p_image', 'products.cat_id', 'products.commission', 'products.p_status', 'products.sku', 'products.taxable', 'products.deleted_at')
                             ->get();
         $items = [];
