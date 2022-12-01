@@ -948,8 +948,8 @@ class ordersController extends Controller
                             ->get();
         $items = [];
         foreach($order_items as $item){
-            $item->return_quantity = $item->quantity - $item->updated_quantity;
-            if($item->quantity - $item->updated_quantity > 0 || $item->item_status == `USER_REMOVED`){
+            $item->return_quantity = $item->shipped_quantity - $item->updated_quantity;
+            if($item->shipped_quantity - $item->updated_quantity > 0 || $item->item_status == `USER_REMOVED`){
                 array_push($items, $item);
             }
         }
