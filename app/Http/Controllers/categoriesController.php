@@ -148,7 +148,7 @@ class categoriesController extends Controller
                 $cat->parent_name = Category::where('id', $cat->parent_id)->select('cat_name')->first()->cat_name;
             }
             else{
-                dd($cat->parent_id);
+                dd($cat);
             }
             
         }
