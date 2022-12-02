@@ -6,15 +6,15 @@
     <div class="col-md-12">
         <div class="bg-white shadow-sm rounded-lg">
             <div class="row m-0 p-3 border-bottom">
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <label for="">Phone or name</label>
                     <input type="text" v-model="queryData.queryItem" class="form-control" placeholder="Phone/Name">
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <label for="">Locations</label>
                     <input type="text" class="form-control" v-model="queryData.locations" placeholder="Shop Locations">
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-3">
                     <label for="">Shop Status</label>
                     <select v-model="queryData.shop_status" class="form-select">
                         <option value=""></option>
@@ -22,8 +22,18 @@
                         <option value="NOT_VERIFIED">Unverified Shops</option>
                     </select>
                 </div>
-                <div class="col-md-2">
-                    <button @click="searchUser()" class="btn btn-primary"><span class="fa fa-search"></span> Search</button>
+                <div class="col-md-3 align-self-end">
+                    <div class="row">
+                        <div class="col-md-6 align-self-end">
+                            <button @click="searchUser()" class="btn btn-success form-control rounded-1"><span class="fa fa-filter"></span> Filter</button>
+                        </div>
+                        <div class="col-md-6 align-self-end">
+                            <form action="#" @submit.prevent="exportWarehouses">
+                                <button type="submit" class="btn btn-primary form-control rounded-1"><span class="fa fa-file-export"></span> Export</button>
+                            </form>
+                        </div>
+                    </div>
+                    
                 </div>
             </div>
         </div>

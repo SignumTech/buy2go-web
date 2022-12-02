@@ -93,10 +93,12 @@ class registerUsersController extends Controller
     public function forgetPassword(Request $request){
         $this->validate($request, [
             'phone_no' => ['required'],
-            'password' => ['required', 'string', 'min:8']
+            'country_code' => ['required'],
+            'password' => ['required', 'string', 'min:8', 'confirmed']
         ]);
 
-        $user = User::where('phone_no', $request->phone_no)->first();
+        $user = User::where('phone_no', $request->phone_no)
+                    ->where('country_code', $request->country_code)->first();
         $user->password = Hash::make($request->password);
         $user->save();
 
@@ -153,7 +155,7 @@ class registerUsersController extends Controller
         if($phone_no){
             return $request->phone_no;
         }
-        return response('Phone already exists', 422);
+        return response('Phone number doesnt exists.', 422);
 
         
     }
