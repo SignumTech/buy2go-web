@@ -999,6 +999,9 @@ class ordersController extends Controller
         if($order->order_status == 'SHIPPED'){
             $order->order_status = 'HAS_RETURNS';
         }
+        if($order->order_status == 'DELIVERED'){
+            return response('Order is already delivered', 422);
+        }
         $order->order_status = 'CANCELED';
         $order->save();
 
@@ -1008,6 +1011,7 @@ class ordersController extends Controller
         $message = 'Order number '.$order->order.' has been canceled.' ;
         Notification::send($admin, new OrderStatusUpdated($message,$order));
         Notification::send($rtm, new OrderStatusUpdated($message,$order));
+        return $order;
     }
 
     
