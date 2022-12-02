@@ -144,14 +144,11 @@ class categoriesController extends Controller
         foreach($categories as $cat){
             $count = Product::where('cat_id', $cat->id)->count();
             $cat->items = $count + $this->categoryItemCount($cat->id);
-            $cat->parent_name = Category::find($cat->parent_id)->cat_name;
-            /*if(Category::where('id', $cat->parent_id)->select('cat_name')->first()){
-                
-                $cat->parent_name = Category::where('id', $cat->parent_id)->select('cat_name')->first()->cat_name;
+            
+            if(Category::find($cat->parent_id)){
+                $cat->parent_name = Category::find($cat->parent_id)->cat_name;
             }
-            else{
-                dd($cat);
-            }*/
+            
             
         }
         return $categories;
