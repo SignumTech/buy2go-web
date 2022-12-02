@@ -993,6 +993,9 @@ class ordersController extends Controller
     public function cancelOrder($id){
 
         $order = Order::find($id);
+        if(auth()->user()->id != $order->user_id){
+            return response('Unauthorized', 401);
+        }
         if($order->order_status == 'SHIPPED'){
             $order->order_status = 'HAS_RETURNS';
         }
