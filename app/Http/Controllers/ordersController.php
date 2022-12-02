@@ -997,7 +997,7 @@ class ordersController extends Controller
             return response('Unauthorized', 401);
         }
         if($order->order_status == 'SHIPPED'){
-            $order->order_status = 'HAS_RETURNS';
+            $order->return_status = 'HAS_RETURNS';
         }
         if($order->order_status == 'DELIVERED'){
             return response('Order is already delivered', 422);
