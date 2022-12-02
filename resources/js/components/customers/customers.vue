@@ -11,10 +11,6 @@
                     <input type="text" v-model="queryData.queryItem" class="form-control" placeholder="Phone/Name">
                 </div>
                 <div class="col-md-3">
-                    <label for="">Locations</label>
-                    <input type="text" class="form-control" v-model="queryData.locations" placeholder="Shop Locations">
-                </div>
-                <div class="col-md-3">
                     <label for="">Shop Status</label>
                     <select v-model="queryData.shop_status" class="form-select">
                         <option value=""></option>
@@ -23,17 +19,12 @@
                     </select>
                 </div>
                 <div class="col-md-3 align-self-end">
-                    <div class="row">
-                        <div class="col-md-6 align-self-end">
-                            <button @click="searchUser()" class="btn btn-success form-control rounded-1"><span class="fa fa-filter"></span> Filter</button>
-                        </div>
-                        <div class="col-md-6 align-self-end">
-                            <form action="#" @submit.prevent="exportWarehouses">
-                                <button type="submit" class="btn btn-primary form-control rounded-1"><span class="fa fa-file-export"></span> Export</button>
-                            </form>
-                        </div>
-                    </div>
-                    
+                    <button @click="searchUser()" class="btn btn-success form-control rounded-1"><span class="fa fa-filter"></span> Filter</button>
+                </div>
+                <div class="col-md-3 align-self-end">
+                    <form action="#" @submit.prevent="exportWarehouses">
+                        <button type="submit" class="btn btn-primary form-control rounded-1"><span class="fa fa-file-export"></span> Export</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -85,7 +76,6 @@ export default {
             paginationData:{},
             queryData:{
                 queryItem: null,
-                locations: null,
                 shop_status: null,
             },
         }

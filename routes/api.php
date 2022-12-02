@@ -105,7 +105,10 @@ Route::middleware('auth:sanctum')->post('/resetPassword', [registerUsersControll
 Route::post('/forgetPassword', [registerUsersController::class, 'forgetPassword']);
 Route::middleware('auth:sanctum')->put('/updateProfile', [registerUsersController::class, 'updateProfile']);
 Route::post('/checkPhoneNumber', [registerUsersController::class, 'checkPhoneNumber']);
-Route::post('/checkPhoneForget', [registerUsersController::class, 'checkPhoneForget']);
+Route::post('/checkPhoneForgetUser', [registerUsersController::class, 'checkPhoneForgetUser']);
+Route::post('/checkPhoneForgetAgent', [registerUsersController::class, 'checkPhoneForgetAgent']);
+Route::post('/checkPhoneForgetDriver', [registerUsersController::class, 'checkPhoneForgetDriver']);
+Route::post('/checkPhoneForgetWarehouse', [registerUsersController::class, 'checkPhoneForgetWarehouse']);
 //////////////////////////////////////addressbook//////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getMyAddresses', [addressBooksController::class, 'getMyAddresses']);
 ///////////////////////////////////////////////////////////////////////////////

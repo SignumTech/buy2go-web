@@ -141,7 +141,7 @@ class registerUsersController extends Controller
         return $request->phone_no;
     }
 
-    public function checkPhoneForget(Request $request){
+    public function checkPhoneForgetUser(Request $request){
         $this->validate($request, [
             "country_code" => "required",
             "phone_no" => "required"
@@ -153,6 +153,75 @@ class registerUsersController extends Controller
         }
         $phone_no = User::where('phone_no', $request->phone_no)->first();
         if($phone_no){
+            if($phone_no->user_role != 'User'){
+                return response('Unauthorized!', 401);
+            }
+            return $request->phone_no;
+        }
+        return response('Phone number doesnt exists.', 422);
+
+    }
+
+    public function checkPhoneForgetAgent(Request $request){
+        $this->validate($request, [
+            "country_code" => "required",
+            "phone_no" => "required"
+        ]);
+        
+                
+        if(strlen($request->phone_no) == 10){
+            $request->phone_no = substr($request->phone_no, 1);
+        }
+        $phone_no = User::where('phone_no', $request->phone_no)->first();
+        if($phone_no){
+            if($phone_no->user_role != 'AGENT'){
+                return response('Unauthorized!', 401);
+            }
+            return $request->phone_no;
+        }
+        return response('Phone number doesnt exists.', 422);
+
+    }
+
+    public function checkPhoneForgetDriver(Request $request){
+        $this->validate($request, [
+            "country_code" => "required",
+            "phone_no" => "required"
+        ]);
+        
+                
+        if(strlen($request->phone_no) == 10){
+            $request->phone_no = substr($request->phone_no, 1);
+        }
+        $phone_no = User::where('phone_no', $request->phone_no)->first();
+        
+        if($phone_no){
+            if($phone_no->user_role != 'DRIVER'){
+                return response('Unauthorized!', 401);
+            }
+            return $request->phone_no;
+        }
+        return response('Phone number doesnt exists.', 422);
+
+    }
+
+    public function checkPhoneForgetWarehouse(Request $request){
+        $this->validate($request, [
+            "country_code" => "required",
+            "phone_no" => "required"
+        ]);
+        
+                
+        if(strlen($request->phone_no) == 10){
+            $request->phone_no = substr($request->phone_no, 1);
+        }
+
+        $phone_no = User::where('phone_no', $request->phone_no)->first();
+        
+        if($phone_no){
+            if($phone_no->user_role != 'WAREHOUSE_MANAGER'){
+                return response('Unauthorized!', 401);
+            }
             return $request->phone_no;
         }
         return response('Phone number doesnt exists.', 422);
