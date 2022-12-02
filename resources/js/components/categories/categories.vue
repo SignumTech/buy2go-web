@@ -109,6 +109,24 @@
                     </table>
                 </div>
             </div>
+            <nav v-if="(!filtered && paginationData.total >= paginationData.total)" aria-label="Page d-flex m-auto navigation example" style="cursor:pointer">
+                <ul class="pagination justify-content-center">
+                    <li v-for="pd,index in paginationData.links" :key="index" :class="(pd.active)?`page-item active text-white`:`page-item`">
+                        <a class="page-link" @click="getPage(pd.url)" aria-label="Previous">
+                            <span :class="(pd.active)?`text-white`:``" aria-hidden="true" v-html="pd.label"></span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <nav v-if="(filtered && paginationData.total >= paginationData.total)" aria-label="Page d-flex m-auto navigation example" style="cursor:pointer">
+                <ul class="pagination justify-content-center">
+                    <li v-for="pd,index in paginationData" :key="index" :class="(pd.active)?`page-item active text-white`:`page-item`">
+                        <a class="page-link" @click="getFilteredPage(pd.url)" aria-label="Previous">
+                            <span :class="(pd.active)?`text-white`:``" aria-hidden="true" v-html="pd.label"></span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 </div>
@@ -121,8 +139,10 @@ import makeChildModalVue from './makeChildModal.vue'
 export default {
     data(){
         return{
+            filtered:false,
             mainCategories:{},
             subCategories:{},
+            paginationData:{},
             parents:{},
             queryData:{
                 cat_name:null,
@@ -136,7 +156,20 @@ export default {
         this.getNodeCategories()
     },
     methods:{
-        
+        async getPage(pageUrl){
+            await axios.get(pageUrl)
+            .then( response => {
+                this.paginationData = response.data
+                this.subCategories = response.data.data
+            })
+        },
+        async getFilteredPage(pageUrl){
+            await axios.post(pageUrl, this.queryData)
+            .then( response => {
+                this.paginationData = response.data
+                this.subCategories = response.data.data
+            })
+        },
         async deleteCategory(id){
             var check = confirm("Are you sure you want to delete this category?")
             if(check){
@@ -180,7 +213,9 @@ export default {
         async filterCategories(){
             await axios.post('/filterCategories', this.queryData)
             .then( response=>{
-                this.subCategories = response.data
+                this.paginationData = response.data
+                this.subCategories = response.data.data
+                this.filtered = true;
             })
         },
         makeChild(category){
@@ -247,7 +282,9 @@ export default {
         async getSubCategories(){
             await axios.get('/getSubCategories')
             .then( response =>{
-                this.subCategories = response.data
+                this.paginationData = response.data
+                this.subCategories = response.data.data
+                
             })
             .catch( error =>{
                 

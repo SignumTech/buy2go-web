@@ -192,7 +192,7 @@ export default {
             })
         },
         async getFilteredPage(pageUrl){
-            await axios.post(pageUrl)
+            await axios.post(pageUrl, this.queryData)
             .then( response => {
                 this.orderData = response.data 
                 this.paginationData = response.data.links

@@ -139,7 +139,7 @@ class categoriesController extends Controller
 
     public function getSubCategories(){
         
-        $categories = Category::where('cat_type', 'CHILD')->get();
+        $categories = Category::where('cat_type', 'CHILD')->paginate(10);
         
         foreach($categories as $cat){
             $count = Product::where('cat_id', $cat->id)->count();
@@ -285,7 +285,7 @@ class categoriesController extends Controller
     }
 
     public function filterCategories(Request $request){
-        $categories = $this->filterData($request)->get();
+        $categories = $this->filterData($request)->paginate(12);
                             
         foreach($categories as $cat){
             $count = Product::where('cat_id', $cat->id)->count();
