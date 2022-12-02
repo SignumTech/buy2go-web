@@ -21,8 +21,8 @@ class CustomerExport implements FromCollection,ShouldAutoSize,WithStyles
 
     public function collection()
     {
-        $headers = ["Id", "Order No.", "Order Amount", "Order Status", "Payment Status", "Payment Method", "Order Type", "Order Placed"];
-        return User::all();
+        $headers = ["Id", "First Name", "Last Name", "Shop Location", "Shop Status", "Registration Date"];
+        return collect([$headers,$this->users]);
     }
 
     public function styles(Worksheet $sheet)

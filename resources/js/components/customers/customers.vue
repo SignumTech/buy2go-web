@@ -84,7 +84,9 @@ export default {
             shops:{},
             paginationData:{},
             queryData:{
-                queryItem: ""
+                queryItem: null,
+                locations: null,
+                shop_status: null,
             },
         }
     },
@@ -92,6 +94,23 @@ export default {
         this.getShops()
     },
     methods:{
+        async exportCustomers(){
+            await axios.post('/exportCustomers', this.queryData, {responseType: 'blob'})
+            .then( response =>{
+                const href = URL.createObjectURL(response.data);
+
+                // create "a" HTML element with href to file & click
+                const link = document.createElement('a');
+                link.href = href;
+                link.setAttribute('download', 'customers'+Date.now()+'.xlsx'); //or any other extension
+                document.body.appendChild(link);
+                link.click();
+
+                // clean up "a" element & remove ObjectURL
+                document.body.removeChild(link);
+                URL.revokeObjectURL(href);
+            })
+        },
         async searchUser(){
             await axios.post('/searchCustomer', this.queryData)
             .then( response =>{

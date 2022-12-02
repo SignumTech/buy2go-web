@@ -157,7 +157,6 @@ class registerUsersController extends Controller
         }
         return response('Phone number doesnt exists.', 422);
 
-        
     }
     
 }

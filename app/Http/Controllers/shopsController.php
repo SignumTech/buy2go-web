@@ -166,18 +166,14 @@ class shopsController extends Controller
     }
 
     public function searchCustomer(Request $request){
-        $this->validate( $request, [
-            "queryItem" => "required"
-        ]);
-        
-        $user = User::where(function ($q) use($request){
-                        return $q->where("phone_no", 'like', '%'.$request->queryItem.'%')
-                                 ->orWhere("f_name", 'like', '%'.$request->queryItem.'%');
-                    })
-                    ->where('user_role', 'USER')
-                    ->paginate(10);
-                     
-        return $user;
+        $shops = $this->filterData($request)->paginate(10);
+        foreach($shops as $shop){
+            $shop->address = AddressBook::where('user_id', $shop->id)
+                                        ->when($request->locations !=null, function ($q) use($request){
+                                            return $q->where("regular_address", 'LIKE',  '%'.$request->shop_status.'%');
+                                        })->select('regular_address')->get();
+        }
+        return $shops;
     }
 
     public function assignSalesManager(Request $request){
@@ -212,5 +208,26 @@ class shopsController extends Controller
         Notification::send($salesManager, new ShopAssigned($user_message,$shop));
         
         return $shop;
+    }
+
+    public function exportCustomers(Request $request){
+
+    }
+
+    public function filterData(Request $request){
+        if(auth()->user()->user_role == 'SALES'){
+            return $this->getSalesShops();
+        }
+        $shops = User::when($request->queryItem !=null, function ($q) use($request){
+                            return $q->where("phone_no", 'like', '%'.$request->queryItem.'%')
+                            ->orWhere("f_name", 'like', '%'.$request->queryItem.'%');
+                        })
+                        ->when($request->shop_status !=null, function ($q) use($request){
+                            return $q->where("shop_status", $request->shop_status);
+                        })
+                        ->where('account_type', 'USER');
+
+
+        return $shops;
     }
 }
