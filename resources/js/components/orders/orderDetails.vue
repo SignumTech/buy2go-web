@@ -204,7 +204,7 @@ export default {
             var vat=0;
             var total = 0;
             orderItems.forEach(item =>{
-                if(item.item_status == 'UPDATED'){
+                if(item.item_status == 'UPDATED' || item.item_status == 'USER_REMOVED' || item.item_status == 'WAREHOUSE_REMOVED'){
                     subtotal = subtotal+(item.price*item.updated_quantity)
                     if(parseInt(item.taxable) === 1){
                         total = total+(item.price*item.updated_quantity*1.15)
