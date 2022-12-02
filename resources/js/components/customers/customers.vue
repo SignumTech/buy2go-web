@@ -6,10 +6,23 @@
     <div class="col-md-12">
         <div class="bg-white shadow-sm rounded-lg">
             <div class="row m-0 p-3 border-bottom">
-                <div class="col-md-4">
+                <div class="col-md-2">
+                    <label for="">Phone or name</label>
                     <input type="text" v-model="queryData.queryItem" class="form-control" placeholder="Phone/Name">
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-2">
+                    <label for="">Locations</label>
+                    <input type="text" class="form-control" v-model="queryData.locations" placeholder="Shop Locations">
+                </div>
+                <div class="col-md-2">
+                    <label for="">Shop Status</label>
+                    <select v-model="queryData.shop_status" class="form-select">
+                        <option value=""></option>
+                        <option value="VERIFIED">Verified Shops</option>
+                        <option value="NOT_VERIFIED">Unverified Shops</option>
+                    </select>
+                </div>
+                <div class="col-md-2">
                     <button @click="searchUser()" class="btn btn-primary"><span class="fa fa-search"></span> Search</button>
                 </div>
             </div>

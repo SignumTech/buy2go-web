@@ -138,5 +138,24 @@ class registerUsersController extends Controller
 
         return $request->phone_no;
     }
+
+    public function checkPhoneForget(Request $request){
+        $this->validate($request, [
+            "country_code" => "required",
+            "phone_no" => "required"
+        ]);
+        
+                
+        if(strlen($request->phone_no) == 10){
+            $request->phone_no = substr($request->phone_no, 1);
+        }
+        $phone_no = User::where('phone_no', $request->phone_no)->first();
+        if($phone_no){
+            return $request->phone_no;
+        }
+        return response('Phone already exists', 422);
+
+        
+    }
     
 }
