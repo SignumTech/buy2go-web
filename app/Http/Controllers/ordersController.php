@@ -990,5 +990,22 @@ class ordersController extends Controller
         return $order;
     }
 
+    public function cancelOrder($id){
+
+        $order = Order::find($id);
+        if($order->order_status == 'SHIPPED'){
+            $order->order_status = 'HAS_RETURNS';
+        }
+        $order->order_status = 'CANCELED';
+        $order->save();
+
+        //Notification
+        $admin = User::where('user_role', 'ADMIN')->get();
+        $rtm = User::find($order->rtm_id);
+        $message = 'Order number '.$order->order.' has been canceled.' ;
+        Notification::send($admin, new OrderStatusUpdated($message,$order));
+        Notification::send($rtm, new OrderStatusUpdated($message,$order));
+    }
+
     
 }
