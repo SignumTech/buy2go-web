@@ -204,15 +204,27 @@ export default {
             var vat=0;
             var total = 0;
             orderItems.forEach(item =>{
-                
-                subtotal = subtotal+(item.price*item.quantity)
-                if(parseInt(item.taxable) === 1){
-                    total = total+(item.price*item.quantity*1.15)
-                    vat = vat+(item.price*item.quantity*0.15)
+                if(item.item_status == 'UPDATED'){
+                    subtotal = subtotal+(item.price*item.updated_quantity)
+                    if(parseInt(item.taxable) === 1){
+                        total = total+(item.price*item.updated_quantity*1.15)
+                        vat = vat+(item.price*item.updated_quantity*0.15)
+                    }
+                    else{
+                        total = total+(item.price*item.quantity)
+                    }
                 }
                 else{
-                    total = total+(item.price*item.quantity)
+                    subtotal = subtotal+(item.price*item.quantity)
+                    if(parseInt(item.taxable) === 1){
+                        total = total+(item.price*item.quantity*1.15)
+                        vat = vat+(item.price*item.quantity*0.15)
+                    }
+                    else{
+                        total = total+(item.price*item.quantity)
+                    }
                 }
+                
             })
             return {subTotal:subtotal,vat:vat,total:total}
         },
