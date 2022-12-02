@@ -101,7 +101,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr v-for="ot in orderItems" :key="ot.id" class="align-middle">
+                            <tr v-for="ot in orderItems" :key="ot.id" :class="(ot.item_status == `USER_REMOVED` || ot.item_status == `WAREHOUSE_REMOVED`)?'align-middle table-danger':'align-middle'">
                                 <td class="ps-2 text-center"><img :src="`/storage/productsThumb/`+ot.p_image" class="img img-fluid" style="width:70px;height:auto"></td>
                                 <td class="ps-2">
                                     <h6>{{ot.p_name}} <span v-if="!parseInt(ot.taxable)" class="bg-warning float-end p-1 rounded-pill px-2 shadow-sm">Non Taxable Item</span></h6>                                
