@@ -8,5 +8,5 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class product extends Model
 {
-    use HasFactory, SoftDeletes;
+    use SoftDeletes, HasFactory;
 }
