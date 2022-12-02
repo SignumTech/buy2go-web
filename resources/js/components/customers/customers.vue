@@ -22,7 +22,7 @@
                     <button @click="searchUser()" class="btn btn-success form-control rounded-1"><span class="fa fa-filter"></span> Filter</button>
                 </div>
                 <div class="col-md-3 align-self-end">
-                    <form action="#" @submit.prevent="exportWarehouses">
+                    <form action="#" @submit.prevent="exportCustomers">
                         <button type="submit" class="btn btn-primary form-control rounded-1"><span class="fa fa-file-export"></span> Export</button>
                     </form>
                 </div>

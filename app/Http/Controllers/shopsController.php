@@ -10,6 +10,8 @@ use App\Models\OrderItem;
 use App\Models\ShopManager;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Notifications\Notifiable;
+use App\Exports\CustomerExport;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Notifications\ShopAssigned;
 
 class shopsController extends Controller
@@ -211,7 +213,14 @@ class shopsController extends Controller
     }
 
     public function exportCustomers(Request $request){
-
+        $shops = $this->filterData($request)->select('id', 'f_name', 'l_name', 'country_code', 'phone_no', 'shop_status', 'created_at')->get();
+        foreach($shops as $shop){
+            $shop->address = AddressBook::where('user_id', $shop->id)
+                                        ->when($request->locations !=null, function ($q) use($request){
+                                            return $q->where("regular_address", 'LIKE',  '%'.$request->shop_status.'%');
+                                        })->select('regular_address')->get();
+        }
+        return Excel::download(new CustomerExport($shops), 'shops.xlsx');
     }
 
     public function filterData(Request $request){

@@ -21,7 +21,7 @@ class CustomerExport implements FromCollection,ShouldAutoSize,WithStyles
 
     public function collection()
     {
-        $headers = ["Id", "First Name", "Last Name", "Shop Location", "Shop Status", "Registration Date"];
+        $headers = ["Id", "First Name", "Last Name", "Country Code", "Phone Number", "Shop Status", "Registration Date", "Shop Locations"];
         return collect([$headers,$this->users]);
     }
 
