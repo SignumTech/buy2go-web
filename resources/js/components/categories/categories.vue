@@ -109,7 +109,7 @@
                     </table>
                 </div>
             </div>
-            <nav v-if="(!filtered && paginationData.total >= paginationData.total)" aria-label="Page d-flex m-auto navigation example" style="cursor:pointer">
+            <nav v-if="(!filtered && paginationData.total >= paginationData.per_page)" aria-label="Page d-flex m-auto navigation example" style="cursor:pointer">
                 <ul class="pagination justify-content-center">
                     <li v-for="pd,index in paginationData.links" :key="index" :class="(pd.active)?`page-item active text-white`:`page-item`">
                         <a class="page-link" @click="getPage(pd.url)" aria-label="Previous">
@@ -118,9 +118,9 @@
                     </li>
                 </ul>
             </nav>
-            <nav v-if="(filtered && paginationData.total >= paginationData.total)" aria-label="Page d-flex m-auto navigation example" style="cursor:pointer">
+            <nav v-if="(filtered && paginationData.total >= paginationData.per_page)" aria-label="Page d-flex m-auto navigation example" style="cursor:pointer">
                 <ul class="pagination justify-content-center">
-                    <li v-for="pd,index in paginationData" :key="index" :class="(pd.active)?`page-item active text-white`:`page-item`">
+                    <li v-for="pd,index in paginationData.links" :key="index" :class="(pd.active)?`page-item active text-white`:`page-item`">
                         <a class="page-link" @click="getFilteredPage(pd.url)" aria-label="Previous">
                             <span :class="(pd.active)?`text-white`:``" aria-hidden="true" v-html="pd.label"></span>
                         </a>
@@ -144,6 +144,7 @@ export default {
             subCategories:{},
             paginationData:{},
             parents:{},
+            categoryData:{},
             queryData:{
                 cat_name:null,
                 parent_id:null
@@ -211,11 +212,11 @@ export default {
             })
         },
         async filterCategories(){
+            this.filtered = true
             await axios.post('/filterCategories', this.queryData)
             .then( response=>{
                 this.paginationData = response.data
                 this.subCategories = response.data.data
-                this.filtered = true;
             })
         },
         makeChild(category){
@@ -280,6 +281,7 @@ export default {
             })
         },
         async getSubCategories(){
+            this.filtered = false
             await axios.get('/getSubCategories')
             .then( response =>{
                 this.paginationData = response.data
