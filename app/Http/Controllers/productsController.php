@@ -195,8 +195,7 @@ class productsController extends Controller
     public function destroy($id)
     {
         $product = Product::find($id);
-        dd($product->trashed());
-        //$product->delete();
+        $product->delete();
         return $product;
     }
 
