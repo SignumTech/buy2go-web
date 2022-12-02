@@ -246,41 +246,11 @@ class ordersController extends Controller
                 $order_details->p_id = $item->p_id;
                 $order_details->quantity = $item->quantity;
                 $order_details->save();
+            }
 
-                //////////////calculate commission
-                $product = Product::find($item->p_id);
-                $agent_commission = $agent_commission + ($product->price * $product->commission/100);
-                /*$product_stock = WarehouseDetail::where('p_id', $product->id)->sum('quantity');
-                if($item->quantity > $product_stock){
-                    return response("Some of the items have been sold out", 422);
-                }
-                else{
-                    
-                }*/
-            }
-            //////update agent balance///////////
-            $balance = Balance::where('user_id', auth()->user()->id)->first();
-            $balance->balance = $balance->balance + $agent_commission;
-            $balance->save();
-            //////create a transaction///////////
-            $transaction = new BalanceHistory;
-            $latestTransaction = BalanceHistory::orderBy('created_at','DESC')->first();
-            if($latestTransaction){
-                $transaction->transaction_no = '#'.str_pad($latestTransaction->id + 1, 8, "0", STR_PAD_LEFT);
-            }
-            else{
-                $transaction->transaction_no = '#'.str_pad(1, 8, "0", STR_PAD_LEFT);
-            }
-            $transaction->amount = $agent_commission;
-            $transaction->user_id = auth()->user()->id;
-            $transaction->order_id = $order->id;
-            $transaction->transaction_type = 'Commission';
-            $transaction->save();
-            
             //////delete cart////////////////////
             $cart = Cart::find($request->cart_id);
             $cart->delete();
-
             //Notification
             $admin = User::where('user_role', 'ADMIN')->get();
             $message = 'A new order has been placed';
@@ -545,6 +515,9 @@ class ordersController extends Controller
         $order->order_status = "DELIVERED";
         $order->save();
 
+        if($order->order_type == 'AGENT_ORDER'){
+            $this->calculateAgentCommission($order);
+        }
         //Notification
         $admin = User::where('user_role', 'ADMIN')->get();
         $driver = User::find($order->assigned_driver);
@@ -554,6 +527,36 @@ class ordersController extends Controller
         return $order;
     }
 
+    public function calculateAgentCommission($order){
+        $items = OrderItem::where('order_id', $order->id)->get();
+        $agent_commission = 0;
+        foreach($items as $item){
+            $product = Product::find($item->p_id);
+            $agent_commission = $agent_commission + ($product->price * $product->commission/100);
+        }
+    
+        //////update agent balance///////////
+        $balance = Balance::where('user_id', $order->agent_id)->first();
+        $balance->balance = $balance->balance + $agent_commission;
+        $balance->save();
+        //////create a transaction///////////
+        $transaction = new BalanceHistory;
+        $latestTransaction = BalanceHistory::orderBy('created_at','DESC')->first();
+        if($latestTransaction){
+            $transaction->transaction_no = '#'.str_pad($latestTransaction->id + 1, 8, "0", STR_PAD_LEFT);
+        }
+        else{
+            $transaction->transaction_no = '#'.str_pad(1, 8, "0", STR_PAD_LEFT);
+        }
+        $transaction->amount = $agent_commission;
+        $transaction->user_id = auth()->user()->id;
+        $transaction->order_id = $order->id;
+        $transaction->transaction_type = 'Commission';
+        $transaction->save();
+        
+        return $transaction;
+    }
+    
     public function getMyOrders(){
         $orders = Order::where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC')->paginate(12);
         foreach($orders as $order){
