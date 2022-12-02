@@ -12,9 +12,11 @@ class dashboardController extends Controller
     public function salesThirty(){
         $data = [];
         $sales = Order::where('created_at', '>', Carbon::now()->subDays(30)->endOfDay())
+                      ->where('order_status', 'DELIVERED')
                        ->sum('total');
 
         $salesPrevious = Order::whereBetween('created_at', [Carbon::now()->subDays(60), Carbon::now()->subDays(30)])
+                                ->where('order_status', 'DELIVERED')
                                 ->sum('total');
 
         $diff = $sales-$salesPrevious;
@@ -114,6 +116,7 @@ class dashboardController extends Controller
         $data['data'] = [];
         for ($i=7; $i >0 ; $i--) { 
             $sale = Order::where('created_at', 'like', Carbon::now()->subDays($i)->toDateString().'%')
+                        ->where('order_status', 'DELIVERED')
                          ->sum('total');
             array_push($data['data'], $sale);
         }
@@ -123,8 +126,10 @@ class dashboardController extends Controller
     public function revenueYear(){
         $data = [];
         $sales = Order::whereBetween('created_at', [Carbon::now()->startOfYear(), Carbon::now()])
+                    ->where('order_status', 'DELIVERED')
                       ->sum('total');
         $salesLast = Order::whereBetween('created_at', [Carbon::now()->subYear()->startOfYear(), Carbon::now()->subYear()])
+                        ->where('order_status', 'DELIVERED')
                            ->sum('total');
 
         $diff = $sales-$salesLast;
@@ -147,6 +152,7 @@ class dashboardController extends Controller
 
     public function salesToday(){
         $sales = Order::where('created_at', 'like', Carbon::now()->toDateString().'%')
+                        ->where('order_status', 'DELIVERED')
                       ->sum('total');
         $salesPrevious = Order::where('created_at', 'like', Carbon::now()->subDays(1)->toDateString().'%')
                               ->sum('total');
@@ -209,6 +215,7 @@ class dashboardController extends Controller
             $months = $this->getMonthList(Carbon::parse($request->from), Carbon::parse($request->to));
             foreach($months as $month){
                 $sales = Order::where('created_at', 'like', $month.'%')
+                              ->where('order_status', 'DELIVERED')
                               ->sum('total');
                 array_push($data['data'],$sales);
                 array_push($data['labels'], $month);
