@@ -886,7 +886,10 @@ class ordersController extends Controller
         $warehouse = Warehouse::where('user_id', auth()->user()->id)->first();
         if($warehouse){
             $orders = Order::where('warehouse_id', $warehouse->id)
-                       ->where('order_status', 'DELIVERED')
+                       ->where(function($q){
+                            return $q->where('order_status', 'DELIVERED')
+                                     ->orWhere('order_status', 'CANCELED');
+                       })
                        ->where('return_status', 'HAS_RETURNS')
                        ->orderBy('created_at', 'DESC')
                        ->paginate(8);
