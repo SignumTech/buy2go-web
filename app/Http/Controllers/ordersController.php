@@ -552,7 +552,7 @@ class ordersController extends Controller
             $transaction->transaction_no = '#'.str_pad(1, 8, "0", STR_PAD_LEFT);
         }
         $transaction->amount = $agent_commission;
-        $transaction->user_id = auth()->user()->id;
+        $transaction->user_id = $order->agent_id;
         $transaction->order_id = $order->id;
         $transaction->transaction_type = 'Commission';
         $transaction->save();
