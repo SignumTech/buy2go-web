@@ -53,7 +53,7 @@ class shopsController extends Controller
 
     public function shopDetails($id){
         $data = [];
-        $data['shop_details'] = User::select('users.f_name', 'users.country_code', 'users.shop_status', 'users.l_name', 'users.phone_no', 'users.created_at')->find($id);
+        $data['shop_details'] = User::select('users.id','users.f_name', 'users.country_code', 'users.shop_status', 'users.l_name', 'users.phone_no', 'users.created_at')->find($id);
         $data['average_order'] = $this->calculate_average_order($id);
         $shop_manager = ShopManager::where('shop_id', $id)->first();
         $data['sales_manager'] = ($shop_manager)?User::find($shop_manager->sales_manager):null;
@@ -238,5 +238,27 @@ class shopsController extends Controller
 
 
         return $shops;
+    }
+
+    public function banShop($id){
+        $user = User::find($id);
+        if(auth()->user()->user_role != 'ADMIN'){
+            return response("Unauthorized", 401);
+        }
+        $user->shop_status = 'BANNED';
+        $user->tokens()->delete();
+        $user->save();
+
+        return $user;
+    }
+    public function unbanShop($id){
+        $user = User::find($id);
+        if(auth()->user()->user_role != 'ADMIN'){
+            return response("Unauthorized", 401);
+        }
+        $user->shop_status = 'VERIFIED';
+        $user->save();
+
+        return $user;
     }
 }

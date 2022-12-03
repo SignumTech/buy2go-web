@@ -22,7 +22,10 @@
                         <h6 class="mt-3"><strong>Sales Manager <span v-if="!shopDetails.sales_manager && shopDetails.shop_details.shop_status === `VERIFIED`" @click="addSalesManager()" class="fa fa-plus"></span></strong></h6>
                         <h6 v-if="shopDetails.sales_manager">{{shopDetails.sales_manager.f_name}} {{shopDetails.sales_manager.l_name}} <span @click="editSalesManager(shopDetails.sales_manager)" class="fa fa-edit"></span></h6>                        
                     </div>
-
+                    <div class="mt-3">
+                        <button v-if="shopDetails.shop_details.shop_status != `BANNED`" @click="banShop()" class="btn btn-danger btn-sm float-end"><span class="fa fa-ban"></span> Ban shop</button>
+                        <button v-if="shopDetails.shop_details.shop_status == `BANNED`" @click="unbanShop()" class="btn btn-warning btn-sm float-end"><span class="fa fa-lock-open"></span> Unban Shop</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -51,6 +54,19 @@
             <div class="row mx-0 border-bottom p-3">
                 <div class="col-md-6 align-self-center">
                     <h5 class="mb-0"><span class="fa fa-check-circle"></span> Verified Shop.</h5>
+                </div>
+                <div class="col-md-6">
+                    
+                </div>
+            </div>
+        </div>
+        <div v-if="shopDetails.shop_details.shop_status === `BANNED`" class="bg-danger text-white rounded-1 shadow-sm">
+            <div class="row mx-0 border-bottom p-3">
+                <div class="col-md-6 align-self-center">
+                    <h5 class="mb-0"><span class="fa fa-ban"></span> Banned Shop.</h5>
+                </div>
+                <div class="col-md-6">
+                    
                 </div>
             </div>
         </div>
@@ -104,11 +120,43 @@ export default {
         }
     },
     mounted(){
-        this.getShopDetails()
+            this.getShopDetails()
             this.getShopOrders()
             this.getShopLocations()
     },
     methods:{
+        async banShop(){
+            var check = confirm('Are you sure you want to ban this shop?')
+            if(check){
+                await axios.put('/banShop/'+this.shopDetails.shop_details.id)
+                .then( response =>{
+                    this.getShopDetails()
+                    this.$notify({
+                        group: 'foo',
+                        type: 'success',
+                        title: 'Shop Banned',
+                        text: 'Shop Banned successfully'
+                    });
+                })
+            }
+            
+        },
+        async unbanShop(){
+            var check = confirm('Are you sure you want to activate this shop?')
+            if(check){
+                await axios.put('/unbanShop/'+this.shopDetails.shop_details.id)
+                .then( response =>{
+                    this.getShopDetails()
+                    this.$notify({
+                        group: 'foo',
+                        type: 'success',
+                        title: 'Shop Banned',
+                        text: 'Shop Banned successfully'
+                    });
+                })
+            }
+            
+        },
         editShop(address){
             this.$modal.show(
                 editShopModalVue,

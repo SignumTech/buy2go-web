@@ -48,6 +48,8 @@ Route::middleware('auth:sanctum')->post('/searchCustomer', [shopsController::cla
 Route::middleware('auth:sanctum')->post('/assignSalesManager', [shopsController::class, 'assignSalesManager']);
 Route::middleware('auth:sanctum')->put('/updateSalesManager/{id}', [shopsController::class, 'updateSalesManager']);
 Route::middleware('auth:sanctum')->post('/exportCustomers', [shopsController::class, 'exportCustomers']);
+Route::middleware('auth:sanctum')->put('/banShop/{id}', [shopsController::class, 'banShop']);
+Route::middleware('auth:sanctum')->put('/unbanShop/{id}', [shopsController::class, 'unbanShop']);
 /////////////////////////////////////locations//////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getCountries', [locationsController::class, 'getCountries']);
 Route::middleware('auth:sanctum')->get('/getCities', [locationsController::class, 'getCities']);
