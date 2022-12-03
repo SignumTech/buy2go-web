@@ -13,7 +13,7 @@ class getTokenController extends Controller
             "phone_no" => "required",
             "password" => "required|string"
         ]);
-        dd($request->country_code);
+        
         $user = User::where('phone_no', $this->formatPhoneNumber($request))
                     ->where('country_code', $request->country_code)->first();
         if(!$user){
