@@ -535,7 +535,13 @@ class ordersController extends Controller
         $agent_commission = 0;
         foreach($items as $item){
             $product = Product::find($item->p_id);
-            $agent_commission = $agent_commission + ($product->price * $product->commission/100);
+            if($item->item_status == 'UPDATED' || $item->item_status == 'USER_REMOVED' || $item->item_status == 'WAREHOUSE_REMOVED'){
+                $agent_commission = $agent_commission + ($product->price * $product->commission/100 * $item->updated_quantity);
+            }
+            else{
+                $agent_commission = $agent_commission + ($product->price * $product->commission/100 * $item->quantity);
+            }
+            
         }
     
         //////update agent balance///////////
