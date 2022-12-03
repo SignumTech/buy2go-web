@@ -13,7 +13,8 @@ class getTokenController extends Controller
             "phone_no" => "required",
             "password" => "required|string"
         ]);
-        $user = User::where('phone_no', $this->formatPhoneNumber($request))->first();
+        $user = User::where('phone_no', $this->formatPhoneNumber($request))
+                    ->where('country_code', $request->country_code)->first();
         if(!$user){
             return response("Wrong credentials", 401);
         }
@@ -44,7 +45,8 @@ class getTokenController extends Controller
             "phone_no" => "required",
             "password" => "required|string"
         ]);
-        $user = User::where('phone_no', $this->formatPhoneNumber($request))->first();
+        $user = User::where('phone_no', $this->formatPhoneNumber($request))
+                    ->where('country_code', $request->country_code)->first();   
         if(!$user){
             return response("Wrong credentials", 401);
         }
@@ -72,7 +74,8 @@ class getTokenController extends Controller
             "phone_no" => "required",
             "password" => "required|string"
         ]);
-        $user = User::where('phone_no', $this->formatPhoneNumber($request))->first();
+        $user = User::where('phone_no', $this->formatPhoneNumber($request))
+                    ->where('country_code', $request->country_code)->first();
         if(!$user){
             return response("Wrong credentials", 401);
         }
@@ -100,7 +103,8 @@ class getTokenController extends Controller
             "phone_no" => "required",
             "password" => "required|string"
         ]);
-        $user = User::where('phone_no', $this->formatPhoneNumber($request))->first();
+        $user = User::where('phone_no', $this->formatPhoneNumber($request))
+                    ->where('country_code', $request->country_code)->first();
         if(!$user){
             return response("Wrong credentials", 401);
         }

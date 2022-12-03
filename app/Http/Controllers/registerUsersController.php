@@ -153,7 +153,7 @@ class registerUsersController extends Controller
         }
         $phone_no = User::where('phone_no', $request->phone_no)->first();
         if($phone_no){
-            if($phone_no->user_role != 'User'){
+            if($phone_no->user_role != 'USER'){
                 return response('Unauthorized!', 401);
             }
             return $request->phone_no;
