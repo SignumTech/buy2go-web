@@ -966,8 +966,10 @@ class ordersController extends Controller
         $order_items = OrderItem::join('products', 'order_items.p_id', '=', 'products.id')
                             ->where('order_items.order_id', $id)
                             ->when($order->order_status != 'CANCELED',function($q){
-                                $q->where('order_items.item_status', 'UPDATED')
-                                  ->orWhere('order_items.item_status', 'USER_REMOVED');
+                                $q->where(function($k){
+                                    return $k->where('order_items.item_status', 'UPDATED')
+                                             ->orWhere('order_items.item_status', 'USER_REMOVED');
+                                });   
                             })
                             
                             ->select('order_items.*', 'products.p_name', 'products.price', 'products.description', 'products.p_image', 'products.cat_id', 'products.commission', 'products.p_status', 'products.sku', 'products.taxable', 'products.deleted_at')
