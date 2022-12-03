@@ -114,7 +114,10 @@ class ordersController extends Controller
             $rtm = User::find($order->rtm_id);
             $message = 'A new order has been placed';
             Notification::send($admin, new OrderStatusUpdated($message,$order));
-            Notification::send($rtm, new OrderStatusUpdated($message,$order));
+            if($rtm){
+                Notification::send($rtm, new OrderStatusUpdated($message,$order));
+            }
+            
             DB::commit();
             return $order;
         }
