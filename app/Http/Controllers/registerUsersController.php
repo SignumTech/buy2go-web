@@ -133,7 +133,8 @@ class registerUsersController extends Controller
         if(strlen($request->phone_no) == 10){
             $request->phone_no = substr($request->phone_no, 1);
         }
-        $phone_no = User::where('phone_no', $request->phone_no)->first();
+        $phone_no = User::where('phone_no', $request->phone_no)
+                        ->where('country_code', $request->country_code)->first();
         if($phone_no){
             return response('Phone already exists', 422);
         }

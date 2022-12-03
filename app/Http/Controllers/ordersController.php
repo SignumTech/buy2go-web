@@ -1015,7 +1015,11 @@ class ordersController extends Controller
         }
         $order->order_status = 'CANCELED';
         $order->save();
-
+        $items = OrderItem::where('order_id', $order->id)->get();
+        foreach($items as $item){
+            $item->item_status = 'UPDATED';
+            $item->save();
+        }
         //Notification
         $admin = User::where('user_role', 'ADMIN')->get();
         $rtm = User::find($order->rtm_id);
