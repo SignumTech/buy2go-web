@@ -699,6 +699,9 @@ class ordersController extends Controller
         ]);
         $items = json_decode($request->items);
         $order = Order::find($id);
+        if($order->order_status == 'DELIVERED'){
+            return response("Unable to edit! Order already delivered.", 422);
+        }
         $returnCount = 0;
         foreach($items as $j_item){
             $item = OrderItem::find($j_item->id);
@@ -751,7 +754,9 @@ class ordersController extends Controller
         ]);
         $items = json_decode($request->items);
         $order = Order::find($id);
-        
+        if($order->order_status == 'DELIVERED'){
+            return response("Unable to edit! Order already delivered.", 422);
+        }
         foreach($items as $j_item){
             $item = OrderItem::find($j_item->id);
             $product = Product::find($j_item->p_id);   
