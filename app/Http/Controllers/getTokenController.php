@@ -17,6 +17,9 @@ class getTokenController extends Controller
         if(!$user){
             return response("Wrong credentials", 401);
         }
+        if($user->shop_status == 'BANNED'){
+            return response("Unauthorized", 401);
+        }
         if(!in_array($user->account_type, ["USER"])){
             return response("Access Denied", 401);
         }
