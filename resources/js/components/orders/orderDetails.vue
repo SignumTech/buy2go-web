@@ -9,6 +9,7 @@
                 <div class="col-md-2 align-self-center">
                     <router-link to="/ordersList" style="cursor:pointer"><span class="fa fa-arrow-left fs-5"></span></router-link>
                 </div>
+                
                 <div class="col-md-8 d-flex justify-content-center">
                     <div class="text-center">
                         <div class="p-2 mx-5 bg-success rounded-5 text-white">
@@ -53,6 +54,9 @@
                         </div>
                         <p class="text-center m-0">Delivered</p>
                     </div>
+                </div>
+                <div v-if="order.order_status == `CANCELED`" class="col-md-12 mt-3">
+                    <h5 class="bg-danger text-white m-0 p-2 rounded-1 shadow-sm text-center">Order Canceled!</h5>
                 </div>
                 <div v-if="order.order_status == `PROCESSING`" class="col-md-2 p-2 ">
                     <button @click="shipModal()" class="btn btn-primary px-4 rounded-1 float-end text-white"><span class="fa fa-shipping-fast"></span> Ship Order</button>
