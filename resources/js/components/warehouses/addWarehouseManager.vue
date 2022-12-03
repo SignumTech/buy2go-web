@@ -44,7 +44,7 @@ export default {
                 f_name:"",
                 l_name:"",
                 phone_no:"",
-                
+                country_code:""
             },
             phone_no: null,
             valErrors:{},
@@ -58,15 +58,15 @@ export default {
     },
     methods:{
         onSelect({name, iso2, dialCode}){
-            this.country_code = dialCode
+            this.formData.country_code = dialCode
         },
-        formatPhoneNo(phone_no){    
-            if(phone_no.length == 10 && phone_no.charAt(0)=='0'){
+        formatPhoneNo(phone_no){ 
+            if(phone_no.length == 10 || phone_no.charAt(0)=='0'){
                 
-                return this.country_code+phone_no.substring(1)
+                return phone_no.substring(1)
             }
             else{
-                return this.country_code+phone_no
+                return phone_no
             }
         },
         async addManager(){

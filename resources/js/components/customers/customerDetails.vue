@@ -23,7 +23,7 @@
                         <h6 v-if="shopDetails.sales_manager">{{shopDetails.sales_manager.f_name}} {{shopDetails.sales_manager.l_name}} <span @click="editSalesManager(shopDetails.sales_manager)" class="fa fa-edit"></span></h6>                        
                     </div>
                     <div class="mt-3">
-                        <button v-if="shopDetails.shop_details.shop_status != `BANNED`" @click="banShop()" class="btn btn-danger btn-sm float-end"><span class="fa fa-ban"></span> Ban shop</button>
+                        <button v-if="shopDetails.shop_details.shop_status != `BANNED` && shopDetails.shop_details.shop_status == `VERIFIED`" @click="banShop()" class="btn btn-danger btn-sm float-end"><span class="fa fa-ban"></span> Ban shop</button>
                         <button v-if="shopDetails.shop_details.shop_status == `BANNED`" @click="unbanShop()" class="btn btn-warning btn-sm float-end"><span class="fa fa-lock-open"></span> Unban Shop</button>
                     </div>
                 </div>
