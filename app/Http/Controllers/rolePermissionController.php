@@ -26,7 +26,6 @@ class rolePermissionController extends Controller
         $this->validate($request, [
             "role" => "required",
             "permissions" => "required",
-            "deletable" => "required"
         ]);
 
         $rolePermission = RolePermission::find($request->id);

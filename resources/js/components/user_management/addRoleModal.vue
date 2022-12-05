@@ -8,7 +8,7 @@
         <input type="text" class="form-control" v-model="data.role">
         <h6 class="text-danger m-0" v-for="an in valErrors.role" :key="an.id">{{an}}</h6>
     </div>
-    <div class="col-md-6">
+    <div v-if="modalType != 'Edit'" class="col-md-6">
         <label for="">Role Type</label>
         <select class="form-select" v-model="data.deletable" id="">
             <option :value=null></option>

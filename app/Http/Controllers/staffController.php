@@ -137,7 +137,11 @@ class staffController extends Controller
 
     }
     public function deleteStaff($id){
+
         $user = User::find($id);
+        if($user->user_role == 'ADMIN'){
+            return response("Unauthorized", 401);
+        }
         $user->delete();
         return $user;
     }
