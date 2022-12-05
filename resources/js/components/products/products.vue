@@ -165,7 +165,7 @@ export default {
             })
         },
         async getPage(pageUrl){
-            await axios.get(pageUrl)
+            await axios.post(pageUrl, this.queryData)
             .then( response => {
                 this.paginationData = response.data
                 this.products = response.data.data
