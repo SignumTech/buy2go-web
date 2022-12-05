@@ -43,9 +43,10 @@
                                 <td>{{td.email}}</td>
                                 <td>+{{td.country_code}}-{{td.phone_no}}</td>
                                 <td>{{td.user_role}}</td>
-                                <td class="text-center">
-                                    <span @click="editUser(td)" class="fa fa-edit me-5" style="cursor:pointer"></span>
-                                    <span @click="deleteUser(td.id)" class="fa fa-trash-alt me-5" style="cursor:pointer"></span>
+                                <td class="text-end">
+                                    <span v-if="td.user_role != `ADMIN`" @click="deleteUser(td.id)" class="fa fa-trash-alt me-3" style="cursor:pointer"></span>
+                                    <span @click="editUser(td)" class="fa fa-edit me-3" style="cursor:pointer"></span>
+                                    
                                     <span @click="showResetModal(td.id)" class="fa fa-key" style="cursor:pointer"></span>
                                 </td>
                                 </tr>
