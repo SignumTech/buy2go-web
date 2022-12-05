@@ -72,17 +72,22 @@
         </div>
         <div class="bg-white rounded-1 shadow-sm mt-2">
             <div class="row mx-0 border-bottom p-3">
-                <div class="col-md-6">
+                <div class="col-md-3 align-self-center">
                     <h5 class="mb-0"><strong>Orders</strong></h5>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 align-self-center">
                     <h6 class="text-end mb-0">Total spent <strong>{{orders.total_spent | numFormat}} ETB</strong> on <strong>{{orders.orders_count}}</strong> orders</h6>
+                </div>
+                <div class="col-md-3 align-self-end">
+                    <form action="#" @submit.prevent="exportOrders">
+                        <button type="submit" class="btn btn-primary form-control rounded-1"><span class="fa fa-file-export"></span> Export</button>
+                    </form>
                 </div>
             </div>
             <div class="row mx-0 border-bottom p-3">
                 <table class="table">
                     <tbody>
-                        <tr v-for="order,index in orders.orders" :key="index">
+                        <tr v-for="order,index in ordersData" :key="index">
                             <td>{{order.order_no}}</td>
                             <td>{{order.created_at | moment("MMM Do YYYY")}}</td>
                             <td>{{order.order_status}}</td>
@@ -92,6 +97,18 @@
                     </tbody>
                 </table>
             </div>
+            <div class="row p-3">
+                <nav v-if="(orders.orders.total > orders.orders.per_page)" aria-label="Page d-flex m-auto navigation example" style="cursor:pointer">
+                    <ul class="pagination justify-content-center">
+                        <li v-for="pd,index in paginationData" :key="index" :class="(pd.active)?`page-item active text-white`:`page-item`">
+                            <a class="page-link" @click="getPage(pd.url)" aria-label="Previous">
+                                <span :class="(pd.active)?`text-white`:``" aria-hidden="true" v-html="pd.label"></span>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            
         </div>
     </div>
 </div>
@@ -116,7 +133,9 @@ export default {
                 }
             },
             orders:{},
-            locations:{}
+            paginationData:{},
+            locations:{},
+            ordersData:{}
         }
     },
     mounted(){
@@ -125,6 +144,31 @@ export default {
             this.getShopLocations()
     },
     methods:{
+        async exportOrders(){
+            await axios.post('/exportCustomerOrders', {id:this.$route.params.id}, {responseType: 'blob'})
+            .then( response =>{
+                const href = URL.createObjectURL(response.data);
+
+                // create "a" HTML element with href to file & click
+                const link = document.createElement('a');
+                link.href = href;
+                link.setAttribute('download', 'orders'+Date.now()+'.xlsx'); //or any other extension
+                document.body.appendChild(link);
+                link.click();
+
+                // clean up "a" element & remove ObjectURL
+                document.body.removeChild(link);
+                URL.revokeObjectURL(href);
+            })
+        },
+        async getPage(pageUrl){
+            await axios.get(pageUrl)
+            .then( response => {
+                this.paginationData = response.data.orders.links
+                this.orders = response.data
+                this.ordersData = response.data.orders.data
+            })
+        },
         async banShop(){
             var check = confirm('Are you sure you want to ban this shop?')
             if(check){
@@ -211,7 +255,9 @@ export default {
         async getShopOrders(){
             await axios.get('/shopOrders/'+this.$route.params.id)
             .then( response =>{
+                this.paginationData = response.data.orders.links
                 this.orders = response.data
+                this.ordersData = response.data.orders.data
             })
         },
         async getShopLocations(){

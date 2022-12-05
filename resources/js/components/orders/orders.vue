@@ -175,7 +175,7 @@ export default {
                 // create "a" HTML element with href to file & click
                 const link = document.createElement('a');
                 link.href = href;
-                link.setAttribute('download', 'orders'+Date.now()+'.xlsx'); //or any other extension
+                link.setAttribute('download', 'orders'+Date.now()+'.xlsx'); 
                 document.body.appendChild(link);
                 link.click();
 

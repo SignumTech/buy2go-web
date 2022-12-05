@@ -11,9 +11,9 @@ use App\Models\ShopManager;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Notifications\Notifiable;
 use App\Exports\CustomerExport;
-use Maatwebsite\Excel\Facades\Excel;
 use App\Notifications\ShopAssigned;
-
+use App\Exports\OrdersExport;
+use Maatwebsite\Excel\Facades\Excel;
 class shopsController extends Controller
 {
     public function getShops(){
@@ -82,17 +82,28 @@ class shopsController extends Controller
     }
 
     public function shopOrders($id){
-        $orders = Order::where('user_id', $id)->get();
+        $orders = Order::where('user_id', $id)
+                        ->where('order_status', 'DELIVERED')
+                       ->paginate(10);
         foreach($orders as $order){
             $order->items_count = OrderItem::where('order_id', $order->id)->count();
         }
-        $sum = Order::where('user_id', $id)->sum('total');
-        $count = Order::where('user_id', $id)->count();
+        $sum = Order::where('user_id', $id)->where('order_status', 'DELIVERED')->sum('total');
+        $count = Order::where('user_id', $id)->where('order_status', 'DELIVERED')->count();
         $data = [];
         $data['total_spent'] = $sum;
         $data['orders_count'] = $count;
         $data['orders'] = $orders;
         return $data;
+    }
+    
+    public function exportCustomerOrders(Request $request){
+        $orders = Order::where('user_id', $request->id)
+                        ->where('order_status', 'DELIVERED')
+                        ->select('id', 'order_no', 'total', 'order_status', 'payment_status', 'payment_method', 'order_type', 'created_at')
+                        ->get();
+        
+        return Excel::download(new OrdersExport($orders), 'orders.xlsx');
     }
 
     public function shopLocations($id){
