@@ -720,7 +720,10 @@ class ordersController extends Controller
                 if($this->checkQuantity($j_item, $item)){
                     return response('Item is already shipped', 422);
                 }
-                $item->item_status = 'UPDATED';
+                if($j_item->updated_quantity < 0){
+                    return response('Error! Negative input.', 422);
+                }
+                $item->item_status = ($j_item->updated_quantity == 0)?'USER_REMOVED':'UPDATED';
                 $item->last_updated_by = 'USER';
                 $item->updated_quantity = $j_item->updated_quantity;
                 $item->save();
@@ -729,10 +732,19 @@ class ordersController extends Controller
                        
             }    
             else{
-                $item->item_status = 'UPDATED';
-                $item->last_updated_by = 'USER';
-                $item->updated_quantity = $j_item->updated_quantity;
-                $item->save();
+                if($j_item->updated_quantity < 0){
+                    return response('Error! Negative input.', 422);
+                }
+                if($j_item->updated_quantity == 0){
+                    $item->delete();
+                }
+                else{
+                    $item->item_status = 'UPDATED';
+                    $item->last_updated_by = 'USER';
+                    $item->updated_quantity = $j_item->updated_quantity;
+                    $item->save();
+                }
+                
             }
 
         }
@@ -774,7 +786,10 @@ class ordersController extends Controller
             }
             else{
                 if(!$this->checkQuantity($j_item, $item)){
-                    $item->item_status = 'UPDATED';
+                    if($j_item->updated_quantity < 0){
+                        return response('Error! Negative input.', 422);
+                    }
+                    $item->item_status = ($j_item->updated_quantity == 0)?'WAREHOUSE_REMOVED':'UPDATED';
                     $item->last_updated_by = 'WAREHOUSE';
                     $item->warehouse_limit = $j_item->updated_quantity;
                     $item->updated_quantity = $j_item->updated_quantity;
