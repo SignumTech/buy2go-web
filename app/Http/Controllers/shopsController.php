@@ -20,7 +20,7 @@ class shopsController extends Controller
         if(auth()->user()->user_role == 'SALES'){
             return $this->getSalesShops();
         }
-        $shops = User::where('account_type', 'USER')->paginate(10);
+        $shops = User::where('account_type', 'USER')->orderBy('created_at', 'DESC')->paginate(10);
         foreach($shops as $shop){
             $shop->address = AddressBook::where('user_id', $shop->id)->get();
         }
