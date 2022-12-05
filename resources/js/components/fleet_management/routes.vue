@@ -31,7 +31,7 @@
     <div class="col-md-12">
         <div class="bg-white rounded-1 shadow-sm p-3">
             <button @click="addRouteModal()" class="btn btn-primary btn-sm float-end shadow-sm text-white"><span class="fa fa-plus"></span> Add Routes</button>
-            <button @click="addRouteModal()" class="btn btn-success btn-sm float-end shadow-sm text-white me-3"><span class="fa fa-route"></span> View on map</button>
+            <!--<button @click="addRouteModal()" class="btn btn-success btn-sm float-end shadow-sm text-white me-3"><span class="fa fa-route"></span> View on map</button>-->
             <table class="table table-sm mt-3">
                 <thead>
                     <tr>
