@@ -35,7 +35,7 @@
                     <button v-if="!loading" type="submit" class="form-control form-control-auth-btn btn btn-primary">
                         <h5 class="m-0"><strong>LOG IN</strong></h5>
                     </button>
-                    <h6 class="mt-3 mb-0 text-center">Forgot password ?</h6>
+                    
                 </div>
             </form>            
         </div>
