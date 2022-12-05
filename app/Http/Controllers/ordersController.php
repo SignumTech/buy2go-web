@@ -725,9 +725,8 @@ class ordersController extends Controller
                 }
                 $item->item_status = ($j_item->updated_quantity == 0)?'USER_REMOVED':'UPDATED';
                 $item->last_updated_by = 'USER';
-                if($item->warehouse_limit){
+                if($item->warehouse_limit != null){
                     if($j_item->updated_quantity > $item->warehouse_limit){
-                        var_dump('is greater');
                         $item->updated_quantity = $item->warehouse_limit;
                     }
                     else{
