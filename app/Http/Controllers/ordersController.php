@@ -772,7 +772,8 @@ class ordersController extends Controller
             }
 
         }
-        
+        //order cleanup
+        $this->cleanupOrder($order);
         //update orders total
         $order = $this->calculateTotal($order);
         $order->return_status = ($returnCount > 0)?"HAS_RETURNS":"NO_RETURNS";
@@ -781,6 +782,29 @@ class ordersController extends Controller
         $admin = User::where('user_role', 'ADMIN')->get();
         $admin_message = 'User made changes to order '.$order->order_no;
         Notification::send($admin, new OrderStatusUpdated($admin_message,$order));
+        return $order;
+    }
+
+    public function cleanupOrder($order){
+        $orderItems = OrderItem::where('order_id' ,$order->id)->get();
+        $removedCount = 0;
+        if(count($orderItems) == 0){
+            $order->order_status = 'CANCELED';
+            $order->save();
+
+            return $order;
+        }
+        foreach($orderItems as $item){
+            if($item->item_status == 'USER_REMOVED' || $item->item_status == 'WAREHOUSE_REMOVED'){
+                $removedCount++;
+            }
+        }
+        if($removedCount == count($orderItems)){
+            $order->order_status = 'CANCELED';
+            $order->save();
+
+            return $order;
+        }
         return $order;
     }
 
@@ -823,6 +847,9 @@ class ordersController extends Controller
             }
         }
 
+        //order cleanup
+        $this->cleanupOrder($order);
+
         $order = $this->calculateTotal($order);
         $order->save();
 
@@ -844,6 +871,9 @@ class ordersController extends Controller
             if(auth()->user()->user_role == 'USER' && ($order->order_status == 'PROCESSING' || $order->order_status == 'PENDING_CONFIRMATION' || $order->order_status == 'PENDING_PICKUP')){
                 
                 $item->delete();
+                //order cleanup
+                $this->cleanupOrder($order);
+
                 $order = $this->calculateTotal($order);
                 
                 $order->save();
@@ -855,6 +885,8 @@ class ordersController extends Controller
                 $item->updated_quantity = 0;
                 $item->save();
 
+                //order cleanup
+                $this->cleanupOrder($order);
                 $order = $this->calculateTotal($order);
                 $order->return_status = "HAS_RETURNS";
                 $order->save();
@@ -869,7 +901,9 @@ class ordersController extends Controller
                 $item->last_updated_by = 'WAREHOUSE';
                 $item->updated_quantity = 0;
                 $item->save();
-
+                
+                //order cleanup
+                $this->cleanupOrder($order);
                 $order = $this->calculateTotal($order);
                 $order->save();
                 $admin = User::where('user_role', 'ADMIN')->get();
