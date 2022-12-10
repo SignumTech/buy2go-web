@@ -20,8 +20,13 @@
                     </select>
                 </div>
                 <div class="col-md-2 align-self-center">
-                    <input v-model="queryData.priceRange" :min="range.min" :max="range.max" type="range" class="form-range rounded-1">
-                    <h6 class="m-0">{{range.min}} ETB <span class="float-end">{{queryData.priceRange}} ETB</span></h6>
+                    <label for="">Price Range</label>
+                    <vue-slider
+                    v-model="queryData.range"
+                    :min="min"
+                    :max="max"
+                    ></vue-slider>
+                    <h6 class="m-0">{{queryData.range[0]}} ETB <span class="float-end">{{queryData.range[1]}} ETB</span></h6>
                 </div>
                 <div class="col-md-2">
                     <label for="">Featured</label>
@@ -96,17 +101,23 @@
 </div>
 </template>
 <script>
+import VueSlider from 'vue-slider-component'
+import 'vue-slider-component/theme/antd.css'
 export default {
+    components: {
+        VueSlider,
+    },
     data(){
         return{
             products:{},
             paginationData:{},
-            range:{},
+            min:null,
+            max:null,
             queryData:{
                 p_name:null,
                 featured:null,
                 status:null,
-                priceRange:null
+                range:[],
             }
 
         }
@@ -160,7 +171,11 @@ export default {
         async getPriceRange(){
             await axios.get('/getPriceRange')
             .then( response =>{
-                this.range = response.data
+                
+                this.queryData.range.push(response.data.max)
+                this.queryData.range.push(response.data.min)
+                this.min = response.data.min
+                this.max = response.data.max
                 this.queryData.priceRange = response.data.max
             })
         },

@@ -513,9 +513,10 @@ class productsController extends Controller
                             ->when($request->status !=null, function ($q) use($request){
                                 return $q->where('p_status', $request->status);
                             })
-                            ->when($request->priceRange !=null, function ($q) use($request){
-                                return $q->where('price', '<=', $request->priceRange);
+                            ->when(count($request->range)>0, function ($q) use($request){
+                                return $q->whereBetween('price', $request->range);
                             })
+                            ->orderBy('created_at', 'DESC')
                             ->paginate(10);
         foreach($products as $product){
             $product->stock = WarehouseDetail::where('p_id', $product->id)->sum('quantity');
@@ -535,9 +536,10 @@ class productsController extends Controller
         ->when($request->status !=null, function ($q) use($request){
             return $q->where('p_status', $request->status);
         })
-        ->when($request->priceRange !=null, function ($q) use($request){
-            return $q->where('price', '<=', $request->priceRange);
+        ->when(count($request->range)>0, function ($q) use($request){
+            return $q->whereBetween('price', $request->range);
         })
+        ->orderBy('created_at', 'DESC')
         ->select('id', 'p_name', 'price', 'description', 'commission', 'sku', 'supplier', 'featured', 'created_at', 'updated_at')
         ->get();
         foreach($products as $product){
