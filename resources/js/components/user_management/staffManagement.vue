@@ -44,7 +44,8 @@
                                 <td>+{{td.country_code}}-{{td.phone_no}}</td>
                                 <td>{{td.user_role}}</td>
                                 <td class="text-end">
-                                    <span v-if="td.user_role != `ADMIN`" @click="deleteUser(td.id)" class="fa fa-trash-alt me-3" style="cursor:pointer"></span>
+                                    
+                                    <span v-if="($store.state.auth.user.user_role == `ADMIN` && td.id != $store.state.auth.user.id)" @click="deleteUser(td.id)" class="fa fa-trash-alt me-3" style="cursor:pointer"></span>
                                     <span @click="editUser(td)" class="fa fa-edit me-3" style="cursor:pointer"></span>
                                     
                                     <span @click="showResetModal(td.id)" class="fa fa-key" style="cursor:pointer"></span>
