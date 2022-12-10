@@ -516,6 +516,9 @@ class productsController extends Controller
                             ->when(count($request->range)>0, function ($q) use($request){
                                 return $q->whereBetween('price', $request->range);
                             })
+                            ->when($request->cat_id !=null, function ($q) use($request){
+                                return $q->whereIn('cat_id', $this->getCategoryIds($request->cat_id));
+                            })
                             ->orderBy('created_at', 'DESC')
                             ->paginate(10);
         foreach($products as $product){
@@ -524,7 +527,27 @@ class productsController extends Controller
 
         return $products;
     }
+    public function getCategoryIds($id){
+        $ids = [];
+        array_push($ids, $id);
+        $ids = array_merge($ids, $this->getChildrenIds(Category::find($id),$ids));
+        //dd($this->getChildren(Category::find($id)));
+        return $ids;
+    }
 
+    public function getChildrenIds($parent,$ids){
+        $children = Category::where('parent_id', $parent->id)->get();
+        if(count($children) > 0){
+            foreach($children as $child){
+                array_push($ids, $child->id);
+                $ids = $this->getChildrenIds($child, $ids);
+            }
+            return $ids;
+        }
+        else{
+            return $ids;
+        }
+    }
     public function exportProducts(Request $request){
         
         $products = Product::when($request->p_name !=null, function ($q) use($request){
@@ -538,6 +561,9 @@ class productsController extends Controller
         })
         ->when(count($request->range)>0, function ($q) use($request){
             return $q->whereBetween('price', $request->range);
+        })
+        ->when($request->cat_id !=null, function ($q) use($request){
+            return $q->whereIn('price', $this->getCategoryIds($request->cat_id));
         })
         ->orderBy('created_at', 'DESC')
         ->select('id', 'p_name', 'price', 'description', 'commission', 'sku', 'supplier', 'featured', 'created_at', 'updated_at')

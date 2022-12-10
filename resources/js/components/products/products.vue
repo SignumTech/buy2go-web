@@ -36,13 +36,24 @@
                         <option value="NOT_FEATURED">Not Featured</option>
                     </select>
                 </div>
-                <div class="col-md-2 align-self-end">
-                    <button @click="filterProducts()" class="btn btn-success form-control rounded-1"><span class="fa fa-filter"></span> Filter</button>
+                <div class="col-md-2">
+                    <label for="">Category</label>
+                    <treeselect required v-model="queryData.cat_id" :disable-branch-nodes="false" :multiple="false" :options="categoryList" />
                 </div>
                 <div class="col-md-2 align-self-end">
-                    <form action="#" @submit.prevent="exportProducts">
-                        <button type="submit" class="btn btn-primary form-control rounded-1"><span class="fa fa-file-export"></span> Export</button>
-                    </form>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button @click="filterProducts()" class="btn btn-success form-control rounded-1"><span class="fa fa-filter"></span> Filter</button>
+                        </div>
+                    </div>
+                    <div class="row mt-2">
+                        <div class="col-md-12">
+                            <form action="#" @submit.prevent="exportProducts">
+                                <button type="submit" class="btn btn-primary form-control rounded-1"><span class="fa fa-file-export"></span> Export</button>
+                            </form>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -103,9 +114,12 @@
 <script>
 import VueSlider from 'vue-slider-component'
 import 'vue-slider-component/theme/antd.css'
+import Treeselect from '@riophae/vue-treeselect'
+import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 export default {
     components: {
         VueSlider,
+        Treeselect,
     },
     data(){
         return{
@@ -113,11 +127,13 @@ export default {
             paginationData:{},
             min:null,
             max:null,
+            categoryList:[],
             queryData:{
                 p_name:null,
                 featured:null,
                 status:null,
                 range:[],
+                cat_id:null
             }
 
         }
@@ -125,9 +141,16 @@ export default {
     mounted(){
         this.getProducts()
         this.getPriceRange()
+        this.getCategories(),
         feather.replace();
     },
     methods:{
+        async getCategories(){
+            await axios.get('/chooseSubCategories')
+            .then( response =>{
+                this.categoryList = response.data
+            })
+        },
         async deleteProduct(id){
             var check = confirm("Are you sure you want to delete this product?")
             if(check){
