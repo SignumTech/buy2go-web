@@ -76,7 +76,7 @@ class staffController extends Controller
 
     public function resetStaffPass(Request $request){
         $this->validate( $request, [
-            "password" => "required",
+            "password" => ['required', 'string', 'min:8' , 'confirmed'],
             "user_id" => "required | integer"
         ]);
 

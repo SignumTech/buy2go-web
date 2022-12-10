@@ -137,7 +137,7 @@ export default {
                 this.$modal.show(
                     resetstaffpass,
                     {"userData" : response.data},
-                    { height: "250", width: "350px"},
+                    { height: "auto", width: "450px"},
                     {"closed" : this.closeAdd}
                 );
             });
