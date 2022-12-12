@@ -63,7 +63,7 @@ class cartController extends Controller
         $cart = Cart::where('user_id', auth()->user()->id)
                          ->first();
         
-        return $this->checkMinimumOrder(json_decode($request->items));
+        $this->checkMinimumOrder(json_decode($request->items));
         foreach(json_decode($request->items) as $item){
             $cart_item = CartItem::where('cart_id', $cart->id)->where('p_id', $item->p_id)->first();
             $cart_item->quantity = $item->quantity;
