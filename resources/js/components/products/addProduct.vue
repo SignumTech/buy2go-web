@@ -16,6 +16,7 @@
                         </label>
                     </div>
                     <h6 v-if="picError" class="text-center text-danger">You need to upload a product picture first!</h6>
+                    <h6 v-for="er in validationErrors.photo" :key="er.id" class="text-danger m-0">{{er}}</h6>
                     <img v-if="picUploaded" :src="`/storage/products/`+formData.p_image" class="img img-fluid img-thumb d-block m-auto" alt="">
                     <div v-if="picLoading" class="d-flex justify-content-center mt-5 mb-5">
                         <pulse-loader :color="`#BF7F25`" :size="`15px`"></pulse-loader> 
@@ -129,6 +130,7 @@ export default {
             picUploaded:false,
             picError:false,
             picLoading:false,
+            uploadErrors:{},
             formData:{
                 p_name:null,
                 price:null,
@@ -248,10 +250,11 @@ export default {
                 this.picLoading = false
                 this.picError = false
                 this.isEditing = true
+                this.validationErrors = {}
             })
             .catch( error => {
                 if (error.response.status == 422){
-                    this.validationErrors = error.response.data.errors.photo;
+                    this.validationErrors = error.response.data.errors
                     this.isEditing = false
                 }
                 this.picLoading = false;
