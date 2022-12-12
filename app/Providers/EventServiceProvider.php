@@ -6,6 +6,8 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use App\Events\DriverAssigned;
 use App\Listeners\DriverAssignedNotification;
+use App\Events\VisitAssigned;
+use App\Listeners\SendVisitAssignedNotification;
 use App\Events\DriverRejectedOrder;
 use App\Events\CashWithdrawn;
 use App\Listeners\DriverRejectedOrderNotification;
@@ -32,6 +34,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         CashWithdrawn::class => [
             CashWithdrawnNotification::class,
+        ],
+        VisitAssigned::class => [
+            SendVisitAssignedNotification::class,
         ],
     ];
 

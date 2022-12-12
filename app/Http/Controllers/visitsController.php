@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use App\Models\Visit;
+use App\Models\VisitDetail;
 class visitsController extends Controller
 {
     /**
@@ -13,7 +14,7 @@ class visitsController extends Controller
      */
     public function index()
     {
-        //
+        return Visit::all();
     }
 
     /**
@@ -34,7 +35,20 @@ class visitsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            "route_id" => "required",
+            "user_id" => "required",
+            "commission" => "required",
+        ]);
+
+        $visit = new Visit;
+        $visit->route_id = $request->route_id;
+        $visit->user_id = $request->user_id;
+        $visit->commission = $request->commission;
+        $visit->visit_status = 'PENDING_CONFIRMATION';
+        $visit->save();
+
+        return $visit;
     }
 
     /**
