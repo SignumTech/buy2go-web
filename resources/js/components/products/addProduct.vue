@@ -63,6 +63,21 @@
                                 <input v-model="formData.supplier" required type="text" placeholder="Supplier" class="form-control">
                                 <h6 v-for="er in validationErrors.supplier" :key="er.id" class="text-danger m-0">{{er}}</h6>
                             </div>
+                            <div class="col-md-4 mt-3">
+                                <label for="">Minimum Order</label>
+                                <input v-model="formData.minimum_order" required type="number" placeholder="Minimum Order" class="form-control">
+                                <h6 v-for="er in validationErrors.minimum_order" :key="er.id" class="text-danger m-0">{{er}}</h6>
+                            </div>
+                            <div class="col-md-4 mt-3">
+                                <label for="">Unit</label>
+                                <input v-model="formData.unit" required type="text" placeholder="Unit" class="form-control">
+                                <h6 v-for="er in validationErrors.unit" :key="er.id" class="text-danger m-0">{{er}}</h6>
+                            </div>
+                            <div class="col-md-4 mt-3">
+                                <label for="">Expiry Date</label>
+                                <input v-model="formData.expiry_date" required type="date" placeholder="Expiry Date" class="form-control">
+                                <h6 v-for="er in validationErrors.expiry_date" :key="er.id" class="text-danger m-0">{{er}}</h6>
+                            </div>
                             <div v-for="warehouse,index in  formData.warehouse" :key="index" class="col-md-4 mt-3">
                                 <label for="">{{formData.quantities[index].warehouse_name}}:</label>
                                 <input required v-model="formData.quantities[index].quantity" type="number" placeholder="Quantity" class="form-control">
@@ -141,6 +156,9 @@ export default {
                 taxable:true,
                 warehouse:null,
                 quantities:[],
+                minimum_order:null,
+                expiry_date:null,
+                unit:null,
                 p_image:""
             },
             categoryList: [],

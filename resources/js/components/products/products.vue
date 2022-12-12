@@ -61,7 +61,7 @@
     <div class="col-md-12 mt-3">
         <div class="bg-white rounded-1 p-3 shadow-sm">
             <router-link to="/addProduct" class="btn btn-primary btn-sm float-end shadow text-white"><span class="fa fa-plus"></span> Add Product</router-link>
-            <table class="table px-2 table-sm mt-2">
+            <table class="table table-fixed px-2 table-sm mt-2">
                 <thead>
                     <tr>
                         <th>Product</th>
@@ -79,7 +79,7 @@
                         <td class="align-middle">
                             <img :src="`/storage/products/`+product.p_image" class="img img-fluid img-thumb cat_img rounded-1" alt="">
                         </td>
-                        <td class="align-middle">{{product.p_name}}</td>
+                        <td class="align-middle" style="width: 20%">{{product.p_name}}</td>
                         <td class="align-middle">{{product.price}} Birr</td>
                         
                         <td class="align-middle">{{product.stock}}</td>

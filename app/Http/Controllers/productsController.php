@@ -52,7 +52,10 @@ class productsController extends Controller
             "p_commission" => "required | integer",
             "p_image" => "required",
             "sku" => "required",
-            "taxable" => "required"
+            "taxable" => "required",
+            "unit" => "required",
+            "expiry_date" => "required",
+            "minimum_order" => "required"
         ]);
         try{
             DB::beginTransaction();
@@ -68,7 +71,9 @@ class productsController extends Controller
             $product->supplier = $request->supplier;
             $product->p_status = "PUBLISHED";
             $product->taxable = $request->taxable;
-
+            $product->unit = $request->unit;
+            $product->minimum_order = $request->minimum_order;
+            $product->expiry_date = $request->expiry_date;
             $product->save();
 
             /////////////update category to a leaf///////
@@ -137,7 +142,10 @@ class productsController extends Controller
             "p_commission" => "required | integer",
             "p_image" => "required",
             "sku" => "required",
-            "taxable" => "required"
+            "taxable" => "required",
+            "unit" => "required",
+            "expiry_date" => "required",
+            "minimum_order" => "required"
         ]);
         try{
             DB::beginTransaction();
@@ -153,7 +161,9 @@ class productsController extends Controller
             $product->supplier = $request->supplier;
             $product->p_status = "PUBLISHED";
             $product->taxable = $request->taxable;
-
+            $product->unit = $request->unit;
+            $product->minimum_order = $request->minimum_order;
+            $product->expiry_date = $request->expiry_date;
             $product->save();
 
             /////////////update category to a leaf///////
@@ -350,6 +360,9 @@ class productsController extends Controller
             $product->supplier = $request->supplier;
             $product->taxable = $request->taxable;
             $product->p_status = "DRAFT";
+            $product->unit = $request->unit;
+            $product->minimum_order = $request->minimum_order;
+            $product->expiry_date = $request->expiry_date;
 
             $product->save();
 
@@ -566,7 +579,7 @@ class productsController extends Controller
             return $q->whereIn('price', $this->getCategoryIds($request->cat_id));
         })
         ->orderBy('created_at', 'DESC')
-        ->select('id', 'p_name', 'price', 'description', 'commission', 'sku', 'supplier', 'featured', 'created_at', 'updated_at')
+        ->select('id', 'p_name', 'price', 'description', 'commission', 'sku', 'supplier', 'featured', 'minimum_order', 'unit', 'expiry_date', 'created_at', 'updated_at')
         ->get();
         foreach($products as $product){
             $product->stock = WarehouseDetail::where('p_id', $product->id)->sum('quantity');
