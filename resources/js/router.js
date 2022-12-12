@@ -30,6 +30,8 @@ import paymentRequests from './components/user_management/paymentRequests.vue'
 import requestDetails from './components/user_management/requestDetails.vue'
 import salesReport from './components/sales_report/salesReport.vue'
 import warehouseManagers from './components/warehouses/warehouseManagers.vue'
+import visitsList from './components/fleet_management/visits.vue'
+import visitDetail from './components/fleet_management/visitDetail.vue'
 Vue.use(Router)
 
 const routes = [
@@ -194,6 +196,18 @@ const routes = [
         name: 'WarehouseManagers',
         props: true
     },
+    {
+        path: '/visitsList',
+        component: visitsList,
+        name: 'VisitsList',
+        props: true
+    },
+    {
+        path: '/visitDetail/:id',
+        component: visitDetail,
+        name: 'VisitDetail',
+        props: true
+    }
     
 ]
 

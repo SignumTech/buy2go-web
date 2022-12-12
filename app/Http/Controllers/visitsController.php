@@ -6,10 +6,13 @@ use Illuminate\Http\Request;
 use App\Models\Visit;
 use App\Models\VisitDetail;
 use App\Events\DriverAssigned;
-use App\Notifications\OrderStatusUpdated;
+use App\Notifications\VisitStatusUpdated;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Notifications\Notifiable;
 use App\Events\VisitAssigned;
+use App\Models\AddressBook;
+use App\Models\User;
+use DB;
 class visitsController extends Controller
 {
     /**
@@ -19,7 +22,12 @@ class visitsController extends Controller
      */
     public function index()
     {
-        return Visit::all();
+        $visits = Visit::join('zone_routes', 'visits.route_id', '=', 'zone_routes.id')
+                       ->join('users', 'visits.user_id', '=', 'users.id')
+                       ->select('visits.*', 'users.f_name', 'users.l_name', 'zone_routes.route_name')
+                       ->get();
+
+        return $visits;
     }
 
     /**
@@ -45,20 +53,53 @@ class visitsController extends Controller
             "user_id" => "required",
             "commission" => "required",
         ]);
+        try{
+            DB::beginTransaction();
+            $visit = new Visit;                
+            $visit->visit_no = $this->getVisitNumber();
+            $visit->route_id = $request->route_id;
+            $visit->user_id = $request->user_id;
+            $visit->commission = $request->commission;
+            $visit->visit_status = 'PENDING_CONFIRMATION';
+            $visit->save();
 
-        $visit = new Visit;
-        $visit->route_id = $request->route_id;
-        $visit->user_id = $request->user_id;
-        $visit->commission = $request->commission;
-        $visit->visit_status = 'PENDING_CONFIRMATION';
-        $visit->save();
+            $this->addVisitDetails($visit->route_id, $visit->id);
+            //Notification
+            $driver = User::find($visit->user_id);
+            $message = 'You have been assigned a visit';
+            /*Notification::send($driver, new VisitStatusUpdated($message,$visit));
+            broadcast(new VisitAssigned($driver))->toOthers();*/
+            DB::commit();
+            return $visit;
+            
+        }
+        catch (\Exception $e) {
+            DB::rollBack();
 
-        //Notification
-        $driver = User::find($visit->user_id);
-        $message = 'You have been assigned a visit';
-        Notification::send($driver, new VisitStatusUpdated($message,$visit));
-        broadcast(new VisitAssigned($driver))->toOthers();
-        return $visit;
+            throw $e;
+            return response('Visit Error', 422);
+        }
+    }
+
+    public function getVisitNumber(){
+        $latestVisit = Visit::orderBy('created_at','DESC')->first();
+        if($latestVisit){
+            return '#'.str_pad($latestVisit->id + 1, 8, "0", STR_PAD_LEFT);
+        }
+        else{
+            return '#'.str_pad(1, 8, "0", STR_PAD_LEFT);
+        }
+    }
+
+    public function addVisitDetails($route_id, $visit_id){
+        $shops = AddressBook::where('route_id', $route_id)->get();
+        foreach($shops as $shop){
+            $visit = new VisitDetail;
+            $visit->visit_id = $visit_id;
+            $visit->shop_id = $shop->id;
+            $visit->save();
+        }
+        return $shops;
     }
 
     /**

@@ -168,4 +168,14 @@ class routesController extends Controller
         $route->addresses = AddressBook::where('route_id', $id)->get();
         return $route;
     }
+
+    public function getRoutesRaw(){
+        $routes = ZoneRoute::join('zones', 'zone_routes.zone_id', '=', 'zones.id')
+                            ->select('zone_routes.id', 'zone_routes.route_name', 'zones.zone_name')->get();
+        foreach($routes as $route){
+        $route->drivers_count = DriverDetail::where('route_id', $route->id)->count();
+        $route->shops_count = AddressBook::where('route_id', $route->id)->count();
+        }
+        return $routes;
+    }
 }

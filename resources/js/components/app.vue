@@ -56,7 +56,10 @@
                       </li>
                       <li v-if="$store.state.auth.permissions.Drivers" :class="$route.path == `/driversList` ? `active` : ``">
                           <router-link to="/driversList"><i class="fa fa-user-alt"></i> Drivers</router-link>
-                      </li>                      
+                      </li>
+                      <li v-if="$store.state.auth.permissions.VisitsList" :class="$route.path == `/visitsList` ? `active` : ``">
+                          <router-link to="/visitsList"><i class="fa fa-store-alt"></i> Visits</router-link>
+                      </li>                         
                     </ul>
                   </div>
                 </li>

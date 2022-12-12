@@ -60,7 +60,7 @@ class VisitStatusUpdated extends Notification
         return [
             'message' => $this->message,
             "link" => "/visitDetails/".$this->visit->id,
-            "order" => $this->order
+            "order" => $this->visit
         ];
     }
 }

@@ -20,6 +20,7 @@ use App\Http\Controllers\shopsController;
 use App\Http\Controllers\agentsController;
 use App\Http\Controllers\creditsController;
 use App\Http\Controllers\locationsController;
+use App\Http\Controllers\visitsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -82,6 +83,7 @@ Route::middleware('auth:sanctum')->post('/exportZones', [zonesController::class,
 Route::middleware('auth:sanctum')->post('/filterRoutes', [routesController::class, 'filterRoutes']);
 Route::middleware('auth:sanctum')->post('/exportRoutes', [routesController::class, 'exportRoutes']);
 Route::middleware('auth:sanctum')->get('/getRoute/{id}', [routesController::class, 'getRoute']);
+Route::middleware('auth:sanctum')->get('/getRoutesRaw', [routesController::class, 'getRoutesRaw']);
 ///////////////////////////////////resources///////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->resource('/categories', categoriesController::class);
 Route::middleware('auth:sanctum')->resource('/warehouses', warehousesController::class);
@@ -91,6 +93,7 @@ Route::middleware('auth:sanctum')->resource('/credits', creditsController::class
 Route::resource('/addressBooks', addressBooksController::class);
 Route::middleware('auth:sanctum')->resource('/drivers', driversController::class);
 Route::middleware('auth:sanctum')->resource('/routes', routesController::class);
+Route::middleware('auth:sanctum')->resource('/visits', visitsController::class);
 ///////////////////////////////////Notifications/////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getMyNotifications', [notificationsController::class, 'getMyNotifications']);
 Route::middleware('auth:sanctum')->get('/markAllAsRead', [notificationsController::class, 'markAllAsRead']);
