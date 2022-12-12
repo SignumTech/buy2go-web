@@ -476,7 +476,32 @@ class ordersController extends Controller
         broadcast(new ConfirmPickup($order))->toOthers();
         return $order;
     }
-    
+    public function checkInventory($id){
+        $data = [];
+        $error = 0;
+        $order = Order::find($id);
+        $items = OrderItem::where('order_id', $id)->get();
+        foreach($items as $item){
+            $warehouse_item = WarehouseDetail::where('p_id', $item->p_id)
+                                             ->where('warehouse_id', $order->warehouse_id)
+                                             ->first();
+            if($item->quantity > $warehouse_item->quantity){
+                $data[$item->id]['stock'] = $warehouse_item->quantity;
+                $data[$item->id]['order_exceeds'] = true;
+                $data[$item->id]['message'] = "This order quantity exceeds stock";
+                $error++;
+            }
+            else{
+                $data[$item->id]['stock'] = $warehouse_item->quantity;
+                $data[$item->id]['order_exceeds'] = false;
+                $data[$item->id]['message'] = null;
+            }
+
+        }
+            
+        $data['confirm_pickup'] = (count($error) > 0)?false:true;
+        return $data;
+    }
     public function updateInventory($id){
         $order = Order::find($id);
         $items = OrderItem::where('order_id', $id)->get();
