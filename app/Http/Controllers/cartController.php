@@ -63,7 +63,9 @@ class cartController extends Controller
         $cart = Cart::where('user_id', auth()->user()->id)
                          ->first();
         
-        $this->checkMinimumOrder(json_decode($request->items));
+        if($this->checkMinimumOrder(json_decode($request->items))){
+            return response("Some item quantities are below the minimum order requirement!", 422);
+        }
         foreach(json_decode($request->items) as $item){
             $cart_item = CartItem::where('cart_id', $cart->id)->where('p_id', $item->p_id)->first();
             $cart_item->quantity = $item->quantity;
@@ -76,7 +78,7 @@ class cartController extends Controller
         foreach($items as $item){
             $product = Product::find($item->p_id);
             if($product->minimum_order > $item->quantity){
-                return response("Some item quantities are below the minimum order requirement!", 422);
+                return true;
             }
         }
     }
