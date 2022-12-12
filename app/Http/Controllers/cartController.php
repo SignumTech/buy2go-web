@@ -74,7 +74,7 @@ class cartController extends Controller
     }
     public function checkMinimumOrder($items){
         $error = 0;
-        foreach(json_decode($request->items) as $item){
+        foreach(json_decode($items) as $item){
             $product = Product::find($item->p_id);
             if($product->minimum_order > $item->quantity){
                 return response("Some item quantities are below the minimum order requirement!", 422);

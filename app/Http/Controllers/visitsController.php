@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Visit;
 use App\Models\VisitDetail;
+use App\Events\DriverAssigned;
 class visitsController extends Controller
 {
     /**
@@ -47,6 +48,7 @@ class visitsController extends Controller
         $visit->commission = $request->commission;
         $visit->visit_status = 'PENDING_CONFIRMATION';
         $visit->save();
+
 
         return $visit;
     }
