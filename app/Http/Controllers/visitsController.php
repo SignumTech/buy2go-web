@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\Visit;
 use App\Models\VisitDetail;
 use App\Events\DriverAssigned;
+use App\Notifications\OrderStatusUpdated;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Notifications\Notifiable;
+use App\Events\VisitAssigned;
 class visitsController extends Controller
 {
     /**
@@ -49,7 +53,11 @@ class visitsController extends Controller
         $visit->visit_status = 'PENDING_CONFIRMATION';
         $visit->save();
 
-
+        //Notification
+        $driver = User::find($visit->user_id);
+        $message = 'You have been assigned a visit';
+        Notification::send($driver, new VisitStatusUpdated($message,$visit));
+        broadcast(new VisitAssigned($driver))->toOthers();
         return $visit;
     }
 
