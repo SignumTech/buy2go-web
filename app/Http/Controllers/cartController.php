@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cart;
+use App\Models\Product;
 use App\Models\CartItem;
 class cartController extends Controller
 {
@@ -12,7 +13,10 @@ class cartController extends Controller
             "p_id" => "required",
             "quantity" => "required"
         ]);
-
+        $product = Product::find($request->p_id);
+        if($request->quantity < $product->minimum_order){
+            return response("The quantity is less than the minimum order!", 422);
+        }
         $cart = Cart::where('user_id', auth()->user()->id)
                          ->first();
         
