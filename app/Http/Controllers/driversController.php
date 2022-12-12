@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\DriverDetail;
 use App\Models\Order;
 use DB;
+use Illuminate\Validation\Rule;
 class driversController extends Controller
 {
     /**
@@ -129,7 +130,7 @@ class driversController extends Controller
             "l_name" => "required",
             "l_plate" => "required",
             "country_code" => "required",
-            "phone_no" => "required",
+            "phone_no" => "required",Rule::unique('users')->ignore($id),
             "route_id" => "required"
         ]);
         try {

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Validation\Rule;
 class staffController extends Controller
 {
     public function getStaff(){
@@ -48,7 +48,7 @@ class staffController extends Controller
             'l_name' => "required | string",
             'title' => "required | string",
             'country_code'=>"required",
-            'phone_no' => "required|integer|digits:9",
+            'phone_no' => "required", Rule::unique('users')->ignore($id),
             'user_role' => "required | string",
             'email' => "required | email ",
         ]);
