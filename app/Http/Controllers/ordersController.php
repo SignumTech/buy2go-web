@@ -499,7 +499,7 @@ class ordersController extends Controller
 
         }
             
-        $data['confirm_pickup'] = (count($error) > 0)?false:true;
+        $data['confirm_pickup'] = ($error > 0)?false:true;
         return $data;
     }
     public function updateInventory($id){
