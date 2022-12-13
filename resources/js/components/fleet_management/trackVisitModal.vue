@@ -79,7 +79,7 @@ export default {
                     }
                 })
                 this.loading = true
-                this.startSimulation()
+                //this.startSimulation()
             });
         },
         startSimulation(){
