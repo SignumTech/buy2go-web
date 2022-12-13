@@ -45,7 +45,7 @@ export default {
                     this.driverMarkers.push(
                         {
                             infoOptions:{
-                                content:"<strong>Inactive</strong>",
+                                content:"<strong>"+driver.f_name+' '+driver.l_name+"</strong>",
                                 pixelOffset:{
                                     height: -50,
                                     width: 0
@@ -55,7 +55,7 @@ export default {
                                 lat:8.9806,
                                 lng:38.7578
                             },
-                            driver_id: driver.id
+                            driver_id: driver.id,
                         }
                     )
                 })
@@ -66,7 +66,7 @@ export default {
             .listen('DriverLocation', (e) => {
                 this.driverMarkers.find(driver=> driver.driver_id == e.driver_id).position.lat = e.lat
                 this.driverMarkers.find(driver=> driver.driver_id == e.driver_id).position.lng = e.lng
-                this.driverMarkers.find(driver=> driver.driver_id == e.driver_id).infoOptions.content = "<strong>"+e.assignment+"</strong>"
+                this.driverMarkers.find(driver=> driver.driver_id == e.driver_id).infoOptions.content = this.driverMarkers.find(driver=> driver.driver_id == e.driver_id).infoOptions.content+"<br><strong>"+e.assignment+"</strong>"
                 
                 //console.log(this.driverMarkers.find(driver=> driver.driver_id == 25))
             });
