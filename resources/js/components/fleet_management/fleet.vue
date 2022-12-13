@@ -64,8 +64,8 @@ export default {
         connect(){
             window.Echo.private('driver_location.0')
             .listen('DriverLocation', (e) => {
-                this.driverMarkers.find(driver=> driver.id == e.driver_id).position.lat = e.lat
-                this.driverMarkers.find(driver=> driver.id == e.driver_id).position.lng = e.lng
+                this.driverMarkers.find(driver=> driver.driver_id == e.driver_id).position.lat = e.lat
+                this.driverMarkers.find(driver=> driver.driver_id == e.driver_id).position.lng = e.lng
                 
                 //console.log(this.driverMarkers.find(driver=> driver.driver_id == 25))
             });
