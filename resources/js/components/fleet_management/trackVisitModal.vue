@@ -87,7 +87,14 @@ export default {
                 this.driverMarker.position.lng -= 0.0001 
                 this.driverMarker.position.lng -= 0.0002 
             }, 500);
-        }
+        },
+        connect(){
+            window.Echo.private('visit_location.'+this.$route.params.id)
+            .listen('VisitLocation', (e) => {
+                this.driverMarker.position.lng = e.lng
+                this.driverMarker.position.lat = e.lat
+            });
+        },
     }
 }
 </script>

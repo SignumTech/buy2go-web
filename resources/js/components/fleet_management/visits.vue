@@ -57,6 +57,8 @@ export default {
         },
     methods:{
         async updateLocation(){
+            this.locations.lat -= 0.001
+            this.locations.lng -= 0.002 
             await axios.post('/broadcastVisitLocation/'+3, this.locations)
             .then( response =>{
 
