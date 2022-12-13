@@ -182,4 +182,6 @@ class visitsController extends Controller
 
         return $visit;
     }
+
+    public function completeVisit(){}
 }

@@ -205,7 +205,11 @@ class driversController extends Controller
     }
 
     public function getMyVisits(){
-        $visits = Visit::where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC')->paginate(15);
+        $visits = Visit::join('zone_routes', 'visits.route_id', '=', 'zone_routes.id')
+                       ->where('user_id', auth()->user()->id)
+                       ->orderBy('created_at', 'DESC')
+                       ->select('visits.*', 'zone_routes.route_name')
+                       ->paginate(15);
         return $visits;
     }
 }
