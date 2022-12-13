@@ -208,6 +208,6 @@ class visitsController extends Controller
         ]);
 
         $visit = Visit::find($id);
-        broadcast(new VisitLocation($visit, $request->lat, $request->lng))->toOthers();
+        broadcast(new VisitLocation($visit, (double)$request->lat, (double)$request->lng))->toOthers();
     }
 }
