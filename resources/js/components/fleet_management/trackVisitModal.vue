@@ -57,7 +57,7 @@ export default {
     },
     mounted(){
         this.populateAddresses()
-        
+        this.connect()
     },
     methods:{
         populateAddresses(){
