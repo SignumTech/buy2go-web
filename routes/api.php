@@ -14,6 +14,7 @@ use App\Http\Controllers\balancesController;
 use App\Http\Controllers\agentsController;
 use App\Http\Controllers\creditsController;
 use App\Http\Controllers\notificationsController;
+use App\Http\Controllers\visitsController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -86,6 +87,7 @@ Route::middleware('auth:sanctum')->resource('/categories', categoriesController:
 Route::middleware('auth:sanctum')->resource('/products', productsController::class);
 Route::middleware('auth:sanctum')->resource('/addressBooks', addressBooksController::class);
 Route::middleware('auth:sanctum')->resource('/credits', creditsController::class);
+Route::middleware('auth:sanctum')->resource('/visits', visitsController::class);
 ////////////////////////////////////Products////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/productsByCategory/{id}', [productsController::class, 'productsByCategory']);
 Route::middleware('auth:sanctum')->post('/searchItems', [productsController::class, 'searchItems']);
