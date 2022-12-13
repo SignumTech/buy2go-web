@@ -13,7 +13,7 @@
                 <div class="col-md-8 d-flex justify-content-center">
                     <div class="text-center">
                         <div class="p-2 mx-5 bg-success rounded-5 text-white">
-                            <i data-feather="shopping-cart"></i>
+                            <i data-feather="user-plus"></i>
                         </div>
                         
                         <p class="text-center m-0">Visit Assigned</p>
@@ -36,6 +36,9 @@
                         </div>
                         <p class="text-center m-0">Visit Complete</p>
                     </div>
+                </div>
+                <div class="col-md-2 align-self-center">
+                    <button @click="trackVisit()" class="btn btn-primary rounded-1"><span class="fa fa-route"></span> Track visit</button>
                 </div>
             </div>
             <div class="row m-0">
@@ -76,6 +79,7 @@
 </div>    
 </template>
 <script>
+import trackVisitModalVue from './trackVisitModal.vue'
 export default {
     data(){
         return{
@@ -86,6 +90,14 @@ export default {
         this.getVisit()
     },
     methods:{
+        trackVisit(){
+            this.$modal.show(
+                trackVisitModalVue,
+                {visit:this.visit},
+                {height:'auto', width:'75%'},
+                {}
+            )
+        },
         async getVisit(){
             await axios.get('/visits/'+this.$route.params.id)
             .then( response =>{
