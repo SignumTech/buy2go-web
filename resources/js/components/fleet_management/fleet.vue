@@ -42,7 +42,6 @@ export default {
             .then( response =>{
                 this.drivers = response.data
                 this.drivers.forEach(driver=>{
-                    this
                     this.driverMarkers.push(
                         {
                             infoOptions:{
@@ -65,9 +64,10 @@ export default {
         connect(){
             window.Echo.private('driver_location.0')
             .listen('DriverLocation', (e) => {
-                var driver = this.driverMarkers.find(driver=> driver.id == e.driver_id)
+                this.driverMarkers.find(driver=> driver.id == e.driver_id).position.lat = e.lat
+                this.driverMarkers.find(driver=> driver.id == e.driver_id).position.lng = e.lng
                 
-                console.log(driver)
+                //console.log(this.driverMarkers.find(driver=> driver.driver_id == 25))
             });
         },
     }
