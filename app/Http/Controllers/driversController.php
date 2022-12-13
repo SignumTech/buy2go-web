@@ -212,4 +212,17 @@ class driversController extends Controller
                        ->paginate(15);
         return $visits;
     }
+
+    public function getDriversRaw(){
+        $drivers = User::where('user_role', 'DRIVER')->get();
+        foreach($drivers as $driver){
+            $driver->routes = DriverDetail::join('zone_routes', 'driver_details.route_id', '=', 'zone_routes.id')
+                                            ->where('driver_details.driver_id', $driver->id)
+                                            ->get();
+            $driver->l_plate = DriverDetail::where('driver_id', $driver->id)->first()->l_plate;
+        }
+        
+        
+        return $drivers;
+    }
 }

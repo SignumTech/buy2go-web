@@ -36,6 +36,7 @@ use App\Http\Controllers\visitsController;
 
 /////////////////////////////////////drivers//////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getRouteDrivers/{route_id}', [driversController::class, 'getRouteDrivers']);
+Route::middleware('auth:sanctum')->get('/getDriversRaw', [driversController::class, 'getDriversRaw']);
 /////////////////////////////////////shop//////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getShops', [shopsController::class, 'getShops']);
 Route::middleware('auth:sanctum')->get('/getShopsWithNoRoutes', [shopsController::class, 'getShopsWithNoRoutes']);

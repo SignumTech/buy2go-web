@@ -52,6 +52,9 @@
                   <div class="collapse" id="us_ma">
                     <ul class="collapse list-unstyled" id="us_ma">
                       <li v-if="$store.state.auth.permissions.Routes" :class="$route.path == `/routeList` ? `active` : ``">
+                          <router-link to="/fleetView"><i class="fa fa-shipping-fast"></i> Fleet</router-link>
+                      </li>
+                      <li v-if="$store.state.auth.permissions.Routes" :class="$route.path == `/routeList` ? `active` : ``">
                           <router-link to="/routeList"><i class="fa fa-route"></i> Routes</router-link>
                       </li>
                       <li v-if="$store.state.auth.permissions.Drivers" :class="$route.path == `/driversList` ? `active` : ``">

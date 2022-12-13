@@ -32,6 +32,7 @@ import salesReport from './components/sales_report/salesReport.vue'
 import warehouseManagers from './components/warehouses/warehouseManagers.vue'
 import visitsList from './components/fleet_management/visits.vue'
 import visitDetail from './components/fleet_management/visitDetail.vue'
+import fleetView from './components/fleet_management/fleet.vue'
 Vue.use(Router)
 
 const routes = [
