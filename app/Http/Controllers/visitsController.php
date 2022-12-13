@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Notification;
 use Illuminate\Notifications\Notifiable;
 use App\Events\VisitAssigned;
 use App\Models\AddressBook;
+use App\Models\ZoneRoute;
+use App\Models\DriverDetail;
 use App\Models\User;
 use DB;
 class visitsController extends Controller
@@ -110,7 +112,16 @@ class visitsController extends Controller
      */
     public function show($id)
     {
-        //
+        $visit = Visit::find($id);
+        $visit->route_name = ZoneRoute::find($visit->route_id)->route_name;
+        $driver = User::find($visit->user_id);
+        
+        $visit->driver = $driver->f_name.' '.$driver->l_name;
+        $visit->l_plate = DriverDetail::where('driver_id', $driver->id)->first()->l_plate;
+        $visit->addresses = VisitDetail::join('address_books', 'visit_details.shop_id', '=', 'address_books.id')
+                                       ->where('visit_id', $id)
+                                       ->get();
+        return $visit;
     }
 
     /**
@@ -145,5 +156,21 @@ class visitsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function confirmShopVisit(Request $request, $id){
+        $this->validate($request, [
+            "confirm_location" => "required",
+            "shop_id" => "required"
+        ]);
+
+        $visit = VisitDetail::where('visit_id', $id)
+                             ->where('shop_id', $request->shop_id)
+                             ->first();
+        
+        $visit->visit_status = "VISITED";
+        $visit->save();
+
+        return $visit;
     }
 }

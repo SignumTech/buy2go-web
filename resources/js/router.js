@@ -203,7 +203,7 @@ const routes = [
         props: true
     },
     {
-        path: '/visitDetail/:id',
+        path: '/visitDetails/:id',
         component: visitDetail,
         name: 'VisitDetail',
         props: true

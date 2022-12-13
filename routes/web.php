@@ -186,6 +186,9 @@ Route::middleware(['check-permission'])->any('{slug}', function () {
 Route::any('/orderDetails/{slug}', function () {
     return view('home');
 });
+Route::any('/visitDetails/{slug}', function () {
+    return view('home');
+});
 Route::any('/customerDetails/{slug}', function () {
     return view('home');
 });

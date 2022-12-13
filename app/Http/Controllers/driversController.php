@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\DriverDetail;
 use App\Models\Order;
+use App\Models\Visit;
 use DB;
 use Illuminate\Validation\Rule;
 class driversController extends Controller
@@ -201,5 +202,10 @@ class driversController extends Controller
             return $drivers;
         }
 
+    }
+
+    public function getMyVisits(){
+        $visits = Visit::where('user_id', auth()->user()->id)->get();
+        return $visits;
     }
 }

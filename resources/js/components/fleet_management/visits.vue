@@ -30,7 +30,7 @@
                             <span class="fa fa-trash-alt"></span>
                         </td>
                         <th>
-                            <router-link :to="`/visits/`+visit.id"><span class="fa fa-external-link-alt"></span> Visit Details</router-link>
+                            <router-link :to="`/visitDetails/`+visit.id"><span class="fa fa-external-link-alt"></span> Visit Details</router-link>
                         </th>
                     </tr>
                 </tbody>
