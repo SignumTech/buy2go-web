@@ -69,8 +69,8 @@ class visitsController extends Controller
             //Notification
             $driver = User::find($visit->user_id);
             $message = 'You have been assigned a visit';
-            /*Notification::send($driver, new VisitStatusUpdated($message,$visit));
-            broadcast(new VisitAssigned($driver))->toOthers();*/
+            Notification::send($driver, new VisitStatusUpdated($message,$visit));
+            broadcast(new VisitAssigned($driver))->toOthers();
             DB::commit();
             return $visit;
             
@@ -171,8 +171,19 @@ class visitsController extends Controller
         $visit->visit_status = "VISITED";
         $visit->confirm_location = json_encode($request->confirm_location);
         $visit->save();
-
+        if($this->checkCompletion($id)){
+            return $this->completeVisit($id);
+        }
+        
         return $visit;
+    }
+
+    public function checkCompletion($id){
+        $visits = VisitDetail::where('visit_id', $id)->get();
+        $completed_visits = VisitDetail::where('visit_id', $id)
+                                       ->where('visit_status', 'VISITED')
+                                       ->get();
+        return  (count($visits) == count($completed_visits))?true:false;                               
     }
 
     public function startVisit($id){
@@ -183,5 +194,9 @@ class visitsController extends Controller
         return $visit;
     }
 
-    public function completeVisit(){}
+    public function completeVisit($id){
+        $visit = Visit::find($id);
+        $visit->visit_status = 'COMPLETED';
+        return $visit;
+    }
 }
