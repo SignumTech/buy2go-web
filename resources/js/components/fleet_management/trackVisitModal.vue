@@ -61,7 +61,7 @@ export default {
     },
     methods:{
         populateAddresses(){
-            console.log(this.visit)
+            
             var addresses = this.visit.addresses
             addresses.forEach(address =>{
                 this.markers.push({

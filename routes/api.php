@@ -16,6 +16,7 @@ use App\Http\Controllers\creditsController;
 use App\Http\Controllers\notificationsController;
 use App\Http\Controllers\visitsController;
 use App\Http\Controllers\driversController;
+use App\Http\Controllers\fleetsController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -53,6 +54,7 @@ Route::middleware('auth:sanctum')->get('/getMyVisits', [driversController::class
 Route::middleware('auth:sanctum')->put('/confirmShopVisit/{id}', [visitsController::class, 'confirmShopVisit']);
 Route::middleware('auth:sanctum')->put('/startVisit/{id}', [visitsController::class, 'startVisit']);
 Route::middleware('auth:sanctum')->post('/broadcastVisitLocation/{id}', [visitsController::class, 'broadcastVisitLocation']);
+Route::middleware('auth:sanctum')->post('/broadcastDriverLocation', [fleetsController::class, 'broadcastDriverLocation']);
 ///////////////////////////////////orders/////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->post('/addAgentOrder', [ordersController::class, 'addAgentOrder']);
 Route::middleware('auth:sanctum')->get('/getMyOrders', [ordersController::class, 'getMyOrders']);
