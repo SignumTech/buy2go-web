@@ -169,6 +169,15 @@ class visitsController extends Controller
                              ->first();
         
         $visit->visit_status = "VISITED";
+        $visit->confirm_location = json_encode($request->confirm_location);
+        $visit->save();
+
+        return $visit;
+    }
+
+    public function startVisit($id){
+        $visit = Visit::find($id);
+        $visit->visit_status = 'IN_PROGRESS';
         $visit->save();
 
         return $visit;

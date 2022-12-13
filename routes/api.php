@@ -50,6 +50,7 @@ Route::middleware('auth:sanctum')->get('/getAgentOrders', [agentsController::cla
 ///////////////////////////////////Visits/////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getMyVisits', [driversController::class, 'getMyVisits']);
 Route::middleware('auth:sanctum')->put('/confirmShopVisit/{id}', [visitsController::class, 'confirmShopVisit']);
+Route::middleware('auth:sanctum')->put('/startVisit/{id}', [visitsController::class, 'startVisit']);
 ///////////////////////////////////orders/////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->post('/addAgentOrder', [ordersController::class, 'addAgentOrder']);
 Route::middleware('auth:sanctum')->get('/getMyOrders', [ordersController::class, 'getMyOrders']);

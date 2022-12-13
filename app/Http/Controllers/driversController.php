@@ -205,7 +205,7 @@ class driversController extends Controller
     }
 
     public function getMyVisits(){
-        $visits = Visit::where('user_id', auth()->user()->id)->get();
+        $visits = Visit::where('user_id', auth()->user()->id)->orderBy('created_at', 'DESC')->paginate(15);
         return $visits;
     }
 }
