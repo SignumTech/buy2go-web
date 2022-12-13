@@ -45,7 +45,7 @@ export default {
                     this.driverMarkers.push(
                         {
                             infoOptions:{
-                                content:"<strong>Initializing....</strong>",
+                                content:"<strong>Inactive</strong>",
                                 pixelOffset:{
                                     height: -50,
                                     width: 0
