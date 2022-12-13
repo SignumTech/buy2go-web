@@ -10,6 +10,7 @@ use App\Notifications\VisitStatusUpdated;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Notifications\Notifiable;
 use App\Events\VisitAssigned;
+use App\Events\VisitLocation;
 use App\Models\AddressBook;
 use App\Models\ZoneRoute;
 use App\Models\DriverDetail;
@@ -198,5 +199,15 @@ class visitsController extends Controller
         $visit = Visit::find($id);
         $visit->visit_status = 'COMPLETED';
         return $visit;
+    }
+
+    public function broadcastVisitLocation(Request $request, $id){
+        $this->validate($request, [
+            "lat" => "required",
+            "lng" => "required",
+        ]);
+
+        $visit = Visit::find($id);
+        broadcast(new VisitLocation($visit, $request->lat, $request->lng))->toOthers();
     }
 }

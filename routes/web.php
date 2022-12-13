@@ -97,6 +97,7 @@ Route::middleware('auth:sanctum')->resource('/visits', visitsController::class);
 ///////////////////////////////////Notifications/////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getMyNotifications', [notificationsController::class, 'getMyNotifications']);
 Route::middleware('auth:sanctum')->get('/markAllAsRead', [notificationsController::class, 'markAllAsRead']);
+Route::middleware('auth:sanctum')->post('/broadcastVisitLocation/{id}', [visitsController::class, 'broadcastVisitLocation']);
 ///////////////////////////////////orders/////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getProcessing', [ordersController::class, 'getProcessing']);
 Route::middleware('auth:sanctum')->get('/getShipped', [ordersController::class, 'getShipped']);

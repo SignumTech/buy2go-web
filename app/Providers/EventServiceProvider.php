@@ -8,6 +8,8 @@ use App\Events\DriverAssigned;
 use App\Listeners\DriverAssignedNotification;
 use App\Events\VisitAssigned;
 use App\Listeners\SendVisitAssignedNotification;
+use App\Events\VisitLocation;
+use App\Listeners\SendVisitLocationNotification;
 use App\Events\DriverRejectedOrder;
 use App\Events\CashWithdrawn;
 use App\Listeners\DriverRejectedOrderNotification;
@@ -37,6 +39,9 @@ class EventServiceProvider extends ServiceProvider
         ],
         VisitAssigned::class => [
             SendVisitAssignedNotification::class,
+        ],
+        VisitLocation::class => [
+            SendVisitLocationNotification::class,
         ],
     ];
 

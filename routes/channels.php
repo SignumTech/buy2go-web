@@ -44,6 +44,10 @@ Broadcast::channel('visit_assigned.{visitId}', function ($user, $id) {
     return Auth::check();
     //return (int) $user->id === (int) $id;
 });
+Broadcast::channel('visit_location.{visitId}', function ($user, $id) {
+    return Auth::check();
+    //return (int) $user->id === (int) $id;
+});
 Broadcast::channel('online.{id}', function ($user, $id=0) {
     if (Auth::check()) {
         return ['id' => $user->id, 'name' => $user->f_name];
