@@ -18,18 +18,20 @@ class DriverLocation implements ShouldBroadcast
     public $lng;
     public $assignment;
     public $driver_id;
+    public $name;
     public $afterCommit = true;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($lat,$lng,$assignment,$driver_id)
+    public function __construct($lat,$lng,$assignment,$driver_id,$name)
     {
         $this->lat = $lat;
         $this->lng = $lng;
         $this->assignment = $assignment;
         $this->driver_id = $driver_id;
+        $this->name = $name;
     }
 
     /**

@@ -66,7 +66,7 @@ export default {
             .listen('DriverLocation', (e) => {
                 this.driverMarkers.find(driver=> driver.driver_id == e.driver_id).position.lat = e.lat
                 this.driverMarkers.find(driver=> driver.driver_id == e.driver_id).position.lng = e.lng
-                this.driverMarkers.find(driver=> driver.driver_id == e.driver_id).infoOptions.content = this.driverMarkers.find(driver=> driver.driver_id == e.driver_id).infoOptions.content+"<br><strong>"+e.assignment+"</strong>"
+                this.driverMarkers.find(driver=> driver.driver_id == e.driver_id).infoOptions.content = "<strong>"+e.name+"</strong><br><strong>"+e.assignment+"</strong>"
                 
                 //console.log(this.driverMarkers.find(driver=> driver.driver_id == 25))
             });

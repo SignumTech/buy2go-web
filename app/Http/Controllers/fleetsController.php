@@ -13,7 +13,7 @@ class fleetsController extends Controller
             "assignments" => "required"
         ]);
 
-        broadcast(new DriverLocation((double)$request->lat, (double)$request->lng, $request->assignments, auth()->user()->id))->toOthers();
+        broadcast(new DriverLocation((double)$request->lat, (double)$request->lng, $request->assignments, auth()->user()->id, auth()->user()->f_name.' '.auth()->user()->l_name))->toOthers();
         
     }
 }
