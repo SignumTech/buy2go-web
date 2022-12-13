@@ -208,6 +208,13 @@ const routes = [
         name: 'VisitDetail',
         props: true
     }
+    ,
+    {
+        path: '/fleetView/',
+        component: fleetView,
+        name: 'FleetView',
+        props: true
+    }
     
 ]
 
