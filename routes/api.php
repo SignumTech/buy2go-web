@@ -15,6 +15,7 @@ use App\Http\Controllers\agentsController;
 use App\Http\Controllers\creditsController;
 use App\Http\Controllers\notificationsController;
 use App\Http\Controllers\visitsController;
+use App\Http\Controllers\driversController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
