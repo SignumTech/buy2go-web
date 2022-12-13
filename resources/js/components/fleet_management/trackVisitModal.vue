@@ -9,7 +9,7 @@
             </gmap-info-window>
             <gmap-info-window v-for="m,index in markers" :key="index" :options="m.infoOptions" :position="m.position" :opened="true" @closeclick="infoWinOpen=false">
             </gmap-info-window>
-            <google-marker :icon="`/storage/settings/store.png`" :position="driverMarker.position" :clickable="true" :draggable="false" ></google-marker>
+            <google-marker :icon="`/storage/settings/truck.png`" :position="driverMarker.position" :clickable="true" :draggable="false" ></google-marker>
             <google-marker v-for="m,index in markers" :icon="`/storage/settings/store.png`" :shape="shape" :key="index" :position="m.position" :clickable="true" :draggable="false" @click="toggleInfoWindow(m,i)"></google-marker>
             <!--<gmap-polygon v-for="path,index in paths" :key="index" :paths="path" :editable="false" :draggable="true" @paths_changed="updateEdited($event)"></gmap-polygon>-->
         </GmapMap>
@@ -36,7 +36,7 @@ export default {
                 infoOptions:{
                     content:"<strong>"+this.visit.driver+"</strong>",
                     pixelOffset:{
-                        height: -35,
+                        height: -50,
                         width: 0
                     }
                 },
