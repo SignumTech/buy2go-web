@@ -459,6 +459,10 @@ class ordersController extends Controller
             "order_hash" => "required"
         ]);
         
+        
+        if(!$this->checkInventory($id)['confirm_pickup']){
+            return response($this->checkInventory($id), 422);
+        }
         $order = Order::find($id);
         if(!Hash::check($order->order_no, $request->order_hash)){
             return response("Unauthorized",401);
