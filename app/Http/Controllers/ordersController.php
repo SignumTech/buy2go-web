@@ -480,7 +480,7 @@ class ordersController extends Controller
         $data = [];
         $error = 0;
         $order = Order::find($id);
-        dd($order);
+        
         $items = OrderItem::where('order_id', $id)->get();
         foreach($items as $item){
             $warehouse_item = WarehouseDetail::where('p_id', $item->p_id)
