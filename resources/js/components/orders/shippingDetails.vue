@@ -6,13 +6,13 @@
     <div class="col-md-12">
         <div class="row mt-2">
             <div class="col-md-8">
-                <GmapMap :center="center" :zoom="12" style="width: 100%; height: 500px" ref="mapRef">
+                <GmapMap v-if="loaded" :center="center" :zoom="12" style="width: 100%; height: 500px" ref="mapRef">
                     <gmap-info-window :options="infoOptions" :position="address" :opened="true" @closeclick="infoWinOpen=false">
                     </gmap-info-window>
-                    <gmap-info-window v-for="m,index in markers" :key="index" :options="m.infoOptions" :position="m.position" :opened="true" @closeclick="infoWinOpen=false">
+                    <gmap-info-window v-for="m,index in markers" :key="`w`+index" :options="m.infoOptions" :position="m.position" :opened="true" @closeclick="infoWinOpen=false">
                     </gmap-info-window>
                     <google-marker v-if="!loading" :icon="`/storage/settings/store.png`" :position="address" :clickable="true" :draggable="false" ></google-marker>
-                    <google-marker v-for="m,index in markers" :icon="`/storage/settings/warehouse.png`" :shape="shape" :key="index" :position="m.position" :clickable="true" :draggable="false" @click="toggleInfoWindow(m,i)"></google-marker>
+                    <google-marker v-for="m,index in markers" :icon="`/storage/settings/warehouse.png`" :shape="shape" :key="`c`+index" :position="m.position" :clickable="true" :draggable="false" @click="toggleInfoWindow(m,i)"></google-marker>
                     <!--<gmap-polygon v-for="path,index in paths" :key="index" :paths="path" :editable="false" :draggable="true" @paths_changed="updateEdited($event)"></gmap-polygon>-->
                     <DirectionsRenderer
                     travelMode="DRIVING"
@@ -70,6 +70,7 @@ export default {
     props:["id"],
     data(){
         return{
+            loaded:false,
             formData:{
                 warehouse_id:"",
                 zone_id:null,
@@ -81,7 +82,10 @@ export default {
             drivers:{},
             order:{},
             address_name:null,
-            address:null,
+            address:{
+                lat: 8.9806,
+                lng: 38.7578
+            },
             orderItems:{},
             shape: {
                 coords: [10, 10, 10, 15, 15, 15, 15, 10],
@@ -116,7 +120,7 @@ export default {
         }
     },
     mounted(){
-        this.$refs.mapRef.$mapPromise.then(map => this.map = map);
+        //this.$refs.mapRef.$mapPromise.then(map => this.map = map);
         //this.getZones()
         this.getWarehouses()
         this.getOrder()
@@ -136,12 +140,16 @@ export default {
         },
         setDestination(){
             var myWarehouse = this.warehouses.find(warehouse=> warehouse.id == this.formData.warehouse_id)
-            this.destination = JSON.parse(myWarehouse.location)
+            this.destination = {
+                lat: parseFloat(JSON.parse(myWarehouse.location).lat),
+                lng: parseFloat(JSON.parse(myWarehouse.location).lng)
+            } 
         },
         async getDrivers(id){
             await axios.get('/getRouteDrivers/'+id)
             .then( response =>{
                 this.drivers = response.data
+                this.loaded = true
             })
         },
         async getOrder(){
@@ -158,8 +166,16 @@ export default {
             await axios.get('/addressBooks/'+id)
             .then( response =>{
                 this.infoOptions.content = response.data.regular_address
-                this.address = JSON.parse(response.data.geolocation)
-                this.center = JSON.parse(response.data.geolocation)
+                this.address = {
+                        lat: parseFloat(JSON.parse(response.data.geolocation).lat),
+                        lng: parseFloat(JSON.parse(response.data.geolocation).lng)
+                    } 
+                
+                
+                this.center = {
+                        lat: parseFloat(JSON.parse(response.data.geolocation).lat),
+                        lng: parseFloat(JSON.parse(response.data.geolocation).lng)
+                    } 
                 this.loading = false
                 this.getDrivers(response.data.route_id)
             })
@@ -170,7 +186,10 @@ export default {
                 this.warehouses = response.data
                 this.warehouses.forEach(warehouse => {
                     this.markers.push({
-                        position: JSON.parse(warehouse.location),
+                        position: {
+                            lat: parseFloat(JSON.parse(warehouse.location).lat),
+                            lng: parseFloat(JSON.parse(warehouse.location).lng)
+                        },
                         infoOptions: {
                             content: '<strong>'+warehouse.w_name+'</strong>',
                             //optional: offset infowindow so it visually sits nicely on top of our marker
