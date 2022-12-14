@@ -186,7 +186,7 @@ class visitsController extends Controller
     public function checkCompletion($id){
         $visits = VisitDetail::where('visit_id', $id)->get();
         $completed_visits = VisitDetail::where('visit_id', $id)
-                                       ->where('visit_status', 'VISITED')
+                                       ->where('status', 'VISITED')
                                        ->get();
         return  (count($visits) == count($completed_visits))?true:false;                               
     }
