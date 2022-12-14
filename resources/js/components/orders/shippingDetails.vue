@@ -35,7 +35,7 @@
                         <div class="col-md-12 mt-4">
                             <h6>Drivers List</h6>
                         </div>
-                        <div style="height:100%" class="col-md-12">
+                        <div style="height: 300px;overflow: auto;" class="col-md-12">
                             <ul class="list-group">
                                 <li v-for="driver,index in drivers" :key="index" class="list-group-item">
                                     <div class="row">
