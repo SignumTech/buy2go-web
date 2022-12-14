@@ -193,10 +193,11 @@ class driversController extends Controller
             return $drivers;
         }
         else{
-            $drivers = DriverDetail::join('users', 'driver_details.driver_id', '=', 'users.id')
-                                    ->distinct()
-                                    ->get();
+            $drivers = User::where('user_role', 'DRIVER')->get();
+
             foreach($drivers as $driver){
+            $driver->driver_id = $driver->id;
+            $driver->l_plate = DriverDetail::where('driver_id', $driver->id)->first()->l_plate;
             $driver->active_assignments = Order::where('assigned_driver', $driver->id)
                                         ->where('order_status', 'SHIPPED')->count();
             }
