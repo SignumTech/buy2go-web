@@ -193,7 +193,7 @@ class driversController extends Controller
             return $drivers;
         }
         else{
-            $drivers = User::where('user_role', 'DRIVER')->get();
+            $drivers = User::where('user_role', 'DRIVER')->select('id','f_name', 'l_name', 'country_code', 'phone_no')->get();
 
             foreach($drivers as $driver){
             $driver->driver_id = $driver->id;
