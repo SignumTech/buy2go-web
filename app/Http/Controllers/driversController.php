@@ -194,7 +194,7 @@ class driversController extends Controller
         }
         else{
             $drivers = DriverDetail::join('users', 'driver_details.driver_id', '=', 'users.id')
-                                    ->distinct('driver_id')
+                                    ->distinct()
                                     ->get();
             foreach($drivers as $driver){
             $driver->active_assignments = Order::where('assigned_driver', $driver->id)
