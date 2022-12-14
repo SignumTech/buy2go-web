@@ -321,4 +321,32 @@ class categoriesController extends Controller
                             return $q->where('parent_id', $request->parent_id);
                         });
     }
+
+    public function getDeletedMainCategories(){
+        $categories = Category::onlyTrashed()->where('cat_type', 'PARENT')->get();
+        foreach($categories as $cat){
+            $cat->items = $this->categoryItemCount($cat->id);
+        }
+        return $categories;
+    }
+    public function getDeletedSubCategories(){
+        $categories = Category::onlyTrashed()->where('cat_type', 'CHILD')->paginate(10);
+        
+        foreach($categories as $cat){
+            $count = Product::where('cat_id', $cat->id)->count();
+            $cat->items = $count + $this->categoryItemCount($cat->id);
+            
+            if(Category::find($cat->parent_id)){
+                $cat->parent_name = Category::find($cat->parent_id)->cat_name;
+            }
+            
+            
+        }
+        return $categories;
+    }
+    public function restoreCategory($id){
+        $category = Category::withTrashed()->find($id);
+        $category->restore();
+        return $category;
+    }
 }

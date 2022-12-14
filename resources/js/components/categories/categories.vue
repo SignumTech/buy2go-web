@@ -31,7 +31,7 @@
                                 <td class="align-middle">{{mc.cat_name}}</td>
                                 <td class="align-middle">{{mc.items}}</td>
                                 <td class="align-middle text-center">
-                                    <span @click="deleteCategory(sc.id)" class="fa fa-trash-alt me-3"></span>
+                                    <span @click="deleteCategory(mc.id)" class="fa fa-trash-alt me-3"></span>
                                     <span @click="editMainModal(mc)" class="fa fa-edit me-3"></span>
                                     <span @click="makeChild(mc)" class="fa fa-child me-3"></span>
                                 </td>
