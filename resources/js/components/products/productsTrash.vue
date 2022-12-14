@@ -1,5 +1,8 @@
 <template>
     <div class="row p-4">
+        <div class="col-md-12">
+            <h5><strong><span class="fa fa-trash-alt"></span> Recycle Bin</strong> <span @click="$emit('close')" class="fa fa-times float-end"></span></h5>
+        </div>
         <div class="col-md-12 mt-3">
                 <table class="table table-fixed px-2 table-sm mt-2">
                     <thead>
@@ -22,7 +25,7 @@
                             <td class="align-middle">{{product.created_at | moment("MMM Do YYYY h:m:s a")}}</td>
                             <td class="align-middle">{{product.deleted_at | moment("MMM Do YYYY h:m:s a")}}</td>
                             <td class="align-middle">
-                                <a type="button"><span @click="restoreProduct(product.id)" class="fa fa-trash-restore-alt"></span></a>
+                                <button @click="restoreProduct(product.id)" class="btn btn-sm btn-success rounded-1"><span class="fa fa-trash-restore-alt"></span> Restore</button>
                             </td>
                         </tr>
                     </tbody>
@@ -52,6 +55,13 @@ export default {
         feather.replace();
     },
     methods:{
+        async getPage(pageUrl){
+            await axios.get(pageUrl)
+            .then( response => {
+                this.paginationData = response.data
+                this.products = response.data.data
+            })
+        },
         async getProducts(){
             await axios.get('/getDeletedProducts')
             .then( response =>{
@@ -59,6 +69,23 @@ export default {
                 this.products = response.data.data
             })
         },
+        async restoreProduct(id){
+            var check = confirm("Are you sure you want to restore this product?")
+            if(check){
+                await axios.put('/restoreProduct/'+id)
+                .then( response =>{
+                    this.getProducts()
+                                    
+                    this.$notify({
+                        group: 'foo',
+                        type: 'success',
+                        title: 'Product Restored',
+                        text: 'Product Restored Successfully.'
+                    });
+                
+                })
+            }
+        }
     }
     
 }

@@ -151,8 +151,8 @@ export default {
             this.$modal.show(
                 ProductsTrash,
                 {},
-                {height:"auto", width:"700px"},
-                {}
+                {height:"auto", width:"80%"},
+                {"closed":this.getProducts}
             )
         },
         async getCategories(){

@@ -588,7 +588,14 @@ class productsController extends Controller
     }
 
     public function getDeletedProducts(){
-        $products = Product::onlyTrashed()->orderBy('created_at', 'DESC')->paginate(10);        
+        $products = Product::onlyTrashed()->orderBy('deleted_at', 'DESC')->paginate(10);        
         return $products;  
+    }
+
+    public function restoreProduct($id){
+        $product = Product::withTrashed()->find($id);
+        $product->restore();
+
+        return $product;
     }
 }

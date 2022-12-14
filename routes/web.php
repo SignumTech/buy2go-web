@@ -128,6 +128,7 @@ Route::middleware('auth:sanctum')->get('/getPriceRange', [productsController::cl
 Route::middleware('auth:sanctum')->post('/getProductsList', [productsController::class, 'filterProducts']);
 Route::middleware('auth:sanctum')->post('/exportProducts', [productsController::class, 'exportProducts']);
 Route::middleware('auth:sanctum')->get('/getDeletedProducts', [productsController::class, 'getDeletedProducts']);
+Route::middleware('auth:sanctum')->put('/restoreProduct/{id}', [productsController::class, 'restoreProduct']);
 ///////////////////////////////////agents/////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getAgents', [agentsController::class, 'getAgents']);
 Route::middleware('auth:sanctum')->get('/agentDetails/{id}', [agentsController::class, 'agentDetails']);
