@@ -11,6 +11,7 @@
                 </div>
                 <div class="col-md-6 px-0">
                     <button @click="addMainModal()" class="btn btn-primary btn-sm float-end"><span class="fa fa-plus"></span> Add Main Category</button>
+                    <button @click="viewMainBin()" class="btn btn-success btn-sm rounded-1 float-end me-3"><span class="fa fa-recycle"></span> Recycle Bin</button>
                 </div>
             </div>
             <div class="row mt-1 mx-0">
@@ -75,6 +76,7 @@
                 </div>
                 <div class="col-md-6 px-0">
                     <button @click="addSubModal()" class="btn btn-primary btn-sm float-end"><span class="fa fa-plus"></span> Add Sub Category</button>
+                    <button @click="viewSubBin()" class="btn btn-success btn-sm rounded-1 float-end me-3"><span class="fa fa-recycle"></span> Recycle Bin</button>
                 </div>
             </div>
             <div class="row mt-1 mx-0">
@@ -136,6 +138,8 @@ import mainCatModal from './mainCatModal.vue'
 import subCatModal from './subCatModal.vue'
 import addPictureModal from './addPictureModal'
 import makeChildModalVue from './makeChildModal.vue'
+import mainCatTrashVue from './mainCatTrash.vue'
+import SubCatTrash from './subCatTrash.vue'
 export default {
     data(){
         return{
@@ -157,6 +161,22 @@ export default {
         this.getNodeCategories()
     },
     methods:{
+        viewMainBin(){
+            this.$modal.show(
+                mainCatTrashVue,
+                {},
+                {height:"auto", width:"80%"},
+                {"closed":this.getMainCategories}
+            )
+        },
+        viewSubBin(){
+            this.$modal.show(
+                SubCatTrash,
+                {},
+                {height:"auto", width:"80%"},
+                {"closed":this.getSubCategories}
+            )
+        },
         async getPage(pageUrl){
             await axios.get(pageUrl)
             .then( response => {

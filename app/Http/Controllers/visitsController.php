@@ -202,6 +202,7 @@ class visitsController extends Controller
     public function completeVisit($id){
         $visit = Visit::find($id);
         $visit->visit_status = 'COMPLETED';
+        $visit->save();
         return $visit;
     }
 
