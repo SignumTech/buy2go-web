@@ -586,4 +586,9 @@ class productsController extends Controller
         }
         return Excel::download(new ProductsExport($products), 'products.xlsx');
     }
+
+    public function getDeletedProducts(){
+        $products = Product::onlyTrashed()->orderBy('created_at', 'DESC')->paginate(10);        
+        return $products;  
+    }
 }

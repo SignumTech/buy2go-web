@@ -61,6 +61,7 @@
     <div class="col-md-12 mt-3">
         <div class="bg-white rounded-1 p-3 shadow-sm">
             <router-link to="/addProduct" class="btn btn-primary btn-sm float-end shadow text-white"><span class="fa fa-plus"></span> Add Product</router-link>
+            <button @click="viewBin()" class="btn btn-success btn-sm rounded-1 float-end me-3"><span class="fa fa-recycle"></span> Recycle Bin</button>
             <table class="table table-fixed px-2 table-sm mt-2">
                 <thead>
                     <tr>
@@ -116,6 +117,7 @@ import VueSlider from 'vue-slider-component'
 import 'vue-slider-component/theme/antd.css'
 import Treeselect from '@riophae/vue-treeselect'
 import '@riophae/vue-treeselect/dist/vue-treeselect.css'
+import ProductsTrash from './productsTrash.vue'
 export default {
     components: {
         VueSlider,
@@ -145,6 +147,14 @@ export default {
         feather.replace();
     },
     methods:{
+        viewBin(){
+            this.$modal.show(
+                ProductsTrash,
+                {},
+                {height:"auto", width:"700px"},
+                {}
+            )
+        },
         async getCategories(){
             await axios.get('/chooseSubCategories')
             .then( response =>{

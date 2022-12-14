@@ -173,7 +173,7 @@ class visitsController extends Controller
         $confirm_location = [];
         $confirm_location['lat'] = $request->lat;
         $confirm_location['lng'] = $request->lng;
-        $visit->visit_status = "VISITED";
+        $visit->status = "VISITED";
         $visit->confirm_location = json_encode($confirm_location);
         $visit->save();
         if($this->checkCompletion($id)){
