@@ -9,7 +9,7 @@
             <gmap-info-window v-for="m,index in driverMarkers" :key="`info`+index" :options="m.infoOptions" :position="m.position" :opened="true" @closeclick="infoWinOpen=false">
             </gmap-info-window>
             
-            <google-marker v-for="m,index in driverMarkers" :icon="`/storage/settings/truck.png`" :key="`truck`+index" :position="m.position" :clickable="true" :draggable="false" @click="toggleInfoWindow(m,i)"></google-marker>
+            <google-marker v-for="m,index in driverMarkers" :icon="`/storage/settings/truck.png`" :key="`truck`+index" :position="m.position" :clickable="true" :draggable="false" @click="toggleInfoWindow(m,index)"></google-marker>
             <!--<gmap-polygon v-for="path,index in paths" :key="index" :paths="path" :editable="false" :draggable="true" @paths_changed="updateEdited($event)"></gmap-polygon>-->
         </GmapMap>
     </div>
@@ -20,6 +20,7 @@ export default {
     data(){
         return{
             loading:false,
+            currentMidx: null,
             shape: {
                 coords: [10, 10, 10, 15, 15, 15, 15, 10],
                 type: 'poly'
@@ -29,7 +30,9 @@ export default {
                 lng: 38.7578
             },
             drivers:{},
-            driverMarkers:[]
+            infoWindowPos: null,
+            driverMarkers:[],
+            infoWinOpen:false
         }
     },
     mounted(){
@@ -37,6 +40,23 @@ export default {
         this.connect()
     },
     methods:{
+        toggleInfoWindow: function(marker, idx) {
+            
+            this.infoWindowPos = marker.position;
+            this.infoOptions = marker.infoOptions;
+
+            //check if its the same marker that was selected if yes toggle
+            if (this.currentMidx === idx) {
+              this.infoWinOpen = !this.infoWinOpen;
+            }
+            //if different marker set infowindow to open and reset current marker index
+            else {
+                console.log('test', idx)
+              this.infoWinOpen = true;
+              this.currentMidx = idx;
+
+            }
+          },
         async getDrivers(){
             await axios.get('/getDriversRaw')
             .then( response =>{

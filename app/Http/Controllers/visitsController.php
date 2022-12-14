@@ -161,7 +161,8 @@ class visitsController extends Controller
 
     public function confirmShopVisit(Request $request, $id){
         $this->validate($request, [
-            "confirm_location" => "required",
+            "lat" => "required",
+            "lng" => "required",
             "shop_id" => "required"
         ]);
 
@@ -169,8 +170,11 @@ class visitsController extends Controller
                              ->where('shop_id', $request->shop_id)
                              ->first();
         
+        $confirm_location = [];
+        $confirm_location['lat'] = $request->lat;
+        $confirm_location['lng'] = $request->lng;
         $visit->visit_status = "VISITED";
-        $visit->confirm_location = json_encode($request->confirm_location);
+        $visit->confirm_location = json_encode($confirm_location);
         $visit->save();
         if($this->checkCompletion($id)){
             return $this->completeVisit($id);
