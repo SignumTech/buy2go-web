@@ -6,10 +6,10 @@
     <div class="col-md-12">
         <GmapMap :center="center" :zoom="12" style="width: 100%; height: 500px" ref="mapRef">
 
-            <gmap-info-window v-for="m,index in driverMarkers" :key="index" :options="m.infoOptions" :position="m.position" :opened="true" @closeclick="infoWinOpen=false">
+            <gmap-info-window v-for="m,index in driverMarkers" :key="`info`+index" :options="m.infoOptions" :position="m.position" :opened="true" @closeclick="infoWinOpen=false">
             </gmap-info-window>
             
-            <google-marker v-for="m,index in driverMarkers" :icon="`/storage/settings/truck.png`" :key="index" :position="m.position" :clickable="true" :draggable="false" @click="toggleInfoWindow(m,i)"></google-marker>
+            <google-marker v-for="m,index in driverMarkers" :icon="`/storage/settings/truck.png`" :key="`truck`+index" :position="m.position" :clickable="true" :draggable="false" @click="toggleInfoWindow(m,i)"></google-marker>
             <!--<gmap-polygon v-for="path,index in paths" :key="index" :paths="path" :editable="false" :draggable="true" @paths_changed="updateEdited($event)"></gmap-polygon>-->
         </GmapMap>
     </div>
