@@ -311,7 +311,7 @@
           window.location.replace("/home");
           })
           .catch(error => {
-          console.log(error);
+          
           });
       },
     }

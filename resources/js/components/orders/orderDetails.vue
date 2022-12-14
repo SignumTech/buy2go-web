@@ -199,7 +199,6 @@ export default {
                 this.order = response.data.order_details
                 this.orderItems = response.data.order_items
                 this.taxCalculations = this.calculateTax(this.orderItems)
-                console.log(this.taxCalculations)
                 this.getAddress(response.data.order_details.delivery_details)
             })
         },
