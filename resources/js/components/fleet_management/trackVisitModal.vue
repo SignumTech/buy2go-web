@@ -1,16 +1,17 @@
 <template>
 <div class="row p-4">
     <div class="col-md-4">
-        <h5><strong>Visit No. {{visit.visit_no}}</strong></h5>
+        <h5><strong>Visit No. {{visit.visit_no}} on route {{visit.route_name}}</strong></h5>
     </div>
     <div class="col-md-12 mt-3">
         <GmapMap :center="center" :zoom="12" style="width: 100%; height: 500px" ref="mapRef">
             <gmap-info-window :options="driverMarker.infoOptions" :position="driverMarker.position" :opened="true" @closeclick="infoWinOpen=false">
             </gmap-info-window>
-            <gmap-info-window v-for="m,index in markers" :key="index" :options="m.infoOptions" :position="m.position" :opened="true" @closeclick="infoWinOpen=false">
+            <gmap-info-window v-for="m,index in markers" :key="`in`+index" :options="m.infoOptions" :position="m.position" :opened="true" @closeclick="infoWinOpen=false">
             </gmap-info-window>
             <google-marker :icon="`/storage/settings/truck.png`" :position="driverMarker.position" :clickable="true" :draggable="false" ></google-marker>
-            <google-marker v-for="m,index in markers" :icon="`/storage/settings/store.png`" :shape="shape" :key="index" :position="m.position" :clickable="true" :draggable="false" @click="toggleInfoWindow(m,i)"></google-marker>
+            <google-marker v-for="m,index in markers" :icon="`/storage/settings/store.png`" :shape="shape" :key="`cn`+index" :position="m.position" :clickable="true" :draggable="false" @click="toggleInfoWindow(m,i)"></google-marker>
+            <google-marker v-for="m,index in markers" :icon="`/storage/settings/store.png`" :shape="shape" :key="`sh`+index" :position="m.position" :clickable="true" :draggable="false" @click="toggleInfoWindow(m,i)"></google-marker>
             <!--<gmap-polygon v-for="path,index in paths" :key="index" :paths="path" :editable="false" :draggable="true" @paths_changed="updateEdited($event)"></gmap-polygon>-->
         </GmapMap>
     </div>
@@ -32,6 +33,7 @@ export default {
             },
             address:null,
             markers: [],
+            confirmMarkers:[],
             driverMarker:{
                 infoOptions:{
                     content:"<strong>"+this.visit.driver+"</strong>",
@@ -78,6 +80,23 @@ export default {
                         }
                     }
                 })
+                if(address.confirm_location){
+                    this.confirmMarkers.push({
+                        position:{
+                            lat: parseFloat(JSON.parse(address.confirm_location).lat),
+                            lng: parseFloat(JSON.parse(address.confirm_location).lng)
+                        } ,
+                        infoOptions: {
+                            content: '<strong>Visited '+address.regular_address+'</strong>',
+                            //optional: offset infowindow so it visually sits nicely on top of our marker
+                            pixelOffset: {
+                            width: 0,
+                            height: -35
+                            }
+                        }
+                    })                    
+                }
+
                 this.loading = true
                 //this.startSimulation()
             });
