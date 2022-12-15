@@ -16,6 +16,7 @@ use App\Models\ZoneRoute;
 use App\Models\DriverDetail;
 use App\Models\User;
 use App\Models\BalanceHistory;
+use App\Models\Balance;
 use DB;
 class visitsController extends Controller
 {
