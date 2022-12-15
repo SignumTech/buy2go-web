@@ -223,7 +223,7 @@ class visitsController extends Controller
     }
 
     public function transferRewardBalance($visit){
-        $balance = Balance::where('user_id', $visit->commission)->first();
+        $balance = Balance::where('user_id', $visit->user_id)->first();
         $balance->balance = $balance->balance + $visit;
         $balance->save();
          //////create a transaction///////////
