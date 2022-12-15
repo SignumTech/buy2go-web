@@ -273,7 +273,9 @@ class categoriesController extends Controller
                               ->get();
         if(count($categories) == 0 ){
             $data = [];
-            $categories = Category::find($id);
+            $categories = Category::where('id', $id)
+                                  ->where('cat_type', 'PARENT')
+                                  ->first();
             $categories->cat_image = 'placeholder.jpg';
             array_push($data, $categories);
             return $data;
