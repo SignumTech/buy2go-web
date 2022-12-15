@@ -271,6 +271,13 @@ class categoriesController extends Controller
         $categories = Category::where('parent_id',$id)
                               ->select('id', 'cat_name', 'cat_image')
                               ->get();
+        if(count($categories) == 0 ){
+            $data = [];
+            $categories = Category::find($id);
+            $categories->cat_image = 'placeholder.jpg';
+            array_push($data, $categories);
+            return $data;
+        }
         return $categories;
     }
 
