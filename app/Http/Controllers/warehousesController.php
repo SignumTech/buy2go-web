@@ -113,7 +113,10 @@ class warehousesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $warehouse = Warehouse::find($id);
+        $warehouse->delete();
+
+        return $warehouse;
     }
 
     public function filterWarehouses(Request $request){
@@ -181,6 +184,23 @@ class warehousesController extends Controller
         $manager->save();
 
         return $manager;
+    }
+
+    public function getDeletedWarehouses(){
+        $warehouses = Warehouse::onlyTrashed()->join('users', 'warehouses.user_id', '=', 'users.id')
+                               ->select('users.f_name', 'users.l_name', 'warehouses.w_name', 'warehouses.id', 'warehouses.user_id', 'warehouses.location', 'warehouses.created_at', 'warehouses.deleted_at')
+                               ->get();
+        foreach($warehouses as $warehouse){
+            $warehouse->stock = WarehouseDetail::where('warehouse_id', $warehouse->id)->sum('quantity');
+        }
+        return $warehouses;
+    }
+
+    public function restoreWarehouse($id){
+        $warehouse = Warehouse::withTrashed()->find($id);
+        $warehouse->restore();
+
+        return $warehouse;
     }
         
 
