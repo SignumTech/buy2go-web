@@ -167,8 +167,6 @@ class visitsController extends Controller
             "lng" => "required",
             "shop_id" => "required"
         ]);
-        try{
-            DB::beginTransaction();
             $visit = VisitDetail::where('visit_id', $id)
                                 ->where('shop_id', $request->shop_id)
                                 ->first();
@@ -183,15 +181,9 @@ class visitsController extends Controller
                 return $this->completeVisit($id);
             }
             
-            DB::commit();
+           
             return $visit;
-        }
-        catch (\Exception $e) {
-            DB::rollBack();
 
-            throw $e;
-            return response('Completion Error', 422);
-        }
     }
 
     public function checkCompletion($id){
