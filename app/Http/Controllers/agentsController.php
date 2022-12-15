@@ -162,6 +162,7 @@ class agentsController extends Controller
                                 'users.f_name',
                                 'users.l_name',
                                 'payment_requests.request_status')
+                             ->orderBy('created_at', 'DESC')
                              ->paginate(12);
     }
 
