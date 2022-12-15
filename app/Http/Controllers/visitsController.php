@@ -15,6 +15,7 @@ use App\Models\AddressBook;
 use App\Models\ZoneRoute;
 use App\Models\DriverDetail;
 use App\Models\User;
+use App\Models\BalanceHistory;
 use DB;
 class visitsController extends Controller
 {
@@ -195,15 +196,49 @@ class visitsController extends Controller
         $visit = Visit::find($id);
         $visit->visit_status = 'IN_PROGRESS';
         $visit->save();
-
+    
         return $visit;
     }
 
     public function completeVisit($id){
-        $visit = Visit::find($id);
-        $visit->visit_status = 'COMPLETED';
-        $visit->save();
-        return $visit;
+        try{
+            DB::beginTransaction();
+            $visit = Visit::find($id);
+            $visit->visit_status = 'COMPLETED';
+            $visit->save();
+            $this->transferRewardBalance($visit);
+            
+            DB::commit();
+            return $visit;
+        }
+        catch (\Exception $e) {
+            DB::rollBack();
+
+            throw $e;
+            return response('Completion Error', 422);
+        }
+    }
+
+    public function transferRwardBalance($visit){
+        $balance = Balance::where('user_id', $visit->commission)->first();
+        $balance->balance = $balance->balance + $visit;
+        $balance->save();
+         //////create a transaction///////////
+         $transaction = new BalanceHistory;
+         $latestTransaction = BalanceHistory::orderBy('created_at','DESC')->first();
+         if($latestTransaction){
+             $transaction->transaction_no = '#'.str_pad($latestTransaction->id + 1, 8, "0", STR_PAD_LEFT);
+         }
+         else{
+             $transaction->transaction_no = '#'.str_pad(1, 8, "0", STR_PAD_LEFT);
+         }
+         $transaction->amount = $visit->commission;
+         $transaction->user_id = $visit->user_id;
+         $transaction->visit_id = $visit->id;
+         $transaction->transaction_type = 'Visit Reward';
+         $transaction->save();
+         
+         return $transaction;
     }
 
     public function broadcastVisitLocation(Request $request, $id){
