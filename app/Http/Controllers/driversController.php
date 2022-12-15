@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\DriverDetail;
 use App\Models\Order;
 use App\Models\Visit;
+use App\Models\Balance;
 use DB;
 use Illuminate\Validation\Rule;
 class driversController extends Controller
@@ -77,6 +78,11 @@ class driversController extends Controller
                 $driver_detail->route_id = $route;
                 $driver_detail->save();
             }
+
+            $balance = new Balance;
+            $balance->user_id = $driver->id;
+            $balance->balance = 0;
+            $balance->save();
 
             DB::commit();
 
@@ -225,6 +231,17 @@ class driversController extends Controller
         }
         
         
+        return $drivers;
+    }
+
+    public function createBalances(){
+        $drivers = User::where('user_role', 'DRIVER')->get();
+        foreach($drivers as $driver){
+            $balance = new Balance;
+            $balance->user_id = $driver->id;
+            $balance->balance = 0;
+            $balance->save();
+        }
         return $drivers;
     }
 }
