@@ -166,22 +166,31 @@ class visitsController extends Controller
             "lng" => "required",
             "shop_id" => "required"
         ]);
-
-        $visit = VisitDetail::where('visit_id', $id)
-                             ->where('shop_id', $request->shop_id)
-                             ->first();
-        
-        $confirm_location = [];
-        $confirm_location['lat'] = $request->lat;
-        $confirm_location['lng'] = $request->lng;
-        $visit->status = "VISITED";
-        $visit->confirm_location = json_encode($confirm_location);
-        $visit->save();
-        if($this->checkCompletion($id)){
-            return $this->completeVisit($id);
+        try{
+            DB::beginTransaction();
+            $visit = VisitDetail::where('visit_id', $id)
+                                ->where('shop_id', $request->shop_id)
+                                ->first();
+            
+            $confirm_location = [];
+            $confirm_location['lat'] = $request->lat;
+            $confirm_location['lng'] = $request->lng;
+            $visit->status = "VISITED";
+            $visit->confirm_location = json_encode($confirm_location);
+            $visit->save();
+            if($this->checkCompletion($id)){
+                return $this->completeVisit($id);
+            }
+            
+            DB::commit();
+            return $visit;
         }
-        
-        return $visit;
+        catch (\Exception $e) {
+            DB::rollBack();
+
+            throw $e;
+            return response('Completion Error', 422);
+        }
     }
 
     public function checkCompletion($id){
@@ -201,25 +210,18 @@ class visitsController extends Controller
     }
 
     public function completeVisit($id){
-        try{
-            DB::beginTransaction();
+        
             $visit = Visit::find($id);
             $visit->visit_status = 'COMPLETED';
             $visit->save();
             $this->transferRewardBalance($visit);
             
-            DB::commit();
+            
             return $visit;
-        }
-        catch (\Exception $e) {
-            DB::rollBack();
 
-            throw $e;
-            return response('Completion Error', 422);
-        }
     }
 
-    public function transferRwardBalance($visit){
+    public function transferRewardBalance($visit){
         $balance = Balance::where('user_id', $visit->commission)->first();
         $balance->balance = $balance->balance + $visit;
         $balance->save();
