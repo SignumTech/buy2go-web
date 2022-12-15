@@ -234,14 +234,4 @@ class driversController extends Controller
         return $drivers;
     }
 
-    public function createBalances(){
-        $drivers = User::where('user_role', 'DRIVER')->get();
-        foreach($drivers as $driver){
-            $balance = new Balance;
-            $balance->user_id = $driver->id;
-            $balance->balance = 0;
-            $balance->save();
-        }
-        return $drivers;
-    }
 }

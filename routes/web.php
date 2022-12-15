@@ -32,7 +32,6 @@ use App\Http\Controllers\visitsController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::middleware('auth:sanctum')->get('/createBalances', [driversController::class, 'createBalances']);
 
 /////////////////////////////////////drivers//////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getRouteDrivers/{route_id}', [driversController::class, 'getRouteDrivers']);
