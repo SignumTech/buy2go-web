@@ -5,7 +5,6 @@
     </div>
     <div class="col-md-12">
         <div class="bg-white rounded-1 shadow-sm p-3">
-            <button @click="updateLocation()" class="btn btn-primary btn-sm float-end shadow-sm text-white"><span class="fa fa-plus"></span> Update Location</button>
             <button @click="addVisitModal()" class="btn btn-primary btn-sm float-end shadow-sm text-white"><span class="fa fa-plus"></span> Add Visit</button>
             <table class="table table-sm mt-3">
                 <thead>
@@ -56,14 +55,6 @@ export default {
             this.getVisits()
         },
     methods:{
-        async updateLocation(){
-            this.locations.lat -= 0.001
-            this.locations.lng -= 0.002 
-            await axios.post('/broadcastVisitLocation/'+3, this.locations)
-            .then( response =>{
-
-            })
-        },
         async getVisits(){
             await axios.get('/visits')
             .then( response =>{
