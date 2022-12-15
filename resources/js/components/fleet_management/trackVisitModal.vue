@@ -12,7 +12,7 @@
             <gmap-info-window v-for="m,index in confirmMarkers" :key="`in`+index" :options="m.infoOptions" :position="m.position" :opened="true" @closeclick="infoWinOpen=false">
             </gmap-info-window>
             <google-marker :icon="`/storage/settings/truck.png`" :position="driverMarker.position" :clickable="true" :draggable="false" ></google-marker>
-            <google-marker v-for="m,index in confirmMarkers" :icon="`/storage/settings/store.png`" :shape="shape" :key="`cn`+index" :position="m.position" :clickable="true" :draggable="false" @click="toggleInfoWindow(m,i)"></google-marker>
+            <google-marker v-for="m,index in confirmMarkers" :icon="`/storage/settings/confirm.png`" :shape="shape" :key="`cn`+index" :position="m.position" :clickable="true" :draggable="false" @click="toggleInfoWindow(m,i)"></google-marker>
             <google-marker v-for="m,index in markers" :icon="`/storage/settings/store.png`" :shape="shape" :key="`sh`+index" :position="m.position" :clickable="true" :draggable="false" @click="toggleInfoWindow(m,i)"></google-marker>
             <!--<gmap-polygon v-for="path,index in paths" :key="index" :paths="path" :editable="false" :draggable="true" @paths_changed="updateEdited($event)"></gmap-polygon>-->
         </GmapMap>
@@ -89,7 +89,7 @@ export default {
                             lng: parseFloat(JSON.parse(address.confirm_location).lng)
                         } ,
                         infoOptions: {
-                            content: '<strong>Visited '+address.regular_address+'</strong>',
+                            content: '<strong>Visited '+address.regular_address+'</strong><br><strong>'+address.updated_at+'</strong>',
                             //optional: offset infowindow so it visually sits nicely on top of our marker
                             pixelOffset: {
                             width: 0,
