@@ -71,11 +71,18 @@ export default {
             } )
             .joining((user)=>{
                 this.onlineDrivers.push(user)
+                let drive = this.drivers.find(driver => driver.id == user.id)
+                if(drive){
+                    drive.online_status = "ONLINE"
+                }
                 
             })
             .leaving((user)=>{
                 this.onlineDrivers = this.onlineDrivers.filter(u=>(u.id !== user.id))
-                
+                let drive = this.drivers.find(driver => driver.id == user.id)
+                if(drive){
+                    drive.online_status = "OFFLINE"
+                }
             })
             .listen('NewMessage', (e) => {
                 //
