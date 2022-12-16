@@ -3,7 +3,13 @@
     <div class="col-md-12">
         <h5><strong>Fleet View</strong></h5>
     </div>
-    <div class="col-md-12">
+    <div class="col-md-12 mt-3">
+        <span v-for="driver,index in drivers" :key="index" class="fs-6 px-3 shadow-sm border badge rounded-pill bg-light text-dark me-3">
+            <span v-if="driver.online_status == `ONLINE`" class="fa fa-circle fs-7 text-success"></span>
+            <span v-if="driver.online_status == `OFFLINE`"  class="fa fa-circle fs-7 text-secondary"></span>
+        {{driver.f_name}} | {{driver.l_plate}}</span>        
+    </div>
+    <div class="col-md-12 mt-3">
         <GmapMap :center="center" :zoom="12" style="width: 100%; height: 500px" ref="mapRef">
 
             <gmap-info-window v-for="m,index in driverMarkers" :key="`info`+index" :options="m.infoOptions" :position="m.position" :opened="true" @closeclick="infoWinOpen=false">
@@ -16,6 +22,8 @@
 </div>    
 </template>
 <script>
+import { USERWHITESPACABLE_TYPES } from '@babel/types'
+
 export default {
     data(){
         return{
@@ -29,7 +37,7 @@ export default {
                 lat: 8.9806,
                 lng: 38.7578
             },
-            drivers:{},
+            drivers:[],
             infoWindowPos: null,
             driverMarkers:[],
             infoWinOpen:false,
@@ -38,22 +46,33 @@ export default {
     },
     mounted(){
         this.getDrivers()
-        this.connect()
         this.connectOnline()
     },
+    beforeDestroy(){
+        this.leaveChannel()
+        
+    },
     methods:{
+        leaveChannel(){
+            window.Echo.leave(`online_driver.0`)
+        },
         connectOnline(){
             window.Echo.join(`online_driver.0`)
             .here((users)=>{
-                this.onlineDrivers = users
+                this.onlineDrivers = users.filter(u=>(u.id !== this.$store.state.auth.user.id))
+                users.forEach(user=>{
+                    let drive = this.drivers.find(driver => driver.id == user.id)
+                    drive.online_status = "ONLINE"
+                })
+                
             } )
             .joining((user)=>{
                 this.onlineDrivers.push(user)
-                console.log(user.name+' joined')
+                
             })
             .leaving((user)=>{
                 this.onlineDrivers = this.onlineDrivers.filter(u=>(u.id !== user.id))
-                console.log(user.name+' left')
+                
             })
             .listen('NewMessage', (e) => {
                 //
