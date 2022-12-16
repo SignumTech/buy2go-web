@@ -62,7 +62,10 @@ export default {
                 this.onlineDrivers = users.filter(u=>(u.id !== this.$store.state.auth.user.id))
                 users.forEach(user=>{
                     let drive = this.drivers.find(driver => driver.id == user.id)
-                    drive.online_status = "ONLINE"
+                    if(drive){
+                        drive.online_status = "ONLINE"
+                    }
+                    
                 })
                 
             } )
