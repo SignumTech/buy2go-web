@@ -15,15 +15,13 @@
             <gmap-info-window v-for="m,index in driverMarkers" :key="`info`+index" :options="m.infoOptions" :position="m.position" :opened="true" @closeclick="infoWinOpen=false">
             </gmap-info-window>
             
-            <google-marker v-for="m,index in driverMarkers" :icon="`/storage/settings/truck.png`" :key="`truck`+index" :position="m.position" :clickable="true" :draggable="false" @click="toggleInfoWindow(m,index)"></google-marker>
+            <google-marker v-for="m,index in driverMarkers" :icon="(m.online_status == `ONLINE`)?`/storage/settings/truck.png`:`/storage/settings/offline.png`" :key="`truck`+index" :position="m.position" :clickable="true" :draggable="false" @click="toggleInfoWindow(m,index)"></google-marker>
             <!--<gmap-polygon v-for="path,index in paths" :key="index" :paths="path" :editable="false" :draggable="true" @paths_changed="updateEdited($event)"></gmap-polygon>-->
         </GmapMap>
     </div>
 </div>    
 </template>
 <script>
-import { USERWHITESPACABLE_TYPES } from '@babel/types'
-
 export default {
     data(){
         return{
@@ -125,6 +123,7 @@ export default {
                                 lng:38.7578
                             },
                             driver_id: driver.id,
+                            online_status: driver.online_status
                         }
                     )
                 })
