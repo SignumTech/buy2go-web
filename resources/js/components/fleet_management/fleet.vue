@@ -61,8 +61,12 @@ export default {
                 this.onlineDrivers = users.filter(u=>(u.id !== this.$store.state.auth.user.id))
                 users.forEach(user=>{
                     let drive = this.drivers.find(driver => driver.id == user.id)
+                    let drivemarker = this.driverMarkers.find(driver => driver.driver_id == user.id)
                     if(drive){
                         drive.online_status = "ONLINE"
+                    }
+                    if(drivemarker){
+                        drivemarker.online_status = "ONLINE"
                     }
                     
                 })
@@ -71,17 +75,25 @@ export default {
             .joining((user)=>{
                 this.onlineDrivers.push(user)
                 let drive = this.drivers.find(driver => driver.id == user.id)
+                let drivemarker = this.driverMarkers.find(driver => driver.driver_id == user.id)
                 if(drive){
                     drive.online_status = "ONLINE"
                 }
+                if(drivemarker){
+                        drivemarker.online_status = "ONLINE"
+                    }
                 
             })
             .leaving((user)=>{
                 this.onlineDrivers = this.onlineDrivers.filter(u=>(u.id !== user.id))
                 let drive = this.drivers.find(driver => driver.id == user.id)
+                let drivemarker = this.driverMarkers.find(driver => driver.driver_id == user.id)
                 if(drive){
                     drive.online_status = "OFFLINE"
                 }
+                if(drivemarker){
+                        drivemarker.online_status = "ONLINE"
+                    }
             })
             .listen('NewMessage', (e) => {
                 //
