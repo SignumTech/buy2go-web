@@ -47,6 +47,7 @@ export default {
     mounted(){
         this.getDrivers()
         this.connectOnline()
+        this.connect()
     },
     beforeDestroy(){
         this.leaveChannel()
