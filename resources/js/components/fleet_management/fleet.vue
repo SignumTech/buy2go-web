@@ -32,14 +32,33 @@ export default {
             drivers:{},
             infoWindowPos: null,
             driverMarkers:[],
-            infoWinOpen:false
+            infoWinOpen:false,
+            onlineDrivers:[]
         }
     },
     mounted(){
         this.getDrivers()
         this.connect()
+        this.connectOnline()
     },
     methods:{
+        connectOnline(){
+            window.Echo.join(`online_driver.0`)
+            .here((users)=>{
+                this.onlineDrivers = users
+            } )
+            .joining((user)=>{
+                this.onlineDrivers.push(user)
+                console.log(user.name+' joined')
+            })
+            .leaving((user)=>{
+                this.onlineDrivers = this.onlineDrivers.filter(u=>(u.id !== user.id))
+                console.log(user.name+' left')
+            })
+            .listen('NewMessage', (e) => {
+                //
+            });
+        },
         toggleInfoWindow: function(marker, idx) {
             
             this.infoWindowPos = marker.position;

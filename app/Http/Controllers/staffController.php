@@ -41,7 +41,7 @@ class staffController extends Controller
         return $staff;
     }
 
-    public function editStaff(Request $request){
+    public function editStaff(Request $request, $id){
         
         $this->validate($request, [
             'f_name' => "required | string",

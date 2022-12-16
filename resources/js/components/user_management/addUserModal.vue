@@ -175,7 +175,7 @@ export default {
         },
         async editUser(){
             this.isClicked = true
-            await axios.post('/editStaff', this.formData)
+            await axios.put('/editStaff/'+this.formData.id, this.formData)
             .then( response =>{
                 this.$notify({
                     group: 'foo',

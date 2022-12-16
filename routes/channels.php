@@ -58,3 +58,9 @@ Broadcast::channel('online.{id}', function ($user, $id=0) {
     }
     //return (int) $user->id === (int) $id;
 });
+Broadcast::channel('online_driver.{id}', function ($user, $id=0) {
+    if (Auth::check()) {
+        return ['id' => $user->id, 'name' => $user->f_name];
+    }
+    //return (int) $user->id === (int) $id;
+});

@@ -161,7 +161,7 @@ Route::middleware('auth:sanctum')->post('/registerStaff', [staffController::clas
 Route::middleware('auth:sanctum')->post('/searchStaff', [staffController::class, 'searchStaff']);
 Route::middleware('auth:sanctum')->get('/getStaff', [staffController::class, 'getStaff']);
 Route::middleware('auth:sanctum')->get('/showStaff/{id}', [staffController::class, 'showStaff']);
-Route::middleware('auth:sanctum')->post('/editStaff', [staffController::class, 'editStaff']);
+Route::middleware('auth:sanctum')->put('/editStaff/{id}', [staffController::class, 'editStaff']);
 Route::middleware('auth:sanctum')->post('/resetStaffPass', [staffController::class, 'resetStaffPass']);
 Route::middleware('auth:sanctum')->get('/getStaffPermissions', [staffController::class, 'getStaffPermissions']);
 Route::middleware('auth:sanctum')->get('/getWarehouseManagers', [staffController::class, 'getWarehouseManagers']);
