@@ -83,4 +83,16 @@ class zonesController extends Controller
                         return $q->where('country_id', 'LIKE', '%'.$request->country_id.'%');
                     });
     }
+
+    public function deleteZone($id){
+        if(auth()->user()->user_role == 'ADMIN'){
+            $zone = Zone::find($id);
+            $zone->delete();
+
+            return $zone;
+        }
+        else{
+            return response('Unauthorized', 401);
+        }
+    }
 }

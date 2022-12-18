@@ -66,7 +66,7 @@
                         <td>{{zone.country_name}}</td>
                         <td><h6 @click="viewArea(zone.route)" class="m-0" style="cursor:pointer"><strong>View on map <span class="fa fa-external-link-alt"></span></strong></h6></td>
                         <td class="text-center">
-                            <span class="fa fa-trash-alt"></span>
+                            <span @click="deleteZone(zone.id)" class="fa fa-trash-alt"></span>
                             <span @click="editZonesModal(zone)" class="fa fa-edit ms-3"></span>
                         </td>
                     </tr>
@@ -112,23 +112,32 @@ export default {
         this.getCountries();
     },
     methods:{
-    async exportZones(){
-        await axios.post('/exportZones', this.queryData, {responseType: 'blob'})
-        .then( response =>{
-            const href = URL.createObjectURL(response.data);
+        async deleteZone(id){
+            if(confirm("Are you sure you want to permanently delete this zone?")){
+                await axios.delete('/deleteZone/'+id)
+                .then( response =>{
+                    this.getZones()
+                })
+            }
+            
+        },
+        async exportZones(){
+            await axios.post('/exportZones', this.queryData, {responseType: 'blob'})
+            .then( response =>{
+                const href = URL.createObjectURL(response.data);
 
-            // create "a" HTML element with href to file & click
-            const link = document.createElement('a');
-            link.href = href;
-            link.setAttribute('download', 'zones'+Date.now()+'.xlsx'); //or any other extension
-            document.body.appendChild(link);
-            link.click();
+                // create "a" HTML element with href to file & click
+                const link = document.createElement('a');
+                link.href = href;
+                link.setAttribute('download', 'zones'+Date.now()+'.xlsx'); //or any other extension
+                document.body.appendChild(link);
+                link.click();
 
-            // clean up "a" element & remove ObjectURL
-            document.body.removeChild(link);
-            URL.revokeObjectURL(href);
-        })
-    },
+                // clean up "a" element & remove ObjectURL
+                document.body.removeChild(link);
+                URL.revokeObjectURL(href);
+            })
+        },
         async filterZones(){
             await axios.post('/filterZones', this.queryData)
             .then( response =>{

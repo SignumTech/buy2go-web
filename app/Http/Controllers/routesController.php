@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\ZoneRoute;
 use App\Models\DriverDetail;
+use App\Models\Zone;
 use App\Models\AddressBook;
 use App\Exports\routeExport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -19,7 +20,10 @@ class routesController extends Controller
     {
         $routes = ZoneRoute::join('zones', 'zone_routes.zone_id', '=', 'zones.id')
                            ->select('zone_routes.id', 'zone_routes.route_name', 'zones.zone_name')->paginate(10);
+        $routes = ZoneRoute::paginate(10);
         foreach($routes as $route){
+            $zone = Zone::find($route->zone_id);
+            $route->zone_name = ($zone)?$zone->zone_name:null;
             $route->drivers_count = DriverDetail::where('route_id', $route->id)->count();
             $route->shops_count = AddressBook::where('route_id', $route->id)->count();
         }

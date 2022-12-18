@@ -79,6 +79,7 @@ Route::middleware('auth:sanctum')->post('/addZones', [zonesController::class, 'a
 Route::middleware('auth:sanctum')->put('/updateZones/{id}', [zonesController::class, 'updateZones']);
 Route::middleware('auth:sanctum')->post('/filterZones', [zonesController::class, 'filterZones']);
 Route::middleware('auth:sanctum')->post('/exportZones', [zonesController::class, 'exportZones']);
+Route::middleware('auth:sanctum')->delete('/deleteZone/{id}', [zonesController::class, 'deleteZone']);
 ///////////////////////////////////routes//////////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->post('/filterRoutes', [routesController::class, 'filterRoutes']);
 Route::middleware('auth:sanctum')->post('/exportRoutes', [routesController::class, 'exportRoutes']);
