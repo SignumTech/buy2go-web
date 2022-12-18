@@ -24,7 +24,7 @@
                         <td>{{manager.created_at | moment("MMM Do YYYY H:m:s a")}}</td>
                         <td>
                             <span @click="editWarehouseManager(manager)" class="fa fa-edit "></span>
-                            <span  class="fa fa-trash-alt ms-3"></span>
+                            <span @click="deleteManager(manager.id)"  class="fa fa-trash-alt ms-3"></span>
                         </td>
                     </tr>
                 </tbody>
@@ -46,6 +46,15 @@ export default {
         this.getWarehouseManagers()
     },
     methods:{
+        async deleteManager(id){
+            if(confirm("Are you sure you want to permanently delete this warehouse manager?")){
+                await axios.delete('/deleteWarehouseManager/'+id)
+                .then( response =>{
+                    this.getWarehouseManagers()
+                })
+            }
+            
+        },
         addWarehouseManager(){
             this.$modal.show(
                 addWarehouseManagerVue,

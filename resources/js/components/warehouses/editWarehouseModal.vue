@@ -7,7 +7,7 @@
         </div>
         <div class="col-md-6">
             <label for="">Warehouse Manager</label>
-            <select class="form-select" v-model="formData.user_id">
+            <select required class="form-select" v-model="formData.user_id">
                 <option value=""></option>
                 <option v-for="manager,index in managers" :key="index" :value="manager.id">{{manager.f_name}} {{manager.l_name}}</option>
             </select>

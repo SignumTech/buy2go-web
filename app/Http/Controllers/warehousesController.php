@@ -17,10 +17,17 @@ class warehousesController extends Controller
      */
     public function index()
     {
-        $warehouses = Warehouse::join('users', 'warehouses.user_id', '=', 'users.id')
-                               ->select('users.f_name', 'users.l_name', 'warehouses.w_name', 'warehouses.id', 'warehouses.user_id', 'warehouses.location')
-                               ->get();
+        $warehouses = Warehouse::all();
         foreach($warehouses as $warehouse){
+            $user = User::find($warehouse->user_id);
+            if($user){
+                $warehouse->f_name = $user->f_name;
+                $warehouse->l_name = $user->l_name; 
+            }
+            else{
+                $warehouse->f_name = null;
+                $warehouse->l_name = null;
+            }
             $warehouse->stock = WarehouseDetail::where('warehouse_id', $warehouse->id)->sum('quantity');
         }
         return $warehouses;
@@ -201,6 +208,17 @@ class warehousesController extends Controller
         $warehouse->restore();
 
         return $warehouse;
+    }
+
+    public function deleteWarehouseManager($id){
+        if(auth()->user()->user_role == 'ADMIN'){
+            $manager = User::find($id);
+            $manager->delete();
+        }
+        else{
+            return response("Unauthorized", 401);
+        }
+        
     }
         
 
