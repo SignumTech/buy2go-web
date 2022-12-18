@@ -39,7 +39,7 @@ class locationsController extends Controller
     }
 
     public function getCities(){
-        return City::join('countries', 'cities.country_id', 'countries.id')
+        return City::leftJoin('countries', 'cities.country_id', 'countries.id')
                    ->select('cities.id', 'countries.country_name', 'cities.city_name', 'cities.country_id')->get();
     }
 
@@ -58,7 +58,7 @@ class locationsController extends Controller
     }
    
     public function getSubCities(){
-        return SubCity::join('cities', 'cities.id', 'sub_cities.city_id')
+        return SubCity::leftJoin('cities', 'cities.id', 'sub_cities.city_id')
                       ->select('sub_cities.id', 'sub_city_name', 'cities.city_name', 'sub_cities.city_id')->get();
     }
 
@@ -100,5 +100,41 @@ class locationsController extends Controller
         $city->save();
 
         return $city;
+    }
+
+    public function deleteSubCity($id){
+        if(auth()->user()->user_role == 'ADMIN'){
+            $subCity = SubCity::find($id);
+            $subCity->delete();
+
+            return $subCity;
+        }
+        else{
+            return response('Unauthorized', 422);
+        }
+    }
+
+    public function deleteCity($id){
+        if(auth()->user()->user_role == 'ADMIN'){
+            $city = City::find($id);
+            $city->delete();
+
+            return $city;
+        }
+        else{
+            return response('Unauthorized', 422);
+        }
+    }
+
+    public function deleteCountry($id){
+        if(auth()->user()->user_role == 'ADMIN'){
+            $country = Country::find($id);
+            $country->delete();
+
+            return $country;
+        }
+        else{
+            return response('Unauthorized', 422);
+        }
     }
 }

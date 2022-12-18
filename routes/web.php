@@ -62,6 +62,9 @@ Route::middleware('auth:sanctum')->post('/addSubCity', [locationsController::cla
 Route::middleware('auth:sanctum')->put('/updateSubCity/{id}', [locationsController::class, 'updateSubCity']);
 Route::middleware('auth:sanctum')->put('/updateCountry/{id}', [locationsController::class, 'updateCountry']);
 Route::middleware('auth:sanctum')->put('/updateCity/{id}', [locationsController::class, 'updateCity']);
+Route::middleware('auth:sanctum')->delete('/deleteSubCity/{id}', [locationsController::class, 'deleteSubCity']);
+Route::middleware('auth:sanctum')->delete('/deleteCity/{id}', [locationsController::class, 'deleteCity']);
+Route::middleware('auth:sanctum')->delete('/deleteCountry/{id}', [locationsController::class, 'deleteCountry']);
 /////////////////////////////////////dashboard////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/salesThirty', [dashboardController::class, 'salesThirty']);
 Route::middleware('auth:sanctum')->get('/salesToday', [dashboardController::class, 'salesToday']);

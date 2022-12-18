@@ -18,8 +18,6 @@ class routesController extends Controller
      */
     public function index()
     {
-        $routes = ZoneRoute::join('zones', 'zone_routes.zone_id', '=', 'zones.id')
-                           ->select('zone_routes.id', 'zone_routes.route_name', 'zones.zone_name')->paginate(10);
         $routes = ZoneRoute::paginate(10);
         foreach($routes as $route){
             $zone = Zone::find($route->zone_id);

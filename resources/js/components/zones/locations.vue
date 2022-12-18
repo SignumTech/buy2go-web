@@ -19,7 +19,7 @@
                         <td>{{index+1}}</td>
                         <td>{{country.country_name}}</td>
                         <td>
-                            <span class="fa fa-trash-alt"></span>
+                            <span @click="deleteCountry(country.id)" class="fa fa-trash-alt"></span>
                             <span @click="editCountryModal(country)" class="fa fa-edit ms-3"></span>
                         </td>
                     </tr>
@@ -45,7 +45,7 @@
                         <td>{{city.city_name}}</td>
                         <td>{{city.country_name}}</td>
                         <td>
-                            <span class="fa fa-trash-alt"></span>
+                            <span @click="deleteCity(city.id)" class="fa fa-trash-alt"></span>
                             <span @click="editCityModal(city)" class="fa fa-edit ms-3"></span>
                         </td>
                     </tr>
@@ -72,7 +72,7 @@
                         <td>{{sc.sub_city_name}}</td>
                         <td>{{sc.city_name}}</td>
                         <td>
-                            <span class="fa fa-trash-alt"></span>
+                            <span @click="deleteSubCity(sc.id)" class="fa fa-trash-alt"></span>
                             <span @click="editSubCityModal(sc)" class="fa fa-edit ms-3"></span>
                         </td>
                     </tr>
@@ -103,6 +103,31 @@ export default {
         this.getSubCities()
     },
     methods:{
+        async deleteCountry(id){
+            if(confirm('Are you sure you want to delete this country?')){
+                await axios.delete('/deleteCountry/'+id)
+                .then( response =>{
+                    this.getCountries()
+                })
+            }
+            
+        },
+        async deleteCity(id){
+            if(confirm('Are you sure you want to delete this city?')){
+                await axios.delete('/deleteCity/'+id)
+                .then( response => {
+                    this.getCities()
+                })
+            }
+        },
+        async deleteSubCity(id){
+            if(confirm('Are you sure you want to delete this sub city?')){
+                await axios.delete('/deleteSubCity/'+id)
+                .then( response =>{
+                    this.getSubCities()
+                })
+            }
+        },
         async getCities(){
             await axios.get('/getCities')
             .then( response =>{
