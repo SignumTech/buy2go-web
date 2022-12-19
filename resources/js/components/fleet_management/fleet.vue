@@ -10,7 +10,7 @@
         {{driver.f_name}} | {{driver.l_plate}}</span>        
     </div>
     <div class="col-md-12 mt-3">
-        <GmapMap :center="center" :zoom="12" style="width: 100%; height: 500px" ref="mapRef">
+        <GmapMap :center="center" :zoom="zoom" style="width: 100%; height: 500px" ref="mapRef">
 
             <gmap-info-window v-for="m,index in driverMarkers" :key="`info`+index" :options="m.infoOptions" :position="m.position" :opened="true" @closeclick="infoWinOpen=false">
             </gmap-info-window>
@@ -25,6 +25,7 @@
 export default {
     data(){
         return{
+            zoom:12,
             loading:false,
             currentMidx: null,
             shape: {
@@ -56,6 +57,7 @@ export default {
             var marker = this.driverMarkers.find(driver => driver.driver_id == id)
             if(marker){
                 this.center = marker.position
+                this.zoom = 14
             }
             
         },
