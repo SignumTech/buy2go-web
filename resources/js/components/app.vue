@@ -51,7 +51,7 @@
                   <a data-bs-toggle="collapse" href="#us_ma" aria-expanded="false" aria-controls="collapseExample"><i data-feather="truck"></i> Fleet Management</a>
                   <div class="collapse" id="us_ma">
                     <ul class="collapse list-unstyled" id="us_ma">
-                      <li v-if="$store.state.auth.permissions.Routes" :class="$route.path == `/routeList` ? `active` : ``">
+                      <li v-if="$store.state.auth.permissions.FleetView" :class="$route.path == `/fleetView` ? `active` : ``">
                           <router-link to="/fleetView"><i class="fa fa-shipping-fast"></i> Fleet</router-link>
                       </li>
                       <li v-if="$store.state.auth.permissions.Routes" :class="$route.path == `/routeList` ? `active` : ``">

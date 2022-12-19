@@ -158,7 +158,19 @@ class visitsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(auth()->user()->user_role == 'ADMIN'){
+            $visit = Visit::find($id);
+            if($visit->visit_status == 'PENDING_CONFIRMATION'){
+                $visit->delete();
+                return $visit;
+            }
+            else{
+                return response("Visit already in progress", 401);
+            }
+        }
+        else{
+            return response("Unauthorized", 401);
+        }
     }
 
     public function confirmShopVisit(Request $request, $id){

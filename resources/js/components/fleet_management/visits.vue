@@ -26,8 +26,8 @@
                         <td>{{visit.visit_status}}</td>
                         <td>{{visit.created_at | moment("MMM Do YYYY")}}</td>
                         <td>
-                            <span class="fa fa-edit"></span>
-                            <span class="fa fa-trash-alt"></span>
+                            <span v-if="visit.visit_status == `PENDING_CONFIRMATION`" @click="editVisitModal(visit)" class="fa fa-edit"></span>
+                            <span v-if="visit.visit_status == `PENDING_CONFIRMATION`" @click="deleteVisit(visit.id)" class="fa fa-trash-alt"></span>
                         </td>
                         <th>
                             <router-link :to="`/visitDetails/`+visit.id"><span class="fa fa-external-link-alt"></span> Visit Details</router-link>
@@ -41,6 +41,7 @@
 </template>
 <script>
 import addVisitModalVue from './addVisitModal.vue'
+import editVisitModalVue from './editVisitModal.vue'
 export default {
     data(){
         return{
@@ -55,6 +56,23 @@ export default {
             this.getVisits()
         },
     methods:{
+        editVisitModal(visit){
+            this.$modal.show(
+                editVisitModalVue,
+                {visit:visit},
+                {height:"auto", width:"500px"},
+                {"closed":this.getVisits}
+            )
+        },
+        async deleteVisit(id){
+            if(confirm("Are you sure you want to delete this visit?")){
+                await axios.delete('/visits/'+id)
+                .then( response =>{
+                    this.getVisits()
+                })
+            }
+            
+        },
         async getVisits(){
             await axios.get('/visits')
             .then( response =>{
