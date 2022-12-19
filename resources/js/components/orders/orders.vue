@@ -109,7 +109,7 @@
                         
                         <td>{{order.total | numFormat}} ETB</td>
                         <td>{{order.no_items}} items</td>
-                        <td>{{order.order_status}}</td>
+                        <td><statusesVue :status="order.order_status"></statusesVue></td>
                         <td>{{order.payment_status}}</td>
                         <td>{{order.payment_method}}</td>
                         <td>{{order.order_type}}</td>
@@ -142,9 +142,11 @@
 
 <script>
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
+import statusesVue from './statuses.vue'
 export default {
     components:{
-            PulseLoader
+            PulseLoader,
+            statusesVue
         },
     data(){
         return{

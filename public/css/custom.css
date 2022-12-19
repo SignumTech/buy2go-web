@@ -289,3 +289,31 @@ ul ul a {
 .bg-brand{
     background-color: #011b48;
 }
+.bg-processing {
+    background-color: #ffff00 !important;
+    color: #000 !important;
+}
+.bg-pending_confirmation {
+    background-color: #6735dc56 !important;
+    color: #6735dc !important;
+}
+.bg-pending_pickup {
+    background-color: #dc359c36 !important;
+    color: #dc359c !important;
+}
+.bg-shipped {
+    background-color: #3591dc46 !important;
+    color: #3591dc !important;
+}
+.bg-delivered {
+    background-color: #00ff0d !important;
+    color: #002b02 !important;
+}
+.bg-canceled {
+    background-color: #ff1e0036 !important;
+    color: #ff1e00 !important;
+}
+.page-item.active .page-link {
+    background-color: #011b48 !important;
+    border-color: #011333;
+}
