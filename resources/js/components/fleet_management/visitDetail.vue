@@ -28,7 +28,7 @@
                         <p class="text-center m-0">Visit In Progress</p>
                     </div>
                     <div>
-                        <div v-if="visit.visit_status == `COMPLTED`" class="p-2 mx-5 bg-success rounded-5 text-white">
+                        <div v-if="visit.visit_status == `COMPLETED`" class="p-2 mx-5 bg-success rounded-5 text-white">
                             <i data-feather="check-circle"></i>
                         </div>
                         <div v-else class="p-2 mx-5 bg-secondary rounded-5 text-white">
