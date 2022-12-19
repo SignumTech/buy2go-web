@@ -26,7 +26,7 @@
                         <td><p v-for="route,index in driver.routes" :key="index">{{route.route_name}}</p></td>
                         <td class="text-center">
                             <span @click="editModal(driver)" class="fa fa-edit "></span>
-                            <span  class="fa fa-trash-alt ms-3"></span>
+                            <span v-if="driver.canbe_deleted" @click="deleteDriver(driver.id)"  class="fa fa-trash-alt ms-3"></span>
                         </td>
                     </tr>
                 </tbody>
@@ -58,6 +58,15 @@ export default {
         this.getDrivers()
     },
     methods:{
+        async deleteDriver(id){
+            if(confirm("Are you sure you want to delete the driver?")){
+                await axios.delete('/deleteStaff/'+id)
+                .then( response =>{
+                    this.getDrivers()
+                })
+            }
+            
+        },
         async getPage(pageUrl){
             await axios.get(pageUrl)
             .then( response => {

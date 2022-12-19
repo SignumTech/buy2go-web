@@ -129,7 +129,14 @@ class routesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if(auth()->user()->user_role == 'ADMIN'){
+            $route = ZoneRoute::find($id);
+            $route->delete();
+            return $route;
+        }
+        else{
+            return response("Unauthorized", 401);
+        }
     }
 
     public function filterRoutes(Request $request){

@@ -21,6 +21,7 @@ class driversController extends Controller
     {
         $drivers = User::where('user_role', 'DRIVER')->paginate(10);
         foreach($drivers as $driver){
+            $driver->canbe_deleted = $this->checkDelete($driver);
             $driver->routes = DriverDetail::join('zone_routes', 'driver_details.route_id', '=', 'zone_routes.id')
                                             ->where('driver_details.driver_id', $driver->id)
                                             ->get();
@@ -29,6 +30,16 @@ class driversController extends Controller
         
         
         return $drivers;
+    }
+
+    public function checkDelete($driver){
+        $orders = Order::where('assigned_driver', $driver->id)
+                        ->where(function($q){
+                            return $q->where('order_status', 'PENDING_PICKUP')
+                                    ->orWhere('order_status', 'SHIPPED');
+                        })
+                        ->get();
+        return (count($orders) > 0)?false:true;
     }
 
     /**

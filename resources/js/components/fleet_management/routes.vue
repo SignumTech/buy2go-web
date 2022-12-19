@@ -52,7 +52,7 @@
                         <td>{{route.zone_name}}</td>
                         <td class="text-center">
                             <span @click="editModal(route.id)" class="fa fa-edit "></span>
-                            <span  class="fa fa-trash-alt ms-3"></span>
+                            <span @click="deleteRoute(route.id)" class="fa fa-trash-alt ms-3"></span>
                         </td>
                     </tr>
                 </tbody>
@@ -91,6 +91,14 @@ export default {
         this.getZones()
     },
     methods:{
+        async deleteRoute(id){
+            if(confirm("Are you sure you want to permanently delete this route?")){
+                await axios.delete('/routes/'+id)
+                .then( response =>{
+                    this.getRoutes()
+                })
+            }
+        },
         editModal(id){
             this.$modal.show(
                 editRouteModalVue,
