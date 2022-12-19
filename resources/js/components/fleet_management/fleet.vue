@@ -101,7 +101,7 @@ export default {
                     drive.online_status = "OFFLINE"
                 }
                 if(drivemarker){
-                        drivemarker.online_status = "ONLINE"
+                        drivemarker.online_status = "OFFLINE"
                     }
             })
             .listen('NewMessage', (e) => {
