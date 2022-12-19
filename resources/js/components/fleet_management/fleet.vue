@@ -4,7 +4,7 @@
         <h5><strong>Fleet View</strong></h5>
     </div>
     <div class="col-md-12 mt-3">
-        <span v-for="driver,index in drivers" :key="index" class="fs-6 px-3 shadow-sm border badge rounded-pill bg-light text-dark me-3">
+        <span @click="centerDriver(driver.id)" v-for="driver,index in drivers" :key="index" class="fs-6 px-3 shadow-sm border badge rounded-pill bg-light text-dark me-3" style="cursor:pointer">
             <span v-if="driver.online_status == `ONLINE`" class="fa fa-circle fs-7 text-success"></span>
             <span v-if="driver.online_status == `OFFLINE`"  class="fa fa-circle fs-7 text-secondary"></span>
         {{driver.f_name}} | {{driver.l_plate}}</span>        
@@ -52,6 +52,13 @@ export default {
         
     },
     methods:{
+        centerDriver(id){
+            var marker = this.driverMarkers.find(driver => driver.driver_id == id)
+            if(marker){
+                this.center = marker.position
+            }
+            
+        },
         leaveChannel(){
             window.Echo.leave(`online_driver.0`)
         },
