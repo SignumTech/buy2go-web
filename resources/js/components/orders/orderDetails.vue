@@ -190,7 +190,7 @@ export default {
         },
         async deliverOrder(){
             if(confirm("Are you sure you want to confirm this delivery?")){
-                await axios.put('/confirmOrder/'+this.$route.params.id, {payment_method:"Cash on delivery", payment_status:"PAID"})
+                await axios.put('/confirmDelivery/'+this.$route.params.id, {payment_method:"Cash on delivery", payment_status:"PAID"})
                 .then( response =>{
                     this.getOrder()
                     this.getOrderDriver()
