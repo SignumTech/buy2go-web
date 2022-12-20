@@ -3,12 +3,13 @@
     <div class="col-md-4">
         <div class="bg-white rounded-1 shadow-sm p-4">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12 text-center">
                     <div class="rounded-circle overflow-hidden d-block m-auto" style="width:100px; height:100px">
                         <img class="img img-fluid" src="/storage/settings/store_placeholder.png" alt="">
                     </div>
                     <h5 class="text-center mt-3"><strong>{{shopDetails.shop_details.f_name}} {{shopDetails.shop_details.l_name}}</strong></h5>
                     <h6 class="text-center">+{{shopDetails.shop_details.country_code}}-{{shopDetails.shop_details.phone_no}}</h6>
+                    <button @click="generateQr()" class="btn btn-primary btn-sm rounded-1 px-2"><span class="fa fa-qrcode"></span> Generate QR</button>
                     <hr>
                 </div>
                 <div class="col-md-12">
@@ -118,6 +119,7 @@ import addSalesModalVue from './addSalesModal.vue'
 import addShopModalVue from './addShopModal.vue'
 import editSalesModalVue from './editSalesModal.vue'
 import editShopModalVue from './editShopModal.vue'
+import qrModalVue from './qrModal.vue'
 import verifyShopModalVue from './verifyShopModal.vue'
 export default {
     data(){
@@ -144,6 +146,13 @@ export default {
             this.getShopLocations()
     },
     methods:{
+        generateQr(){
+            this.$modal.show(
+                qrModalVue,
+                {id:this.$route.params.id},
+                {height:'auto', width:"600px"}
+            )
+        },
         async exportOrders(){
             await axios.post('/exportCustomerOrders', {id:this.$route.params.id}, {responseType: 'blob'})
             .then( response =>{
