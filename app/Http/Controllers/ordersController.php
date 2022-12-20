@@ -1025,7 +1025,19 @@ class ordersController extends Controller
             return response("No warehouses available", 401);
         }
     }
-
+    public function getOrderWarehouse($id){
+        $data = [];
+        $orderItems = OrderItem::where('order_id', $id)->pluck('p_id')->toArray();
+        //dd($orderItems);
+        $warehouses = Warehouse::all();
+        foreach($warehouses as $warehouse){
+            $warehouse_products = WarehouseDetail::where('warehouse_id', $warehouse->id)->pluck('p_id')->toArray();
+            if(array_intersect($orderItems, $warehouse_products) == $orderItems){
+                array_push($data, $warehouse);
+            }
+        }
+        return $data;
+    }
     public function confirmReturn(Request $request, $id){
         $this->validate($request, [
             "order_hash" => "required"

@@ -27,10 +27,11 @@
                         <div class="col-md-12"></div>
                         <div class="col-md-12">
                             <label for="">Warehouse</label>
-                            <select required @change="setDestination()" v-model="formData.warehouse_id" class="form-select" id="">
+                            <select :disabled="(warehouses.length == 0)?true:false" required @change="setDestination()" v-model="formData.warehouse_id" class="form-select" id="">
                                 <option value=""></option>
                                 <option v-for="warehouse,index in warehouses" :key="index" :value="warehouse.id">{{warehouse.w_name}}</option>
                             </select>
+                            <h6 v-if="warehouses.length == 0" class="text-danger mt-2">There are currently no warehouses that  have all the products on this order.</h6>
                         </div>
                         <div class="col-md-12 mt-4">
                             <h6>Drivers List</h6>
@@ -52,7 +53,7 @@
                             </ul>
                         </div>
                         <div class="col-md-12 mt-4">
-                            <button type="submit" class="btn btn-primary form-control"><span class="fa fa-truck"></span> SHIP ORDER</button>
+                            <button v-if="warehouses.length != 0" type="submit" class="btn btn-primary form-control"><span class="fa fa-truck"></span> SHIP ORDER</button>
                         </div>
                     </div>
                 </form>
@@ -181,7 +182,7 @@ export default {
             })
         },
         async getWarehouses(){
-            await axios.get('/warehouses')
+            await axios.get('/getOrderWarehouse/'+this.id)
             .then( response =>{
                 this.warehouses = response.data
                 this.warehouses.forEach(warehouse => {
