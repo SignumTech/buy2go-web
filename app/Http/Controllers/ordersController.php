@@ -535,7 +535,7 @@ class ordersController extends Controller
         
         $order = Order::find($id);
         if(auth()->user()->id !=  $order->user_id){
-            if(auth()->user()->user_role != 'ADMIN' || auth()->user()->user_role != 'RTM'){
+            if(!in_array(auth()->user()->user_role, ['ADMIN', 'RTM'])){
                 return response("Unauthorized",401);
             }
         }
