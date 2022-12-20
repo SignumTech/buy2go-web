@@ -61,6 +61,9 @@
                 <div v-if="order.order_status == `PROCESSING`" class="col-md-2 p-2 ">
                     <button @click="shipModal()" class="btn btn-primary px-4 rounded-1 float-end text-white"><span class="fa fa-shipping-fast"></span> Ship Order</button>
                 </div>
+                <div v-if="order.order_status == `SHIPPED`" class="col-md-2 p-2 ">
+                    <button @click="deliverOrder()" class="btn btn-primary px-4 rounded-1 float-end text-white"><span class="fa fa-box-open"></span> Confirm Delivery</button>
+                </div>
             </div>
             <div v-if="loading" class="row m-0">
                 <div class="col-md-12 p-5 mt-3">
@@ -184,6 +187,21 @@ export default {
                 {width:"80%", height:"auto"},
                 {"closed":this.getOrder}
             )
+        },
+        async deliverOrder(){
+            if(confirm("Are you sure you want to confirm this delivery?")){
+                await axios.put('/confirmOrder/'+this.$route.params.id, {payment_method:"Cash on delivery", payment_status:"PAID"})
+                .then( response =>{
+                    this.getOrder()
+                    this.getOrderDriver()
+                    this.$notify({
+                        group: 'foo',
+                        type: 'success',
+                        title: 'Order Delivered',
+                        text: 'Order Delivered Successfully'
+                    });
+                })
+            }
         },
         addressModal(location){
             this.$modal.show(
