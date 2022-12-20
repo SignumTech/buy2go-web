@@ -7,10 +7,12 @@
             <div class="col-md-12 mt-2">
                 <label for="">First Name</label>
                 <input required v-model="formData.f_name" type="text" placeholder="First Name" class="form-control">
+                <h6 class="text-danger m-0" v-for="an in valErrors.f_name" :key="an.id">{{an}}</h6>
             </div>
             <div class="col-md-12 mt-2">
                 <label for="">Last Name</label>
                 <input required v-model="formData.l_name" type="text" placeholder="Last Name" class="form-control">
+                <h6 class="text-danger m-0" v-for="an in valErrors.l_name" :key="an.id">{{an}}</h6>
             </div>
             <div class="col-md-12 mt-2">
                 <label for="">Phone Number</label>
@@ -24,10 +26,12 @@
                 :autoDefaultCountry="false"
                 :defaultCountry="formData.country_code"
                 ></vue-tel-input>
+                <h6 class="text-danger m-0" v-for="an in valErrors.phone_no" :key="an.id">{{an}}</h6>
             </div>
             <div class="col-md-12 mt-2">
                 <label for="">License plate number</label>
                 <input required v-model="formData.l_plate" type="text" class="form-control" placeholder="License plate number">
+                <h6 class="text-danger m-0" v-for="an in valErrors.l_plate" :key="an.id">{{an}}</h6>
             </div>
             <div class="col-md-12 mt-2">
                 <label for="">Routes</label>
@@ -37,6 +41,7 @@
                 placeholder="Routes"
                 v-model="formData.route_id"
                 />
+                <h6 class="text-danger m-0" v-for="an in valErrors.route_id" :key="an.id">{{an}}</h6>
             </div>
             <div class="col-md-12 mt-3">
                 <button type="submit" class="btn btn-primary form-control"><span class="fa fa-plus"></span> UPDATE DRIVER</button>
@@ -76,7 +81,8 @@ export default {
                 route_id:[],
                 country_code:""
             },
-            routes:[]
+            routes:[],
+            valErrors:{}
         }
     },
     mounted(){
@@ -116,6 +122,11 @@ export default {
                 });
                 this.$emit('close')
             })
+            .catch( error =>{
+                if( error.response.status == 422){
+                        this.valErrors = error.response.data.errors
+                    }
+                })
         },
         async getRoutes(){
             await axios.get('/routes')

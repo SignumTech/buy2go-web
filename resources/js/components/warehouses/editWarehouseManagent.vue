@@ -98,6 +98,11 @@ export default {
                 });
                 this.$emit('close')
             })
+            .catch( error => {
+                if(error.response.status == 422){
+                    this.valErrors = error.response.data.errors
+                }
+            })
         },
     }
 }

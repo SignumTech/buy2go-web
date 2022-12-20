@@ -21,7 +21,9 @@ class staffController extends Controller
             'l_name' => "required | string",
             'title' => "required | string",
             'country_code' => 'required',
-            'phone_no' => "required | unique:users",
+            'phone_no' => ["required", Rule::unique('users')->where(function ($query) use($request) {
+                return $query->where('country_code', $request->country_code);
+            })],
             'user_role' => "required | string",
             'email' => "required | email | unique:users",
         ]);
@@ -48,7 +50,9 @@ class staffController extends Controller
             'l_name' => "required | string",
             'title' => "required | string",
             'country_code'=>"required",
-            'phone_no' => "required", Rule::unique('users')->ignore($id),
+            'phone_no' => ["required", Rule::unique('users')->where(function ($query) use($request) {
+                return $query->where('country_code', $request->country_code);
+            })->ignore($id),],
             'user_role' => "required | string",
             'email' => "required | email ",
         ]);

@@ -68,8 +68,10 @@ class driversController extends Controller
             "l_plate" => "required",
             "route_id" => "required",
             "country_code" => "required",
-            "phone_no" => "required|unique:users"
-        ]);
+            "phone_no" => ["required", Rule::unique('users')->where(function ($query) use($request) {
+                    return $query->where('country_code', $request->country_code);
+                }),],
+            ]);
         try {
 
             DB::beginTransaction();
@@ -148,7 +150,9 @@ class driversController extends Controller
             "l_name" => "required",
             "l_plate" => "required",
             "country_code" => "required",
-            "phone_no" => "required",Rule::unique('users')->ignore($id),
+            "phone_no" => ["required", Rule::unique('users')->where(function ($query) use($request) {
+                return $query->where('country_code', $request->country_code);
+            })->ignore($id),],
             "route_id" => "required"
         ]);
         try {

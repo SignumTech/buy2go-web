@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\WarehouseDetail;
 use App\Exports\WarehouseExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Validation\Rule;
 class warehousesController extends Controller
 {
     /**
@@ -158,7 +159,9 @@ class warehousesController extends Controller
             "f_name" => "required",
             "l_name" => "required",
             "country_code" => "required",
-            "phone_no" => "required | unique:users"
+            "phone_no" => ["required", Rule::unique('users')->where(function ($query) use($request) {
+                return $query->where('country_code', $request->country_code);
+            }),],
         ]);
 
         $manager = new User;
@@ -178,7 +181,9 @@ class warehousesController extends Controller
             "f_name" => "required",
             "l_name" => "required",
             "country_code"=>"required",
-            "phone_no" => "required"
+            "phone_no" => ["required", Rule::unique('users')->where(function ($query) use($request) {
+                return $query->where('country_code', $request->country_code);
+            })->ignore($id),],
         ]);
 
         $manager = User::find($id);

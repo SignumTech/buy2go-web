@@ -12,7 +12,7 @@
                         <h5 class="text-center pt-1"><strong>800 X 800</strong></h5>
                         <h6 class="text-center">Please choose image according to the aspect ratio</h6>
                         <label class="text-center d-block m-auto fs-3 pt-2 fa fa-plus mt-2" style="cursor:pointer">
-                            <input type="file" class="form-control" id="photo" name="photo" @change="uploadPic($event,index)" style="display: none">
+                            <input type="file" accept="image/*" class="form-control" id="photo" name="photo" @change="uploadPic($event,index)" style="display: none">
                         </label>
                     </div>
                     <h6 v-if="picError" class="text-center text-danger">You need to upload a product picture first!</h6>
