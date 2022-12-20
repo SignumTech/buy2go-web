@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Balance;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
+use Illuminate\Notifications\Notifiable;
+use App\Notifications\ClientRegistered;
 class registerUsersController extends Controller
 {
     public function registerUser(Request $request){
@@ -31,6 +34,9 @@ class registerUsersController extends Controller
         //$user->otp = rand(1000 , 9999);
         $user->save();
 
+        $admin = User::where('user_role', "ADMIN")->get();
+        $user_message = "A new customer has registered on buy2go";
+        Notification::send($admin, new ClientRegistered($user_message,$user));
         $user_token = $user->createToken($user->f_name);
 
         return [
