@@ -5,7 +5,7 @@
     </div>
     <div class="col-md-12 mt-3">
         <GmapMap :center="center" :zoom="12" style="width: 100%; height: 500px" ref="mapRef">
-            <gmap-info-window :options="driverMarker.infoOptions" :position="driverMarker.position" :opened="true" @closeclick="infoWinOpen=false">
+            <gmap-info-window v-if="visit.visit_status != `COMPLETED`" :options="driverMarker.infoOptions" :position="driverMarker.position" :opened="true" @closeclick="infoWinOpen=false">
             </gmap-info-window>
             <gmap-info-window v-for="m,index in markers" :key="`in`+index" :options="m.infoOptions" :position="m.position" :opened="true" @closeclick="infoWinOpen=false">
             </gmap-info-window>
