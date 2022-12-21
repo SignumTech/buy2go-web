@@ -30,6 +30,7 @@ class visitsController extends Controller
         $visits = Visit::join('zone_routes', 'visits.route_id', '=', 'zone_routes.id')
                        ->join('users', 'visits.user_id', '=', 'users.id')
                        ->select('visits.*', 'users.f_name', 'users.l_name', 'zone_routes.route_name')
+                       ->orderBy('visits.created_at', 'DESC')
                        ->paginate(10);
 
         return $visits;
