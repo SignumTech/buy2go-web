@@ -10,7 +10,7 @@
         {{driver.f_name}} | {{driver.l_plate}}</span>        
     </div>
     <div class="col-md-12 mt-3">
-        <GmapMap :center="$options.center" :zoom="zoom" style="width: 100%; height: 500px" ref="mapRef">
+        <GmapMap :center="center" :zoom="zoom" style="width: 100%; height: 500px" ref="mapRef">
 
             <gmap-info-window v-for="m,index in driverMarkers" :key="`info`+index" :options="m.infoOptions" :position="m.position" :opened="true" @closeclick="infoWinOpen=false">
             </gmap-info-window>
@@ -23,7 +23,6 @@
 </template>
 <script>
 export default {
-    center:null,
     data(){
         return{
             zoom:12,
@@ -37,23 +36,17 @@ export default {
             infoWindowPos: null,
             driverMarkers:[],
             infoWinOpen:false,
-            onlineDrivers:[]
-        }
-    },
-    created(){
-        this.$options.center = {
+            onlineDrivers:[],
+            center : {
                 lat: 8.9806,
                 lng: 38.7578
             }
+        }
     },
     mounted(){
         this.getDrivers()
         this.connectOnline()
         this.connect()
-        this.$options.center = {
-                lat: 8.9806,
-                lng: 38.7578
-            }
     },
     beforeDestroy(){
         this.leaveChannel()
@@ -62,7 +55,7 @@ export default {
     methods:{
         centerDriver(id){
             const centermarker = this.driverMarkers.find(driver => driver.driver_id == id)
-            if(this.centermarker){
+            if(centermarker){
                 this.center = centermarker.position
                 this.zoom = 14
             }
@@ -87,7 +80,7 @@ export default {
                     
                 })
                 
-            } )
+            })
             .joining((user)=>{
                 this.onlineDrivers.push(user)
                 let drive = this.drivers.find(driver => driver.id == user.id)
