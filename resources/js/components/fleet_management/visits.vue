@@ -35,6 +35,15 @@
                     </tr>
                 </tbody>
             </table>
+            <nav v-if="paginationData.total > paginationData.per_page" aria-label="Page d-flex m-auto navigation example" style="cursor:pointer">
+                <ul class="pagination justify-content-center">
+                    <li v-for="pd,index in paginationData.links" :key="index" :class="(pd.active)?`page-item active text-white`:`page-item`">
+                        <a class="page-link" @click="getPage(pd.url)" aria-label="Previous">
+                            <span :class="(pd.active)?`text-white`:``" aria-hidden="true" v-html="pd.label"></span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 </div>    
@@ -49,7 +58,8 @@ export default {
             locations:{
                 lat:9.012982,
                 lng:38.9485312
-            }
+            },
+            paginationData:{},
         }
     },
     mounted(){
@@ -76,10 +86,17 @@ export default {
         async getVisits(){
             await axios.get('/visits')
             .then( response =>{
-                this.visits = response.data
+                this.paginationData = response.data
+                this.visits = response.data.data;
             })
         },
-        
+        async getPage(pageUrl){
+            await axios.get(pageUrl)
+            .then( response => {
+                this.paginationData = response.data
+                this.visits = response.data.data;
+            })
+        },
         addVisitModal(){
             this.$modal.show(
                 addVisitModalVue,
