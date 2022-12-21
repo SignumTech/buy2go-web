@@ -37,10 +37,6 @@ export default {
             driverMarkers:[],
             infoWinOpen:false,
             onlineDrivers:[],
-            center : {
-                lat: 8.9806,
-                lng: 38.7578
-            }
         }
     },
     mounted(){
@@ -51,6 +47,14 @@ export default {
     beforeDestroy(){
         this.leaveChannel()
         
+    },
+    computed:{
+        center () {
+            return({
+                lat: 8.9806,
+                lng: 38.7578
+            })
+        }
     },
     methods:{
         centerDriver(id){
