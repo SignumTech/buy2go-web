@@ -54,9 +54,9 @@ export default {
     },
     methods:{
         centerDriver(id){
-            const marker = this.driverMarkers.find(driver => driver.driver_id == id)
-            if(marker){
-                this.center = marker.position
+            this.centermarker = this.driverMarkers.find(driver => driver.driver_id == id)
+            if(this.centermarker){
+                this.center = this.centermarker.position
                 this.zoom = 14
             }
             
