@@ -32,10 +32,6 @@ export default {
                 coords: [10, 10, 10, 15, 15, 15, 15, 10],
                 type: 'poly'
             },
-            center: {
-                lat: 8.9806,
-                lng: 38.7578
-            },
             drivers:[],
             infoWindowPos: null,
             driverMarkers:[],
@@ -43,10 +39,20 @@ export default {
             onlineDrivers:[]
         }
     },
+    created(){
+        this.center = {
+                lat: 8.9806,
+                lng: 38.7578
+            }
+    },
     mounted(){
         this.getDrivers()
         this.connectOnline()
         this.connect()
+        this.center = {
+                lat: 8.9806,
+                lng: 38.7578
+            }
     },
     beforeDestroy(){
         this.leaveChannel()
