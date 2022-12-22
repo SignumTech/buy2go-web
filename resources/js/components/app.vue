@@ -220,9 +220,11 @@
     mounted(){
       
       this.authenticated = this.$store.state.auth.authenticated
+      
       this.$store.dispatch('auth/permissions')
       .then( () =>{
-          this.permissions = this.$store.state.auth.permissions
+          
+        this.permissions = this.$store.state.auth.permissions
       })
       this.getNotifications()
       this.connect();

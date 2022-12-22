@@ -28,7 +28,7 @@
                         >
                             <td>{{index+1}}</td>
                             <th>{{td.role}}</th>
-                            <td style="width: 300px">
+                            <td style="width: 60%">
                                 <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).dashboard">Dashboard</span>
                                 <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).productList">Products</span>
                                 <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).addProduct">Add Products</span>

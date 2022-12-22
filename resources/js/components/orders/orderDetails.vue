@@ -58,10 +58,10 @@
                 <div v-if="order.order_status == `CANCELED`" class="col-md-12 mt-3">
                     <h5 class="bg-danger text-white m-0 p-2 rounded-1 shadow-sm text-center">Order Canceled!</h5>
                 </div>
-                <div v-if="order.order_status == `PROCESSING`" class="col-md-2 p-2 ">
+                <div v-if="order.order_status == `PROCESSING` && permission.assignDetails" class="col-md-2 p-2 ">
                     <button @click="shipModal()" class="btn btn-primary px-4 rounded-1 float-end text-white"><span class="fa fa-shipping-fast"></span> Ship Order</button>
                 </div>
-                <div v-if="order.order_status == `SHIPPED`" class="col-md-2 p-2 ">
+                <div v-if="order.order_status == `SHIPPED` && permission.confirmDelivery" class="col-md-2 p-2 ">
                     <button @click="deliverOrder()" class="btn btn-primary px-4 rounded-1 float-end text-white"><span class="fa fa-box-open"></span> Confirm Delivery</button>
                 </div>
             </div>
@@ -169,6 +169,7 @@ export default {
             orderItems:[],
             address:{},
             loading:true,
+            permission:{},
             orderDriver:{}
         }
     },
@@ -176,6 +177,10 @@ export default {
 
     },
     mounted(){
+        this.$store.dispatch('auth/permissions')
+        .then( () =>{
+            this.permission = this.$store.state.auth.permissions
+        })
         this.getOrder()
         this.getOrderDriver()
     },

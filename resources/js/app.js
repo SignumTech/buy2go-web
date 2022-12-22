@@ -79,7 +79,7 @@ Vue.component('app', require('./components/app.vue').default);
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
+ store.dispatch('auth/permissions')
  store.dispatch('auth/me').then(() => {
     router.beforeEach((to, from, next) => {
         

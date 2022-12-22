@@ -60,8 +60,8 @@
     </div>
     <div class="col-md-12 mt-3">
         <div class="bg-white rounded-1 p-3 shadow-sm">
-            <router-link to="/addProduct" class="btn btn-primary btn-sm float-end shadow text-white"><span class="fa fa-plus"></span> Add Product</router-link>
-            <button @click="viewBin()" class="btn btn-success btn-sm rounded-1 float-end me-3"><span class="fa fa-recycle"></span> Recycle Bin</button>
+            <router-link v-if="permission.addProduct" to="/addProduct" class="btn btn-primary btn-sm float-end shadow text-white"><span class="fa fa-plus"></span> Add Product</router-link>
+            <button v-if="permission.deleteProduct" @click="viewBin()" class="btn btn-success btn-sm rounded-1 float-end me-3"><span class="fa fa-recycle"></span> Recycle Bin</button>
             <table class="table table-fixed px-2 table-sm mt-2">
                 <thead>
                     <tr>
@@ -93,8 +93,8 @@
                         </td>
                         <td class="align-middle">{{product.created_at | moment("MMM Do YYYY h:m:s a")}}</td>
                         <td class="align-middle">
-                            <a type="button"><span @click="deleteProduct(product.id)" class="fa fa-trash-alt float-end"></span></a>
-                            <router-link :to="`/editProduct/`+product.id" class="float-end me-2"><span class="fa fa-edit"></span></router-link>
+                            <a v-if="permission.deleteProduct" type="button"><span @click="deleteProduct(product.id)" class="fa fa-trash-alt float-end"></span></a>
+                            <router-link v-if="permission.updateProduct" :to="`/editProduct/`+product.id" class="float-end me-2"><span class="fa fa-edit"></span></router-link>
                         </td>
                     </tr>
                 </tbody>
@@ -125,6 +125,7 @@ export default {
     },
     data(){
         return{
+            permission:{},
             products:{},
             paginationData:{},
             min:null,
@@ -141,6 +142,10 @@ export default {
         }
     },
     mounted(){
+        this.$store.dispatch('auth/permissions')
+        .then( () =>{
+            this.permission = this.$store.state.auth.permissions
+        })
         this.getProducts()
         this.getPriceRange()
         this.getCategories(),

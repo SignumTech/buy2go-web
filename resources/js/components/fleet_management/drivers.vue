@@ -5,7 +5,7 @@
     </div>
     <div class="col-md-12">
         <div class="bg-white rounded-1 shadow-sm p-3">
-            <button @click="addDriverModal()" class="btn btn-primary btn-sm float-end shadow-sm text-white"><span class="fa fa-plus"></span> Add Driver</button>
+            <button v-if="permission.addDriver" @click="addDriverModal()" class="btn btn-primary btn-sm float-end shadow-sm text-white"><span class="fa fa-plus"></span> Add Driver</button>
             <table class="table table-sm mt-3">
                 <thead>
                     <tr>
@@ -25,8 +25,8 @@
                         <td>{{driver.l_plate}}</td>
                         <td><p v-for="route,index in driver.routes" :key="index">{{route.route_name}}</p></td>
                         <td class="text-center">
-                            <span @click="editModal(driver)" class="fa fa-edit "></span>
-                            <span v-if="driver.canbe_deleted" @click="deleteDriver(driver.id)"  class="fa fa-trash-alt ms-3"></span>
+                            <span v-if="permission.updateDriver" @click="editModal(driver)" class="fa fa-edit "></span>
+                            <span v-if="driver.canbe_deleted && permission.deleteDriver" @click="deleteDriver(driver.id)"  class="fa fa-trash-alt ms-3"></span>
                         </td>
                     </tr>
                 </tbody>
@@ -51,10 +51,15 @@ export default {
     data(){
         return{
             drivers:{},
+            permission:{},
             paginationData:{}
         }
     },
     mounted(){
+        this.$store.dispatch('auth/permissions')
+        .then( () =>{
+            this.permission = this.$store.state.auth.permissions
+        })
         this.getDrivers()
     },
     methods:{

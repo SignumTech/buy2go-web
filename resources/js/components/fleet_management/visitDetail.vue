@@ -38,7 +38,7 @@
                     </div>
                 </div>
                 <div class="col-md-2 align-self-center">
-                    <button @click="trackVisit()" class="btn btn-primary rounded-1"><span class="fa fa-route"></span> Track visit</button>
+                    <button v-if="permission.trackVisit" @click="trackVisit()" class="btn btn-primary rounded-1"><span class="fa fa-route"></span> Track visit</button>
                 </div>
             </div>
             <div class="row m-0">
@@ -83,10 +83,15 @@ import trackVisitModalVue from './trackVisitModal.vue'
 export default {
     data(){
         return{
+            permission:{},
             visit:{}
         }
     },
     mounted(){
+        this.$store.dispatch('auth/permissions')
+        .then( () =>{
+            this.permission = this.$store.state.auth.permissions
+        })
         this.getVisit()
     },
     methods:{

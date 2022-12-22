@@ -5,7 +5,7 @@
     </div>
     <div class="col-md-12">
         <div class="bg-white rounded-1 shadow-sm p-3">
-            <button @click="addVisitModal()" class="btn btn-primary btn-sm float-end shadow-sm text-white"><span class="fa fa-plus"></span> Add Visit</button>
+            <button v-if="permission.addVisit" @click="addVisitModal()" class="btn btn-primary btn-sm float-end shadow-sm text-white"><span class="fa fa-plus"></span> Add Visit</button>
             <table class="table table-sm mt-3">
                 <thead>
                     <tr>
@@ -26,8 +26,8 @@
                         <td>{{visit.visit_status}}</td>
                         <td>{{visit.created_at | moment("MMM Do YYYY")}}</td>
                         <td>
-                            <span v-if="visit.visit_status == `PENDING_CONFIRMATION`" @click="editVisitModal(visit)" class="fa fa-edit"></span>
-                            <span v-if="visit.visit_status == `PENDING_CONFIRMATION`" @click="deleteVisit(visit.id)" class="fa fa-trash-alt"></span>
+                            <span v-if="visit.visit_status == `PENDING_CONFIRMATION` && permission.updateVisit" @click="editVisitModal(visit)" class="fa fa-edit"></span>
+                            <span v-if="visit.visit_status == `PENDING_CONFIRMATION` && permission.deleteVisit" @click="deleteVisit(visit.id)" class="fa fa-trash-alt"></span>
                         </td>
                         <th>
                             <router-link :to="`/visitDetails/`+visit.id"><span class="fa fa-external-link-alt"></span> Visit Details</router-link>
@@ -55,6 +55,7 @@ export default {
     data(){
         return{
             visits:{},
+            permission:{},
             locations:{
                 lat:9.012982,
                 lng:38.9485312
@@ -63,8 +64,12 @@ export default {
         }
     },
     mounted(){
-            this.getVisits()
-        },
+        this.$store.dispatch('auth/permissions')
+        .then( () =>{
+            this.permission = this.$store.state.auth.permissions
+        })
+        this.getVisits()
+    },
     methods:{
         editVisitModal(visit){
             this.$modal.show(

@@ -30,7 +30,7 @@
     </div>
     <div class="col-md-12">
         <div class="bg-white rounded-1 shadow-sm p-3">
-            <button @click="addRouteModal()" class="btn btn-primary btn-sm float-end shadow-sm text-white"><span class="fa fa-plus"></span> Add Routes</button>
+            <button v-if="permission.addRoute" @click="addRouteModal()" class="btn btn-primary btn-sm float-end shadow-sm text-white"><span class="fa fa-plus"></span> Add Routes</button>
             <!--<button @click="addRouteModal()" class="btn btn-success btn-sm float-end shadow-sm text-white me-3"><span class="fa fa-route"></span> View on map</button>-->
             <table class="table table-sm mt-3">
                 <thead>
@@ -51,8 +51,8 @@
                         <td>{{route.shops_count}}</td>
                         <td>{{route.zone_name}}</td>
                         <td class="text-center">
-                            <span @click="editModal(route.id)" class="fa fa-edit "></span>
-                            <span @click="deleteRoute(route.id)" class="fa fa-trash-alt ms-3"></span>
+                            <span v-if="permission.updateRoute" @click="editModal(route.id)" class="fa fa-edit "></span>
+                            <span v-if="permission.deleteRoute" @click="deleteRoute(route.id)" class="fa fa-trash-alt ms-3"></span>
                         </td>
                     </tr>
                 </tbody>
@@ -79,6 +79,7 @@ export default {
             zones:{},
             routes:{},
             paginationData:{},
+            permission:{},
             queryData:{
                 route_name:null,
                 zone_id:null
@@ -87,6 +88,10 @@ export default {
         }
     },
     mounted(){
+        this.$store.dispatch('auth/permissions')
+        .then( () =>{
+            this.permission = this.$store.state.auth.permissions
+        })
         this.getRoutes()
         this.getZones()
     },
