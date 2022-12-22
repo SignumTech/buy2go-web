@@ -4,18 +4,33 @@
         <h5><strong>Fleet View</strong></h5>
     </div>
     <div class="col-md-12 mt-3">
-        <span @click="centerDriver(driver.id)" v-for="driver,index in drivers" :key="index" class="fs-6 px-3 shadow-sm border badge rounded-pill bg-light text-dark me-3" style="cursor:pointer">
+        <span @click="activateAll()" :class="(activeNav=='ALL')?`fs-6 px-3 shadow-sm border border-success border-3 badge rounded-pill bg-light text-dark me-3`:`fs-6 px-3 shadow-sm border badge rounded-pill bg-light text-dark me-3`" style="cursor:pointer">
+            All Drivers
+        </span> 
+        <span @click="centerDriver(driver.id, index)" v-for="driver,index in drivers" :key="index" :class="(activeNav==driver.id)?`fs-6 px-3 shadow-sm border border-success border-3 badge rounded-pill bg-light text-dark me-3`:`fs-6 px-3 shadow-sm border badge rounded-pill bg-light text-dark me-3`" style="cursor:pointer">
             <span v-if="driver.online_status == `ONLINE`" class="fa fa-circle fs-7 text-success"></span>
             <span v-if="driver.online_status == `OFFLINE`"  class="fa fa-circle fs-7 text-secondary"></span>
-        {{driver.f_name}} | {{driver.l_plate}}</span>        
+            {{driver.f_name}} | {{driver.l_plate}}</span>        
     </div>
     <div class="col-md-12 mt-3">
         <GmapMap :center="center" :zoom="zoom" style="width: 100%; height: 500px" ref="mapRef">
 
-            <gmap-info-window v-for="m,index in driverMarkers" :key="`info`+index" :options="m.infoOptions" :position="m.position" :opened="true" @closeclick="infoWinOpen=false">
-            </gmap-info-window>
+            <div v-if="type==`ALL`">
+                <gmap-info-window v-for="m,index in driverMarkers" :key="`info`+index" :options="m.infoOptions" :position="m.position" :opened="true" @closeclick="infoWinOpen=false">
+                </gmap-info-window>
+            </div>
+            <div v-if="type==`SELECTED`">
+                <gmap-info-window :options="driverMarkers[selected].infoOptions" :position="driverMarkers[selected].position" :opened="true" @closeclick="infoWinOpen=false">
+                </gmap-info-window>
+            </div>
             
-            <google-marker v-for="m,index in driverMarkers" :icon="(m.online_status == `ONLINE`)?`/storage/settings/truck.png`:`/storage/settings/offline.png`" :key="`truck`+index" :position="m.position" :clickable="true" :draggable="false" @click="toggleInfoWindow(m,index)"></google-marker>
+            <div v-if="type==`ALL`">
+                <google-marker v-for="m,index in driverMarkers" :icon="(m.online_status == `ONLINE`)?`/storage/settings/truck.png`:`/storage/settings/offline.png`" :key="`truck`+index" :position="m.position" :clickable="true" :draggable="false" @click="toggleInfoWindow(m,index)"></google-marker>
+            </div>
+            <div v-if="type==`SELECTED`">
+                <google-marker :icon="(driverMarkers[selected].online_status == `ONLINE`)?`/storage/settings/truck.png`:`/storage/settings/offline.png`" :position="driverMarkers[selected].position" :clickable="true" :draggable="false" @click="toggleInfoWindow(driverMarkers[selected],index)"></google-marker>
+            </div>
+            
             <!--<gmap-polygon v-for="path,index in paths" :key="index" :paths="path" :editable="false" :draggable="true" @paths_changed="updateEdited($event)"></gmap-polygon>-->
         </GmapMap>
     </div>
@@ -25,6 +40,13 @@
 export default {
     data(){
         return{
+            activeNav:'ALL',
+            selected:null,
+            type:'ALL',
+            center:{
+                lat: 8.9806,
+                lng: 38.7578
+            },
             zoom:12,
             loading:false,
             currentMidx: null,
@@ -35,6 +57,7 @@ export default {
             drivers:[],
             infoWindowPos: null,
             driverMarkers:[],
+            tempMarkers:[],
             infoWinOpen:false,
             onlineDrivers:[],
         }
@@ -48,16 +71,16 @@ export default {
         this.leaveChannel()
         
     },
-    computed:{
-        center () {
-            return({
-                lat: 8.9806,
-                lng: 38.7578
-            })
-        }
-    },
     methods:{
-        centerDriver(id){
+        activateAll(){
+            this.activeNav = 'ALL'
+            this.type = 'ALL'
+            this.zoom = 12
+        },
+        centerDriver(id, index){
+            this.type = 'SELECTED'
+            this.activeNav = id
+            this.selected = index
             const centermarker = this.driverMarkers.find(driver => driver.driver_id == id)
             if(centermarker){
                 this.center = centermarker.position
@@ -152,6 +175,7 @@ export default {
                         }
                     )
                 })
+                this.tempMarkers = this.driverMarkers
             })
         },
         connect(){
