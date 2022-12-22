@@ -8,11 +8,11 @@ class rolePermissionController extends Controller
 {
     public function createRolePermission(Request $request){
         $this->validate($request, [
-            "role" => "required",
+            "role" => "required|unique:role_permissions",
             "permissions" => "required",
             "deletable" => "required"
         ]);
-
+        
         $rolePermission = new RolePermission;
         $rolePermission->role = $request->role;
         $rolePermission->permissions = json_encode($request->permissions);

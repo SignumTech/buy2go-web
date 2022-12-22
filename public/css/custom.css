@@ -139,7 +139,7 @@ a:hover{
 }
 #sidebar {
 
-    min-height: 100vh;
+    min-height: 88vh;
 }
 a[data-toggle="collapse"] {
     position: relative;
@@ -316,4 +316,30 @@ ul ul a {
 .page-item.active .page-link {
     background-color: #011b48 !important;
     border-color: #011333;
+}
+/* width */
+::-webkit-scrollbar {
+    width: 5px;
+    border-radius: 10px;
+  }
+  
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1; 
+  }
+   
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #9da2ac;
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: #9da2ac
+  }
+  .scrolling_wrapper {
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
 }

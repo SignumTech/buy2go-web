@@ -1,101 +1,107 @@
 <template>
   <div class="container-fluid p-0 overflow-hidden mob_hide" style="height: 100vh">
     <div class="row m-0">
-        <div class="p-0 shadow-sm" style="background-color:#fff; width:18%" v-if="authenticated">
-            <div class="row m-0" style="background-color: #011b48;">
+        <div class="p-0 shadow-sm" style="background-color:#fff; width:18%; height: 100%" v-if="authenticated">
+            <div class="row m-0" style="background-color: #011b48; height: 12vh">
                 <div @click="disconnect()" class="col-md-12 p-4">
                   <img class="img img-fluid d-block m-auto" src="/storage/settings/logo.png" style="width:auto; height: 45px;">
                 </div>
             </div>
-            <nav v-if="authenticated" id="sidebar" class="border-end" style="height: 100vh; overflow-y: auto">
-              <ul class="list-unstyled components">
-                <li v-if="$store.state.auth.permissions.Dashboard" :class="$route.path == `/dashboard` ? `active nav-item` : ``">
-                  <router-link class="nav-link a-admin" to="/dashboard"><i data-feather="pie-chart"></i> Dashboard <span class="sr-only"></span></router-link>
-                </li>
-                <li v-if="$store.state.auth.permissions.Products" :class="$route.path == `/productList` ? `active nav-item` : ``">
-                  <router-link class="nav-link a-admin" to="/productList"><i data-feather="box"></i> Products</router-link>
-                </li>
-                <li v-if="$store.state.auth.permissions.Orders" :class="$route.path == `/ordersList` ? `active nav-item` : ``">
-                  <router-link class="nav-link a-admin" to="/ordersList"><i data-feather="shopping-cart"></i> Orders</router-link>
-                </li>
-                <li v-if="$store.state.auth.permissions.Categories" :class="$route.path == `/categoryList` ? `active nav-item` : ``">
-                  <router-link class="nav-link a-admin" to="/categoryList"><i data-feather="grid"></i> Categories</router-link>
-                </li>
-                <li v-if="$store.state.auth.permissions.Warehouses">
-                  <a data-bs-toggle="collapse" href="#w_ma" aria-expanded="false" aria-controls="collapseExample"><i data-feather="home"></i> Warehouse Management</a>
-                  <div class="collapse" id="w_ma">
-                    <ul class="collapse list-unstyled" id="w_ma">
-                      <li :class="$route.path == `/warehouse` ? `active nav-item` : ``">
-                        <router-link class="nav-link a-admin" to="/warehouse"><i class="fa fa-warehouse"></i> Warehouses</router-link>
-                      </li>
-                      <li :class="$route.path == `/warehouseManagers` ? `active` : ``">
-                          <router-link to="/warehouseManagers"><i class="fa fa-user-friends"></i> Warehouse Managers</router-link>
-                      </li>                  
-                    </ul>
-                  </div>
-                </li>
-                <li v-if="$store.state.auth.permissions.Zones">
-                  <a data-bs-toggle="collapse" href="#z_ma" aria-expanded="false" aria-controls="collapseExample"><i data-feather="map"></i> Zones & Locations</a>
-                  <div class="collapse" id="z_ma">
-                    <ul class="collapse list-unstyled" id="z_ma">
-                      <li :class="$route.path == `/zones` ? `active nav-item` : ``">
-                        <router-link class="nav-link a-admin" to="/zones"><i class="fa fa-map"></i> Zones</router-link>
-                      </li>
-                      <li :class="$route.path == `/locations` ? `active` : ``">
-                          <router-link to="/locations"><i class="fa fa-map-marked-alt"></i> Locations</router-link>
-                      </li>                  
-                    </ul>
-                  </div>
-                </li>
-                <li v-if="$store.state.auth.permissions.FleetManagement">
-                  <a data-bs-toggle="collapse" href="#us_ma" aria-expanded="false" aria-controls="collapseExample"><i data-feather="truck"></i> Fleet Management</a>
-                  <div class="collapse" id="us_ma">
-                    <ul class="collapse list-unstyled" id="us_ma">
-                      <li v-if="$store.state.auth.permissions.FleetView" :class="$route.path == `/fleetView` ? `active` : ``">
-                          <router-link to="/fleetView"><i class="fa fa-shipping-fast"></i> Fleet</router-link>
-                      </li>
-                      <li v-if="$store.state.auth.permissions.Routes" :class="$route.path == `/routeList` ? `active` : ``">
-                          <router-link to="/routeList"><i class="fa fa-route"></i> Routes</router-link>
-                      </li>
-                      <li v-if="$store.state.auth.permissions.Drivers" :class="$route.path == `/driversList` ? `active` : ``">
-                          <router-link to="/driversList"><i class="fa fa-user-alt"></i> Drivers</router-link>
-                      </li>
-                      <li v-if="$store.state.auth.permissions.VisitsList" :class="$route.path == `/visitsList` ? `active` : ``">
-                          <router-link to="/visitsList"><i class="fa fa-store-alt"></i> Visits</router-link>
-                      </li>                         
-                    </ul>
-                  </div>
-                </li>
-                <li v-if="$store.state.auth.permissions.UserManagement">
-                  <a data-bs-toggle="collapse" href="#u_m" aria-expanded="false" aria-controls="collapseExample"><i data-feather="user"></i> User Management</a>
-                  <div class="collapse" id="u_m">
-                    <ul class="collapse list-unstyled" id="u_m">
-                      <li v-if="$store.state.auth.permissions.StaffManagement"  :class="$route.path == `/staffManagement` ? `active` : ``">
-                          <router-link to="/staffManagement"><i class="fa fa-users"></i> Staff Management</router-link>
-                      </li>
-                      <li v-if="$store.state.auth.permissions.RolePermission" :class="$route.path == `/rolePermission` ? `active` : ``">
-                          <router-link to="/rolePermission"><i class="fa fa-key"></i> Role Permission</router-link>
-                      </li>
-                      <li v-if="$store.state.auth.permissions.CommissionAgents"  :class="$route.path == `/agents` ? `active` : ``">
-                          <router-link to="/agents"><i class="fa fa-user-tie"></i> Commission Agents</router-link>
-                      </li>
-                      <li v-if="$store.state.auth.permissions.PaymentRequests" :class="$route.path == `/paymentRequests` ? `active` : ``">
-                          <router-link to="/paymentRequests"><i class="fa fa-hand-holding-usd"></i> Payment Requests</router-link>
-                      </li>
-                      <li v-if="$store.state.auth.permissions.CreditService" :class="$route.path == `/creditServices` ? `active` : ``">
-                          <router-link to="/creditServices"><i class="fa fa-credit-card"></i> Credit Services</router-link>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
-                <li v-if="$store.state.auth.permissions.SalesReport" :class="$route.path == `/salesReport` ? `active nav-item` : ``">
-                  <router-link class="nav-link a-admin" to="/salesReport"><i data-feather="trending-up"></i> Sales Report</router-link>
-                </li>
-                <li v-if="$store.state.auth.permissions.Customers" :class="$route.path == `/customers` ? `active nav-item` : ``">
-                  <router-link class="nav-link a-admin" to="/customers"><i data-feather="users"></i> Customers</router-link>
-                </li>
-              </ul>
-            </nav>            
+            <div class="row m-0" style="height: 88vh; overflow-y: auto">
+              <div class="col-md-12 p-0"  >
+                <nav v-if="authenticated" id="sidebar" class="border-end" >
+                <ul class="list-unstyled components">
+                  <li v-if="permissions.dashboard" :class="$route.path == `/dashboard` ? `active nav-item` : ``">
+                    <router-link class="nav-link a-admin" to="/dashboard"><i data-feather="pie-chart"></i> Dashboard <span class="sr-only"></span></router-link>
+                  </li>
+                  <li v-if="permissions.productList" :class="$route.path == `/productList` ? `active nav-item` : ``">
+                    <router-link class="nav-link a-admin" to="/productList"><i data-feather="box"></i> Products</router-link>
+                  </li>
+                  <li v-if="permissions.ordersList" :class="$route.path == `/ordersList` ? `active nav-item` : ``">
+                    <router-link class="nav-link a-admin" to="/ordersList"><i data-feather="shopping-cart"></i> Orders</router-link>
+                  </li>
+                  <li v-if="$store.state.auth.permissions.categoryList" :class="$route.path == `/categoryList` ? `active nav-item` : ``">
+                    <router-link class="nav-link a-admin" to="/categoryList"><i data-feather="grid"></i> Categories</router-link>
+                  </li>
+                  <li v-if="permissions.warehouseManagement">
+                    <a data-bs-toggle="collapse" href="#w_ma" aria-expanded="false" aria-controls="collapseExample"><i data-feather="home"></i> Warehouse Management</a>
+                    <div class="collapse" id="w_ma">
+                      <ul class="collapse list-unstyled" id="w_ma">
+                        <li v-if="permissions.warehouse" :class="$route.path == `/warehouse` ? `active nav-item` : ``">
+                          <router-link class="nav-link a-admin" to="/warehouse"><i class="fa fa-warehouse"></i> Warehouses</router-link>
+                        </li>
+                        <li v-if="permissions.warehouseManagers" :class="$route.path == `/warehouseManagers` ? `active` : ``">
+                            <router-link to="/warehouseManagers"><i class="fa fa-user-friends"></i> Warehouse Managers</router-link>
+                        </li>                  
+                      </ul>
+                    </div>
+                  </li>
+                  <li v-if="permissions.zonesLocations">
+                    <a data-bs-toggle="collapse" href="#z_ma" aria-expanded="false" aria-controls="collapseExample"><i data-feather="map"></i> Zones & Locations</a>
+                    <div class="collapse" id="z_ma">
+                      <ul class="collapse list-unstyled" id="z_ma">
+                        <li v-if="permissions.zones" :class="$route.path == `/zones` ? `active nav-item` : ``">
+                          <router-link class="nav-link a-admin" to="/zones"><i class="fa fa-map"></i> Zones</router-link>
+                        </li>
+                        <li v-if="permissions.locations" :class="$route.path == `/locations` ? `active` : ``">
+                            <router-link to="/locations"><i class="fa fa-map-marked-alt"></i> Locations</router-link>
+                        </li>                  
+                      </ul>
+                    </div>
+                  </li>
+                  <li v-if="permissions.fleetManagement">
+                    <a data-bs-toggle="collapse" href="#us_ma" aria-expanded="false" aria-controls="collapseExample"><i data-feather="truck"></i> Fleet Management</a>
+                    <div class="collapse" id="us_ma">
+                      <ul class="collapse list-unstyled" id="us_ma">
+                        <li v-if="permissions.fleetView" :class="$route.path == `/fleetView` ? `active` : ``">
+                            <router-link to="/fleetView"><i class="fa fa-shipping-fast"></i> Fleet</router-link>
+                        </li>
+                        <li v-if="permissions.routeList" :class="$route.path == `/routeList` ? `active` : ``">
+                            <router-link to="/routeList"><i class="fa fa-route"></i> Routes</router-link>
+                        </li>
+                        <li v-if="permissions.driversList" :class="$route.path == `/driversList` ? `active` : ``">
+                            <router-link to="/driversList"><i class="fa fa-user-alt"></i> Drivers</router-link>
+                        </li>
+                        <li v-if="permissions.visitsList" :class="$route.path == `/visitsList` ? `active` : ``">
+                            <router-link to="/visitsList"><i class="fa fa-store-alt"></i> Visits</router-link>
+                        </li>                         
+                      </ul>
+                    </div>
+                  </li>
+                  <li v-if="permissions.userManagement">
+                    <a data-bs-toggle="collapse" href="#u_m" aria-expanded="false" aria-controls="collapseExample"><i data-feather="user"></i> User Management</a>
+                    <div class="collapse" id="u_m">
+                      <ul class="collapse list-unstyled" id="u_m">
+                        <li v-if="permissions.staffManagement"  :class="$route.path == `/staffManagement` ? `active` : ``">
+                            <router-link to="/staffManagement"><i class="fa fa-users"></i> Staff Management</router-link>
+                        </li>
+                        <li v-if="permissions.rolePermission" :class="$route.path == `/rolePermission` ? `active` : ``">
+                            <router-link to="/rolePermission"><i class="fa fa-key"></i> Role Permission</router-link>
+                        </li>
+                        <li v-if="permissions.agents"  :class="$route.path == `/agents` ? `active` : ``">
+                            <router-link to="/agents"><i class="fa fa-user-tie"></i> Commission Agents</router-link>
+                        </li>
+                        <li v-if="permissions.paymentRequests" :class="$route.path == `/paymentRequests` ? `active` : ``">
+                            <router-link to="/paymentRequests"><i class="fa fa-hand-holding-usd"></i> Payment Requests</router-link>
+                        </li>
+                        <li v-if="permissions.creditServices" :class="$route.path == `/creditServices` ? `active` : ``">
+                            <router-link to="/creditServices"><i class="fa fa-credit-card"></i> Credit Services</router-link>
+                        </li>
+                      </ul>
+                    </div>
+                  </li>
+                  <li v-if="permissions.salesReport" :class="$route.path == `/salesReport` ? `active nav-item` : ``">
+                    <router-link class="nav-link a-admin" to="/salesReport"><i data-feather="trending-up"></i> Sales Report</router-link>
+                  </li>
+                  <li v-if="permissions.customers" :class="$route.path == `/customers` ? `active nav-item` : ``">
+                    <router-link class="nav-link a-admin" to="/customers"><i data-feather="users"></i> Customers</router-link>
+                  </li>
+                </ul>
+              </nav> 
+              </div>
+               
+            </div>
+          
         </div>
         <div class="p-0" :style="(authenticated)?`width: 82%`:`width:200%`">
             <nav v-if="authenticated" class="navbar navbar-expand-md navbar-dark shadow-sm" style="background-color: #fff; height: 55px">
@@ -207,7 +213,8 @@
     data(){
       return{
         authenticated:false,
-        notificationAudio:'/storage/settings/notif.mp3'
+        notificationAudio:'/storage/settings/notif.mp3',
+        permissions:{}
       }
     },
     mounted(){
