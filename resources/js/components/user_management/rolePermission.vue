@@ -160,7 +160,7 @@ export default {
             );
         },
         closeAdd(event){
-            this.getRoles();
+            window.location.replace('/rolePermission')
         }
     }
 }
