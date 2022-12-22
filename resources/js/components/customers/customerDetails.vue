@@ -9,7 +9,7 @@
                     </div>
                     <h5 class="text-center mt-3"><strong>{{shopDetails.shop_details.f_name}} {{shopDetails.shop_details.l_name}}</strong></h5>
                     <h6 class="text-center">+{{shopDetails.shop_details.country_code}}-{{shopDetails.shop_details.phone_no}}</h6>
-                    <button @click="generateQr()" class="btn btn-primary btn-sm rounded-1 px-2"><span class="fa fa-qrcode"></span> Generate QR</button>
+                    <button v-if="permission.generateQRcode" @click="generateQr()" class="btn btn-primary btn-sm rounded-1 px-2"><span class="fa fa-qrcode"></span> Generate QR</button>
                     <hr>
                 </div>
                 <div class="col-md-12">
@@ -24,17 +24,17 @@
                         <h6 v-if="shopDetails.sales_manager">{{shopDetails.sales_manager.f_name}} {{shopDetails.sales_manager.l_name}} <span @click="editSalesManager(shopDetails.sales_manager)" class="fa fa-edit"></span></h6>                        
                     </div>
                     <div class="mt-3">
-                        <button v-if="shopDetails.shop_details.shop_status != `BANNED` && shopDetails.shop_details.shop_status == `VERIFIED`" @click="banShop()" class="btn btn-danger btn-sm float-end"><span class="fa fa-ban"></span> Ban shop</button>
-                        <button v-if="shopDetails.shop_details.shop_status == `BANNED`" @click="unbanShop()" class="btn btn-warning btn-sm float-end"><span class="fa fa-lock-open"></span> Unban Shop</button>
+                        <button v-if="shopDetails.shop_details.shop_status != `BANNED` && shopDetails.shop_details.shop_status == `VERIFIED` && permission.banShop" @click="banShop()" class="btn btn-danger btn-sm float-end"><span class="fa fa-ban"></span> Ban shop</button>
+                        <button v-if="shopDetails.shop_details.shop_status == `BANNED`" @click="unbanShop() && permission.unbanShop" class="btn btn-warning btn-sm float-end"><span class="fa fa-lock-open"></span> Unban Shop</button>
                     </div>
                 </div>
             </div>
         </div>
         <div class="bg-white rounded-1 shadow-sm p-4 mt-3">
             <div class="row">
-                <h6><strong>Shop Locations <span v-if="shopDetails.sales_manager && shopDetails.shop_details.shop_status == `VERIFIED`" @click="addShop()" class="fa fa-plus float-end"></span></strong></h6>
+                <h6><strong>Shop Locations <span v-if="shopDetails.sales_manager && shopDetails.shop_details.shop_status == `VERIFIED` && permission.addShopLocation" @click="addShop()" class="fa fa-plus float-end"></span></strong></h6>
                 <div v-for="address,index in locations" :key="index" class="col-md-12 mt-2">
-                    <h6 class="mb-2"><span class="fa fa-map-marker-alt"></span> {{address.regular_address}} <span class="fa fa-trash-alt float-end"></span> <span @click="editShop(address)" class="fa fa-edit me-3 float-end"></span> </h6>
+                    <h6 class="mb-2"><span class="fa fa-map-marker-alt"></span> {{address.regular_address}} <span v-if="permission.deleteShopLocation" class="fa fa-trash-alt float-end"></span> <span v-if="permission.updateShopLocation" @click="editShop(address)" class="fa fa-edit me-3 float-end"></span> </h6>
                 </div>
             </div>
         </div>
@@ -46,8 +46,8 @@
                     <h5 class="mb-0"><span class="fa fa-exclamation-triangle"></span> This shop is not verified!</h5>
                 </div>
                 <div class="col-md-6">
-                    <button v-if="shopDetails.sales_manager" @click="verifyModal()" class="btn btn-success btn-sm float-end shadow-sm text-white"><span class="fa fa-check-circle"></span> Verify Shop</button>
-                    <button v-if="!shopDetails.sales_manager && $store.state.auth.user.user_role == `ADMIN`" @click="addSalesManager()" class="btn btn-primary btn-sm float-end shadow-sm text-white me-3"><span class="fa fa-user-plus"></span> Assign Sales</button>
+                    <button v-if="shopDetails.sales_manager && permission.verfiyShop" @click="verifyModal()" class="btn btn-success btn-sm float-end shadow-sm text-white"><span class="fa fa-check-circle"></span> Verify Shop</button>
+                    <button v-if="!shopDetails.sales_manager && permission.assignSales" @click="addSalesManager()" class="btn btn-primary btn-sm float-end shadow-sm text-white me-3"><span class="fa fa-user-plus"></span> Assign Sales</button>
                 </div>
             </div>
         </div>
@@ -135,12 +135,17 @@ export default {
                 }
             },
             orders:{},
+            permission:{},
             paginationData:{},
             locations:{},
             ordersData:{}
         }
     },
     mounted(){
+        this.$store.dispatch('auth/permissions')
+        .then( () =>{
+            this.permission = this.$store.state.auth.permissions
+        })
             this.getShopDetails()
             this.getShopOrders()
             this.getShopLocations()

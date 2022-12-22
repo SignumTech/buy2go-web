@@ -16,8 +16,8 @@
                     <h5><strong>{{request.amount}} ETB</strong></h5>
                 </div>
                 <div class="col-md-3 align-self-center">
-                    <button v-if="request.request_status == `PAID`" @click="confirmRequest()" class="btn btn-primary form-control"><span class="fa fa-print"></span> PRINT RECIEPT</button>
-                    <button v-if="request.request_status == `PENDING`" @click="confirmRequest()" class="btn btn-primary form-control"><span class="fa fa-stamp"></span> CONFIRM REQUEST</button>
+                    <button v-if="request.request_status == `PAID` && permission.confirmRequest" @click="confirmRequest()" class="btn btn-primary form-control"><span class="fa fa-print"></span> PRINT RECIEPT</button>
+                    <button v-if="request.request_status == `PENDING` && permission.printReciept" @click="confirmRequest()" class="btn btn-primary form-control"><span class="fa fa-stamp"></span> CONFIRM REQUEST</button>
                     <h6 v-if="!requestExceeds" class="text-danger mt-2 text-center">{{requestExceeds}}</h6>
                 </div>
             </div>
@@ -55,10 +55,15 @@ export default {
     data(){
         return{
             request:{},
+            permission:{},
             requestExceeds:null
         }
     },
     mounted(){
+        this.$store.dispatch('auth/permissions')
+        .then( () =>{
+            this.permission = this.$store.state.auth.permissions
+        })
         this.getRequest()
         this.connect()
     },

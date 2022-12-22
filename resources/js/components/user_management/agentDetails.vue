@@ -32,7 +32,7 @@
                     <h5 class="mb-0"><span class="fa fa-exclamation-triangle"></span> This Agent is not verified!</h5>
                 </div>
                 <div class="col-md-6">
-                    <button @click="verifyAgent()" class="btn btn-success btn-sm float-end shadow-sm text-white"><span class="fa fa-check-circle"></span> Verify Agent</button>
+                    <button v-if="pemrission.verifyAgent" @click="verifyAgent()" class="btn btn-success btn-sm float-end shadow-sm text-white"><span class="fa fa-check-circle"></span> Verify Agent</button>
                 </div>
             </div>
         </div>
@@ -72,10 +72,15 @@ export default {
                 last_order:{}
             },
             orders:{},
+            permission:{},
             locations:{}
         }
     },
     mounted(){
+        this.$store.dispatch('auth/permissions')
+        .then( () =>{
+            this.permission = this.$store.state.auth.permissions
+        })
         this.getagent()
         this.getAgentOrders()
     },

@@ -1,6 +1,8 @@
 <template>
-<div class="main_dis">
-    <div class="row m-0 pt-lg-5">
+<div class="row mt-4">
+    <div class="col-md-12">
+        <h5><strong>Staff Management</strong></h5>
+    </div>
         <div class="col-md-12">
             <div class="bg-white shadow-sm rounded-lg">
                 <div class="row m-0 p-3 border-bottom">
@@ -15,7 +17,7 @@
             <div class="bg-white shadow-sm rounded-lg mt-5">
                 <div class="row m-0 p-2 border-bottom">
                     <div class="col-md-12">
-                        <button @click="showAddUserModal()" class="btn float-end btn-primary btn-sm mt-n4"><span class="fa fa-plus"></span >Add staff member</button>
+                        <button v-if="permission.addStaff" @click="showAddUserModal()" class="btn float-end btn-primary btn-sm mt-n4"><span class="fa fa-plus"></span >Add staff member</button>
                     </div>
                     <div class="col-md-12 mt-2">
                         <table class="table table-sm table-data">
@@ -45,10 +47,10 @@
                                 <td>{{td.user_role}}</td>
                                 <td class="text-end">
                                     
-                                    <span v-if="($store.state.auth.user.user_role == `ADMIN` && td.id != $store.state.auth.user.id)" @click="deleteUser(td.id)" class="fa fa-trash-alt me-3" style="cursor:pointer"></span>
-                                    <span @click="editUser(td)" class="fa fa-edit me-3" style="cursor:pointer"></span>
+                                    <span v-if="(permission.addStaff && td.id != $store.state.auth.user.id)" @click="deleteUser(td.id)" class="fa fa-trash-alt me-3" style="cursor:pointer"></span>
+                                    <span v-if="permission.updateStaff" @click="editUser(td)" class="fa fa-edit me-3" style="cursor:pointer"></span>
                                     
-                                    <span @click="showResetModal(td.id)" class="fa fa-key" style="cursor:pointer"></span>
+                                    <span v-if="permission.updateStaff" @click="showResetModal(td.id)" class="fa fa-key" style="cursor:pointer"></span>
                                 </td>
                                 </tr>
                             </tbody>
@@ -67,7 +69,6 @@
                 </div>
             </div>
         </div>
-    </div>
 </div>
 </template>
 <script>
@@ -85,6 +86,7 @@ export default {
         return{
             Loaded: true,
             tableData:[],
+            permission:{},
             queryData:{
                 queryItem: ""
             },
@@ -92,6 +94,10 @@ export default {
         }
     },
     mounted(){
+        this.$store.dispatch('auth/permissions')
+        .then( () =>{
+            this.permission = this.$store.state.auth.permissions
+        })
         this.getStaff()
     },
     methods:{
