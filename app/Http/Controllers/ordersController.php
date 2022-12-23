@@ -699,7 +699,7 @@ class ordersController extends Controller
             return $orders;
         }
         else{
-            return response("No warehouses available", 401);
+            return response("No warehouses available", 422);
         }
     }
 
