@@ -46,7 +46,7 @@
                     <h5 class="mb-0"><span class="fa fa-exclamation-triangle"></span> This shop is not verified!</h5>
                 </div>
                 <div class="col-md-6">
-                    <button v-if="shopDetails.sales_manager && permission.verfiyShop" @click="verifyModal()" class="btn btn-success btn-sm float-end shadow-sm text-white"><span class="fa fa-check-circle"></span> Verify Shop</button>
+                    <button v-if="shopDetails.sales_manager && permission.verifyShop" @click="verifyModal()" class="btn btn-success btn-sm float-end shadow-sm text-white"><span class="fa fa-check-circle"></span> Verify Shop</button>
                     <button v-if="!shopDetails.sales_manager && permission.assignSales" @click="addSalesManager()" class="btn btn-primary btn-sm float-end shadow-sm text-white me-3"><span class="fa fa-user-plus"></span> Assign Sales</button>
                 </div>
             </div>
