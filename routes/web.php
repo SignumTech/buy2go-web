@@ -21,6 +21,7 @@ use App\Http\Controllers\agentsController;
 use App\Http\Controllers\creditsController;
 use App\Http\Controllers\locationsController;
 use App\Http\Controllers\visitsController;
+use App\Http\Controllers\salesDashController;
 
 /*
 |--------------------------------------------------------------------------
@@ -136,6 +137,8 @@ Route::middleware('auth:sanctum')->get('/getDeletedProducts', [productsControlle
 Route::middleware('auth:sanctum')->put('/restoreProduct/{id}', [productsController::class, 'restoreProduct']);
 Route::middleware('auth:sanctum')->get('/getDeletedWarehouses', [warehousesController::class, 'getDeletedWarehouses']);
 Route::middleware('auth:sanctum')->put('/restoreWarehouse/{id}', [warehousesController::class, 'restoreWarehouse']);
+///////////////////////////////////SalesAnalytics/////////////////////////////////////////////////////////
+Route::middleware('auth:sanctum')->get('/bestSeller', [salesDashController::class, 'bestSeller']);
 ///////////////////////////////////agents/////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getAgents', [agentsController::class, 'getAgents']);
 Route::middleware('auth:sanctum')->get('/agentDetails/{id}', [agentsController::class, 'agentDetails']);
