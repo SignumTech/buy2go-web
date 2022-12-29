@@ -34,9 +34,9 @@ class salesDashController extends Controller
         $orders = Order::join('order_items', 'orders.id', 'order_items.order_id')
                        ->join('products', 'order_items.p_id', '=', 'products.id')
                        ->where('order_status', 'DELIVERED')
-                       ->selectRaw('sum(order_items.quantity) total, p_id, order_id, p_name, p_image')
+                       ->selectRaw('sum(order_items.quantity) total, p_id, p_name, p_image')
                        ->groupBy('p_id')
-
+                       ->orderBy('total', 'DESC')
                        ->get();
                        
         
