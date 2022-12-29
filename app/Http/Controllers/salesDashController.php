@@ -36,7 +36,7 @@ class salesDashController extends Controller
                        ->where('order_status', 'DELIVERED')
                        ->selectRaw('sum(order_items.quantity) total, p_id, p_name, p_image')
                        ->groupBy('p_id')
-                       ->orderBy('total', 'DESC')
+                       //->orderBy('total', 'DESC')
                        ->get();
                        
         
