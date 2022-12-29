@@ -29,6 +29,7 @@
         </div>
     </div>
     <div class="col-md-12">
+        <LvProgressBar v-if="loading" mode="indeterminate" color="#011b48" />
         <div class="bg-white rounded-1 shadow-sm p-3">
             <button v-if="permission.addRoute" @click="addRouteModal()" class="btn btn-primary btn-sm float-end shadow-sm text-white"><span class="fa fa-plus"></span> Add Routes</button>
             <!--<button @click="addRouteModal()" class="btn btn-success btn-sm float-end shadow-sm text-white me-3"><span class="fa fa-route"></span> View on map</button>-->
@@ -73,9 +74,14 @@
 <script>
 import addRouteModalVue from './addRouteModal.vue'
 import editRouteModalVue from './editRouteModal.vue'
+import LvProgressBar from 'lightvue/progress-bar';
 export default {
+    components: {
+        LvProgressBar: LvProgressBar
+    },
     data(){
         return{
+            loading:true,
             zones:{},
             routes:{},
             paginationData:{},
@@ -137,10 +143,15 @@ export default {
             })
         },
         async getPage(pageUrl){
+            this.loading = true,
             await axios.get(pageUrl)
             .then( response => {
                 this.paginationData = response.data
                 this.routes = response.data.data
+                this.loading = false
+            })
+            .catch( error=>{
+                this.loading = false
             })
         },
         async getZones(){
@@ -158,10 +169,12 @@ export default {
             )
         },
         async getRoutes(){
+            this.loading = true,
             await axios.get('/routes')
             .then( response =>{
                 this.routes = response.data.data
                 this.paginationData = response.data
+                this.loading = false
             })
         },
     }

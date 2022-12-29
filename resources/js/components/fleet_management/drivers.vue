@@ -4,6 +4,7 @@
         <h5><strong>Drivers</strong></h5>
     </div>
     <div class="col-md-12">
+        <LvProgressBar v-if="loading" mode="indeterminate" color="#011b48" />
         <div class="bg-white rounded-1 shadow-sm p-3">
             <button v-if="permission.addDriver" @click="addDriverModal()" class="btn btn-primary btn-sm float-end shadow-sm text-white"><span class="fa fa-plus"></span> Add Driver</button>
             <table class="table table-sm mt-3">
@@ -47,9 +48,14 @@
 <script>
 import addDriverModalVue from './addDriverModal.vue'
 import editModalVue from './editModal.vue'
+import LvProgressBar from 'lightvue/progress-bar';
 export default {
+    components: {
+        LvProgressBar: LvProgressBar
+    },
     data(){
         return{
+            loading:true,
             drivers:{},
             permission:{},
             paginationData:{}
@@ -73,17 +79,26 @@ export default {
             
         },
         async getPage(pageUrl){
+            this.loading = true
             await axios.get(pageUrl)
             .then( response => {
+                
                 this.paginationData = response.data
                 this.drivers = response.data.data
+                this.loading = false
+            })
+            .catch( error =>{
+                this.loading = false
             })
         },
         async getDrivers(){
+            this.loading = true
             await axios.get('/drivers')
             .then( response =>{
+                
                 this.paginationData = response.data
                 this.drivers = response.data.data
+                this.loading = false
             })
         },
         addDriverModal(){

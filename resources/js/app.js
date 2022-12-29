@@ -23,7 +23,11 @@ import VueGeolocation from 'vue-browser-geolocation';
 import VueCountryCode from "vue-country-code";
 import VueTelInput from 'vue-tel-input';
 import 'vue-tel-input/dist/vue-tel-input.css';
+import LvInput from 'lightvue/input' 
+import LvButton from 'lightvue/button' 
 
+Vue.component('LvInput', LvInput);
+Vue.component('LvButton', LvButton);
 Vue.use(VueTelInput);
 Vue.use(VueCountryCode);
 Vue.use(VueGeolocation);

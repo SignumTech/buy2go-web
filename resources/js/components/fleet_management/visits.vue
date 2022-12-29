@@ -4,6 +4,7 @@
         <h5><strong>Visits</strong></h5>
     </div>
     <div class="col-md-12">
+        <LvProgressBar v-if="loading" mode="indeterminate" color="#011b48" />
         <div class="bg-white rounded-1 shadow-sm p-3">
             <button v-if="permission.addVisit" @click="addVisitModal()" class="btn btn-primary btn-sm float-end shadow-sm text-white"><span class="fa fa-plus"></span> Add Visit</button>
             <table class="table table-sm mt-3">
@@ -51,9 +52,14 @@
 <script>
 import addVisitModalVue from './addVisitModal.vue'
 import editVisitModalVue from './editVisitModal.vue'
+import LvProgressBar from 'lightvue/progress-bar';
 export default {
+        components: {
+        LvProgressBar: LvProgressBar
+    },
     data(){
         return{
+            loading:true,
             visits:{},
             permission:{},
             locations:{
@@ -89,17 +95,21 @@ export default {
             
         },
         async getVisits(){
+            this.loading = true
             await axios.get('/visits')
             .then( response =>{
                 this.paginationData = response.data
                 this.visits = response.data.data;
+                this.loading = false
             })
         },
         async getPage(pageUrl){
+            this.loading = true
             await axios.get(pageUrl)
             .then( response => {
                 this.paginationData = response.data
                 this.visits = response.data.data;
+                this.loading = false
             })
         },
         addVisitModal(){

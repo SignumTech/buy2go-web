@@ -30,6 +30,7 @@
         </div>
     </div>
     <div class="col-md-12 mt-3">
+        <LvProgressBar v-if="loading" mode="indeterminate" color="#011b48" />
         <div class="bg-white rounded-1 p-3 shadow-sm">
             <button @click="addWarehouseModal()" class="btn btn-primary btn-sm float-end shadow-sm text-white"><span class="fa fa-plus"></span> Add Warehouse</button>
             <button @click="viewBin()" class="btn btn-success btn-sm rounded-1 float-end me-3"><span class="fa fa-recycle"></span> Recycle Bin</button>
@@ -67,9 +68,14 @@ import addWarehouseModalVue from './addWarehouseModal.vue';
 import editWarehouseModalVue from './editWarehouseModal.vue';
 import viewAreaModalVue from './viewWarehouseModal.vue';
 import WarehousesTrashVue from './WarehousesTrash.vue';
+import LvProgressBar from 'lightvue/progress-bar';
 export default {
+components:{
+    LvProgressBar: LvProgressBar
+},
 data(){
     return{
+        loading:true,
         warehouses:{},
         queryData:{
             w_name:null,
@@ -136,9 +142,11 @@ methods:{
         })
     },
     async getWarehouses(){
+        this.loading = true
         await axios.get('/warehouses')
         .then( response =>{
             this.warehouses = response.data
+            this.loading = false
         })
     },
     editModal(warehouse){

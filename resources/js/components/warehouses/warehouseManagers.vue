@@ -4,6 +4,7 @@
         <h5><strong>Warehouse Managers</strong></h5>
     </div>
     <div class="col-md-12">
+        <LvProgressBar v-if="loading" mode="indeterminate" color="#011b48" />
         <div class="bg-white rounded-1 shadow-sm p-3">
             <button @click="addWarehouseManager()" class="btn btn-primary btn-sm float-end shadow-sm text-white"><span class="fa fa-plus"></span> Add Warehouse Managers</button>
             <table class="table table-sm mt-3">
@@ -36,9 +37,14 @@
 <script>
 import addWarehouseManagerVue from './addWarehouseManager.vue'
 import editWarehouseManagentVue from './editWarehouseManagent.vue'
+import LvProgressBar from 'lightvue/progress-bar';
 export default {
+    components:{
+        LvProgressBar: LvProgressBar
+    },
     data(){
         return{
+            loading:true,
             managers:{}
         }
     },
@@ -72,8 +78,10 @@ export default {
             )
         },
         async getWarehouseManagers(){
+            this.loading = true
             await axios.get('/getWarehouseManagers')
             .then( response =>{
+                this.loading = false
                 this.managers = response.data
             })
         },

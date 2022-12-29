@@ -44,6 +44,9 @@ class ordersController extends Controller
             return $orders;
         }
         $orders = Order::orderBy("created_at", "DESC")->paginate(10);
+        foreach($orders as $order){
+            $order->no_items = OrderItem::where('order_id', $order->id)->count();
+        }
         return $orders;
     }
 

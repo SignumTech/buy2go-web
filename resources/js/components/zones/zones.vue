@@ -43,6 +43,7 @@
         </div>
     </div>
     <div class="col-md-12 mt-3">
+        <LvProgressBar v-if="loading" mode="indeterminate" color="#011b48" />
         <div class="bg-white rounded-1 p-3 shadow-sm">
             <button  @click="addZonesModal()" class="btn btn-primary btn-sm float-end shadow-sm text-white"><span class="fa fa-plus"></span> Add Zone</button>
             <table class="table px-2 mt-2">
@@ -89,9 +90,15 @@
 import addZonesVue from './addZones.vue';
 import editZonesVue from './editZones.vue';
 import viewAreaModalVue from './viewAreaModal.vue';
+import LvProgressBar from 'lightvue/progress-bar';
 export default {
+    components:{
+        LvProgressBar: LvProgressBar
+    },
+    
     data(){
         return{
+            loading:true,
             zones:{},
             paginationData:{},
             countries:{},
@@ -164,10 +171,15 @@ export default {
             })
         },
         async getPage(pageUrl){
+            this.loading = true
             await axios.get(pageUrl)
             .then( response => {
                 this.paginationData = response.data.links
                 this.zones = response.data.data
+                this.loading = false
+            })
+            .catch( response =>{
+                this.loading = false
             })
         },
         editZonesModal(zone){
@@ -187,10 +199,12 @@ export default {
             )
         },
         async getZones(){
+            this.loading = true
             await axios.get('/getZones')
             .then( response =>{
                 this.zones = response.data.data
                 this.paginationData = response.data.links
+                this.loading = false
             })
         },
         viewArea(route){

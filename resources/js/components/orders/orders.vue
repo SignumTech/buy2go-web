@@ -76,14 +76,8 @@
             </div>
         </div>
     </div>
-    <div v-if="loading" class="col-md-12">
-        <div class="bg-white shadow-sm p-5">
-            <div class="d-flex justify-content-center align-self-center">
-                <pulse-loader :color="`#011b48`" :size="`15px`"></pulse-loader> 
-            </div>            
-        </div>
-    </div> 
-    <div v-if="!loading" class="col-md-12">
+    <div class="col-md-12">
+        <LvProgressBar v-if="loading" mode="indeterminate" color="#011b48" />
         <div class="bg-white shadow-sm p-2">
             <table class="table mt-2">
                 <thead>
@@ -143,10 +137,12 @@
 <script>
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 import statusesVue from './statuses.vue'
+import LvProgressBar from 'lightvue/progress-bar';
 export default {
     components:{
             PulseLoader,
-            statusesVue
+            statusesVue,
+            LvProgressBar: LvProgressBar
         },
     data(){
         return{
@@ -187,18 +183,28 @@ export default {
             })
         },
         async getPage(pageUrl){
+            this.loading = true
             await axios.get(pageUrl)
             .then( response => {
                 this.paginationData = response.data.links
                 this.orders = response.data.data
+                this.loading = false
+            })
+            .catch( error =>{
+                this.loading = false
             })
         },
         async getFilteredPage(pageUrl){
+            this.loading = true
             await axios.post(pageUrl, this.queryData)
             .then( response => {
                 this.orderData = response.data 
                 this.paginationData = response.data.links
                 this.orders = response.data.data
+                this.loading = false
+            })
+            .catch( error =>{
+                this.loading = false
             })
         },
         async filterOrders(){

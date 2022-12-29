@@ -4,6 +4,7 @@
         <h5><strong>Categories</strong></h5>
     </div>
     <div class="col-md-12 mt-3">
+        <LvProgressBar v-if="parLoading" mode="indeterminate" color="#011b48" />
         <div class="bg-white rounded-1 p-3 shadow-sm">
             <div class="row m-0">
                 <div class="col-md-6 px-0">
@@ -69,6 +70,7 @@
         </div>
     </div>
     <div class="col-md-12 mt-3">
+        <LvProgressBar v-if="chLoading" mode="indeterminate" color="#011b48" />
         <div class="bg-white rounded-1 p-3 shadow-sm">
             <div class="row m-0">
                 <div class="col-md-6 px-0">
@@ -140,9 +142,16 @@ import addPictureModal from './addPictureModal'
 import makeChildModalVue from './makeChildModal.vue'
 import mainCatTrashVue from './mainCatTrash.vue'
 import SubCatTrash from './subCatTrash.vue'
+import LvProgressBar from 'lightvue/progress-bar';
 export default {
+    components:{
+        LvProgressBar: LvProgressBar
+    },
+    
     data(){
         return{
+            parLoading:true,
+            chLoading:true,
             filtered:false,
             mainCategories:{},
             subCategories:{},
@@ -178,17 +187,27 @@ export default {
             )
         },
         async getPage(pageUrl){
+            this.loading = true
             await axios.get(pageUrl)
             .then( response => {
                 this.paginationData = response.data
                 this.subCategories = response.data.data
+                this.loading = false
+            })
+            .catch( response =>{
+                this.loading = false
             })
         },
         async getFilteredPage(pageUrl){
+            this.loading = true
             await axios.post(pageUrl, this.queryData)
             .then( response => {
                 this.paginationData = response.data
                 this.subCategories = response.data.data
+                this.loading = false
+            })
+            .catch( response =>{
+                this.loading = false
             })
         },
         async deleteCategory(id){
@@ -292,9 +311,11 @@ export default {
             )
         },
         async getMainCategories(){
+            this.parLoading = true
             await axios.get('/getMainCategories')
             .then( response =>{
                 this.mainCategories = response.data
+                this.parLoading = false
             })
             .catch( error =>{
 
@@ -302,11 +323,12 @@ export default {
         },
         async getSubCategories(){
             this.filtered = false
+            this.chLoading = true
             await axios.get('/getSubCategories')
             .then( response =>{
                 this.paginationData = response.data
                 this.subCategories = response.data.data
-                
+                this.chLoading = false
             })
             .catch( error =>{
                 

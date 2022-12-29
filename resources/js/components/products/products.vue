@@ -59,6 +59,7 @@
         </div>
     </div>
     <div class="col-md-12 mt-3">
+    <LvProgressBar v-if="loading" mode="indeterminate" color="#011b48" />
         <div class="bg-white rounded-1 p-3 shadow-sm">
             <router-link v-if="permission.addProduct" to="/addProduct" class="btn btn-primary btn-sm float-end shadow text-white"><span class="fa fa-plus"></span> Add Product</router-link>
             <button v-if="permission.deleteProduct" @click="viewBin()" class="btn btn-success btn-sm rounded-1 float-end me-3"><span class="fa fa-recycle"></span> Recycle Bin</button>
@@ -118,13 +119,16 @@ import 'vue-slider-component/theme/antd.css'
 import Treeselect from '@riophae/vue-treeselect'
 import '@riophae/vue-treeselect/dist/vue-treeselect.css'
 import ProductsTrash from './productsTrash.vue'
+import LvProgressBar from 'lightvue/progress-bar';
 export default {
     components: {
         VueSlider,
         Treeselect,
+        LvProgressBar: LvProgressBar
     },
     data(){
         return{
+            loading:true,
             permission:{},
             products:{},
             paginationData:{},
@@ -218,10 +222,12 @@ export default {
             })
         },
         async getPage(pageUrl){
+            this.loading = true
             await axios.post(pageUrl, this.queryData)
             .then( response => {
                 this.paginationData = response.data
                 this.products = response.data.data
+                this.loading = false
             })
         },
         async toggleFeature(id){
@@ -231,10 +237,12 @@ export default {
             })
         },  
         async getProducts(){
+            this.loading = true
             await axios.get('/getProductsList')
             .then( response =>{
                 this.paginationData = response.data
                 this.products = response.data.data
+                this.loading = false
             })
         },
         editProduct(product){
