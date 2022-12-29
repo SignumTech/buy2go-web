@@ -35,9 +35,9 @@ class salesDashController extends Controller
                        ->join('products', 'order_items.p_id', '=', 'products.id')
                        ->where('order_status', 'DELIVERED')
                        ->selectRaw('sum(order_items.quantity) total, p_id, order_id, p_name, p_image')
-                       
+                       ->groupBy('p_id')
 
-                       ->get()->groupBy('p_id');
+                       ->get();
                        
         
         return $orders;
