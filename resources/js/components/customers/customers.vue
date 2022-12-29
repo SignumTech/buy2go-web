@@ -46,8 +46,11 @@
                         <td class="align-middle">{{index+1}}</td>
                         <td class="align-middle">{{shop.f_name}} {{shop.l_name}}</td>
                         <td class="align-middle">+{{shop.country_code}}-{{shop.phone_no}}</td>
-                        <td class="align-middle">
-                            <p v-for="address,index in shop.address" :key="index"><span class="fa fa-map-marker-alt"></span> {{address.regular_address}} | {{address.route_name}}</p>
+                        <td class="align-middle" style="width:35%">
+                            <span v-for="address,index in shop.address" :key="index" class="px-3 border border-1 badge rounded-pill bg-light text-dark me-3 mt-2" style="cursor:pointer">
+                                <span class="fa fa-map-marker-alt"></span> {{address.regular_address}} | {{address.route_name}}
+                            </span>
+                            
                         </td>
                         <td class="align-middle">{{shop.shop_status}}</td>
                         <td class="align-middle">{{shop.created_at | moment("MMM Do YYYY")}}</td>

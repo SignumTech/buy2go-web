@@ -24,7 +24,11 @@
                         <td>{{driver.f_name}}-{{driver.l_name}}</td>
                         <td>+{{driver.country_code}}-{{driver.phone_no}}</td>
                         <td>{{driver.l_plate}}</td>
-                        <td><p v-for="route,index in driver.routes" :key="index">{{route.route_name}}</p></td>
+                        <td>
+                            <span v-for="route,index in driver.routes" :key="index" class="px-3 border border-1 badge rounded-pill bg-light text-dark me-3 mt-2" style="cursor:pointer">
+                                <span class="fa fa-route"></span> {{route.route_name}}
+                            </span>
+                         </td>   
                         <td class="text-center">
                             <span v-if="permission.updateDriver" @click="editModal(driver)" class="fa fa-edit "></span>
                             <span v-if="driver.canbe_deleted && permission.deleteDriver" @click="deleteDriver(driver.id)"  class="fa fa-trash-alt ms-3"></span>

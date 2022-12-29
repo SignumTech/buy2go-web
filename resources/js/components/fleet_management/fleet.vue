@@ -7,7 +7,7 @@
         <span @click="activateAll()" :class="(activeNav=='ALL')?`fs-6 px-3 shadow-sm border border-success border-3 badge rounded-pill bg-light text-dark me-3`:`fs-6 px-3 shadow-sm border badge rounded-pill bg-light text-dark me-3`" style="cursor:pointer">
             All Drivers
         </span> 
-        <span @click="centerDriver(driver.id, index)" v-for="driver,index in drivers" :key="index" :class="(activeNav==driver.id)?`fs-6 px-3 shadow-sm border border-success border-3 badge rounded-pill bg-light text-dark me-3`:`fs-6 px-3 shadow-sm border badge rounded-pill bg-light text-dark me-3`" style="cursor:pointer">
+        <span @click="centerDriver(driver.id, index)" v-for="driver,index in drivers" :key="index" :class="(activeNav==driver.id)?`fs-6 px-3 shadow-sm border border-success border-3 badge rounded-pill bg-light text-dark me-3 mt-2`:`fs-6 px-3 mt-2 shadow-sm border badge rounded-pill bg-light text-dark me-3`" style="cursor:pointer">
             <span v-if="driver.online_status == `ONLINE`" class="fa fa-circle fs-7 text-success"></span>
             <span v-if="driver.online_status == `OFFLINE`"  class="fa fa-circle fs-7 text-secondary"></span>
             {{driver.f_name}} | {{driver.l_plate}}</span>        
