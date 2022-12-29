@@ -126,7 +126,7 @@
                 <div class="col-md-4 border-bottom border-3 mt-3">
                     <h6 class="mt-2">Sub total: <span class="float-end">{{taxCalculations.subTotal | numFormat}} ETB</span></h6>
                     <h6 class="mt-2">Tax (15% VAT): <span class="float-end">{{taxCalculations.vat | numFormat}} ETB</span></h6>
-                    <h5 class="mt-2"><strong>Total: <span class="float-end">{{taxCalculations.total | numFormat}} ETB</span></strong></h5>
+                    <h5 class="mt-2"><strong>Total: <span class="float-end">{{order.total | numFormat}} ETB</span></strong></h5>
                     </div>
                     <div @click="addressModal(address.geolocation)" class="col-md-6 mt-5">
                         <h5 class="border-bottom">Shipping Information</h5>
