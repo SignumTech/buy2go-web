@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Balance;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
@@ -40,7 +41,7 @@ class staffController extends Controller
         $staff->account_type = 'Staff';
 
         $staff->save();
-        
+
         if($staff->user_role == 'RTM'){
             $balance = new Balance;
             $balance->balance = 0;
