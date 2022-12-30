@@ -4,6 +4,7 @@
         <h5><strong>Products Sales Report</strong></h5>
     </div>
     <div class="col-md-12">
+        
         <form action="#" @submit.prevent="getProductsRank">
             <div class="bg-white shadow-sm rounded-1 p-2">
                 <div class="row">
@@ -30,6 +31,7 @@
         </form>
     </div>
     <div class="col-md-12 mt-3">
+        <LvProgressBar v-if="loading" mode="indeterminate" color="#011b48" />
         <div class="bg-white rounded-1 p-3 shadow-sm">
             <table class="table table-fixed px-2 table-sm mt-2">
                 <thead>
@@ -54,15 +56,33 @@
                     </tr>
                 </tbody>
             </table>
+            <nav aria-label="Page d-flex m-auto navigation example" style="cursor:pointer">
+                <ul class="pagination justify-content-center">
+                    <li v-if="currentPage > 1" @click="prev()" class="page-item"><a aria-label="Previous" class="page-link"><span aria-hidden="true" class="">« Previous</span></a></li>
+                    <li v-for="pd,index in paginationData" :key="index" :class="(index+1 == currentPage)?`page-item active text-white`:`page-item`">
+                        <a class="page-link" @click="getPage(index+1)" aria-label="Previous">
+                            <span :class="(index+1 == currentPage)?`text-white`:``" aria-hidden="true" v-html="index+1"></span>
+                        </a>
+                    </li>
+                    <li v-if="currentPage < paginationData.length" @click="next()" class="page-item"><a aria-label="Previous" class="page-link"><span aria-hidden="true" class="">Next »</span></a></li>
+                </ul>
+            </nav>
         </div>
     </div>
 
 </div>    
 </template>
 <script>
+import LvProgressBar from 'lightvue/progress-bar';
 export default {
+    components: {
+        LvProgressBar: LvProgressBar
+    },
     data(){
         return{
+            currentPage:1,
+            paginationData:{},
+            loading:true,
             products: {},
             formData:{
                 start_date:null,
@@ -75,11 +95,38 @@ export default {
         this.getProductsRank()
     },
     methods:{
+        prev(){
+            this.loading = true
+            this.currentPage--
+            this.loading = false
+        },
+        next(){
+            this.loading = true
+            this.currentPage++
+            this.loading = false
+        },
+        getPage(index){
+            this.loading = true
+            this.currentPage = index
+            this.products = this.paginationData[index-1]
+            this.loading = false
+        },
         async getProductsRank(){
+            this.loading = true
             await axios.post('/productsRank', this.formData)
             .then( response =>{
-                this.products = response.data
+                this.paginationData = this.sliceIntoChunks(response.data, 3);
+                this.products = this.paginationData[0]
+                this.loading = false
             })
+        },
+        sliceIntoChunks(arr, chunkSize) {
+            const res = [];
+            for (let i = 0; i < arr.length; i += chunkSize) {
+                const chunk = arr.slice(i, i + chunkSize);
+                res.push(chunk);
+            }
+            return res;
         }
     }
 }
