@@ -30,16 +30,31 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class salesDashController extends Controller
 {
-    public function bestSeller(){
-        $orders = Order::join('order_items', 'orders.id', 'order_items.order_id')
+    public function productsRank(){
+        /*$orders = Order::join('order_items', 'orders.id', 'order_items.order_id')
                        ->join('products', 'order_items.p_id', '=', 'products.id')
                        ->where('order_status', 'DELIVERED')
                        ->selectRaw('sum(order_items.quantity) total, p_id, p_name, p_image')
                        ->groupBy('p_id', 'p_name', 'p_image')
                        ->orderBy('total', 'DESC')
-                       ->get();
+                       ->get();*/
+        $products = Product::select('p_name', 'price', 'id', 'p_image')->get();
+        foreach($products as $product){
+            $regular_quantity = Order::join('order_items', 'orders.id', 'order_items.order_id')
+                                            ->where('order_status', 'DELIVERED')
+                                            ->where('order_items.p_id', $product->id)
+                                            ->where('order_items.item_status', null)
+                                            ->sum('quantity');
+            $updated_quantity = Order::join('order_items', 'orders.id', 'order_items.order_id')
+                                            ->where('order_status', 'DELIVERED')
+                                            ->where('order_items.p_id', $product->id)
+                                            ->where('order_items.item_status', 'UPDATED')
+                                            ->sum('quantity');
+            $product->total_quantity = $regular_quantity + $updated_quantity;
+            $product->total_sold = $product->total_quantity * $product->price;
+        }
                        
         
-        return $orders;
+        return $products;
     }
 }
