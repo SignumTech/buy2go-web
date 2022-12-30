@@ -30,7 +30,10 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class salesDashController extends Controller
 {
-    public function productsRank(){
+    public function productsRank(Request $request){
+        $this->validate($request, [
+            "sort_by" => "required"
+        ]);
         /*$orders = Order::join('order_items', 'orders.id', 'order_items.order_id')
                        ->join('products', 'order_items.p_id', '=', 'products.id')
                        ->where('order_status', 'DELIVERED')
@@ -44,16 +47,31 @@ class salesDashController extends Controller
                                             ->where('order_status', 'DELIVERED')
                                             ->where('order_items.p_id', $product->id)
                                             ->where('order_items.item_status', null)
+                                            ->when($request->start_date != null && $request->end_date !=null , function($q) use($request){
+                                                return $q->whereBetween('orders.updated_at', [$request->start_date, $request->end_date]);
+                                            })
                                             ->sum('quantity');
             $updated_quantity = Order::join('order_items', 'orders.id', 'order_items.order_id')
                                             ->where('order_status', 'DELIVERED')
                                             ->where('order_items.p_id', $product->id)
                                             ->where('order_items.item_status', 'UPDATED')
+                                            ->when($request->start_date != null && $request->end_date !=null , function($q) use($request){
+                                                return $q->whereBetween('orders.updated_at', [$request->start_date, $request->end_date]);
+                                            })
                                             ->sum('quantity');
             $product->total_quantity = $regular_quantity + $updated_quantity;
             $product->total_sold = $product->total_quantity * $product->price;
         }
-        $sort = $products->sortByDesc('total_quantity');           
+        $sort = $products->sortByDesc($request->sort_by);           
         return $sort->values()->all();
     }
+
+    public function bestSeller(){
+        return $this->productsRank()[0];
+    }
+    public function worstSeller(){
+        $rank = $this->productsRank();
+        return end($rank);
+    }
+
 }

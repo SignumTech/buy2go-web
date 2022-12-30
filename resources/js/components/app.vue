@@ -90,8 +90,18 @@
                       </ul>
                     </div>
                   </li>
-                  <li v-if="permissions.salesReport" :class="$route.path == `/salesReport` ? `active nav-item` : ``">
-                    <router-link class="nav-link a-admin" to="/salesReport"><i data-feather="trending-up"></i> Sales Report</router-link>
+                  <li v-if="permissions.salesReport">
+                    <a data-bs-toggle="collapse" href="#s_r" aria-expanded="false" aria-controls="collapseExample"><i data-feather="trending-up"></i> Sales Report</a>
+                    <div class="collapse" id="s_r">
+                      <ul class="collapse list-unstyled" id="s_r">
+                        <li v-if="permissions.salesReport" :class="$route.path == `/salesReport` ? `active nav-item` : ``">
+                          <router-link class="nav-link a-admin" to="/salesReport"><i data-feather="trending-up"></i> Sales Report</router-link>
+                        </li>
+                        <li v-if="permissions.salesReport" :class="$route.path == `/productSales` ? `active nav-item` : ``">
+                          <router-link class="nav-link a-admin" to="/productSales"><i data-feather="trending-up"></i> Product Sales</router-link>
+                        </li>
+                      </ul>
+                    </div>
                   </li>
                   <li v-if="permissions.customers" :class="$route.path == `/customers` ? `active nav-item` : ``">
                     <router-link class="nav-link a-admin" to="/customers"><i data-feather="users"></i> Customers</router-link>

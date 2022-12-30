@@ -33,6 +33,7 @@ import warehouseManagers from './components/warehouses/warehouseManagers.vue'
 import visitsList from './components/fleet_management/visits.vue'
 import visitDetail from './components/fleet_management/visitDetail.vue'
 import fleetView from './components/fleet_management/fleet.vue'
+import productSales from './components/sales_report/productSales.vue'
 Vue.use(Router)
 
 const routes = [
@@ -214,6 +215,13 @@ const routes = [
         path: '/fleetView/',
         component: fleetView,
         name: 'FleetView',
+        props: true
+    }
+    ,
+    {
+        path: '/productSales',
+        component: productSales,
+        name: 'ProductSales',
         props: true
     }
     
