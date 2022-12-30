@@ -78,4 +78,26 @@ class salesDashController extends Controller
         return end($rank);
     }
 
+    public function getCustomersRank(Request $request){
+        $this->validate($request, [
+            "sort_by" => "required"
+        ]);
+
+        $customers = User::where('user_role', 'USER')->get();
+        foreach($customers as $customer){
+            $customer->total_quantity = Order::where('order_status', 'DELIVERED')
+                                             ->where('user_id', $customer->id)
+                                             ->count();
+            $customer->total_sold = Order::where('order_status', 'DELIVERED')
+                                            ->where('user_id', $customer->id)
+                                            ->sum('total');    
+        }
+        $sort = $customers->sortByDesc($request->sort_by)->values()->all();
+        $rank = 1;
+        foreach($sort as $s){
+            $s->rank = $rank++;
+        }           
+        return $sort;
+    }
+
 }
