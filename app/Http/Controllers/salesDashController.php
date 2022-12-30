@@ -53,8 +53,7 @@ class salesDashController extends Controller
             $product->total_quantity = $regular_quantity + $updated_quantity;
             $product->total_sold = $product->total_quantity * $product->price;
         }
-                       
-        
-        return $products;
+        $sort = $products->sortByDesc('total_quantity');           
+        return $sort->values()->all();
     }
 }
