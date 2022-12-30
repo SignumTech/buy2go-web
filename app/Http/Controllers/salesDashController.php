@@ -62,8 +62,12 @@ class salesDashController extends Controller
             $product->total_quantity = $regular_quantity + $updated_quantity;
             $product->total_sold = $product->total_quantity * $product->price;
         }
-        $sort = $products->sortByDesc($request->sort_by);           
-        return $sort->values()->all();
+        $sort = $products->sortByDesc($request->sort_by)->values()->all();
+        $rank = 1;
+        foreach($sort as $s){
+            $s->rank = $rank++;
+        }           
+        return $sort;
     }
 
     public function bestSeller(){

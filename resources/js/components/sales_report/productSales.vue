@@ -36,6 +36,7 @@
             <table class="table table-fixed px-2 table-sm mt-2">
                 <thead>
                     <tr>
+                        <th>Rank</th>
                         <th>Product</th>
                         <th>Name</th>
                         <th>Price</th>
@@ -45,6 +46,7 @@
                 </thead>
                 <tbody>
                     <tr v-for="product,index in products" :key="index">
+                        <td>{{ product.rank }}</td>
                         <td class="align-middle">
                             <img :src="`/storage/products/`+product.p_image" class="img img-fluid img-thumb cat_img rounded-1" alt="">
                         </td>
@@ -74,9 +76,11 @@
 </template>
 <script>
 import LvProgressBar from 'lightvue/progress-bar';
+import paginationVue from './pagination.vue';
 export default {
     components: {
-        LvProgressBar: LvProgressBar
+        LvProgressBar: LvProgressBar,
+        paginationVue
     },
     data(){
         return{
@@ -98,11 +102,13 @@ export default {
         prev(){
             this.loading = true
             this.currentPage--
+            this.products = this.paginationData[this.currentPage-1]
             this.loading = false
         },
         next(){
             this.loading = true
             this.currentPage++
+            this.products = this.paginationData[this.currentPage-1]
             this.loading = false
         },
         getPage(index){
@@ -115,7 +121,7 @@ export default {
             this.loading = true
             await axios.post('/productsRank', this.formData)
             .then( response =>{
-                this.paginationData = this.sliceIntoChunks(response.data, 3);
+                this.paginationData = this.sliceIntoChunks(response.data, 10);
                 this.products = this.paginationData[0]
                 this.loading = false
             })
