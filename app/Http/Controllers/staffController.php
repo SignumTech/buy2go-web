@@ -40,6 +40,13 @@ class staffController extends Controller
         $staff->account_type = 'Staff';
 
         $staff->save();
+        
+        if($staff->user_role == 'RTM'){
+            $balance = new Balance;
+            $balance->balance = 0;
+            $balance->user_id = $staff->id;
+            $balance->save();
+        }
         return $staff;
     }
 
