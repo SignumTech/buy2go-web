@@ -237,8 +237,8 @@ class ordersController extends Controller
             $order->delivery_details = $request->address;
             $order->payment_status = 'UNPAID';
             $order->agent_id = auth()->user()->id;
-            $order->order_type = "AGENT_ORDER";
-            $order->rtm_id = $this->loadBalancer();
+            $order->order_type = (auth()->user()->user_role == 'RTM')?"RTM_ORDER":"AGENT_ORDER";
+            $order->rtm_id = (auth()->user()->user_role == 'RTM')?auth()->user()->id:$this->loadBalancer();
             $order->save();
 
             $cart_items = Cart::join('cart_items', 'carts.id', '=', 'cart_items.cart_id')
