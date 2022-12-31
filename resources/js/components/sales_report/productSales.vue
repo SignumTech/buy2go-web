@@ -10,11 +10,11 @@
                 <div class="row">
                     <div class="col-md-3">
                         <label for="">Start Date</label>
-                        <input required v-model="formData.start_date" type="date" class="form-control">
+                        <input v-model="formData.start_date" type="date" class="form-control">
                     </div>
                     <div class="col-md-3">
                         <label for="">End Date</label>
-                        <input required v-model="formData.end_date" type="date" class="form-control">
+                        <input v-model="formData.end_date" type="date" class="form-control">
                     </div>
                     <div class="col-md-3">
                         <label for="">Sort By</label>
