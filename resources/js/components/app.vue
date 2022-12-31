@@ -95,16 +95,16 @@
                     <div class="collapse" id="s_r">
                       <ul class="collapse list-unstyled" id="s_r">
                         <li v-if="permissions.salesReport" :class="$route.path == `/salesReport` ? `active nav-item` : ``">
-                          <router-link class="nav-link a-admin" to="/salesReport"><i data-feather="trending-up"></i> Sales Report</router-link>
+                          <router-link class="nav-link a-admin" to="/salesReport"><i class="fa fa-chart-line"></i> Sales Dashboard</router-link>
                         </li>
                         <li v-if="permissions.salesReport" :class="$route.path == `/productSales` ? `active nav-item` : ``">
-                          <router-link class="nav-link a-admin" to="/productSales"><i data-feather="trending-up"></i> Product Sales</router-link>
+                          <router-link class="nav-link a-admin" to="/productSales"><i class="fa fa-box-open"></i> Product Sales</router-link>
                         </li>
                         <li v-if="permissions.salesReport" :class="$route.path == `/customerSalesReport` ? `active nav-item` : ``">
-                          <router-link class="nav-link a-admin" to="/customerSalesReport"><i data-feather="trending-up"></i> Customer Sales Report</router-link>
+                          <router-link class="nav-link a-admin" to="/customerSalesReport"><i class="fa fa-users"></i> Customer Sales Report</router-link>
                         </li>
                         <li v-if="permissions.salesReport" :class="$route.path == `/agentSalesReport` ? `active nav-item` : ``">
-                          <router-link class="nav-link a-admin" to="/agentSalesReport"><i data-feather="trending-up"></i> Agent Sales Report</router-link>
+                          <router-link class="nav-link a-admin" to="/agentSalesReport"><i class="fa fa-user-tie"></i> Agent Sales Report</router-link>
                         </li>
                         
                       </ul>

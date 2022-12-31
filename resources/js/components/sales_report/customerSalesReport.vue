@@ -94,6 +94,24 @@ export default {
         this.getCustomersRank()
     },
     methods:{
+        prev(){
+            this.loading = true
+            this.currentPage--
+            this.products = this.paginationData[this.currentPage-1]
+            this.loading = false
+        },
+        next(){
+            this.loading = true
+            this.currentPage++
+            this.products = this.paginationData[this.currentPage-1]
+            this.loading = false
+        },
+        getPage(index){
+            this.loading = true
+            this.currentPage = index
+            this.products = this.paginationData[index-1]
+            this.loading = false
+        },
         async getCustomersRank(){
             this.loading = true
             await axios.post('/getCustomerRank', this.formData)
