@@ -134,4 +134,32 @@ class salesDashController extends Controller
         return $sort;
     }
 
+    public function getRTMrank(Request $request){
+        $this->validate($request, [
+            "sort_by" => "required"
+        ]);
+
+        $rtms = User::where('user_role', 'RTM')->get();
+        foreach($rtms as $rtm){
+            $customer->total_quantity = Order::where('order_status', 'DELIVERED')
+                                             ->where('rtm_id', $rtm->id)
+                                             ->when($request->start_date != null && $request->end_date !=null , function($q) use($request){
+                                                return $q->whereBetween('orders.updated_at', [$request->start_date, $request->end_date]);
+                                            })
+                                             ->count();
+            $rtm->total_sold = Order::where('order_status', 'DELIVERED')
+                                            ->where('rtm_id', $rtm->id)
+                                            ->when($request->start_date != null && $request->end_date !=null , function($q) use($request){
+                                                return $q->whereBetween('orders.updated_at', [$request->start_date, $request->end_date]);
+                                            })
+                                            ->sum('total');    
+        }
+        $sort = $rtms->sortByDesc($request->sort_by)->values()->all();
+        $rank = 1;
+        foreach($sort as $s){
+            $s->rank = $rank++;
+        }           
+        return $sort;
+    }
+
 }

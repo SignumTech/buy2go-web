@@ -143,6 +143,7 @@ Route::middleware('auth:sanctum')->post('/productsRank', [salesDashController::c
 Route::middleware('auth:sanctum')->get('/worstSeller', [salesDashController::class, 'worstSeller']);
 Route::middleware('auth:sanctum')->post('/getCustomerRank', [salesDashController::class, 'getCustomersRank']);
 Route::middleware('auth:sanctum')->post('/getAgentsRank', [salesDashController::class, 'getAgentsRank']);
+Route::middleware('auth:sanctum')->post('/getRTMrank', [salesDashController::class, 'getRTMrank']);
 ///////////////////////////////////agents/////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getAgents', [agentsController::class, 'getAgents']);
 Route::middleware('auth:sanctum')->get('/agentDetails/{id}', [agentsController::class, 'agentDetails']);

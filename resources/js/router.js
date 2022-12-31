@@ -36,6 +36,7 @@ import fleetView from './components/fleet_management/fleet.vue'
 import productSales from './components/sales_report/productSales.vue'
 import customerSalesReport from './components/sales_report/customerSalesReport.vue'
 import agentSalesReport from './components/sales_report/agentSalesReport.vue'
+import rtmRanks from './components/sales_report/rtmRanks.vue'
 Vue.use(Router)
 
 const routes = [
@@ -240,7 +241,13 @@ const routes = [
         name: 'AgentSalesReport',
         props: true
     }
-    
+    ,
+    {
+        path: '/rtmRanks',
+        component: rtmRanks,
+        name: 'RtmRank',
+        props: true
+    }
 ]
 
 export default new  Router({

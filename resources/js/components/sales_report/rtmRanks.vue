@@ -1,10 +1,10 @@
 <template>
 <div class="row mt-4">
     <div class="col-md-12">
-        <h5><strong>Customer Sales Report</strong></h5>
+        <h5><strong>RTM Sales Report</strong></h5>
     </div>
     <div class="col-md-12">
-        <form action="#" @submit.prevent="getCustomersRank">
+        <form action="#" @submit.prevent="getRtmRank">
             <div class="bg-white shadow-sm rounded-1 p-2">
                 <div class="row">
                     <div class="col-md-3">
@@ -91,7 +91,7 @@ export default {
         }
     },
     mounted(){
-        this.getCustomersRank()
+        this.getRtmRank()
     },
     methods:{
         prev(){
@@ -112,9 +112,9 @@ export default {
             this.products = this.paginationData[index-1]
             this.loading = false
         },
-        async getCustomersRank(){
+        async getRtmRank(){
             this.loading = true
-            await axios.post('/getCustomerRank', this.formData)
+            await axios.post('/getRTMrank', this.formData)
             .then( response =>{
                 this.paginationData = this.sliceIntoChunks(response.data, 10);
                 this.users = this.paginationData[0]

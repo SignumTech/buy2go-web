@@ -36,8 +36,8 @@
                 <thead>
                     <tr>
                         <th>Rank</th>
-                        <th>Product</th>
                         <th>Name</th>
+                        <th>Phone Number</th>
                         <th>Total Order</th>
                         <th>Total Sales</th>
                     </tr>
@@ -118,6 +118,9 @@ export default {
             .then( response =>{
                 this.paginationData = this.sliceIntoChunks(response.data, 10);
                 this.users = this.paginationData[0]
+                this.loading = false
+            })
+            .catch( error=>{
                 this.loading = false
             })
         }
