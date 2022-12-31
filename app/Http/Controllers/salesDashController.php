@@ -120,7 +120,7 @@ class salesDashController extends Controller
                                             })
                                              ->count();
             $customer->total_sold = Order::where('order_status', 'DELIVERED')
-                                            ->where('user_id', $customer->id)
+                                            ->where('agent_id', $customer->id)
                                             ->when($request->start_date != null && $request->end_date !=null , function($q) use($request){
                                                 return $q->whereBetween('orders.updated_at', [$request->start_date, $request->end_date]);
                                             })
