@@ -141,7 +141,7 @@ class salesDashController extends Controller
 
         $rtms = User::where('user_role', 'RTM')->get();
         foreach($rtms as $rtm){
-            $customer->total_quantity = Order::where('order_status', 'DELIVERED')
+            $rtm->total_quantity = Order::where('order_status', 'DELIVERED')
                                              ->where('rtm_id', $rtm->id)
                                              ->when($request->start_date != null && $request->end_date !=null , function($q) use($request){
                                                 return $q->whereBetween('orders.updated_at', [$request->start_date, $request->end_date]);
