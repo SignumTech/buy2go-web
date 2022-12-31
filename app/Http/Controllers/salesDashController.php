@@ -14,6 +14,7 @@ use App\Models\Balance;
 use App\Models\BalanceHistory;
 use App\Models\AddressBook;
 use App\Models\Product;
+use App\Models\Visit;
 use App\Events\DriverRejectedOrder;
 use DB;
 use Carbon\Carbon;
@@ -155,6 +156,39 @@ class salesDashController extends Controller
                                             ->sum('total');    
         }
         $sort = $rtms->sortByDesc($request->sort_by)->values()->all();
+        $rank = 1;
+        foreach($sort as $s){
+            $s->rank = $rank++;
+        }           
+        return $sort;
+    }
+    public function getDriversRank(Request $request){
+        $this->validate($request, [
+            "sort_by" => "required"
+        ]);
+
+        $drivers = User::where('user_role', 'DRIVER')->get();
+        foreach($drivers as $driver){
+            $driver->total_quantity = Order::where('order_status', 'DELIVERED')
+                                             ->where('assigned_driver', $driver->id)
+                                             ->when($request->start_date != null && $request->end_date !=null , function($q) use($request){
+                                                return $q->whereBetween('orders.updated_at', [$request->start_date, $request->end_date]);
+                                            })
+                                             ->count();
+            $driver->total_sold = Order::where('order_status', 'DELIVERED')
+                                            ->where('assigned_driver', $driver->id)
+                                            ->when($request->start_date != null && $request->end_date !=null , function($q) use($request){
+                                                return $q->whereBetween('orders.updated_at', [$request->start_date, $request->end_date]);
+                                            })
+                                            ->sum('total');    
+            $driver->visits = Visit::where('visit_status', 'COMPLETED')
+                                   ->where('user_id', $driver->id)
+                                   ->when($request->start_date != null && $request->end_date !=null , function($q) use($request){
+                                        return $q->whereBetween('visits.updated_at', [$request->start_date, $request->end_date]);
+                                    })
+                                   ->count();
+        }
+        $sort = $drivers->sortByDesc($request->sort_by)->values()->all();
         $rank = 1;
         foreach($sort as $s){
             $s->rank = $rank++;

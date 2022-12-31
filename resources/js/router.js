@@ -37,6 +37,7 @@ import productSales from './components/sales_report/productSales.vue'
 import customerSalesReport from './components/sales_report/customerSalesReport.vue'
 import agentSalesReport from './components/sales_report/agentSalesReport.vue'
 import rtmRanks from './components/sales_report/rtmRanks.vue'
+import driversReport from './components/sales_report/driverSalesReport.vue'
 Vue.use(Router)
 
 const routes = [
@@ -246,6 +247,13 @@ const routes = [
         path: '/rtmRanks',
         component: rtmRanks,
         name: 'RtmRank',
+        props: true
+    }
+    ,
+    {
+        path: '/driversReport',
+        component: driversReport,
+        name: 'DriversReport',
         props: true
     }
 ]

@@ -109,6 +109,9 @@
                         <li v-if="permissions.salesReport" :class="$route.path == `/rtmRanks` ? `active nav-item` : ``">
                           <router-link class="nav-link a-admin" to="/rtmRanks"><i class="fa fa-user-tie"></i> RTM Sales Report</router-link>
                         </li>
+                        <li v-if="permissions.salesReport" :class="$route.path == `/driversReport` ? `active nav-item` : ``">
+                          <router-link class="nav-link a-admin" to="/driversReport"><i class="fa fa-car"></i> Drivers Sales Report</router-link>
+                        </li>
                       </ul>
                     </div>
                   </li>
