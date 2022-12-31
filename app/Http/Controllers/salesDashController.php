@@ -87,9 +87,43 @@ class salesDashController extends Controller
         foreach($customers as $customer){
             $customer->total_quantity = Order::where('order_status', 'DELIVERED')
                                              ->where('user_id', $customer->id)
+                                             ->when($request->start_date != null && $request->end_date !=null , function($q) use($request){
+                                                return $q->whereBetween('orders.updated_at', [$request->start_date, $request->end_date]);
+                                            })
                                              ->count();
             $customer->total_sold = Order::where('order_status', 'DELIVERED')
                                             ->where('user_id', $customer->id)
+                                            ->when($request->start_date != null && $request->end_date !=null , function($q) use($request){
+                                                return $q->whereBetween('orders.updated_at', [$request->start_date, $request->end_date]);
+                                            })
+                                            ->sum('total');    
+        }
+        $sort = $customers->sortByDesc($request->sort_by)->values()->all();
+        $rank = 1;
+        foreach($sort as $s){
+            $s->rank = $rank++;
+        }           
+        return $sort;
+    }
+
+    public function getAgentsRank(Request $request){
+        $this->validate($request, [
+            "sort_by" => "required"
+        ]);
+
+        $customers = User::where('user_role', 'AGENT')->get();
+        foreach($customers as $customer){
+            $customer->total_quantity = Order::where('order_status', 'DELIVERED')
+                                             ->where('agent_id', $customer->id)
+                                             ->when($request->start_date != null && $request->end_date !=null , function($q) use($request){
+                                                return $q->whereBetween('orders.updated_at', [$request->start_date, $request->end_date]);
+                                            })
+                                             ->count();
+            $customer->total_sold = Order::where('order_status', 'DELIVERED')
+                                            ->where('user_id', $customer->id)
+                                            ->when($request->start_date != null && $request->end_date !=null , function($q) use($request){
+                                                return $q->whereBetween('orders.updated_at', [$request->start_date, $request->end_date]);
+                                            })
                                             ->sum('total');    
         }
         $sort = $customers->sortByDesc($request->sort_by)->values()->all();

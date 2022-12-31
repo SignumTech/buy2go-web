@@ -103,6 +103,9 @@
                         <li v-if="permissions.salesReport" :class="$route.path == `/customerSalesReport` ? `active nav-item` : ``">
                           <router-link class="nav-link a-admin" to="/customerSalesReport"><i data-feather="trending-up"></i> Customer Sales Report</router-link>
                         </li>
+                        <li v-if="permissions.salesReport" :class="$route.path == `/agentSalesReport` ? `active nav-item` : ``">
+                          <router-link class="nav-link a-admin" to="/agentSalesReport"><i data-feather="trending-up"></i> Agent Sales Report</router-link>
+                        </li>
                         
                       </ul>
                     </div>

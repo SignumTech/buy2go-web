@@ -35,6 +35,7 @@ import visitDetail from './components/fleet_management/visitDetail.vue'
 import fleetView from './components/fleet_management/fleet.vue'
 import productSales from './components/sales_report/productSales.vue'
 import customerSalesReport from './components/sales_report/customerSalesReport.vue'
+import agentSalesReport from './components/sales_report/agentSalesReport.vue'
 Vue.use(Router)
 
 const routes = [
@@ -230,6 +231,13 @@ const routes = [
         path: '/customerSalesReport',
         component: customerSalesReport,
         name: 'CustomerSalesReport',
+        props: true
+    }
+    ,
+    {
+        path: '/agentSalesReport',
+        component: agentSalesReport,
+        name: 'AgentSalesReport',
         props: true
     }
     

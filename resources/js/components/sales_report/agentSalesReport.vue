@@ -1,7 +1,7 @@
 <template>
 <div class="row mt-4">
     <div class="col-md-12">
-        <h5><strong>Customer Sales Report</strong></h5>
+        <h5><strong>Agent Sales Report</strong></h5>
     </div>
     <div class="col-md-12">
         <form action="#" @submit.prevent="getCustomersRank">
@@ -96,7 +96,7 @@ export default {
     methods:{
         async getCustomersRank(){
             this.loading = true
-            await axios.post('/getCustomerRank', this.formData)
+            await axios.post('/getAgentsRank', this.formData)
             .then( response =>{
                 this.paginationData = this.sliceIntoChunks(response.data, 10);
                 this.users = this.paginationData[0]
