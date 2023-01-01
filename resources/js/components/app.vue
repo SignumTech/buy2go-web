@@ -94,22 +94,22 @@
                     <a data-bs-toggle="collapse" href="#s_r" aria-expanded="false" aria-controls="collapseExample"><i data-feather="trending-up"></i> Sales Report</a>
                     <div class="collapse" id="s_r">
                       <ul class="collapse list-unstyled" id="s_r">
-                        <li v-if="permissions.salesReport" :class="$route.path == `/salesReport` ? `active nav-item` : ``">
+                        <li v-if="permissions.salesDashboard" :class="$route.path == `/salesReport` ? `active nav-item` : ``">
                           <router-link class="nav-link a-admin" to="/salesReport"><i class="fa fa-chart-line"></i> Sales Dashboard</router-link>
                         </li>
-                        <li v-if="permissions.salesReport" :class="$route.path == `/productSales` ? `active nav-item` : ``">
+                        <li v-if="permissions.productSales" :class="$route.path == `/productSales` ? `active nav-item` : ``">
                           <router-link class="nav-link a-admin" to="/productSales"><i class="fa fa-box-open"></i> Product Sales</router-link>
                         </li>
-                        <li v-if="permissions.salesReport" :class="$route.path == `/customerSalesReport` ? `active nav-item` : ``">
+                        <li v-if="permissions.customerSalesReport" :class="$route.path == `/customerSalesReport` ? `active nav-item` : ``">
                           <router-link class="nav-link a-admin" to="/customerSalesReport"><i class="fa fa-users"></i> Customer Sales Report</router-link>
                         </li>
-                        <li v-if="permissions.salesReport" :class="$route.path == `/agentSalesReport` ? `active nav-item` : ``">
+                        <li v-if="permissions.agentSalesReport" :class="$route.path == `/agentSalesReport` ? `active nav-item` : ``">
                           <router-link class="nav-link a-admin" to="/agentSalesReport"><i class="fa fa-user-tie"></i> Agent Sales Report</router-link>
                         </li>
-                        <li v-if="permissions.salesReport" :class="$route.path == `/rtmRanks` ? `active nav-item` : ``">
+                        <li v-if="permissions.rtmRanks" :class="$route.path == `/rtmRanks` ? `active nav-item` : ``">
                           <router-link class="nav-link a-admin" to="/rtmRanks"><i class="fa fa-user-tie"></i> RTM Sales Report</router-link>
                         </li>
-                        <li v-if="permissions.salesReport" :class="$route.path == `/driversReport` ? `active nav-item` : ``">
+                        <li v-if="permissions.driversReport" :class="$route.path == `/driversReport` ? `active nav-item` : ``">
                           <router-link class="nav-link a-admin" to="/driversReport"><i class="fa fa-car"></i> Drivers Sales Report</router-link>
                         </li>
                       </ul>

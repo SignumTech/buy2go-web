@@ -24,6 +24,30 @@
                         <label class="form-check-label" for="flexSwitchCheckChecked"> Dashboard</label>
                     </div>
                 </div>
+                <div class="col-2">
+                    <div class="form-check form-switch">
+                        <input :disabled="!formData.permissions.dashboard" v-model="formData.permissions.dashboardOrders" class="form-check-input" type="checkbox">
+                        <label class="form-check-label" for="flexSwitchCheckChecked"> Orders Count</label>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="form-check form-switch">
+                        <input :disabled="!formData.permissions.dashboard" v-model="formData.permissions.dashboardSales" class="form-check-input" type="checkbox">
+                        <label class="form-check-label" for="flexSwitchCheckChecked"> Sales</label>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="form-check form-switch">
+                        <input :disabled="!formData.permissions.dashboard" v-model="formData.permissions.newUsers" class="form-check-input" type="checkbox">
+                        <label class="form-check-label" for="flexSwitchCheckChecked"> New Users</label>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="form-check form-switch">
+                        <input :disabled="!formData.permissions.dashboard" v-model="formData.permissions.totalRevenue" class="form-check-input" type="checkbox">
+                        <label class="form-check-label" for="flexSwitchCheckChecked"> Total Revenue</label>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-md-12 py-2 border-bottom">
@@ -311,6 +335,42 @@
                         <label class="form-check-label" for="flexSwitchCheckChecked"> Sales Report</label>
                     </div>
                 </div>
+                <div class="col-2">
+                    <div class="form-check form-switch">
+                        <input :disabled="!formData.permissions.salesReport" v-model="formData.permissions.salesDashboard" class="form-check-input" type="checkbox">
+                        <label class="form-check-label" for="flexSwitchCheckChecked"> Sales Dashboard</label>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="form-check form-switch">
+                        <input :disabled="!formData.permissions.salesReport" v-model="formData.permissions.productSales" class="form-check-input" type="checkbox">
+                        <label class="form-check-label" for="flexSwitchCheckChecked"> Product Sales Report</label>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="form-check form-switch">
+                        <input :disabled="!formData.permissions.salesReport" v-model="formData.permissions.customerSalesReport" class="form-check-input" type="checkbox">
+                        <label class="form-check-label" for="flexSwitchCheckChecked"> Customer Sales Report</label>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="form-check form-switch">
+                        <input :disabled="!formData.permissions.salesReport" v-model="formData.permissions.agentSalesReport" class="form-check-input" type="checkbox">
+                        <label class="form-check-label" for="flexSwitchCheckChecked"> Agent Sales Report</label>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="form-check form-switch">
+                        <input :disabled="!formData.permissions.salesReport" v-model="formData.permissions.rtmRanks" class="form-check-input" type="checkbox">
+                        <label class="form-check-label" for="flexSwitchCheckChecked"> RTM Sales Report</label>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="form-check form-switch">
+                        <input :disabled="!formData.permissions.salesReport" v-model="formData.permissions.driversReport" class="form-check-input" type="checkbox">
+                        <label class="form-check-label" for="flexSwitchCheckChecked"> Drivers Report</label>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="col-md-12 py-2 border-bottom border-top">
@@ -389,6 +449,10 @@ export default {
                 deletable:null,
                 permissions:{
                     dashboard:false,
+                    dashboardSales:false,
+                    dashboardOrders:false,
+                    newUsers:false,
+                    totalRevenue:false,
                     productList:false,
                     addProduct:false,
                     deleteProduct:false,
@@ -431,6 +495,12 @@ export default {
                     printReciept:false,
                     creditServices:false,
                     salesReport:false,
+                    salesDashboard:false,
+                    productSales:false,
+                    customerSalesReport:false,
+                    agentSalesReport:false,
+                    rtmRanks:false,
+                    driversReport:false,
                     customers:false,
                     assignSales:false,
                     verifyShop:false,

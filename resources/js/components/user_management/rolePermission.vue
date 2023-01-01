@@ -30,6 +30,10 @@
                             <th>{{td.role}}</th>
                             <td style="width: 60%">
                                 <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).dashboard">Dashboard</span>
+                                <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).dashboardOrders">Dashboard Orders</span>
+                                <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).dashboardSales">Sales</span>
+                                <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).newUsers">New Users</span>
+                                <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).totalRevenue">Total Revenue</span>
                                 <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).productList">Products</span>
                                 <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).addProduct">Add Products</span>
                                 <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).deleteProduct">Delete Products</span>
@@ -72,6 +76,12 @@
                                 <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).paymentRequests">Payment Request</span>
                                 <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).creditServices">Credit Services</span>
                                 <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).salesReport">SalesReport</span>
+                                <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).salesDashboard">Sales Dashboard</span>
+                                <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).productSales">Product Sales</span>
+                                <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).customerSalesReport">Customer Sales</span>
+                                <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).agentSalesReport">Agent Sales</span>
+                                <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).rtmRanks">RTM Sales</span>
+                                <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).driversReport">Drivers Sales</span>
                                 <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).customers">Customers</span>
                                 <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).assignSales">Assign Sales</span>
                                 <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).verifyShop">Verify Shop</span>
