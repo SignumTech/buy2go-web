@@ -20,6 +20,7 @@
                         <select required class="form-select" v-model="formData.sort_by">
                             <option value="total_quantity">Total order</option>
                             <option value="total_sold">Total Sales</option>
+                            <option value="visits">Total Completed Visits</option>
                         </select>
                     </div>
                     <div class="col-md-3 align-self-end">
@@ -55,7 +56,7 @@
                     </tr>
                 </tbody>
             </table>
-            <nav aria-label="Page d-flex m-auto navigation example" style="cursor:pointer">
+            <nav v-if="paginationData.length > 1" aria-label="Page d-flex m-auto navigation example" style="cursor:pointer">
                 <ul class="pagination justify-content-center">
                     <li v-if="currentPage > 1" @click="prev()" class="page-item"><a aria-label="Previous" class="page-link"><span aria-hidden="true" class="">« Previous</span></a></li>
                     <li v-for="pd,index in paginationData" :key="index" :class="(index+1 == currentPage)?`page-item active text-white`:`page-item`">
