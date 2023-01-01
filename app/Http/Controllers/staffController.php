@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Balance;
+use App\Models\Warehouse;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
@@ -160,6 +161,14 @@ class staffController extends Controller
 
     public function getWarehouseManagers(){
         $managers = User::where('user_role', 'WAREHOUSE_MANAGER')->get();
+        return $managers;
+    }
+
+    public function getAvailableWarehouseManagers(){
+        $managers = Warehouse::pluck('user_id');
+        $managers = User::where('user_role', 'WAREHOUSE_MANAGER')
+                        ->whereNotIn('id', $managers)
+                        ->get();
         return $managers;
     }
 

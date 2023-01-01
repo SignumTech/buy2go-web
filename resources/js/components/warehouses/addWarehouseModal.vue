@@ -56,7 +56,7 @@ export default {
     },
     methods:{
         async getWarehouseManager(){
-            await axios.get('/getWarehouseManagers')
+            await axios.get('/getAvailableWarehouseManagers')
             .then( response =>{
                 this.managers = response.data
             })
