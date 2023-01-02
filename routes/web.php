@@ -155,6 +155,7 @@ Route::middleware('auth:sanctum')->get('/showPaymentRequest/{id}', [agentsContro
 Route::middleware('auth:sanctum')->get('/getMyRequests', [agentsController::class, 'getMyRequests']);
 Route::middleware('auth:sanctum')->put('/confirmRequest/{id}', [agentsController::class, 'confirmRequest']);
 Route::middleware('auth:sanctum')->put('/verfiyAgent/{id}', [agentsController::class, 'verfiyAgent']);
+Route::middleware('auth:sanctum')->get('/getAgent/{id}', [agentsController::class, 'getAgent']);
 /////////////////////////////////Categories//////////////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getSubCategories', [categoriesController::class, 'getSubCategories']);
 Route::middleware('auth:sanctum')->get('/chooseSubCategories', [categoriesController::class, 'chooseSubCategories']);

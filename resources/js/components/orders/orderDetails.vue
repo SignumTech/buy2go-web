@@ -121,7 +121,12 @@
                     </table>
                 </div>    
                 <div class="col-md-8 mt-3">
-                    <h5 v-if="order.order_type == `AGENT_ORDER`"><span class="badge rounded-pill bg-info text-dark">Ordered by agent</span></h5>
+                    <div v-if="order.order_type == `AGENT_ORDER`">
+                        <h5><span class="badge rounded-pill bg-info text-dark">Ordered by agent</span></h5>
+                        <h6>Agent Name: {{agent.f_name}} {{ agent.l_name }}</h6>
+                        <h6>Phone Number: +{{agent.country_code}}-{{ agent.phone_no }}</h6>
+                    </div>
+                    
                 </div>     
                 <div class="col-md-4 border-bottom border-3 mt-3">
                     <h6 class="mt-2">Sub total: <span class="float-end">{{taxCalculations.subTotal | numFormat}} ETB</span></h6>
@@ -160,6 +165,7 @@ export default {
     },
     data(){
         return{
+            agent:{},
             order:{},
             taxCalculations:{
                 subTotal:null,
@@ -223,6 +229,15 @@ export default {
                 this.orderItems = response.data.order_items
                 this.taxCalculations = this.calculateTax(this.orderItems)
                 this.getAddress(response.data.order_details.delivery_details)
+                if(this.order.order_type == 'AGENT_ORDER'){
+                    this.getAgent(this.order.agent_id)
+                }
+            })
+        },
+        async getAgent(id){
+            await axios.get('/getAgent/'+id)
+            .then( response =>{
+                this.agent = response.data
             })
         },
         calculateTax(orderItems){

@@ -16,6 +16,10 @@ use DB;
 use Illuminate\Support\Facades\Hash;
 class agentsController extends Controller
 {
+    public function getAgent($id){
+        $agent = User::find($id);
+        return $agent;
+    }
     public function searchShop(Request $request){
         $this->validate($request, [
             "searchQuery" => "required"
