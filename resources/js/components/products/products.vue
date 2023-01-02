@@ -23,8 +23,8 @@
                     <label for="">Price Range</label>
                     <vue-slider
                     v-model="queryData.range"
-                    :min="min"
-                    :max="max"
+                    :min="min-1"
+                    :max="max+1"
                     ></vue-slider>
                     <h6 class="m-0">{{queryData.range[0]}} ETB <span class="float-end">{{queryData.range[1]}} ETB</span></h6>
                 </div>
@@ -132,8 +132,8 @@ export default {
             permission:{},
             products:{},
             paginationData:{},
-            min:null,
-            max:null,
+            min:0,
+            max:10000000,
             categoryList:[],
             queryData:{
                 p_name:null,
