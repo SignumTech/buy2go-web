@@ -85,12 +85,15 @@
                     <h6 class="text-center">Total Distance To Delivery</h6>
                     <h5 class="text-center"><strong>{{distance}}</strong></h5>
                 </div> 
-                <DistanceMatrix
+                <GmapMap v-if="loaded" :center="center" :zoom="12" style="width: 100%; height: 500px" ref="mapRef">
+                    <DistanceMatrix
                     travelMode="DRIVING"
                     :origins="driverAddress"
                     :destinations="[shopAddress,warehouseAddress]"
                     @distanceSet="setDistance"
                     />
+                </GmapMap>
+
                 <div v-if="order.order_status != `PROCESSING`" class="col-md-12 mt-4">
                     <div class="row">
                         <div class="col-md-3">
@@ -220,6 +223,9 @@ export default {
         this.getOrderDriver()
     },
     methods:{
+        setDistance(variable){
+            this.distance = variable
+        },
         shipModal(){
             this.$modal.show(
                 shippingDetailsVue,
