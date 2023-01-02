@@ -428,6 +428,7 @@ class ordersController extends Controller
             return response("Unauthorized",401);
         }
         $order->order_status = "PENDING_PICKUP";
+        $order->accepted_at = Carbon::now();
         $order->save();
 
         //Notification

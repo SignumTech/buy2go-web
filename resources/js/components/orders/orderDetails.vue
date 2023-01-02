@@ -83,15 +83,19 @@
                 </div> 
                 <div v-if="order.order_status != `PROCESSING`" class="col-md-12 mt-4">
                     <div class="row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <h6 class="text-center">Assigned Driver</h6>
                             <h5 class="text-center"><strong>{{orderDriver.f_name}} {{orderDriver.l_name}} - {{orderDriver.l_plate}}</strong></h5>
                         </div>
-                        <div class="col-md-4 border-start border-end">
+                        <div class="col-md-3 border-start border-end">
                             <h6 class="text-center">Assigned Warehouse</h6>
                             <h5 class="text-center"><strong>{{orderDriver.w_name}}</strong></h5>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
+                            <h6 class="text-center">Driver accepted Order</h6>
+                            <h5 class="text-center"><strong>{{order.accepted_at | moment("MMM Do YYYY, H:m:s")}}</strong></h5>
+                        </div>
+                        <div class="col-md-3">
                             <h6 class="text-center">Last status update</h6>
                             <h5 class="text-center"><strong>{{order.updated_at | moment("MMM Do YYYY, H:m:s")}}</strong></h5>
                         </div>
