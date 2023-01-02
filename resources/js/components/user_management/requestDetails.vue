@@ -18,7 +18,7 @@
                 <div class="col-md-3 align-self-center">
                     <button v-if="request.request_status == `PAID` && permission.confirmRequest" @click="confirmRequest()" class="btn btn-primary form-control"><span class="fa fa-print"></span> PRINT RECIEPT</button>
                     <button v-if="request.request_status == `PENDING` && permission.printReciept" @click="confirmRequest()" class="btn btn-primary form-control"><span class="fa fa-stamp"></span> CONFIRM REQUEST</button>
-                    <h6 v-if="!requestExceeds" class="text-danger mt-2 text-center">{{requestExceeds}}</h6>
+                    <h6 v-if="requestExceeds" class="text-danger mt-2 text-center">{{requestExceeds}}</h6>
                 </div>
             </div>
             <div v-if="request.request_status == `PAID`" class="row border-bottom">
