@@ -37,7 +37,7 @@ Vue.component('google-marker', VueGoogleMaps.Marker);
 Vue.use(VueGoogleMaps, {
   load: {
     key: 'AIzaSyCRNebshVW6XSdv4X2Nxm3FGIt3qbA7UKU',
-    libraries: 'places,directions,geometry' // This is required if you use the Autocomplete plugin
+    libraries: 'places,directions,geometry,distance_matrix' // This is required if you use the Autocomplete plugin
     // OR: libraries: 'places,drawing'
     // OR: libraries: 'places,drawing,visualization'
     // (as you require)

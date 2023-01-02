@@ -19,6 +19,12 @@
                     :origin="address"
                     :destination="destination"
                     />
+                    <DistanceMatrix
+                    travelMode="DRIVING"
+                    :origins="address"
+                    :destinations="destination"
+                    @distanceSet="setDistance"
+                    />
                 </GmapMap>
             </div>
             <div class="col-md-4">
@@ -32,6 +38,9 @@
                                 <option v-for="warehouse,index in warehouses" :key="index" :value="warehouse.id">{{warehouse.w_name}}</option>
                             </select>
                             <h6 v-if="warehouses.length == 0" class="text-danger mt-2">There are currently no warehouses that  have all the products on this order.</h6>
+                        </div>
+                        <div class="col-md-12 mt-4">
+                            <h6>Distance: {{ distance }}</h6>
                         </div>
                         <div class="col-md-12 mt-4">
                             <h6>Drivers List</h6>
@@ -63,14 +72,17 @@
 </div>    
 </template>
 <script>
+import DistanceMatrix from "./DistanceMatrix";
 import DirectionsRenderer from "./DirectionsRenderer";
 export default {
     components: {
       DirectionsRenderer,
+      DistanceMatrix
     },
     props:["id"],
     data(){
         return{
+            distance:null,
             loaded:false,
             formData:{
                 warehouse_id:"",
@@ -127,6 +139,9 @@ export default {
         this.getOrder()
     },
     methods:{
+        setDistance(variable){
+            this.distance = variable
+        },
         async shipOrder(){
             await axios.put('/assignDetails/'+this.id, this.formData)
             .then( response =>{

@@ -38,6 +38,7 @@ export default MapElementFactory({
             // eslint-disable-next-line no-debugger
             //debugger
             directionsRenderer.setDirections(response);
+            
           }
         );
       }
