@@ -225,8 +225,19 @@ export default {
         })
         this.getOrder()
         this.getOrderDriver()
+
     },
     methods:{
+        calculateDistance(){
+            this.driverAddress.lat = parseFloat(JSON.parse(this.order.accept_loc).lat)
+            this.driverAddress.lng = parseFloat(JSON.parse(this.order.accept_loc).lng)
+
+            this.shopAddress.lat = parseFloat(JSON.parse(this.address.geolocation).lat)
+            this.shopAddress.lng = parseFloat(JSON.parse(this.address.geolocation).lng)
+
+            this.warehouseAddress.lat = parseFloat(JSON.parse(this.orderDriver.location).lat)
+            this.warehouseAddress.lng = parseFloat(JSON.parse(this.orderDriver.location).lng)
+        },
         setDistance(variable){
             this.distance = variable
         },
@@ -265,8 +276,7 @@ export default {
             await axios.get('/orders/'+this.$route.params.id)
             .then( response =>{
                 this.order = response.data.order_details
-                this.driverAddress.lat = parseFloat(JSON.parse(this.order.accept_loc).lat)
-                this.driverAddress.lng = parseFloat(JSON.parse(this.order.accept_loc).lng)
+
                 this.orderItems = response.data.order_items
                 this.taxCalculations = this.calculateTax(this.orderItems)
                 this.getAddress(response.data.order_details.delivery_details)
@@ -314,17 +324,17 @@ export default {
             await axios.get('/addressBooks/'+id)
             .then( response =>{
                 this.address = response.data
-                this.shopAddress.lat = parseFloat(JSON.parse(this.address.geolocation).lat)
-                this.shopAddress.lng = parseFloat(JSON.parse(this.address.geolocation).lng)
                 this.loading = false
+                if(this.order.order_status != 'PROCESSING'){
+                    this.calculateDistance()
+                }
             })
         },
         async getOrderDriver(){
             await axios.get('/getOrderDetails/'+this.$route.params.id)
             .then( response =>{
                 this.orderDriver = response.data
-                this.warehouseAddress.lat = parseFloat(JSON.parse(this.orderDriver.location).lat)
-                this.warehouseAddress.lng = parseFloat(JSON.parse(this.orderDriver.location).lng)
+
             })
         }
     }
