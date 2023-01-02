@@ -23,8 +23,8 @@
                     <label for="">Price Range</label>
                     <vue-slider
                     v-model="queryData.range"
-                    :min="min-1"
-                    :max="max+1"
+                    :min="parseFloat(min)"
+                    :max="parseFloat(max)"
                     ></vue-slider>
                     <h6 class="m-0">{{queryData.range[0]}} ETB <span class="float-end">{{queryData.range[1]}} ETB</span></h6>
                 </div>
