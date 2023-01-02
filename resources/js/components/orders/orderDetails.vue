@@ -255,8 +255,8 @@ export default {
             await axios.get('/orders/'+this.$route.params.id)
             .then( response =>{
                 this.order = response.data.order_details
-                this.driverAddress.lat = parseFloat(JSON.parse(this.order.accepted_at).lat)
-                this.driverAddress.lng = parseFloat(JSON.parse(this.order.accepted_at).lng)
+                this.driverAddress.lat = parseFloat(JSON.parse(this.order.accept_loc).lat)
+                this.driverAddress.lng = parseFloat(JSON.parse(this.order.accept_loc).lng)
                 this.orderItems = response.data.order_items
                 this.taxCalculations = this.calculateTax(this.orderItems)
                 this.getAddress(response.data.order_details.delivery_details)
