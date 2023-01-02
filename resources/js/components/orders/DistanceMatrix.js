@@ -29,7 +29,7 @@ export default MapElementFactory({
         DistanceMatrixService.getDistanceMatrix(
           {
             origins:[origins],
-            destinations:[destinations],
+            destinations:destinations,
             travelMode,
             unitSystem: window.google.maps.UnitSystem.metric,
           },

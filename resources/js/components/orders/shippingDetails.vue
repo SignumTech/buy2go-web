@@ -22,7 +22,7 @@
                     <DistanceMatrix
                     travelMode="DRIVING"
                     :origins="address"
-                    :destinations="destination"
+                    :destinations="[destination]"
                     @distanceSet="setDistance"
                     />
                 </GmapMap>

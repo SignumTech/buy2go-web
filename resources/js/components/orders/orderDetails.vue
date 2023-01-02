@@ -73,14 +73,24 @@
                 </div> 
             </div>
             <div v-if="!loading" class="row m-0">
-                <div class="col-md-6 mt-3">
+                <div class="col-md-4 mt-3">
                     <h6 class="text-center">Order No.</h6>
                     <h5 class="text-center"><strong>{{order.order_no}}</strong></h5>
                 </div>
-                <div class="col-md-6 mt-3 border-start">
+                <div class="col-md-4 mt-3 border-start">
                     <h6 class="text-center">Order Date</h6>
                     <h5 class="text-center"><strong>{{order.created_at | moment("ddd, MMM Do YYYY")}}</strong></h5>
                 </div> 
+                <div class="col-md-4 mt-3 border-start">
+                    <h6 class="text-center">Total Distance To Delivery</h6>
+                    <h5 class="text-center"><strong>{{distance}}</strong></h5>
+                </div> 
+                <DistanceMatrix
+                    travelMode="DRIVING"
+                    :origins="driverAddress"
+                    :destinations="[shopAddress,warehouseAddress]"
+                    @distanceSet="setDistance"
+                    />
                 <div v-if="order.order_status != `PROCESSING`" class="col-md-12 mt-4">
                     <div class="row">
                         <div class="col-md-3">
@@ -163,12 +173,15 @@
 import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 import addressModalVue from './addressModal.vue'
 import shippingDetailsVue from './shippingDetails.vue'
+import DistanceMatrix from "./DistanceMatrix";
 export default {
-    components:{
-        PulseLoader
+    components: {
+      DistanceMatrix,
+      PulseLoader
     },
     data(){
         return{
+            distance:null,
             agent:{},
             order:{},
             taxCalculations:{
@@ -177,6 +190,18 @@ export default {
                 total:null
             },
             orderItems:[],
+            shopAddress:{
+                lat:null,
+                lng:null,
+            },
+            warehouseAddress:{
+                lat:null,
+                lng:null,
+            },
+            driverAddress:{
+                lat:null,
+                lng:null,
+            },
             address:{},
             loading:true,
             permission:{},
@@ -230,6 +255,8 @@ export default {
             await axios.get('/orders/'+this.$route.params.id)
             .then( response =>{
                 this.order = response.data.order_details
+                this.driverAddress.lat = parseFloat(JSON.parse(this.order.accepted_at).lat)
+                this.driverAddress.lng = parseFloat(JSON.parse(this.order.accepted_at).lng)
                 this.orderItems = response.data.order_items
                 this.taxCalculations = this.calculateTax(this.orderItems)
                 this.getAddress(response.data.order_details.delivery_details)
@@ -277,6 +304,8 @@ export default {
             await axios.get('/addressBooks/'+id)
             .then( response =>{
                 this.address = response.data
+                this.shopAddress.lat = parseFloat(JSON.parse(this.address.geolocation).lat)
+                this.shopAddress.lng = parseFloat(JSON.parse(this.address.geolocation).lng)
                 this.loading = false
             })
         },
@@ -284,6 +313,8 @@ export default {
             await axios.get('/getOrderDetails/'+this.$route.params.id)
             .then( response =>{
                 this.orderDriver = response.data
+                this.warehouseAddress.lat = parseFloat(JSON.parse(this.orderDriver.location).lat)
+                this.warehouseAddress.lng = parseFloat(JSON.parse(this.orderDriver.location).lng)
             })
         }
     }
