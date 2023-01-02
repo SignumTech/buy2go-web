@@ -85,7 +85,7 @@
                     <h6 class="text-center">Total Distance To Delivery</h6>
                     <h5 class="text-center"><strong>{{distance}}</strong></h5>
                 </div> 
-                <GmapMap v-if="loaded" :center="center" :zoom="12" style="width: 100%; height: 500px" ref="mapRef">
+                <GmapMap v-show="false" :center="center" :zoom="12" style="width: 100%; height: 500px" ref="mapRef">
                     <DistanceMatrix
                     travelMode="DRIVING"
                     :origins="driverAddress"
