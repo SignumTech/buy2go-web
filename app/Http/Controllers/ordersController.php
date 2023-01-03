@@ -422,13 +422,23 @@ class ordersController extends Controller
         return $orders;
     }
 
-    public function acceptOrder($id){
+    public function acceptOrder(Request $request, $id){
+        $this->validate($request, [
+            "lat" => "required",
+            "lng" => "required"
+        ]);
+
+        $confirm_location = [];
+        $confirm_location['lat'] = $request->lat;
+        $confirm_location['lng'] = $request->lng;
+        
         $order = Order::find($id);
         if(auth()->user()->id !=  $order->assigned_driver){
             return response("Unauthorized",401);
         }
         $order->order_status = "PENDING_PICKUP";
         $order->accepted_at = Carbon::now();
+        $order->accept_loc = json_encode($confirm_location);
         $order->save();
 
         //Notification
