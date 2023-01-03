@@ -83,7 +83,6 @@
                 </div> 
                 <div class="col-md-4 mt-3 border-start">
                     <h6 class="text-center">Total Distance To Delivery</h6>
-                    <button @click="calculateDistance()" class="btn btn-sm btn-primary">Calculate</button>
                     <h5 class="text-center"><strong>{{Math.round(distance*100)/100}} KM</strong></h5>
                 </div> 
                 <GmapMap v-if="loaded" v-show="false" :center="center" :zoom="12" style="width: 100%; height: 500px" ref="mapRef">
@@ -218,9 +217,6 @@ export default {
             orderDriver:{}
         }
     },
-    created(){
-
-    },
     mounted(){
         this.$store.dispatch('auth/permissions')
         .then( () =>{
@@ -228,22 +224,34 @@ export default {
         })
         this.getOrder()
         this.getOrderDriver()
-
     },
     methods:{
         calculateDistance(){
-            this.driverAddress = {
+            console.log('test')
+            
+            setTimeout(()=>{
+                this.driverAddress = {
                 lat:parseFloat(JSON.parse(this.order.accept_loc).lat),
                 lng:parseFloat(JSON.parse(this.order.accept_loc).lng)
-            }
-            this.shopAddress = {
-                lat:parseFloat(JSON.parse(this.address.geolocation).lat),
-                lng:parseFloat(JSON.parse(this.address.geolocation).lng)
-            }
-            this.warehouseAddress = {
-                lat:parseFloat(JSON.parse(this.orderDriver.location).lat),
-                lng:parseFloat(JSON.parse(this.orderDriver.location).lng)
-            }
+                }
+                this.shopAddress = {
+                    lat:parseFloat(JSON.parse(this.address.geolocation).lat),
+                    lng:parseFloat(JSON.parse(this.address.geolocation).lng)
+                }
+                this.warehouseAddress = {
+                    lat:parseFloat(JSON.parse(this.orderDriver.location).lat),
+                    lng:parseFloat(JSON.parse(this.orderDriver.location).lng)
+                }  
+            }, 500)
+              
+            
+
+        },
+        nullify(){
+            this.driverAddress = {}
+            this.shopAddress = {}
+            this.warehouseAddress = {}
+            return true
         },
         setDistance(variable){
             this.distance = variable
