@@ -26,7 +26,7 @@ use App\Events\ConfirmDelivery;
 use App\Notifications\OrderStatusUpdated;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Notifications\Notifiable;
-use App\Exports\OrdersExport;
+use App\Exports\productSalesExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class salesDashController extends Controller
@@ -194,6 +194,24 @@ class salesDashController extends Controller
             $s->rank = $rank++;
         }           
         return $sort;
+    }
+
+    public function exportProductSales(Request $request){
+        $this->validate($request, [
+            "sort_by" => "required"
+        ]);
+        $productSales = $this->productsRank($request);
+        
+        //dd($productSales);
+        $trimmed = $this->removeImage($productSales);
+        
+        return Excel::download(new productSalesExport(collect($trimmed), $request->start_date, $request->end_date), 'productSales.xlsx');
+    }
+    public function removeImage($items){
+        foreach($items as $item){
+            unset($item['p_image'], $item['id'], $item['price']);
+        }
+        return $items;
     }
 
 }

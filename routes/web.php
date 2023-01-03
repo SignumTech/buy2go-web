@@ -140,6 +140,7 @@ Route::middleware('auth:sanctum')->put('/restoreWarehouse/{id}', [warehousesCont
 ///////////////////////////////////SalesAnalytics/////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/bestSeller', [salesDashController::class, 'bestSeller']);
 Route::middleware('auth:sanctum')->post('/productsRank', [salesDashController::class, 'productsRank']);
+Route::middleware('auth:sanctum')->post('/exportProductSales', [salesDashController::class, 'exportProductSales']);
 Route::middleware('auth:sanctum')->get('/worstSeller', [salesDashController::class, 'worstSeller']);
 Route::middleware('auth:sanctum')->post('/getCustomerRank', [salesDashController::class, 'getCustomersRank']);
 Route::middleware('auth:sanctum')->post('/getAgentsRank', [salesDashController::class, 'getAgentsRank']);
