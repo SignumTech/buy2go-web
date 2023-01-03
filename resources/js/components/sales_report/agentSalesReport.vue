@@ -23,7 +23,16 @@
                         </select>
                     </div>
                     <div class="col-md-3 align-self-end">
-                        <button type="submit" class="btn btn-primary"><span class="fa fa-chart-bar"></span> Generate Report</button>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <button type="submit" class="btn btn-primary form-control">
+                                <span class="fa fa-chart-bar"></span> Generate</button>
+                            </div>
+                            <div class="col-md-6">
+                                <button @click="exportReport()" class="btn btn-primary form-control"><span class="fa fa-file-export"></span> Export</button>
+                            </div>
+                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -94,6 +103,23 @@ export default {
         this.getCustomersRank()
     },
     methods:{
+        async exportReport(){
+            await axios.post('/exportAgentSales', this.formData, {responseType: 'blob'})
+            .then( response =>{
+                const href = URL.createObjectURL(response.data);
+
+                // create "a" HTML element with href to file & click
+                const link = document.createElement('a');
+                link.href = href;
+                link.setAttribute('download', 'AgentSalesReport-'+Date.now()+'.xlsx'); 
+                document.body.appendChild(link);
+                link.click();
+
+                // clean up "a" element & remove ObjectURL
+                document.body.removeChild(link);
+                URL.revokeObjectURL(href);
+            })
+        },
         prev(){
             this.loading = true
             this.currentPage--

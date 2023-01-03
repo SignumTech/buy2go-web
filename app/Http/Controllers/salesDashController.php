@@ -27,6 +27,10 @@ use App\Notifications\OrderStatusUpdated;
 use Illuminate\Support\Facades\Notification;
 use Illuminate\Notifications\Notifiable;
 use App\Exports\productSalesExport;
+use App\Exports\customerSalesExport;
+use App\Exports\agentSalesExport;
+use App\Exports\rtmSalesExport;
+use App\Exports\driverSalesExport;
 use Maatwebsite\Excel\Facades\Excel;
 
 class salesDashController extends Controller
@@ -84,7 +88,7 @@ class salesDashController extends Controller
             "sort_by" => "required"
         ]);
 
-        $customers = User::where('user_role', 'USER')->get();
+        $customers = User::where('user_role', 'USER')->select('f_name', 'l_name', 'country_code', 'phone_no', 'id')->get();
         foreach($customers as $customer){
             $customer->total_quantity = Order::where('order_status', 'DELIVERED')
                                              ->where('user_id', $customer->id)
@@ -112,7 +116,7 @@ class salesDashController extends Controller
             "sort_by" => "required"
         ]);
 
-        $customers = User::where('user_role', 'AGENT')->get();
+        $customers = User::where('user_role', 'AGENT')->select('f_name', 'l_name', 'country_code', 'phone_no', 'id')->get();
         foreach($customers as $customer){
             $customer->total_quantity = Order::where('order_status', 'DELIVERED')
                                              ->where('agent_id', $customer->id)
@@ -140,7 +144,7 @@ class salesDashController extends Controller
             "sort_by" => "required"
         ]);
 
-        $rtms = User::where('user_role', 'RTM')->get();
+        $rtms = User::where('user_role', 'RTM')->select('f_name', 'l_name', 'country_code', 'phone_no', 'id')->get();
         foreach($rtms as $rtm){
             $rtm->total_quantity = Order::where('order_status', 'DELIVERED')
                                              ->where('rtm_id', $rtm->id)
@@ -167,7 +171,7 @@ class salesDashController extends Controller
             "sort_by" => "required"
         ]);
 
-        $drivers = User::where('user_role', 'DRIVER')->get();
+        $drivers = User::where('user_role', 'DRIVER')->select('f_name', 'l_name', 'country_code', 'phone_no', 'id')->get();
         foreach($drivers as $driver){
             $driver->total_quantity = Order::where('order_status', 'DELIVERED')
                                              ->where('assigned_driver', $driver->id)
@@ -207,9 +211,59 @@ class salesDashController extends Controller
         
         return Excel::download(new productSalesExport(collect($trimmed), $request->start_date, $request->end_date, $request->sort_by), 'productSales.xlsx');
     }
+    public function exportCustomerSales(Request $request){
+        $this->validate($request, [
+            "sort_by" => "required"
+        ]);
+        $customerSales = $this->getCustomersRank($request);
+        
+        //dd($productSales);
+        $trimmed = $this->formatUserSales($customerSales);
+        
+        return Excel::download(new customerSalesExport(collect($trimmed), $request->start_date, $request->end_date, $request->sort_by), 'productSales.xlsx');
+    }
+    public function exportAgentSales(Request $request){
+        $this->validate($request, [
+            "sort_by" => "required"
+        ]);
+        $customerSales = $this->getAgentsRank($request);
+        
+        //dd($productSales);
+        $trimmed = $this->formatUserSales($customerSales);
+        
+        return Excel::download(new agentSalesExport(collect($trimmed), $request->start_date, $request->end_date, $request->sort_by), 'productSales.xlsx');
+    }
+    public function exportRTMsales(Request $request){
+        $this->validate($request, [
+            "sort_by" => "required"
+        ]);
+        $customerSales = $this->getRTMrank($request);
+        
+        //dd($productSales);
+        $trimmed = $this->formatUserSales($customerSales);
+        
+        return Excel::download(new rtmSalesExport(collect($trimmed), $request->start_date, $request->end_date, $request->sort_by), 'productSales.xlsx');
+    }
+    public function exportDriverSales(Request $request){
+        $this->validate($request, [
+            "sort_by" => "required"
+        ]);
+        $customerSales = $this->getDriversRank($request);
+        
+        //dd($productSales);
+        $trimmed = $this->formatUserSales($customerSales);
+        
+        return Excel::download(new driverSalesExport(collect($trimmed), $request->start_date, $request->end_date, $request->sort_by), 'productSales.xlsx');
+    }
     public function removeImage($items){
         foreach($items as $item){
             unset($item['p_image'], $item['id'], $item['price']);
+        }
+        return $items;
+    }
+    public function formatUserSales($items){
+        foreach($items as $item){
+            unset($item['country_code'], $item['phone_no'], $item['id']);
         }
         return $items;
     }

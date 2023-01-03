@@ -143,9 +143,13 @@ Route::middleware('auth:sanctum')->post('/productsRank', [salesDashController::c
 Route::middleware('auth:sanctum')->post('/exportProductSales', [salesDashController::class, 'exportProductSales']);
 Route::middleware('auth:sanctum')->get('/worstSeller', [salesDashController::class, 'worstSeller']);
 Route::middleware('auth:sanctum')->post('/getCustomerRank', [salesDashController::class, 'getCustomersRank']);
+Route::middleware('auth:sanctum')->post('/exportCustomerSales', [salesDashController::class, 'exportCustomerSales']);
 Route::middleware('auth:sanctum')->post('/getAgentsRank', [salesDashController::class, 'getAgentsRank']);
+Route::middleware('auth:sanctum')->post('/exportAgentSales', [salesDashController::class, 'exportAgentSales']);
 Route::middleware('auth:sanctum')->post('/getRTMrank', [salesDashController::class, 'getRTMrank']);
+Route::middleware('auth:sanctum')->post('/exportRTMsales', [salesDashController::class, 'exportRTMsales']);
 Route::middleware('auth:sanctum')->post('/getDriversRank', [salesDashController::class, 'getDriversRank']);
+Route::middleware('auth:sanctum')->post('/exportDriverSales', [salesDashController::class, 'exportDriverSales']);
 ///////////////////////////////////agents/////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getAgents', [agentsController::class, 'getAgents']);
 Route::middleware('auth:sanctum')->get('/agentDetails/{id}', [agentsController::class, 'agentDetails']);
