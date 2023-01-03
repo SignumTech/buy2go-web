@@ -205,7 +205,7 @@ class salesDashController extends Controller
         //dd($productSales);
         $trimmed = $this->removeImage($productSales);
         
-        return Excel::download(new productSalesExport(collect($trimmed), $request->start_date, $request->end_date), 'productSales.xlsx');
+        return Excel::download(new productSalesExport(collect($trimmed), $request->start_date, $request->end_date, $request->sort_by), 'productSales.xlsx');
     }
     public function removeImage($items){
         foreach($items as $item){

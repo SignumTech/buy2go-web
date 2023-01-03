@@ -14,11 +14,13 @@ class productSalesExport implements FromCollection,ShouldAutoSize,WithStyles
     public $sales;
     public $start_date;
     public $end_date;
+    public $sort_by;
 
-    public function __construct($sales, $start_date, $end_date){
+    public function __construct($sales, $start_date, $end_date, $sort_by){
         $this->sales = $sales;
         $this->start_date = $start_date;
         $this->end_date = $end_date;
+        $this->sort_by = $sort_by;
     }
     /**
     * @return \Illuminate\Support\Collection
@@ -32,7 +34,7 @@ class productSalesExport implements FromCollection,ShouldAutoSize,WithStyles
             $text = $this->start_date."-".$this->end_date;
         }
         $headers = [
-            ["Product Sales Report: ".$text],
+            ["Product Sales Report: ".$text." - Ranked By ".$this->sort_by],
             ["Name", "Total Order", "Total Sales", "Rank"]
         ];
         return collect([$headers,$this->sales]);
