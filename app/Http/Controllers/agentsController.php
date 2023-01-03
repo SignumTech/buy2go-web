@@ -140,7 +140,10 @@ class agentsController extends Controller
         $this->validate($request, [
             "amount" => "required"
         ]);
-
+        $balance = Balance::where('user_id', auth()->user()->id)->first();
+        if($request->amount > $balance->balance){
+            return response('Request amount exceeds your balance!', 422);
+        }
         $paymentRequest = new PaymentRequest;
         $latestRequests = PaymentRequest::orderBy('created_at','DESC')->first();
         if($latestRequests){

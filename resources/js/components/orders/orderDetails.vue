@@ -83,13 +83,14 @@
                 </div> 
                 <div class="col-md-4 mt-3 border-start">
                     <h6 class="text-center">Total Distance To Delivery</h6>
-                    <h5 class="text-center"><strong>{{distance}}</strong></h5>
+                    <button @click="calculateDistance()" class="btn btn-sm btn-primary">Calculate</button>
+                    <h5 class="text-center"><strong>{{Math.round(distance*100)/100}} KM</strong></h5>
                 </div> 
-                <GmapMap v-show="false" :center="center" :zoom="12" style="width: 100%; height: 500px" ref="mapRef">
+                <GmapMap v-if="loaded" v-show="false" :center="center" :zoom="12" style="width: 100%; height: 500px" ref="mapRef">
                     <DistanceMatrix
                     travelMode="DRIVING"
                     :origins="driverAddress"
-                    :destinations="shopAddress"
+                    :destinations="[shopAddress, warehouseAddress]"
                     @distanceSet="setDistance"
                     />
                 </GmapMap>
@@ -184,6 +185,8 @@ export default {
     },
     data(){
         return{
+            notCalled:true,
+            loaded:false,
             center: {
                 lat: 8.9806,
                 lng: 38.7578
@@ -229,14 +232,20 @@ export default {
     },
     methods:{
         calculateDistance(){
-            this.driverAddress.lat = parseFloat(JSON.parse(this.order.accept_loc).lat)
-            this.driverAddress.lng = parseFloat(JSON.parse(this.order.accept_loc).lng)
-
-            this.shopAddress.lat = parseFloat(JSON.parse(this.address.geolocation).lat)
-            this.shopAddress.lng = parseFloat(JSON.parse(this.address.geolocation).lng)
-
-            this.warehouseAddress.lat = parseFloat(JSON.parse(this.orderDriver.location).lat)
-            this.warehouseAddress.lng = parseFloat(JSON.parse(this.orderDriver.location).lng)
+            
+            
+            this.driverAddress = {
+                lat:parseFloat(JSON.parse(this.order.accept_loc).lat),
+                lng:parseFloat(JSON.parse(this.order.accept_loc).lng)
+            }
+            this.shopAddress = {
+                lat:parseFloat(JSON.parse(this.address.geolocation).lat),
+                lng:parseFloat(JSON.parse(this.address.geolocation).lng)
+            }
+            this.warehouseAddress = {
+                lat:parseFloat(JSON.parse(this.orderDriver.location).lat),
+                lng:parseFloat(JSON.parse(this.orderDriver.location).lng)
+            }
         },
         setDistance(variable){
             this.distance = variable
@@ -325,7 +334,8 @@ export default {
             .then( response =>{
                 this.address = response.data
                 this.loading = false
-                if(this.order.order_status != 'PROCESSING'){
+                if(this.order.order_status != `PROCESSING`){
+                    this.loaded = true
                     this.calculateDistance()
                 }
             })

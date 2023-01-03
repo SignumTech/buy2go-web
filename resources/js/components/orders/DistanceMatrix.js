@@ -29,7 +29,7 @@ export default MapElementFactory({
         DistanceMatrixService.getDistanceMatrix(
           {
             origins:[origins],
-            destinations:[destinations],
+            destinations:destinations,
             travelMode,
             unitSystem: window.google.maps.UnitSystem.metric,
           },
@@ -40,7 +40,11 @@ export default MapElementFactory({
             console.log(response)
             var origins = response.originAddresses;
             var destinations = response.destinationAddresses;
-            var resultat = response.rows[0].elements[0].distance.text;
+            
+            var resultat = 0;
+            response.rows[0].elements.forEach( dis =>{
+                resultat+=parseFloat(dis.distance.value/1000)
+            })
             this.$emit('distanceSet', resultat)
             
           }
