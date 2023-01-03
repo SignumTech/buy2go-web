@@ -232,8 +232,6 @@ export default {
     },
     methods:{
         calculateDistance(){
-            
-            
             this.driverAddress = {
                 lat:parseFloat(JSON.parse(this.order.accept_loc).lat),
                 lng:parseFloat(JSON.parse(this.order.accept_loc).lng)

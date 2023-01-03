@@ -9,7 +9,6 @@
                     </div>
                     <h5 class="text-center mt-3"><strong>{{shopDetails.shop_details.f_name}} {{shopDetails.shop_details.l_name}}</strong></h5>
                     <h6 class="text-center">+{{shopDetails.shop_details.country_code}}-{{shopDetails.shop_details.phone_no}}</h6>
-                    <button v-if="permission.generateQRcode" @click="generateQr()" class="btn btn-primary btn-sm rounded-1 px-2"><span class="fa fa-qrcode"></span> Generate QR</button>
                     <hr>
                 </div>
                 <div class="col-md-12">
@@ -34,7 +33,11 @@
             <div class="row">
                 <h6><strong>Shop Locations <span v-if="shopDetails.sales_manager && shopDetails.shop_details.shop_status == `VERIFIED` && permission.addShopLocation" @click="addShop()" class="fa fa-plus float-end"></span></strong></h6>
                 <div v-for="address,index in locations" :key="index" class="col-md-12 mt-2">
-                    <h6 class="mb-2"><span class="fa fa-map-marker-alt"></span> {{address.regular_address}} <span v-if="permission.deleteShopLocation" class="fa fa-trash-alt float-end"></span> <span v-if="permission.updateShopLocation" @click="editShop(address)" class="fa fa-edit me-3 float-end"></span> </h6>
+                    <h6 class="mb-2">
+                        <span class="fa fa-map-marker-alt"></span> {{address.regular_address}} <span v-if="permission.deleteShopLocation" class="fa fa-trash-alt float-end"></span> 
+                    <span v-if="permission.updateShopLocation" @click="editShop(address)" class="fa fa-edit me-3 float-end"></span> 
+                    <span v-if="permission.generateQRcode" @click="generateQr(address.id)" class="fa fa-qrcode me-3 float-end"></span>
+                </h6>
                 </div>
             </div>
         </div>
@@ -151,10 +154,10 @@ export default {
             this.getShopLocations()
     },
     methods:{
-        generateQr(){
+        generateQr(id){
             this.$modal.show(
                 qrModalVue,
-                {id:this.$route.params.id},
+                {id:id},
                 {height:'auto', width:"600px"}
             )
         },
