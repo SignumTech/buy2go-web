@@ -34,7 +34,7 @@ class productSalesExport implements FromCollection,ShouldAutoSize,WithStyles
             $text = $this->start_date."-".$this->end_date;
         }
         $headers = [
-            ["Product Sales Report: ".$text." - Ranked By ".$this->sort_by],
+            ["Product Sales Report: ".$text." - Ranked By ".(($this->sort_by == 'total_quantity')?'Total Order':"Total Sales")],
             ["Name", "Total Order", "Total Sales", "Rank"]
         ];
         return collect([$headers,$this->sales]);
