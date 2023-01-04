@@ -220,7 +220,7 @@ class salesDashController extends Controller
                        ->where('order_status', 'DELIVERED')
                        ->get();
         foreach($orders as $order){
-            $total += $order->accepted_at->diffInHours($order->updated_at); 
+            $total += Carbon::parse($order->accepted_at)->diffInHours(Carbon::parse($order->updated_at)); 
         }
         if(count($orders)> 0){
             return $total/count($orders);
