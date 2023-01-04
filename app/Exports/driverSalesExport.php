@@ -34,7 +34,7 @@ class driverSalesExport implements FromCollection,ShouldAutoSize,WithStyles
         }
         $headers = [
             ["Customer Sales Report: ".$text." - Ranked By ".(($this->sort_by == 'total_quantity')?'Total Order':(($this->sort_by == 'total_sales')?"Total Sales":"Visits Completed"))],
-            ["First Name", "Last Name", "Total Order", "Total Sales", "Visits Completed", "Rank"]
+            ["First Name", "Last Name", "Total Order", "Total Sales", "Visits Completed","Commission", "Rank"]
         ];
         return collect([$headers,$this->sales]);
     }

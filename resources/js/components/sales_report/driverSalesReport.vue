@@ -21,6 +21,7 @@
                             <option value="total_quantity">Total order</option>
                             <option value="total_sold">Total Sales</option>
                             <option value="visits">Total Completed Visits</option>
+                            <option value="commission">Total Commission</option>
                         </select>
                     </div>
                     <div class="col-md-3 align-self-end">
@@ -50,6 +51,7 @@
                         <th>Total Orders Delivered</th>
                         <th>Total Sales</th>
                         <th>Total Visits</th>
+                        <th>Total Commission</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -61,6 +63,7 @@
                         <td class="align-middle">{{user.total_quantity}}</td>
                         <td class="align-middle">{{user.total_sold | numFormat}} ETB</td>
                         <td class="align-middle">{{user.visits}}</td>
+                        <td class="align-middle">{{user.commission}} ETB</td>
                     </tr>
                 </tbody>
             </table>

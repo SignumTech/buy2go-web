@@ -129,7 +129,10 @@ class salesDashController extends Controller
                                             ->when($request->start_date != null && $request->end_date !=null , function($q) use($request){
                                                 return $q->whereBetween('orders.updated_at', [$request->start_date, $request->end_date]);
                                             })
-                                            ->sum('total');    
+                                            ->sum('total'); 
+            $customer->commission = BalanceHistory::where('user_id', $customer->id)
+                                            ->where('transaction_type', 'Commission')
+                                            ->sum('amount');   
         }
         $sort = $customers->sortByDesc($request->sort_by)->values()->all();
         $rank = 1;
@@ -191,6 +194,9 @@ class salesDashController extends Controller
                                         return $q->whereBetween('visits.updated_at', [$request->start_date, $request->end_date]);
                                     })
                                    ->count();
+            $driver->commission = BalanceHistory::where('user_id', $driver->id)
+                                                ->where('transaction_type', 'Commission')
+                                                ->sum('amount');
         }
         $sort = $drivers->sortByDesc($request->sort_by)->values()->all();
         $rank = 1;
