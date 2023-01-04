@@ -455,8 +455,8 @@ class ordersController extends Controller
         
         $warehouse_location = json_decode(Warehouse::find(Order::find($id)->warehouse_id)->location);
         $shop_address = json_decode(AddressBook::find(Order::find($id)->delivery_details)->geolocation);
-        $warehouse_location = $warehouse_location['lat'].','.$warehouse_location['lng'];
-        $shop_address = $shop_address['lat'].','.$shop_address['lng'];
+        $warehouse_location = $warehouse_location->lat.','.$warehouse_location->lng;
+        $shop_address = $shop_address->lat.','.$shop_address->lng;
         $driver_location = $confirm_location['lat'].','.$confirm_location['lng'];
 
         $warehouseDistance = GoogleDistance::calculate($driver_location, $warehouse_location);
