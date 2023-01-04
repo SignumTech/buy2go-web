@@ -203,7 +203,8 @@ class salesDashController extends Controller
                                             ->when($request->start_date != null && $request->end_date !=null , function($q) use($request){
                                                 return $q->whereBetween('orders.updated_at', [$request->start_date, $request->end_date]);
                                             })
-                                            ->sum('distance'); 
+                                            ->sum('distance');
+            $driver->time_to_delivery = $this->getTimeToDelivery($driver->id); 
         }
         $sort = $drivers->sortByDesc($request->sort_by)->values()->all();
         $rank = 1;
@@ -211,6 +212,23 @@ class salesDashController extends Controller
             $s->rank = $rank++;
         }           
         return $sort;
+    }
+
+    public function getTimeToDelivery($driver_id){
+        $total = 0;
+        $orders = Order::where('assigned_driver', $driver_id)
+                       ->where('order_status', 'DELIVERED')
+                       ->get();
+        foreach($orders as $order){
+            $total += $order->accepted_at->diffInHours($order->updated_at); 
+        }
+        if(count($orders)> 0){
+            return $total/count($orders);
+        }
+        else{
+            return 0;
+        }
+        
     }
 
     public function exportProductSales(Request $request){
