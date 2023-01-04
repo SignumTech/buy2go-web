@@ -197,6 +197,13 @@ class salesDashController extends Controller
             $driver->commission = BalanceHistory::where('user_id', $driver->id)
                                                 ->where('transaction_type', 'Visit Reward')
                                                 ->sum('amount');
+
+            $driver->distance_covered = Order::where('order_status', 'DELIVERED')
+                                            ->where('assigned_driver', $driver->id)
+                                            ->when($request->start_date != null && $request->end_date !=null , function($q) use($request){
+                                                return $q->whereBetween('orders.updated_at', [$request->start_date, $request->end_date]);
+                                            })
+                                            ->sum('distance'); 
         }
         $sort = $drivers->sortByDesc($request->sort_by)->values()->all();
         $rank = 1;

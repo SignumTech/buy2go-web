@@ -22,6 +22,7 @@
                             <option value="total_sold">Total Sales</option>
                             <option value="visits">Total Completed Visits</option>
                             <option value="commission">Total Commission</option>
+                            <option value="distance_covered">Total Distance Traveled</option>
                         </select>
                     </div>
                     <div class="col-md-3 align-self-end">
@@ -52,6 +53,7 @@
                         <th>Total Sales</th>
                         <th>Total Visits</th>
                         <th>Total Commission</th>
+                        <th>Total Distance Traveled</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -64,6 +66,7 @@
                         <td class="align-middle">{{user.total_sold | numFormat}} ETB</td>
                         <td class="align-middle">{{user.visits}}</td>
                         <td class="align-middle">{{user.commission}} ETB</td>
+                        <td class="align-middle">{{user.distance_covered}} KM</td>
                     </tr>
                 </tbody>
             </table>
