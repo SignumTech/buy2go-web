@@ -83,16 +83,9 @@
                 </div> 
                 <div class="col-md-4 mt-3 border-start">
                     <h6 class="text-center">Total Distance To Delivery</h6>
-                    <h5 class="text-center"><strong>{{Math.round(distance*100)/100}} KM</strong></h5>
+                    <h5 v-if="order.distance" class="text-center"><strong>{{ order.distance }} KM</strong></h5>
+                    <h5 v-if="!order.distance" class="text-center"><strong>--</strong></h5>
                 </div> 
-                <GmapMap v-if="loaded" v-show="false" :center="center" :zoom="12" style="width: 100%; height: 500px" ref="mapRef">
-                    <DistanceMatrix
-                    travelMode="DRIVING"
-                    :origins="driverAddress"
-                    :destinations="[shopAddress, warehouseAddress]"
-                    @distanceSet="setDistance"
-                    />
-                </GmapMap>
 
                 <div v-if="order.order_status != `PROCESSING`" class="col-md-12 mt-4">
                     <div class="row">
@@ -199,18 +192,6 @@ export default {
                 total:null
             },
             orderItems:[],
-            shopAddress:{
-                lat:null,
-                lng:null,
-            },
-            warehouseAddress:{
-                lat:null,
-                lng:null,
-            },
-            driverAddress:{
-                lat:null,
-                lng:null,
-            },
             address:{},
             loading:true,
             permission:{},
@@ -226,33 +207,6 @@ export default {
         this.getOrderDriver()
     },
     methods:{
-        calculateDistance(){
-            console.log('test')
-            
-            setTimeout(()=>{
-                this.driverAddress = {
-                lat:parseFloat(JSON.parse(this.order.accept_loc).lat),
-                lng:parseFloat(JSON.parse(this.order.accept_loc).lng)
-                }
-                this.shopAddress = {
-                    lat:parseFloat(JSON.parse(this.address.geolocation).lat),
-                    lng:parseFloat(JSON.parse(this.address.geolocation).lng)
-                }
-                this.warehouseAddress = {
-                    lat:parseFloat(JSON.parse(this.orderDriver.location).lat),
-                    lng:parseFloat(JSON.parse(this.orderDriver.location).lng)
-                }  
-            }, 500)
-              
-            
-
-        },
-        nullify(){
-            this.driverAddress = {}
-            this.shopAddress = {}
-            this.warehouseAddress = {}
-            return true
-        },
         setDistance(variable){
             this.distance = variable
         },
@@ -342,7 +296,7 @@ export default {
                 this.loading = false
                 if(this.order.order_status != `PROCESSING`){
                     this.loaded = true
-                    this.calculateDistance()
+                    //this.calculateDistance()
                 }
             })
         },
