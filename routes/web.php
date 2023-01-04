@@ -42,7 +42,7 @@ Route::get('/distance', function () {
 
     $end['lat'] = 8.9954;
     $end['lng'] = 38.8276;
-    $distance = GoogleDistance::calculate(json_encode($start), json_encode($end));
+    $distance = GoogleDistance::calculate($start, $end);
     return $distance;
 });
 
