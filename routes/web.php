@@ -22,6 +22,7 @@ use App\Http\Controllers\creditsController;
 use App\Http\Controllers\locationsController;
 use App\Http\Controllers\visitsController;
 use App\Http\Controllers\salesDashController;
+use Pnlinh\GoogleDistance\Facades\GoogleDistance;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,11 @@ use App\Http\Controllers\salesDashController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/distance', function () {
+    $distance = GoogleDistance::calculate(['79 Đinh Tiên Hoàng, P Đa Kao, Q1, TPHCM'], ['265 Nguyễn Đình Chiểu, P5, Q3']);
+    $distance = google_distance(['79 Đinh Tiên Hoàng, P Đa Kao, Q1, TPHCM'], ['265 Nguyễn Đình Chiểu, P5, Q3']);
+    return $distance;
+});
 
 /////////////////////////////////////drivers//////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/getRouteDrivers/{route_id}', [driversController::class, 'getRouteDrivers']);

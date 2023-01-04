@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6c7e651c0b0993c6388ec8ae210da861",
+    "content-hash": "8f7dc4001232e36499c8f73a9b724afe",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2980,6 +2980,62 @@
                 }
             ],
             "time": "2022-07-30T15:51:26+00:00"
+        },
+        {
+            "name": "pnlinh/laravel-google-distance",
+            "version": "dev-feature/upgrade-v8",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/pnlinh/laravel-google-distance.git",
+                "reference": "cf0b693af921e678b664abea7c2fb3891ef6bb1b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/pnlinh/laravel-google-distance/zipball/cf0b693af921e678b664abea7c2fb3891ef6bb1b",
+                "reference": "cf0b693af921e678b664abea7c2fb3891ef6bb1b",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^7.0",
+                "php": "^7.1.3|^7.3|^8.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^1.0",
+                "orchestra/testbench": "^4.0",
+                "phpunit/phpunit": "^8.0|^9.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Pnlinh\\GoogleDistance\\Providers\\GoogleDistanceServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Pnlinh\\GoogleDistance\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Pham Ngoc Linh",
+                    "email": "pnlinh1207@gmail.com"
+                }
+            ],
+            "description": "Caculate Google Distance Matrix API in Laravel",
+            "support": {
+                "issues": "https://github.com/pnlinh/laravel-google-distance/issues",
+                "source": "https://github.com/pnlinh/laravel-google-distance/tree/feature/upgrade-v8"
+            },
+            "time": "2021-09-27T07:48:27+00:00"
         },
         {
             "name": "psr/container",
@@ -8515,7 +8571,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "pnlinh/laravel-google-distance": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
