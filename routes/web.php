@@ -35,13 +35,10 @@ use Pnlinh\GoogleDistance\Facades\GoogleDistance;
 |
 */
 Route::get('/distance', function () {
-    $start = [];
-    $end = [];
-    $start['lat'] = 8.9806;
-    $start['lng'] = 38.7578;
 
-    $end['lat'] = 8.9954;
-    $end['lng'] = 38.8276;
+    $start = '8.9806,38.7578';
+    $end = '8.9954,38.8276';
+
     $distance = GoogleDistance::calculate($start, $end);
     return $distance;
 });
