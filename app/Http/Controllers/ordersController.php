@@ -27,7 +27,7 @@ use Illuminate\Support\Facades\Notification;
 use Illuminate\Notifications\Notifiable;
 use App\Exports\OrdersExport;
 use Maatwebsite\Excel\Facades\Excel;
-
+use Pnlinh\GoogleDistance\Facades\GoogleDistance;
 class ordersController extends Controller
 {
     /**
@@ -439,6 +439,7 @@ class ordersController extends Controller
         $order->order_status = "PENDING_PICKUP";
         $order->accepted_at = Carbon::now();
         $order->accept_loc = json_encode($confirm_location);
+        $order->distance = $this->calculateDistance($id, $confirm_location);
         $order->save();
 
         //Notification
@@ -449,6 +450,19 @@ class ordersController extends Controller
         //broadcast(new DriverRejectedOrder($order))->toOthers();
 
         return $order;
+    }
+    public function calculateDistance($id, $confirm_location){
+        
+        $warehouse_location = json_decode(Warehouse::find(Order::find($id)->warehouse_id)->location);
+        $shop_address = json_decode(AddressBook::find(Order::find($id)->delivery_details)->geolocation);
+        $warehouse_location = $warehouse_location['lat'].','.$warehouse_location['lng'];
+        $shop_address = $shop_address['lat'].','.$shop_address['lng'];
+        $driver_location = $confirm_location['lat'].','.$confirm_location['lng'];
+
+        $warehouseDistance = GoogleDistance::calculate($driver_location, $warehouse_location);
+        $shopDistance = GoogleDistance::calculate($warehouse_location, $shop_address);
+
+        return $warehouseDistance + $shopDistance;
     }
 
     public function rejectOrder($id){
