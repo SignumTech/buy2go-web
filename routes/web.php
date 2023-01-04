@@ -35,8 +35,7 @@ use Pnlinh\GoogleDistance\Facades\GoogleDistance;
 |
 */
 Route::get('/distance', function () {
-    $distance = GoogleDistance::calculate(['79 Đinh Tiên Hoàng, P Đa Kao, Q1, TPHCM'], ['265 Nguyễn Đình Chiểu, P5, Q3']);
-    $distance = google_distance('79 Đinh Tiên Hoàng, P Đa Kao, Q1, TPHCM', '265 Nguyễn Đình Chiểu, P5, Q3');
+    $distance = GoogleDistance::calculate('{"lat":8.9806,"lng":38.7578}', '{"lat":8.9954,"lng":38.8276}');
     return $distance;
 });
 
