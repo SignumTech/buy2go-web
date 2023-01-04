@@ -23,6 +23,7 @@
                             <option value="visits">Total Completed Visits</option>
                             <option value="commission">Total Commission</option>
                             <option value="distance_covered">Total Distance Traveled</option>
+                            <option value="time_to_delivery">Average Delivery Time</option>
                         </select>
                     </div>
                     <div class="col-md-3 align-self-end">
@@ -54,6 +55,7 @@
                         <th>Total Visits</th>
                         <th>Total Commission</th>
                         <th>Total Distance Traveled</th>
+                        <th>Average Delivery Time</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -67,6 +69,7 @@
                         <td class="align-middle">{{user.visits}}</td>
                         <td class="align-middle">{{user.commission}} ETB</td>
                         <td class="align-middle">{{Math.round(user.distance_covered*100)/100}} KM</td>
+                        <td class="align-middle">{{Math.round(user.time_to_delivery*100)/100}} Hrs</td>
                     </tr>
                 </tbody>
             </table>

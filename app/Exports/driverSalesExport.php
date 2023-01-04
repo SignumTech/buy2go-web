@@ -33,8 +33,8 @@ class driverSalesExport implements FromCollection,ShouldAutoSize,WithStyles
             $text = $this->start_date."-".$this->end_date;
         }
         $headers = [
-            ["Customer Sales Report: ".$text." - Ranked By ".(($this->sort_by == 'total_quantity')?'Total Order':(($this->sort_by == 'total_sold')?"Total Sales":(($this->sort_by == 'visits')?"Visits Completed":(($this->sort_by == 'commission')?"Total Commission":"Total Distance Traveled"))))],
-            ["First Name", "Last Name", "Total Order", "Total Sales", "Visits Completed","Commission", "Total Distance Traveled", "Rank"]
+            ["Customer Sales Report: ".$text." - Ranked By ".(($this->sort_by == 'total_quantity')?'Total Order':(($this->sort_by == 'total_sold')?"Total Sales":(($this->sort_by == 'visits')?"Visits Completed":(($this->sort_by == 'commission')?"Total Commission":(($this->sort_by == 'distance_covered')?"Total Distance Traveled":"Average Delivery Time")))))],
+            ["First Name", "Last Name", "Total Order", "Total Sales (ETB)", "Visits Completed","Commission (ETB)", "Total Distance Traveled (KM)", "Average Delivery Time (Hrs)", "Rank"]
         ];
         return collect([$headers,$this->sales]);
     }
