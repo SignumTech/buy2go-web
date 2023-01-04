@@ -83,7 +83,7 @@
                 </div> 
                 <div class="col-md-4 mt-3 border-start">
                     <h6 class="text-center">Total Distance To Delivery</h6>
-                    <h5 v-if="order.distance" class="text-center"><strong>{{ order.distance }} KM</strong></h5>
+                    <h5 v-if="order.distance" class="text-center"><strong>{{Math.round(order.distance*100)/100}} KM</strong></h5>
                     <h5 v-if="!order.distance" class="text-center"><strong>--</strong></h5>
                 </div> 
 
