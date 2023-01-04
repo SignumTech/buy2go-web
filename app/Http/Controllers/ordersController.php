@@ -451,6 +451,28 @@ class ordersController extends Controller
 
         return $order;
     }
+    public function calculateAllOrderDistances(){
+        $orders = Order::where('order_status', '!=', 'PROCESSING')->get();
+        foreach($orders as $order){
+            $order->distance = $this->calculateAllDistance($order->id, json_decode($order->accept_loc));
+            $order->save();
+        }
+        return 'success';
+    }
+
+    public function calculateAllDistance($id, $confirm_location){
+        
+        $warehouse_location = json_decode(Warehouse::find(Order::find($id)->warehouse_id)->location);
+        $shop_address = json_decode(AddressBook::find(Order::find($id)->delivery_details)->geolocation);
+        $warehouse_location = $warehouse_location->lat.','.$warehouse_location->lng;
+        $shop_address = $shop_address->lat.','.$shop_address->lng;
+        $driver_location = $confirm_location->lat.','.$confirm_location->lng;
+
+        $warehouseDistance = GoogleDistance::calculate($driver_location, $warehouse_location);
+        $shopDistance = GoogleDistance::calculate($warehouse_location, $shop_address);
+        
+        return ($warehouseDistance + $shopDistance)/1000;
+    }
     public function calculateDistance($id, $confirm_location){
         
         $warehouse_location = json_decode(Warehouse::find(Order::find($id)->warehouse_id)->location);

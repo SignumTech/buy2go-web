@@ -129,6 +129,7 @@ Route::middleware('auth:sanctum')->post('/filterOrders', [ordersController::clas
 Route::middleware('auth:sanctum')->post('/exportOrders', [ordersController::class, 'exportOrders']);
 Route::middleware('auth:sanctum')->get('/getOrderWarehouse/{id}', [ordersController::class, 'getOrderWarehouse']);
 Route::middleware('auth:sanctum')->put('/confirmDelivery/{id}', [ordersController::class, 'confirmDelivery']);
+Route::middleware('auth:sanctum')->get('/calculateAllOrderDistances', [ordersController::class, 'calculateAllOrderDistances']);
 ///////////////////////////////////products/////////////////////////////////////////////////////////
 Route::middleware('auth:sanctum')->get('/productsByCategory/{id}', [productsController::class, 'productsByCategory']);
 Route::middleware('auth:sanctum')->post('/uploadProductPic', [productsController::class, 'uploadProductPic']);
