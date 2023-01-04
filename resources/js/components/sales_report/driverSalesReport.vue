@@ -66,7 +66,7 @@
                         <td class="align-middle">{{user.total_sold | numFormat}} ETB</td>
                         <td class="align-middle">{{user.visits}}</td>
                         <td class="align-middle">{{user.commission}} ETB</td>
-                        <td class="align-middle">{{user.distance_covered}} KM</td>
+                        <td class="align-middle">{{Math.round(user.distance_covered*100)/100}} KM</td>
                     </tr>
                 </tbody>
             </table>
