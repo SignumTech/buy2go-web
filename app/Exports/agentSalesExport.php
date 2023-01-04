@@ -33,7 +33,7 @@ class agentSalesExport implements FromCollection,ShouldAutoSize,WithStyles
             $text = $this->start_date."-".$this->end_date;
         }
         $headers = [
-            ["Agent Sales Report: ".$text." - Ranked By ".(($this->sort_by == 'total_quantity')?'Total Order':"Total Sales")],
+            ["Agent Sales Report: ".$text." - Ranked By ".(($this->sort_by == 'total_quantity')?'Total Order':(($this->sort_by == 'total_sold')?'Total Sales':"Total Commission"))],
             ["First Name", "Last Name", "Total Order", "Total Sales", "Commission", "Rank"]
         ];
         return collect([$headers,$this->sales]);
