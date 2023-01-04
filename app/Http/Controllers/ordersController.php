@@ -461,8 +461,8 @@ class ordersController extends Controller
 
         $warehouseDistance = GoogleDistance::calculate($driver_location, $warehouse_location);
         $shopDistance = GoogleDistance::calculate($warehouse_location, $shop_address);
-        dd($warehouseDistance);
-        return $warehouseDistance + $shopDistance;
+        
+        return ($warehouseDistance + $shopDistance)/1000;
     }
 
     public function rejectOrder($id){
