@@ -40,7 +40,7 @@
                             <h6 v-if="warehouses.length == 0" class="text-danger mt-2">There are currently no warehouses that  have all the products on this order.</h6>
                         </div>
                         <div class="col-md-12 mt-4">
-                            <h6>Distance: {{ distance }}</h6>
+                            <h6>Distance: {{ distance }} KM</h6>
                         </div>
                         <div class="col-md-12 mt-4">
                             <h6>Drivers List</h6>
