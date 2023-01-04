@@ -452,7 +452,8 @@ class ordersController extends Controller
         return $order;
     }
     public function calculateAllOrderDistances(){
-        $orders = Order::where('order_status', '!=', 'PROCESSING')->get();
+        $orders = Order::where('order_status', '!=', 'PROCESSING')
+                       ->where('order_status', '!=', 'CANCELED')->get();
         foreach($orders as $order){
             $order->distance = $this->calculateAllDistance($order->id, json_decode($order->accept_loc));
             $order->save();
