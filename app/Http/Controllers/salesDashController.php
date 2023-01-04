@@ -195,7 +195,7 @@ class salesDashController extends Controller
                                     })
                                    ->count();
             $driver->commission = BalanceHistory::where('user_id', $driver->id)
-                                                ->where('transaction_type', 'Commission')
+                                                ->where('transaction_type', 'Visit Reward')
                                                 ->sum('amount');
         }
         $sort = $drivers->sortByDesc($request->sort_by)->values()->all();
