@@ -78,6 +78,7 @@ export default {
                 driver.reset_timer--
                     if(driver.reset_timer == 0){
                         driver.online_status = 'OFFLINE'
+                        this.drivers.find(dr => dr.id == driver.driver_id).online_status = 'OFFLINE'
                         driver.reset_timer = 10
                     }
                 }) 
@@ -199,6 +200,7 @@ export default {
                 this.driverMarkers.find(driver=> driver.driver_id == e.driver_id).position.lng = e.lng
                 this.driverMarkers.find(driver=> driver.driver_id == e.driver_id).infoOptions.content = "<strong>"+e.name+"</strong><br><strong>"+e.assignment+"</strong>"
                 this.driverMarkers.find(driver=> driver.driver_id == e.driver_id).online_status = 'ONLINE'
+                this.drivers.find(driver => driver.id == e.driver_id).online_status = 'ONLINE'
                 //console.log(this.driverMarkers.find(driver=> driver.driver_id == 25))
             });
         },
