@@ -72,6 +72,18 @@ export default {
         
     },
     methods:{
+        startTimer(){
+            setInterval(() => {
+                this.driverMarkers.forEach(driver=>{
+                driver.reset_timer--
+                    if(driver.reset_timer == 0){
+                        driver.online_status = 'OFFLINE'
+                        driver.reset_timer = 10
+                    }
+                }) 
+            }, 1000);
+
+        },
         activateAll(){
             this.activeNav = 'ALL'
             this.type = 'ALL'
@@ -171,11 +183,13 @@ export default {
                                 lng:38.7578
                             },
                             driver_id: driver.id,
-                            online_status: driver.online_status
+                            online_status: driver.online_status,
+                            reset_timer:15
                         }
                     )
                 })
                 this.tempMarkers = this.driverMarkers
+                this.startTimer()
             })
         },
         connect(){
@@ -184,7 +198,7 @@ export default {
                 this.driverMarkers.find(driver=> driver.driver_id == e.driver_id).position.lat = e.lat
                 this.driverMarkers.find(driver=> driver.driver_id == e.driver_id).position.lng = e.lng
                 this.driverMarkers.find(driver=> driver.driver_id == e.driver_id).infoOptions.content = "<strong>"+e.name+"</strong><br><strong>"+e.assignment+"</strong>"
-                
+                this.driverMarkers.find(driver=> driver.driver_id == e.driver_id).online_status = 'ONLINE'
                 //console.log(this.driverMarkers.find(driver=> driver.driver_id == 25))
             });
         },
