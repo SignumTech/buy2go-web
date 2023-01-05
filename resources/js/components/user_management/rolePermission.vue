@@ -41,6 +41,7 @@
                                 <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).ordersList">Orders</span>
                                 <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).assignDetails">Assign Order Details</span>
                                 <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).confirmDelivery">Confirm Delivery</span>
+                                <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).cancelOrder">Cancel Order</span>
                                 <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).categoryList">Categories</span>
                                 <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).warehouseManagement">Warehouse Management</span>
                                 <span class="badge badge-pill bg-primary p-1 shadow-sm" v-if="JSON.parse(td.permissions).warehouse">Warehouses</span>

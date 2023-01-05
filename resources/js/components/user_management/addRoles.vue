@@ -100,6 +100,12 @@
                         <label class="form-check-label" for="flexSwitchCheckChecked"> Confirm Delivery</label>
                     </div>
                 </div>
+                <div class="col-3">
+                    <div class="form-check form-switch">
+                        <input :disabled="!formData.permissions.ordersList" v-model="formData.permissions.cancelOrder" class="form-check-input" type="checkbox">
+                        <label class="form-check-label" for="flexSwitchCheckChecked"> Cancel Order</label>
+                    </div>
+                </div>
                 
             </div>
         </div>
@@ -452,6 +458,7 @@ export default {
                     ordersList:false,
                     assignDetails:false,
                     confirmDelivery:false,
+                    cancelOrder:false,
                     categoryList:false,
                     warehouseManagement:false,
                     warehouse:false,

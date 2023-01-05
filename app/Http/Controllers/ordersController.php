@@ -1158,7 +1158,9 @@ class ordersController extends Controller
 
         $order = Order::find($id);
         if(auth()->user()->id != $order->user_id){
-            return response('Unauthorized', 401);
+            if(auth()->user()->account_type != 'Staff'){
+                return response('Unauthorized', 401);
+            }
         }
         if($order->order_status == 'SHIPPED'){
             $order->return_status = 'HAS_RETURNS';

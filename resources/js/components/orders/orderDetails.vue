@@ -10,7 +10,7 @@
                     <router-link to="/ordersList" style="cursor:pointer"><span class="fa fa-arrow-left fs-5"></span></router-link>
                 </div>
                 
-                <div class="col-md-8 d-flex justify-content-center">
+                <div class="col-md-8 d-flex justify-content-center align-self-center">
                     <div class="text-center">
                         <div class="p-2 mx-5 bg-success rounded-5 text-white">
                             <i data-feather="shopping-cart"></i>
@@ -58,12 +58,20 @@
                 <div v-if="order.order_status == `CANCELED`" class="col-md-12 mt-3">
                     <h5 class="bg-danger text-white m-0 p-2 rounded-1 shadow-sm text-center">Order Canceled!</h5>
                 </div>
-                <div v-if="order.order_status == `PROCESSING` && permission.assignDetails" class="col-md-2 p-2 ">
-                    <button @click="shipModal()" class="btn btn-primary px-4 rounded-1 float-end text-white"><span class="fa fa-shipping-fast"></span> Ship Order</button>
+                <div class="col-md-2 align-self-center">
+                    <div class="row">
+                        <div v-if="order.order_status == `PROCESSING` && permission.assignDetails" class="col-md-12 p-2 ">
+                            <button @click="shipModal()" class="btn btn-primary btn-sm px-4 rounded-1 float-end text-white"><span class="fa fa-shipping-fast"></span> Ship Order</button>
+                        </div>
+                        <div v-if="order.order_status == `SHIPPED` && permission.confirmDelivery" class="col-md-12 p-2 ">
+                            <button @click="deliverOrder()" class="btn btn-primary btn-sm px-4 rounded-1 float-end text-white"><span class="fa fa-box-open"></span> Confirm Delivery</button>
+                        </div>
+                        <div v-if="order.order_status != `DELIVERED` && order.order_status != `CANCELED` && permission.cancelOrder" class="col-md-12 p-2 ">
+                            <button @click="cancelOrder()" class="btn btn-danger btn-sm px-4 rounded-1 float-end text-white"><span class="fa fa-times"></span> Cancel order</button>
+                        </div>
+                    </div>
                 </div>
-                <div v-if="order.order_status == `SHIPPED` && permission.confirmDelivery" class="col-md-2 p-2 ">
-                    <button @click="deliverOrder()" class="btn btn-primary px-4 rounded-1 float-end text-white"><span class="fa fa-box-open"></span> Confirm Delivery</button>
-                </div>
+
             </div>
             <div v-if="loading" class="row m-0">
                 <div class="col-md-12 p-5 mt-3">
@@ -207,6 +215,16 @@ export default {
         this.getOrderDriver()
     },
     methods:{
+        async cancelOrder(){
+            if(confirm("Are you sure you want to cancel this order?")){
+                this.loading = true
+                await axios.put('/cancelOrder/'+this.$route.params.id)
+                .then( response =>{
+                    this.getOrder()
+                    this.getOrderDriver()
+                })
+            }
+        },
         setDistance(variable){
             this.distance = variable
         },
