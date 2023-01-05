@@ -116,6 +116,7 @@ export default {
                     }
                     if(drivemarker){
                         drivemarker.online_status = "ONLINE"
+                        drivemarker.reset_timer = 10
                     }
                     
                 })
@@ -130,6 +131,7 @@ export default {
                 }
                 if(drivemarker){
                         drivemarker.online_status = "ONLINE"
+                        drivemarker.reset_timer = 10
                     }
                 
             })
@@ -201,6 +203,7 @@ export default {
                 this.driverMarkers.find(driver=> driver.driver_id == e.driver_id).infoOptions.content = "<strong>"+e.name+"</strong><br><strong>"+e.assignment+"</strong>"
                 this.driverMarkers.find(driver=> driver.driver_id == e.driver_id).online_status = 'ONLINE'
                 this.drivers.find(driver => driver.id == e.driver_id).online_status = 'ONLINE'
+                this.driverMarkers.find(driver=> driver.driver_id == e.driver_id).reset_timer = 10
                 //console.log(this.driverMarkers.find(driver=> driver.driver_id == 25))
             });
         },
