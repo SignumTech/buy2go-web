@@ -144,6 +144,11 @@
                         <h6>Agent Name: {{agent.f_name}} {{ agent.l_name }}</h6>
                         <h6>Phone Number: +{{agent.country_code}}-{{ agent.phone_no }}</h6>
                     </div>
+                    <div v-if="order.order_type == `RTM_ORDER`">
+                        <h5><span class="badge rounded-pill bg-info text-dark">Ordered by RTM</span></h5>
+                        <h6>RTM Member Name: {{agent.f_name}} {{ agent.l_name }}</h6>
+                        <h6>Phone Number: +{{agent.country_code}}-{{ agent.phone_no }}</h6>
+                    </div>
                     
                 </div>     
                 <div class="col-md-4 border-bottom border-3 mt-3">
@@ -267,7 +272,7 @@ export default {
                 this.orderItems = response.data.order_items
                 this.taxCalculations = this.calculateTax(this.orderItems)
                 this.getAddress(response.data.order_details.delivery_details)
-                if(this.order.order_type == 'AGENT_ORDER'){
+                if(this.order.order_type == 'AGENT_ORDER' || this.order.order_type == 'RTM_ORDER'){
                     this.getAgent(this.order.agent_id)
                 }
             })
