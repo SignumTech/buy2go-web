@@ -38,7 +38,8 @@ const options = {
   ],
   styles: [
     'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css',
-    'https://unpkg.com/kidlat-css/css/kidlat.css'
+    'https://unpkg.com/kidlat-css/css/kidlat.css',
+    'https://use.fontawesome.com/releases/v5.7.0/css/all.css'
   ],
   timeout: 1000, // default timeout before the print window appears
   autoClose: true, // if false, the window will not close after printing

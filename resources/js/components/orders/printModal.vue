@@ -1,7 +1,7 @@
 <template>
     <div class="col-md-12 p-4">
         <div id="toPrint" style="max-height: 500px; overflow-y:auto; overflow-x: hidden;">
-            <div class="row p-2 border-bottom border-3">
+            <div class="row p-2 border-bottom border-3" style="border-color:#011b48 !important">
                 <div class="col-6">
                     <img style="width:50px;height:auto" src="/storage/settings/afra.png" class="img img-fluid" alt="">
                 </div>
@@ -79,13 +79,38 @@
                 </div>
             </div>
             <div class="row p-2 mt-3">
+                <div class="col-md-12">
+                    <h6 class="pt-3"><strong><u>Note:</u> </strong></h6>
+                </div>
+            </div>
+            <div class="row p-2 mt-4">
                 <div class="col-6">
                     <h6 class="pt-3 border-top border-3">Receiver Signiture</h6>
                 </div>
                 <div class="col-6">
                     <h6 class="pt-3 border-top border-3">Cashier Signiture</h6>
                 </div>
-            </div>        
+            </div>     
+            <div class="row p-2 mt-3 border-top border-4" style="border-color:#011b48 !important">
+                <div class="col-4 mt-3">
+                    <h6>
+                        <span class="fa fa-phone"></span> +251 9022 222 222
+                    </h6>
+                    
+                </div>
+                <div class="col-4 mt-3">
+                    <h6>
+                        <span class="fa fa-envelope"></span> info@afraplc.com
+                    </h6>
+                    
+                </div>
+                <div class="col-4 mt-3">
+                    <h6>
+                        <span class="fa fa-map-marker-alt"></span> 8th Floor, Noah Plaza, Bole Sub City, Addis Ababa, Ethiopia 
+                    </h6>
+                    
+                </div>
+            </div>   
         </div>
 
         <div class="row p-2 mt-3">
