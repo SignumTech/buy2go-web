@@ -69,6 +69,9 @@
                         <div v-if="order.order_status != `DELIVERED` && order.order_status != `CANCELED` && permission.cancelOrder" class="col-md-12 p-2 ">
                             <button @click="cancelOrder()" class="btn btn-danger btn-sm px-4 rounded-1 float-end text-white"><span class="fa fa-times"></span> Cancel order</button>
                         </div>
+                        <div v-if="order.order_status == `DELIVERED`" class="col-md-12 p-2 ">
+                            <button @click="printModal()" class="btn btn-primary btn-sm px-4 rounded-1 float-end text-white"><span class="fa fa-print"></span> Print Reciept</button>
+                        </div>
                     </div>
                 </div>
 
@@ -151,11 +154,13 @@
                     </div>
                     
                 </div>     
-                <div class="col-md-4 border-bottom border-3 mt-3">
-                    <h6 class="mt-2">Sub total: <span class="float-end">{{taxCalculations.subTotal | numFormat}} ETB</span></h6>
-                    <h6 class="mt-2">Tax (15% VAT): <span class="float-end">{{taxCalculations.vat | numFormat}} ETB</span></h6>
-                    <h5 class="mt-2"><strong>Total: <span class="float-end">{{order.total | numFormat}} ETB</span></strong></h5>
+                <div class="col-md-4  mt-3">
+                    <div class="border-bottom border-3">
+                        <h6 class="mt-2">Sub total: <span class="float-end">{{taxCalculations.subTotal | numFormat}} ETB</span></h6>
+                        <h6 class="mt-2">Tax (15% VAT): <span class="float-end">{{taxCalculations.vat | numFormat}} ETB</span></h6>
+                        <h5 class="mt-2"><strong>Total: <span class="float-end">{{order.total | numFormat}} ETB</span></strong></h5>
                     </div>
+                </div>
                     <div @click="addressModal(address.geolocation)" class="col-md-6 mt-5">
                         <h5 class="border-bottom">Shipping Information</h5>
                         <div class="rounded-1 border-start border-warning border-5 p-3" style="cursor:pointer">
@@ -183,6 +188,7 @@ import PulseLoader from 'vue-spinner/src/PulseLoader.vue'
 import addressModalVue from './addressModal.vue'
 import shippingDetailsVue from './shippingDetails.vue'
 import DistanceMatrix from "./DistanceMatrix";
+import printModalVue from './printModal.vue';
 export default {
     components: {
       DistanceMatrix,
@@ -220,6 +226,14 @@ export default {
         this.getOrderDriver()
     },
     methods:{
+        printModal(){
+            this.$modal.show(
+                printModalVue,
+                {address:this.address, orderItems:this.orderItems, order:this.order, taxCalculations:this.taxCalculations},
+                {height: 'auto', width: '800px'},
+                {}
+            )
+        },
         async cancelOrder(){
             if(confirm("Are you sure you want to cancel this order?")){
                 this.loading = true

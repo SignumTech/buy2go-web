@@ -25,7 +25,31 @@ import VueTelInput from 'vue-tel-input';
 import 'vue-tel-input/dist/vue-tel-input.css';
 import LvInput from 'lightvue/input' 
 import LvButton from 'lightvue/button' 
+/////////////////////////////////////////////
+import Vue from 'vue';
+import VueHtmlToPaper from 'vue-html-to-paper';
 
+const options = {
+  name: '_blank',
+  specs: [
+    'fullscreen=yes',
+    'titlebar=no',
+    'scrollbars=no'
+  ],
+  styles: [
+    'https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css',
+    'https://unpkg.com/kidlat-css/css/kidlat.css'
+  ],
+  timeout: 1000, // default timeout before the print window appears
+  autoClose: true, // if false, the window will not close after printing
+  windowTitle: window.document.title, // override the window title
+}
+
+Vue.use(VueHtmlToPaper, options);
+
+// or, using the defaults with no stylesheet
+Vue.use(VueHtmlToPaper);
+/////////////////////////////////////////////
 Vue.component('LvInput', LvInput);
 Vue.component('LvButton', LvButton);
 Vue.use(VueTelInput);

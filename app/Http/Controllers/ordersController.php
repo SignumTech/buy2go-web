@@ -143,7 +143,7 @@ class ordersController extends Controller
         $order = Order::find($id);
         $order_items = OrderItem::join('products', 'order_items.p_id', '=', 'products.id')
                             ->where('order_items.order_id', $id)
-                            ->select('order_items.*', 'products.p_name', 'products.price', 'products.description', 'products.p_image', 'products.cat_id', 'products.commission', 'products.p_status', 'products.sku', 'products.taxable', 'products.deleted_at')
+                            ->select('order_items.*', 'products.p_name', 'products.price', 'products.description', 'products.unit', 'products.p_image', 'products.cat_id', 'products.commission', 'products.p_status', 'products.sku', 'products.taxable', 'products.deleted_at')
                             ->get();
         $delivery_details = AddressBook::find($order->delivery_details);
 
