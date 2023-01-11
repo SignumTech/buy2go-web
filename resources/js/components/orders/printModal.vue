@@ -1,7 +1,7 @@
 <template>
     <div class="col-md-12 p-4">
         <div id="toPrint" style="max-height: 500px; overflow-y:auto; overflow-x: hidden;">
-            <div class="row p-2 border-bottom border-3" style="border-color:#011b48 !important">
+            <div class="row p-2 border-bottom border-4" style="border-color:#011b48 !important">
                 <div class="col-6">
                     <img style="width:50px;height:auto" src="/storage/settings/afra.png" class="img img-fluid" alt="">
                 </div>
@@ -30,7 +30,7 @@
             </div>
             <div class="row p-2 mt-3">
                 <div class="col-md-12">
-                    <table class="table table-bordered table-sm">
+                    <table class="table table-sm table-bordered table-sm">
                         <thead>
                             <tr>
                                 <th>Description</th>
@@ -85,22 +85,25 @@
             </div>
             <div class="row p-2 mt-4">
                 <div class="col-6">
-                    <h6 class="pt-3 border-top border-3">Receiver Signiture</h6>
+                    <h6 class="pt-3 border-top border-3">Receiver Signeture</h6>
                 </div>
                 <div class="col-6">
-                    <h6 class="pt-3 border-top border-3">Cashier Signiture</h6>
+                    <h6 class="pt-3 border-top border-3">Cashier Signeture</h6>
                 </div>
             </div>     
-            <div class="row p-2 mt-3 border-top border-4" style="border-color:#011b48 !important">
+            <div class="row p-2 mt-3 border-top border-4 align-self-end" style="border-color:#011b48 !important">
                 <div class="col-4 mt-3">
                     <h6>
-                        <span class="fa fa-phone"></span> +251 9022 222 222
+                        <span class="fa fa-phone"></span> +251 116687550
                     </h6>
                     
                 </div>
                 <div class="col-4 mt-3">
                     <h6>
                         <span class="fa fa-envelope"></span> info@afraplc.com
+                    </h6>
+                    <h6>
+                        <span class="fa fa-globe"></span> www.afraplc.com
                     </h6>
                     
                 </div>
